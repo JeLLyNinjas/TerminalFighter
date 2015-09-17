@@ -7,7 +7,7 @@ class GameMaster():
 	
 	def __init__(self):
 		self.maincharacter_ = MainCharacter((500, 800))
-		self.enemies_ = [BasicGrunt((300, 50))]
+		self.enemies_ = [BasicGrunt((800	, 50))]
 
 	def update(self):
 		self.maincharacter_.update()
@@ -16,5 +16,6 @@ class GameMaster():
 
 	def draw(self, screen):
 		self.maincharacter_.draw(screen)
+		self.maincharacter_.draw_ui(screen)
 		for enemy in self.enemies_:
 			enemy.draw(screen)

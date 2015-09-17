@@ -2,11 +2,10 @@ import pygame
 
 class BasicGrunt():
     def __init__(self, starting_position):
-        print("Creating basic grunt")
         self.colour_ = 255, 0, 0
         self.position_ = starting_position
         self.size_ = 40
-        self.speed_ = 1
+        self.speed_ = 0.1
 
     def draw(self, screen):
         visual_rect = pygame.Rect(self.position_[0]-self.size_/2, self.position_[1]-self.size_/2, 

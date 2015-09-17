@@ -19,7 +19,7 @@ prev_update_start_time = 0
 
 while 1:
     update_start_time = pygame.time.get_ticks()
-    print("Elapsed time since last update : " + str(update_start_time - prev_update_start_time))
+    # print("Elapsed time since last update : " + str(update_start_time - prev_update_start_time))
     prev_update_start_time = update_start_time
 
     for event in pygame.event.get():
@@ -33,7 +33,6 @@ while 1:
 
     gamemaster.update()
     gamemaster.draw(screen)
-
 
     pygame.display.flip()
 

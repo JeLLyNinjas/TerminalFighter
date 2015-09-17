@@ -16,6 +16,7 @@ class GameMaster():
 
 	def draw(self, screen):
 		self.maincharacter_.draw(screen)
-		self.maincharacter_.draw_ui(screen)
 		for enemy in self.enemies_:
 			enemy.draw(screen)
+
+		self.maincharacter_.draw_ui(screen)

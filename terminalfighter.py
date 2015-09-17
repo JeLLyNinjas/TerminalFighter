@@ -22,7 +22,9 @@ while 1:
     # print("Elapsed time since last update : " + str(update_start_time - prev_update_start_time))
     prev_update_start_time = update_start_time
 
-    for event in pygame.event.get():
+    events = pygame.event.get()
+
+    for event in events:
         if event.type == pygame.QUIT:
             sys.exit()
     

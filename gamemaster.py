@@ -9,8 +9,8 @@ class GameMaster():
 		self.maincharacter_ = MainCharacter((500, 800))
 		self.enemies_ = [BasicGrunt((800	, 50))]
 
-	def update(self):
-		self.maincharacter_.update()
+	def update(self, events):
+		self.maincharacter_.update(events)
 		for enemy in self.enemies_:
 			enemy.update()
 

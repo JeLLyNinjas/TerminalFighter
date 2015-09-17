@@ -33,7 +33,7 @@ while 1:
     background.fill((255, 255, 255))
     screen.blit(background, (0, 0))
 
-    gamemaster.update()
+    gamemaster.update(events)
     gamemaster.draw(screen)
 
     pygame.display.flip()

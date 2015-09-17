@@ -2,12 +2,14 @@ import sys
 
 import pygame
 
-from maincharacter import MainCharacter
+from gamemaster import GameMaster
 
 pygame.init()
 screen = pygame.display.set_mode((1000, 1000))
 
 WHITE = 0, 0, 0
+
+gamemaster = GameMaster() 
 
 while 1:
     for event in pygame.event.get():
@@ -19,8 +21,8 @@ while 1:
     background.fill((255, 255, 255))
     screen.blit(background, (0, 0))
 
-    main_character = MainCharacter()
-    main_character.draw(screen)
+    gamemaster.update()
+    gamemaster.draw(screen)
 
     pygame.display.flip()
 

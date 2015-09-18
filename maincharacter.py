@@ -3,7 +3,6 @@ import pygame
 from rifle import Rifle
 from homing_missles import HomingMissles
 
-pygame.font.init()
 UI_FONT = pygame.font.SysFont("monospace", 20)
 
 BLACK = 0, 0, 0
@@ -38,15 +37,17 @@ class MainCharacter():
 
             weapon_label = UI_FONT.render(str(i+1) + '. ' + weapon.NAME_, 1, ui_weapon_text_colour)
             screen.blit(weapon_label, (10, i*20))
-            self.weapons_
+
+
 
     def update(self, events, enemies, position=None):
         if position:
            self.position_ = position
 
         self.update_weapon_selection(events)
-        for weapon in self.weapons_:
-            weapon.update(enemies)
+        
+        self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
+        self.current_weapon_.update(events, enemies)
 
     def update_weapon_selection(self, events):
         for event in events:

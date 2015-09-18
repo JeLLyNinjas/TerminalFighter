@@ -1,7 +1,7 @@
 import pygame
 
 from rifle import Rifle
-from homing_missles import HomingMissles
+from homing_missiles import HomingMissiles
 
 UI_FONT = pygame.font.SysFont("monospace", 20)
 
@@ -18,7 +18,7 @@ class MainCharacter():
         self.ID_ = ID 
         self.colour_ = 0, 255, 0
         self.size_ = 40
-        self.weapons_ = [Rifle(), HomingMissles()]
+        self.weapons_ = [Rifle(), HomingMissiles()]
         self.selected_weapon_index_ = 0
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
 

@@ -9,7 +9,7 @@ EVENT_KEY_z = 122
 EVENT_KEY_ENTER = 13
 EVENT_KEY_BACKSPACE = 8
 
-class HomingMisslesTargetingSystem():
+class HomingMissilesTargetingSystem():
 	def __init__(self):
 		self.enemies_ = []
 		self.target_tags_ = dict()
@@ -52,10 +52,10 @@ class HomingMisslesTargetingSystem():
 	def new_word(self):
 		return "HomingTestTag"
 
-class HomingMissles():
+class HomingMissiles():
 	def __init__(self):
-		self.NAME_ = "Homing Missles"
-		self.targeting_system = HomingMisslesTargetingSystem()
+		self.NAME_ = "Homing Missiles"
+		self.targeting_system = HomingMissilesTargetingSystem()
 
 	def update(self, events, enemies):
 		self.targeting_system.update(events, enemies)

@@ -37,7 +37,8 @@ class MainCharacter():
 
             weapon_label = UI_FONT.render(str(i+1) + '. ' + weapon.NAME_, 1, ui_weapon_text_colour)
             screen.blit(weapon_label, (10, i*20))
-            self.weapons_
+
+
 
     def update(self, events, enemies, position=None):
         if position:
@@ -47,6 +48,8 @@ class MainCharacter():
         
         for weapon in self.weapons_:
             weapon.update(events, enemies)
+
+        self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
 
     def update_weapon_selection(self, events):
         for event in events:

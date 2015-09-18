@@ -22,7 +22,7 @@ class RifleTargetingSystem():
 
 		for enemy in self.enemies_:
 			if enemy.ID_ not in self.target_tags_:
-					self.target_tags_[enemy.ID_] = self.new_word()
+				self.target_tags_[enemy.ID_] = self.new_word()
 
 		for event in events:
 			if event.type == pygame.KEYDOWN:
@@ -50,7 +50,7 @@ class RifleTargetingSystem():
 		screen.blit(text_label, (30, screen.get_height()-60))
 
 	def new_word(self):
-		return "TestTag"
+		return "RifleTestTag"
 
 class Rifle():
 	def __init__(self):

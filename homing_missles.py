@@ -35,7 +35,8 @@ class HomingMisslesTargetingSystem():
 		for enemy in self.enemies_:
 			target_tag_word = self.target_tags_[enemy.ID_]
 			target_tag_label = UI_FONT.render(target_tag_word, 1, enemy.colour_)
-			screen.blit(target_tag_label, (enemy.position_[0] - enemy.size_, 
+			width = UI_FONT.size(target_tag_word)[0]
+			screen.blit(target_tag_label, (enemy.position_[0] - width/2, 
 										   (enemy.position_[1] + enemy.size_/2)+10))
 
 	def draw_terminal(self, screen):

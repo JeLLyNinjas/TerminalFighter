@@ -22,6 +22,9 @@ class RifleTargetingSystem():
 			screen.blit(target_tag_label, (enemy.position_[0] - enemy.size_, 
 										   (enemy.position_[1] + enemy.size_/2)+10))
 
+	def draw_terminal(self, screen):
+		pass
+
 	def new_word(self):
 		return "TestTag"
 
@@ -35,3 +38,4 @@ class Rifle():
 
 	def draw(self, screen):
 		self.targeting_system.draw_target_tags(screen)
+		self.targeting_system.draw_terminal(screen)

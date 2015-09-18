@@ -18,7 +18,7 @@ class MainCharacter():
         self.position_ = starting_position
         self.ID_ = ID 
         self.colour_ = 0, 255, 0
-        self.size_ = 50
+        self.size_ = 40
         self.weapons_ = [Rifle(), HomingMissles()]
         self.selected_weapon_index_ = 0
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]

@@ -5,7 +5,7 @@ class BasicGrunt():
         self.position_ = starting_position
         self.ID_ = ID
         self.colour_ = 255, 0, 0
-        self.size_ = 40
+        self.size_ = 30
         self.speed_ = 0.3
 
     def draw(self, screen):

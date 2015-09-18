@@ -8,7 +8,7 @@ class GameMaster():
 	
 	def __init__(self):
 		self.gameobject_id_assigner_ = IdentificationAssigner()
-		self.maincharacter_ = MainCharacter((500, 800), self.gameobject_id_assigner_.get_id())
+		self.maincharacter_ = MainCharacter((500, 600), self.gameobject_id_assigner_.get_id())
 		self.enemies_ = [BasicGrunt((800, 50), self.gameobject_id_assigner_.get_id())]
 
 	def update(self, events):

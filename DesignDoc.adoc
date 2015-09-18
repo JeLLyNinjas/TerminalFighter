@@ -4,7 +4,7 @@
 
 The settings is in space and you are a fighter pilot in a futuristic ship. The only way to control the ship is through a keyboard, your "terminal". There is no movement control, like a Touhou type game where the ship is always moving forward. You only have control of the weapon systems. The game will consist of different levels where you can choose your weapons before starting the level, different weapons will be unlocked along the way.
 
-I'm thinking unlocking new weapons is done by completing difficult levels. You get ingame currency from different levels and you can use the ingame currency to get upgrades for weapons, ex. easier words, or missle system could get more missles.
+I'm thinking unlocking new weapons is done by completing difficult levels. You get ingame currency from different levels and you can use the ingame currency to get upgrades for weapons, ex. easier words, or missle system could get more missiles.
 
 The player will have a shield and hitpoints. The shield will be done like in FTL. So it will regenerate quickly, but cannot block all types of damage. Hitpoints will be slowly regenerated, I'm thinking regeneration won't be linear, so the lower the player's hp is the slower the player would regenerate hitpoints.
 
@@ -37,13 +37,13 @@ Upon selecting the weapon, enemies will have a target tag attached to them, upon
 
 Relative Difficulty of Words: Medium
 
-==== Homing Missles
+==== Homing Missiles
 Once selected, enemies will have a target tag attached to them. You can type up to 5 target tags (space separated) and press enter, for every correct target tag entered, a medium speed projectile will lock on to a target and shoot at it.
 
 Relative Difficulty of Words: Medium
 
 ==== Anti Missle System
-Once selected, missles on the radar will have a target tag attached to them, upon typing a target tag and pressing space, a extremely high speed laser will be shot directly at the missle and destroy it. This weapon cannot be targeted at enemies.
+Once selected, missiles on the radar will have a target tag attached to them, upon typing a target tag and pressing space, a extremely high speed laser will be shot directly at the missle and destroy it. This weapon cannot be targeted at enemies.
 
 Relative Difficulty of Words: Very easy (single letter?)
 
@@ -60,10 +60,10 @@ Enemies will have the same health system as the player but only difficult enemie
 Moves slowly (can be targeted succesfully by Rifle), when in range will also use a rifle type weapon which does low damage. One will not do any lasting damage to the player, but many will quickly whittle down the player's hp.
 
 ==== Missle Grunt
-Moves slowly (can be targeted successfully by Rifle), will shoot long range missles which do medium damage.
+Moves slowly (can be targeted successfully by Rifle), will shoot long range missiles which do medium damage.
 
 ==== Anti Missle Grunt
-Moves slowly, it's only purpose is to shoot down missles with an Anti Missle System.
+Moves slowly, it's only purpose is to shoot down missiles with an Anti Missle System.
 
 ==== Fast Grunt
-Fast moving, cannot be targeted by rifle unless very close range. Homing missles is a good option to deal with them. Shoots a rifle type weapon.
+Fast moving, cannot be targeted by rifle unless very close range. Homing missiles is a good option to deal with them. Shoots a rifle type weapon.

@@ -24,11 +24,11 @@ Weapons decide what must be typed to target an enemy, not the enemies themselves
 
 Weapons are projectile based, meaning that just because the player has correctly typed an enemy's name, the enemy will not necessarily get hit, it only means that the weapon will shoot at the enemy. This serves a few purposes:
 
-. It provides us the ability to make certain weapons useless against certain enemies because of visual gamelay, not just because it's coded in
-. This will be more reliable in terms of multiplayer functionality
-. It also adds a sense of randomness in the game where you may shoot at something, miss and it will still hit something behind it. This aids in providing those "hilarious" moments for the player where something amazing happens even though they didn't intend it
+. It provides us the ability to make certain weapons useless against certain enemies because of visual gamelay, not just because it's coded in.
+. This will be more reliable in terms of multiplayer functionality.
+. It also adds a sense of randomness in the game where you may shoot at something, miss and it will still hit something behind it. This aids in providing those "hilarious" moments for the player where something amazing happens even though they didn't intend it.
 . It gives the player room to think about how they are going to user their weapons because it could have ramifications beyond
-their intentions, (of which we will aim that they can plan for)
+their intentions, (of which we will aim that they can plan for).
 
 Here is a short list of weapons that we could have, we will pick cool futuristic names later:
 

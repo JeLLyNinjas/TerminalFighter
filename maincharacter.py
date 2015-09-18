@@ -46,10 +46,8 @@ class MainCharacter():
 
         self.update_weapon_selection(events)
         
-        for weapon in self.weapons_:
-            weapon.update(events, enemies)
-
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
+        self.current_weapon_.update(events, enemies)
 
     def update_weapon_selection(self, events):
         for event in events:

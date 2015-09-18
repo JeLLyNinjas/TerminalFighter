@@ -2,11 +2,11 @@
 
 == Introduction
 
-The settings is in space and you are a fighter pilot in a futuristic ship. The only way to control the ship is through a keyboard, your "terminal". There is no movement control, like a Touhou type game where the ship is always moving forward. You only have control of the weapon systems. The game will consist of different levels where you can choose your weapons before starting the level, different weapons will be unlocked along the way.
+The settings is in space and you are a fighter pilot in a futuristic ship. The only way to control the ship is through a keyboard, your "terminal". There is no movement control, like a https://www.youtube.com/watch?v=WdoF0iayjvs[Touhou] type game where the ship is always moving forward. You only have control of the weapon systems. The game will consist of different levels where you can choose your weapons before starting the level, different weapons will be unlocked along the way.
 
 I'm thinking unlocking new weapons is done by completing difficult levels. You get ingame currency from different levels and you can use the ingame currency to get upgrades for weapons, ex. easier words, or missle system could get more missiles.
 
-The player will have a shield and hitpoints. The shield will be done like in FTL. So it will regenerate quickly, but cannot block all types of damage. Hitpoints will be slowly regenerated, I'm thinking regeneration won't be linear, so the lower the player's hp is the slower the player would regenerate hitpoints.
+The player will have a shield and hitpoints. The shield will be done like in https://www.youtube.com/watch?v=Acwjfkc_M90[FTL]. So it will regenerate quickly, but cannot block all types of damage. Hitpoints will be slowly regenerated, I'm thinking regeneration won't be linear, so the lower the player's hp is the slower the player would regenerate hitpoints.
 
 == Visual Theme
 

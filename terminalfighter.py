@@ -2,6 +2,7 @@ import sys
 
 import pygame
 
+from gameboard import GameBoard
 from gamemaster import GameMaster
 
 pygame.init()
@@ -12,7 +13,8 @@ screen = pygame.display.set_mode((1000, 700))
 
 WHITE = 0, 0, 0
 
-gamemaster = GameMaster() 
+gameboard = GameBoard((screen.get_width(), screen.get_height()))
+gamemaster = GameMaster(gameboard) 
 
 # pygame ticks, one tick is 1/1000 second
 # 15 pygame ticks per update is approximately 50 updates per second

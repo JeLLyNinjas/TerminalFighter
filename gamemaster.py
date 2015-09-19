@@ -1,3 +1,5 @@
+import random
+
 import pygame
 
 from identification_assigner import IdentificationAssigner
@@ -18,7 +20,7 @@ class GameMaster():
 		return MainCharacter(starting_position, self.gameobject_id_assigner_.get_id())
 
 	def instantiateBasicGrunt(self):
-		starting_position = [self.gameboard_.width_*0.8, self.gameboard_.height_*0.2]
+		starting_position = [self.gameboard_.width_*random.randint(200,800)/1000, 0]
 		return BasicGrunt(starting_position, self.gameobject_id_assigner_.get_id())
 
 	def update(self, events):

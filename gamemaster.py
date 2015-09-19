@@ -17,7 +17,6 @@ class GameMaster():
 			if pygame.Rect((0,0), (1000,700)).collidepoint(enemy.position_) :
 				enemy.update()
 			else:
-				print("removing " + str(enemy.ID_))
 				self.enemies_.remove(enemy)
 
 	def draw(self, screen):

@@ -13,8 +13,12 @@ class GameMaster():
 
 	def update(self, events):
 		self.maincharacter_.update(events, self.enemies_)
-		for enemy in self.enemies_:
-			enemy.update()
+		for enemy in list(self.enemies_):
+			if pygame.Rect((0,0), (1000,700)).collidepoint(enemy.position_) :
+				enemy.update()
+			else:
+				print("removing " + str(enemy.ID_))
+				self.enemies_.remove(enemy)
 
 	def draw(self, screen):
 		self.maincharacter_.draw(screen)

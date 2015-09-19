@@ -5,7 +5,10 @@ import pygame
 from gamemaster import GameMaster
 
 pygame.init()
-screen = pygame.display.set_mode((1000, 1000))
+pygame.font.init()
+pygame.key.set_repeat(100, 25)
+
+screen = pygame.display.set_mode((1000, 700))
 
 WHITE = 0, 0, 0
 

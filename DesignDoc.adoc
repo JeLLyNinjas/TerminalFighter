@@ -2,38 +2,38 @@
 
 == Introduction
 
-The settings is in space and you are a fighter pilot in a futuristic ship. The only way to control the ship is through a keyboard, your "terminal". There is no movement control, like a https://www.youtube.com/watch?v=WdoF0iayjvs[Touhou] type game where the ship is always moving forward. You only have control of the weapon systems. The game will consist of different levels where you can choose your weapons before starting the level, different weapons will be unlocked along the way.
+The setting is in space and you are a fighter pilot in a futuristic ship. The only way to control the ship is through a keyboard, your "terminal". There is no movement control, like a https://www.youtube.com/watch?v=WdoF0iayjvs[Touhou] type game where the ship is always moving forward. You only have control of the weapon systems. The game will consist of different levels where you can choose your weapons before starting the level. Different weapons will be unlocked along the way.
 
 I'm thinking unlocking new weapons is done by completing difficult levels. You get ingame currency from different levels and you can use the ingame currency to get upgrades for weapons, ex. easier words, or missle system could get more missiles.
 
-The player will have a shield and hitpoints. The shield will be done like in https://www.youtube.com/watch?v=Acwjfkc_M90[FTL]. So it will regenerate quickly, but cannot block all types of damage. Hitpoints will be slowly regenerated, I'm thinking regeneration won't be linear, so the lower the player's hp is the slower the player would regenerate hitpoints.
+The player will have a shield and hitpoints. The shield will be done like in https://www.youtube.com/watch?v=Acwjfkc_M90[FTL]. So it will regenerate quickly, but cannot block all types of damage. Hitpoints will be slowly regenerated, I'm thinking regeneration won't be linear, so the lower the player's HP is, the slower the player would regenerate hitpoints.
 
 == Visual Theme
 
-The theme of the game will be similar to http://old.casualcollective.com/#games/The_Space_Game[the space game] by Casual Collective. Although the gameplay will be very differnet. The player will only see a radar so the graphics will be very simple, mcuh of the view will be the player's "terminal". Think basic shapes on a radar. I was thinking circle is the main character, triangles are enemies, squares are projectiles.
+The theme of the game will be similar to http://old.casualcollective.com/#games/The_Space_Game[the space game] by Casual Collective although the gameplay will be very different. The player will only see a radar so the graphics will be very simple. Much of the view will be the player's "terminal". Think basic shapes on a radar. I was thinking circle is the main character, triangles are enemies, squares are projectiles.
 
 == Controls
 
 All controls will be on the keyboard, even in the start screen.
 
-In gameplay you will select your weapon via hotkeys 1-5. Once a weapon has been selected by pressing a hotkey, the interface will switch to targeting mode where you type the names of enemies to target them, every weapon will be unique, and enemies will also do various things.
+In gameplay, you will select your weapon via hotkeys 1-5. Once a weapon has been selected by pressing a hotkey, the interface will switch to targeting mode where you type the names of enemies to target them. Every weapon will be unique and enemies will also do various things.
 
 == Weapons
 
 Weapons decide what must be typed to target an enemy, not the enemies themselves.
 
-Weapons are projectile based, meaning that just because the player has correctly typed an enemy's name, the enemy will not necessarily get hit, it only means that the weapon will shoot at the enemy. This serves a few purposes:
+Weapons are projectile based, meaning that just because the player has correctly typed an enemy's name, the enemy will not necessarily get hit. It only means that the weapon will shoot at the enemy. This serves a few purposes:
 
-. It provides us the ability to make certain weapons useless against certain enemies because of visual gamelay, not just because it's coded in.
+. It provides us with the ability to make certain weapons useless against certain enemies because of visual gamelay, not just because it's coded in.
 . This will be more reliable in terms of multiplayer functionality.
-. It also adds a sense of randomness in the game where you may shoot at something, miss and it will still hit something behind it. This aids in providing those "hilarious" moments for the player where something amazing happens even though they didn't intend it.
-. It gives the player room to think about how they are going to user their weapons because it could have ramifications beyond
-their intentions, (of which we will aim that they can plan for).
+. It also adds a sense of randomness in the game where you may shoot at something, miss, and it will still hit something behind it. This aids in providing those "hilarious" moments for the player where something amazing happens even though they didn't intend it.
+. It gives the player room to think about how they are going to use their weapons because it could have ramifications beyond
+their intentions (of which we will aim that they can plan for).
 
 Here is a short list of weapons that we could have, we will pick cool futuristic names later:
 
 ==== Rifle
-Upon selecting the weapon, enemies will have a target tag attached to them, upon typing a target tag and pressing enter, a high speed projectile will be shot directly at the enemy.
+Upon selecting the weapon, enemies will have a target tag attached to them. Upon typing a target tag and pressing enter, a high speed projectile will be shot directly at the enemy.
 
 Relative Difficulty of Words: Medium
 
@@ -43,7 +43,7 @@ Once selected, enemies will have a target tag attached to them. You can type up 
 Relative Difficulty of Words: Medium
 
 ==== Anti Missle System
-Once selected, missiles on the radar will have a target tag attached to them, upon typing a target tag and pressing space, a extremely high speed laser will be shot directly at the missle and destroy it. This weapon cannot be targeted at enemies.
+Once selected, missiles on the radar will have a target tag attached to them. Upon typing a target tag and pressing space, a extremely high speed laser will be shot directly at the missle and destroy it. This weapon cannot be targeted at enemies.
 
 Relative Difficulty of Words: Very easy (single letter?)
 
@@ -57,7 +57,7 @@ Relative Difficulty of Words: Hard
 Enemies will have the same health system as the player but only difficult enemies will have shield. They also have various attack strategies and move at different speeds.
 
 ==== Basic Grunt
-Moves slowly (can be targeted succesfully by Rifle), when in range will also use a rifle type weapon which does low damage. One will not do any lasting damage to the player, but many will quickly whittle down the player's hp.
+Moves slowly (can be targeted succesfully by Rifle), when in range will also use a rifle type weapon, which does low damage. One will not do any lasting damage to the player, but many will quickly whittle down the player's HP.
 
 ==== Missle Grunt
 Moves slowly (can be targeted successfully by Rifle), will shoot long range missiles which do medium damage.

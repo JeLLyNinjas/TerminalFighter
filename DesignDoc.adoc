@@ -18,6 +18,10 @@ All controls will be on the keyboard, even in the start screen.
 
 In gameplay, you will select your weapon via hotkeys 1-5. Once a weapon has been selected by pressing a hotkey, the interface will switch to targeting mode where you type the names of enemies to target them. Every weapon will be unique and enemies will also do various things.
 
+== Difficulty
+
+Player will be asked to complete a typing test before starting the game and difficulty will be adjusted by the speed and accuracy of the test.
+
 == Weapons
 
 Weapons decide what must be typed to target an enemy, not the enemies themselves.

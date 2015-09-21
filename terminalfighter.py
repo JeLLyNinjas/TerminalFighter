@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from gameboard import GameBoard
+from universe import Universe
 from gamemaster import GameMaster
 
 pygame.init()
@@ -13,8 +13,8 @@ screen = pygame.display.set_mode((1000, 700))
 
 WHITE = 0, 0, 0
 
-gameboard = GameBoard((screen.get_width(), screen.get_height()))
-gamemaster = GameMaster(gameboard) 
+universe = Universe((screen.get_width(), screen.get_height()))
+gamemaster = GameMaster(universe) 
 
 # pygame ticks, one tick is 1/1000 second
 # 15 pygame ticks per update is approximately 50 updates per second
@@ -38,7 +38,7 @@ while 1:
     background.fill((255, 255, 255))
     screen.blit(background, (0, 0))
 
-    gamemaster.update(events)
+    gamemaster.update(events)    
     gamemaster.draw(screen)
 
     pygame.display.flip()

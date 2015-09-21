@@ -14,7 +14,9 @@ EVENT_KEY_z = 122
 EVENT_KEY_ENTER = 13
 EVENT_KEY_BACKSPACE = 8
 
+
 class RifleTargetingSystem():
+
     def __init__(self, universe):
         self.universe_ = universe
         self.enemy_color_ = RED
@@ -50,28 +52,32 @@ class RifleTargetingSystem():
 
     def draw_entities(self, screen):
         for enemy in self.universe_.enemies():
-            enemy_rect = pygame.Rect(enemy.position_[0]-enemy.size_/2, enemy.position_[1]-enemy.size_/2, 
-                                           enemy.size_, enemy.size_)
+            enemy_rect = pygame.Rect(enemy.position_[0]-enemy.size_/2,
+                                     enemy.position_[1]-enemy.size_/2,
+                                     enemy.size_,
+                                     enemy.size_)
             pygame.draw.rect(screen, self.enemy_color_, enemy_rect)
 
         main_character = self.universe_.main_character_
-        main_character_rect = pygame.Rect(main_character.position_[0]-main_character.size_/2, 
-                                         main_character.position_[1]-main_character.size_/2, 
-                                         main_character.size_, 
-                                         main_character.size_)
-        pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
+        main_character_rect = pygame.Rect(main_character.position_[0]-main_character.size_/2,
+                                          main_character.position_[1]-main_character.size_/2,
+                                          main_character.size_,
+                                          main_character.size_)
+        pygame.draw.rect(
+            screen, self.main_character_color_, main_character_rect)
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
             target_tag_word = self.target_tags_[enemy.ID_]
-            target_tag_label = UI_FONT.render(target_tag_word, 1, self.enemy_color_)
+            target_tag_label = UI_FONT.render(
+                target_tag_word, 1, self.enemy_color_)
             width = UI_FONT.size(target_tag_word)[0]
-            screen.blit(target_tag_label, (enemy.position_[0] - (width/2),  
-                                          (enemy.position_[1] + enemy.size_/2)+10))
-            
+            screen.blit(target_tag_label, (enemy.position_[0] - (width/2),
+                                           (enemy.position_[1] + enemy.size_/2)+10))
+
     def draw_terminal(self, screen):
         terminal_rect = pygame.Rect(20, screen.get_height()-75,
-                                  400, 50)
+                                    400, 50)
         pygame.draw.rect(screen, BLUE, terminal_rect)
         pygame.draw.rect(screen, BLACK, terminal_rect, 4)
 
@@ -81,7 +87,9 @@ class RifleTargetingSystem():
     def new_word(self):
         return "RifleTestTag"
 
+
 class Rifle():
+
     def __init__(self, universe):
         self.NAME_ = "Rifle"
         self.universe_ = universe

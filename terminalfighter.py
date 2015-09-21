@@ -29,32 +29,34 @@ gamemaster = GameMaster(universe, DRAWING_SCALE)
 
 # pygame ticks, one tick is 1/1000 second
 # 15 pygame ticks per update is approximately 50 updates per second
-UPDATE_LENGTH_MS = 20
+FRAME_LENGTH_TICKS = 20
 
-prev_update_start_time = 0
+prev_frame_start_time = 0
 
 while 1:
+    frame_start_time = pygame.time.get_ticks()
+    # print("Elapsed time since last update : " + str(frame_start_time - prev_frame_start_time))
+    prev_frame_start_time = frame_start_time
+
+
+
     update_start_time = pygame.time.get_ticks()
-    # print("Elapsed time since last update : " + str(update_start_time - prev_update_start_time))
-    prev_update_start_time = update_start_time
-
     events = pygame.event.get()
-
     for event in events:
         if event.type == pygame.QUIT:
             sys.exit()
-
-    background = pygame.Surface(screen.get_size())
-    background = background.convert()
-    background.fill((255, 255, 255))
-    screen.blit(background, (0, 0))
-
     gamemaster.update(events)
+    print("update time : " + str(pygame.time.get_ticks() - update_start_time))
+
+    draw_start_time = pygame.time.get_ticks() 
     gamemaster.draw(screen)
+    print("draw time : " + str(pygame.time.get_ticks() - draw_start_time))
 
+    flip_start_time = pygame.time.get_ticks()
     pygame.display.flip()
+    print("flip time : " + str(pygame.time.get_ticks() - flip_start_time))
 
-    update_end_time = pygame.time.get_ticks()
-    update_time_elapsed = update_end_time - update_start_time
-    if update_time_elapsed < UPDATE_LENGTH_MS:
-        pygame.time.wait(UPDATE_LENGTH_MS - update_time_elapsed)
+    frame_end_time = pygame.time.get_ticks()
+    frame_time_elapsed = frame_end_time - frame_start_time
+    if frame_time_elapsed < FRAME_LENGTH_TICKS:
+        pygame.time.wait(FRAME_LENGTH_TICKS - frame_time_elapsed)

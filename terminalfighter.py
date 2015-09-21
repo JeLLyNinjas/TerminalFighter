@@ -9,12 +9,20 @@ pygame.init()
 pygame.font.init()
 pygame.key.set_repeat(100, 25)
 
-DRAWING_SCALE = 2
+DRAWING_SCALE = 1
+if len(sys.argv) >= 2:
+    try:
+        DRAWING_SCALE = int(sys.argv[1])
+    except ValueError:
+        print("Scale argument must be int")
+        sys.exit()
+
+
 GAME_WIDTH = 1000
 GAME_HEIGHT = 700
 WHITE = 0, 0, 0
 
-screen = pygame.display.set_mode((GAME_WIDTH*DRAWING_SCALE, GAME_HEIGHT*DRAWING_SCALE))
+screen = pygame.display.set_mode((int(GAME_WIDTH*DRAWING_SCALE), int(GAME_HEIGHT*DRAWING_SCALE)))
 
 universe = Universe((GAME_WIDTH, GAME_HEIGHT))
 gamemaster = GameMaster(universe, DRAWING_SCALE)

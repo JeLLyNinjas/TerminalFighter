@@ -19,7 +19,7 @@ class RifleTargetingSystem():
     def __init__(self, universe, DRAWING_SCALE):
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
-        self.ui_font_ = pygame.font.SysFont("monospace", 20 * DRAWING_SCALE)
+        self.ui_font_ = pygame.font.SysFont("monospace", 20*DRAWING_SCALE)
         self.enemy_color_ = RED
         self.main_character_color_ = GREEN
         self.target_tags_ = dict()

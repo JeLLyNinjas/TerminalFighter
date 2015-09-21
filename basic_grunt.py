@@ -8,7 +8,7 @@ class BasicGrunt(GameObject):
     def __init__(self, starting_position):
         self.position_ = starting_position
         self.ID_ = self.create_ID()
-        self.size_ = 30
+        self.size_ = 15
         self.speed_ = 0.3
 
     def update(self, events):

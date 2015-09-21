@@ -36,11 +36,8 @@ class WordGenerator():
         #For lengths that are smaller than the smallest word, we point them to index 0 in the array
         for x in range (0, self.smallest_length):
             self.index_locations.append(0)
-
         for x in range (self.smallest_length, self.number_of_lengths):
             self.index_locations.append(self.locate_first_length(x))
-
-
         self.index_prime_locations = deepcopy(self.index_locations)
 
     '''
@@ -73,18 +70,23 @@ class WordGenerator():
     If you want words with length 4-6 (inclusive), request_word(4,3)
     If you want words with length of 2, request_word(2,1)
     '''
-    def request_word(self, index, number_of_lengths):
-        if number_of_lengths != 1:
-            index = random.randrange(index, index + number_of_lengths)
-
-        if (index + number_of_lengths) > self.number_of_lengths: 
+    def request_word(self, index, number_of_words):
+        if (index + number_of_words) > self.number_of_lengths: 
             print("WordGenerator: ERROR: Range you requested was too large, giving you the largest valid range instead.")
-            number_of_lengths = self.number_of_lengths - index
-
-
+            number_of_words = self.number_of_lengths - index
+        if (index >= self.number_of_lengths):
+            print("WordGenerator: ERROR: Index you requested was too large, giving you the largest index instead.")
+            index = self.number_of_lengths - 1
+            number_of_words = 1
+        if number_of_words >= 1:
+            index = random.randrange(index, index + number_of_words)
         index_of_word = self.index_prime_locations[index]
         self.index_prime_locations[index] += 1
-        if self.index_prime_locations[index] >= self.index_locations[index+1]:
+        if index >= len(self.index_locations)-1:
+            if self.index_prime_locations[index] == (len(self.word_array) - 1):
+                print("You have exhuasted the pool of length " + repr(index) + " words, looping back to beginning")
+                self.index_prime_locations[index] = self.index_locations[index]
+        elif self.index_prime_locations[index] >= self.index_locations[index+1]:
             print("You have exhuasted the pool of length " + repr(index) + " words, looping back to beginning")
             self.index_prime_locations[index] = self.index_locations[index] 
         return self.word_array[index_of_word]
@@ -96,7 +98,9 @@ class WordGenerator():
 
 if __name__ == '__main__':
     tester = WordGenerator()
-    print("random word: " + tester.request_word(3,10))
+    for i in range(0,100):
+        print("random word: " + tester.request_word(19,1))
+
 
 
 

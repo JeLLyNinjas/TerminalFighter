@@ -21,7 +21,7 @@ class HomingMissilesTargetingSystem():
         self.word_generator_ = WordGenerator()
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
-        self.ui_font_ = pygame.font.SysFont("monospace", 10*DRAWING_SCALE)
+        self.ui_font_ = pygame.font.SysFont("monospace", 15*DRAWING_SCALE)
         self.enemy_color_ = YELLOW
         self.main_character_color_ = GREEN
         self.target_tags_ = dict()

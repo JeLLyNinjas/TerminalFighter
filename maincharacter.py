@@ -19,7 +19,7 @@ class MainCharacter(GameObject):
         self.position_ = starting_position
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
-        self.ui_font = pygame.font.SysFont("monospace", 10 * DRAWING_SCALE)
+        self.ui_font = pygame.font.SysFont("monospace", 15 * DRAWING_SCALE)
         self.ID_ = self.create_ID()
         self.size_ = 20
         self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE), HomingMissiles(self.universe_, DRAWING_SCALE)]

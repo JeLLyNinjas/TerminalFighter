@@ -61,7 +61,7 @@ class WordGenerator():
                 index = 0
             delta = math.ceil(delta/2)
         return index
-                
+
     def check_if_first(self, index, requested_length):
         if len(self.word_array[index]) != requested_length:
             return False
@@ -76,11 +76,11 @@ class WordGenerator():
     def request_word(self, index, number_of_lengths):
         if number_of_lengths != 1:
             index = random.randrange(index, index + number_of_lengths)
-        
+
         if (index + number_of_lengths) > self.number_of_lengths: 
             print("WordGenerator: ERROR: Range you requested was too large, giving you the largest valid range instead.")
             number_of_lengths = self.number_of_lengths - index
-            
+
 
         index_of_word = self.index_prime_locations[index]
         self.index_prime_locations[index] += 1
@@ -96,10 +96,10 @@ class WordGenerator():
 
 if __name__ == '__main__':
     tester = WordGenerator()
-    print("random word: " + tester.request_word(3,20))
+    print("random word: " + tester.request_word(3,10))
 
 
-    
+
 
 
 

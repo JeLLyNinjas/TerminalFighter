@@ -1,6 +1,5 @@
 import pygame
 
-from identification_assigner import IdentificationAssigner
 from maincharacter import MainCharacter
 from basic_grunt import BasicGrunt
 

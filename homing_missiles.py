@@ -19,7 +19,7 @@ class HomingMissilesTargetingSystem():
     def __init__(self, universe, DRAWING_SCALE):
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
-        self.ui_font_ = pygame.font.SysFont("monospace", 20*DRAWING_SCALE)
+        self.ui_font_ = pygame.font.SysFont("monospace", 10*DRAWING_SCALE)
         self.enemy_color_ = YELLOW
         self.main_character_color_ = GREEN
         self.target_tags_ = dict()
@@ -74,16 +74,16 @@ class HomingMissilesTargetingSystem():
             width = self.ui_font_.size(target_tag_word)[0]
             screen.blit(target_tag_label, 
                         (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
-                        (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (10 * self.DRAWING_SCALE_)))
+                        (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (5 * self.DRAWING_SCALE_)))
 
     def draw_terminal(self, screen):
-        terminal_rect = pygame.Rect(20 * self.DRAWING_SCALE_, screen.get_height()-(75* self.DRAWING_SCALE_),
-                                    400 * self.DRAWING_SCALE_, 50 * self.DRAWING_SCALE_)
+        terminal_rect = pygame.Rect(10 * self.DRAWING_SCALE_, screen.get_height()-(40* self.DRAWING_SCALE_),
+                                    200 * self.DRAWING_SCALE_, 25 * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, BLUE, terminal_rect)
-        pygame.draw.rect(screen, WHITE, terminal_rect, 4 * self.DRAWING_SCALE_)
+        pygame.draw.rect(screen, WHITE, terminal_rect, 2 * self.DRAWING_SCALE_)
 
         text_label = self.ui_font_.render(self.current_text_, 1, WHITE)
-        screen.blit(text_label, (30 * self.DRAWING_SCALE_, screen.get_height()-(60 * self.DRAWING_SCALE_)))
+        screen.blit(text_label, (15 * self.DRAWING_SCALE_, screen.get_height()-(30 * self.DRAWING_SCALE_)))
 
     def new_word(self):
         return "HomingMissilesTestTag"

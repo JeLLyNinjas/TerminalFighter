@@ -46,10 +46,7 @@ class RifleTargetingSystem():
         self.draw_terminal(screen)
 
     def draw_background(self, screen):
-        background = pygame.Surface(screen.get_size())
-        background = background.convert()
-        background.fill(BLACK)
-        screen.blit(background, (0, 0))
+        pygame.draw.rect(screen, BLACK, pygame.Rect((0,0), screen.get_size()))
 
     def draw_entities(self, screen):
         for enemy in self.universe_.enemies():

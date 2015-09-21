@@ -28,8 +28,8 @@ class Universe():
         self.entities_[the_projectile.ID_] = the_projectile
 
     def update(self, events):
-        print(str(len(self.entities_)) + "entities, " +
-              str(len(self.enemies_)) + " enemies")
+        # print(str(len(self.entities_)) + "entities, " +
+              # str(len(self.enemies_)) + " enemies")
         self.delete_out_of_bounds_entities()
         for entity in self.entities():
             entity.update(events)

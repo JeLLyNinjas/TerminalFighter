@@ -4,7 +4,7 @@ import sys
 import math
 from copy import deepcopy
 
-CONST_FILENAME = "american-english.txt"  
+CONST_FILENAME = "american-english.txt"
 
 '''
 Opens the file CONST_FILENAME and reads entire file to word_array list. Shuffles the array and then sorts according to length
@@ -17,12 +17,11 @@ class WordGenerator():
             for line in infile:
                 self.word_array.append(line.rstrip('\n'))
         self.word_array = (self.word_array)
-        random.shuffle(self.word_array) 
+        random.shuffle(self.word_array)
         self.word_array.sort(key=len)
         #self.split_list(self.word_array)
         print("First Length IS!!!:")
         print(self.locate_first_length(5))
-
 
     def print_list(self):
         for i in range(0, len(self.word_array)):
@@ -30,7 +29,7 @@ class WordGenerator():
             print(i)
 
     def split_list(self, list):
-        self.number_of_lengths = len(list[len(list)-1]) - len(list[0]) 
+        self.number_of_lengths = len(list[len(list)-1]) - len(list[0])
         self.smallest_length = len(list[0])
         self.index_locations = []
         for x in range (0, self.smallest_length):
@@ -39,12 +38,10 @@ class WordGenerator():
         for x in range (1, self.number_of_lengths):
             pass
 
-
     def check_if_first(self, index, requested_length):
         if len(self.word_array[index]) != requested_length:
             return False
         return len(self.word_array[index]) != len(self.word_array[index-1])
-
 
     '''
     log(n) binary search to find the first length
@@ -59,24 +56,14 @@ class WordGenerator():
             if len(self.word_array[index]) >= requested_length:
                 index -= delta
             else:
-                index += delta 
+                index += delta
             delta = math.ceil(delta/2)
-                
+
         return index
-                
-            
 
     def request_word(size):
         pass
 
-
-
 if __name__ == '__main__':
     tester = WordGenerator()
     #tester.print_list()
-
-    
-
-
-
-

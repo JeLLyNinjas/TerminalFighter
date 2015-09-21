@@ -31,10 +31,9 @@ class WordGenerator():
     index_prime_locations will be incremented and used to keep track of which words have been given out.
     '''
     def split_list(self, list):
-        self.number_of_lengths = len(list[len(list)-1]) - len(list[0]) 
+        longest_length = len(list[-1])
         self.smallest_length = len(list[0])
-        print("number of lengths my way: " + repr(self.number_of_lengths))
-        print("number of lengths enoghs: " + repr(len(list[:-1]) - self.smallest_length) )
+        self.number_of_lengths = longest_length - self.smallest_length
         #For lengths that are smaller than the smallest word, we point them to index 0 in the array
         for x in range (self.smallest_length):
             self.index_locations.append(0)
@@ -72,25 +71,25 @@ class WordGenerator():
     If you want words with length 4-6 (inclusive), request_word(4,3)
     If you want words with length of 2, request_word(2,1)
     '''
-    def request_word(self, index, number_of_words):
-        if (index + number_of_words) > self.number_of_lengths: 
+    def request_word(self, shortest_word, number_of_words):
+        if (shortest_word + number_of_words) > self.number_of_lengths: 
             print("WordGenerator: ERROR: Range you requested was too large, giving you the largest valid range instead.")
-            number_of_words = self.number_of_lengths - index
-        if (index >= self.number_of_lengths):
-            print("WordGenerator: ERROR: Index you requested was too large, giving you the largest index instead.")
-            index = self.number_of_lengths - 1
+            number_of_words = self.number_of_lengths - shortest_word
+        if (shortest_word >= self.number_of_lengths):
+            print("WordGenerator: ERROR: shortest_word you requested was too large, giving you the largest shortest_word instead.")
+            shortest_word = self.number_of_lengths - 1
             number_of_words = 1
         if number_of_words >= 1:
-            index = random.randrange(index, index + number_of_words)
-        index_of_word = self.index_prime_locations[index]
-        self.index_prime_locations[index] += 1
-        if index >= len(self.index_locations)-1:
-            if self.index_prime_locations[index] == (len(self.word_array) - 1):
-                print("You have exhuasted the pool of length " + repr(index) + " words, looping back to beginning")
-                self.index_prime_locations[index] = self.index_locations[index]
-        elif self.index_prime_locations[index] >= self.index_locations[index+1]:
-            print("You have exhuasted the pool of length " + repr(index) + " words, looping back to beginning")
-            self.index_prime_locations[index] = self.index_locations[index] 
+            shortest_word = random.randrange(shortest_word, shortest_word + number_of_words)
+        index_of_word = self.index_prime_locations[shortest_word]
+        self.index_prime_locations[shortest_word] += 1
+        if shortest_word >= len(self.index_locations)-1:
+            if self.index_prime_locations[shortest_word] == (len(self.word_array) - 1):
+                print("You have exhuasted the pool of length " + repr(shortest_word) + " words, looping back to beginning")
+                self.index_prime_locations[shortest_word] = self.index_locations[shortest_word]
+        elif self.index_prime_locations[shortest_word] >= self.index_locations[shortest_word+1]:
+            print("You have exhuasted the pool of length " + repr(shortest_word) + " words, looping back to beginning")
+            self.index_prime_locations[shortest_word] = self.index_locations[shortest_word] 
         return self.word_array[index_of_word]
 
     def print_list(self):

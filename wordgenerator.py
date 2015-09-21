@@ -10,13 +10,13 @@ FILENAME = "american-english.txt"
 Opens the file CONST_FILENAME and reads entire file to word_array list. Shuffles the array and then sorts according to length
 '''
 class WordGenerator():
-    index_locations = []
-    index_prime_locations = []
-    word_array = []
-    number_of_lengths = 0
-    smallest_length = []
 
     def __init__(self):
+        self.index_locations = []
+        self.index_prime_locations = []
+        self.word_array = []
+        self.number_of_lengths = 0
+        self.smallest_length = []
         with open(FILENAME) as infile:
             for line in infile:
                 self.word_array.append(line.rstrip('\n'))

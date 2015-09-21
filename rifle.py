@@ -23,7 +23,7 @@ class RifleTargetingSystem():
         self.current_text_ = ""
 
     def update(self, events):
-        for enemy in self.universe_.enemies_.values():
+        for enemy in self.universe_.enemies():
             if enemy.ID_ not in self.target_tags_:
                 self.target_tags_[enemy.ID_] = self.new_word()
 
@@ -49,7 +49,7 @@ class RifleTargetingSystem():
         screen.blit(background, (0, 0))
 
     def draw_entities(self, screen):
-        for enemy in self.universe_.enemies_.values():
+        for enemy in self.universe_.enemies():
             enemy_rect = pygame.Rect(enemy.position_[0]-enemy.size_/2, enemy.position_[1]-enemy.size_/2, 
                                            enemy.size_, enemy.size_)
             pygame.draw.rect(screen, self.enemy_color_, enemy_rect)
@@ -62,7 +62,7 @@ class RifleTargetingSystem():
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
 
     def draw_target_tags(self, screen):
-        for enemy in self.universe_.enemies_.values():
+        for enemy in self.universe_.enemies():
             target_tag_word = self.target_tags_[enemy.ID_]
             target_tag_label = UI_FONT.render(target_tag_word, 1, self.enemy_color_)
             # !!NEW!! Get target tag size and adjust coordinates of tag     

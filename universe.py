@@ -30,7 +30,7 @@ class Universe():
 	def update(self, events):
 		print(str(len(self.entities_)) + "entities, " + str(len(self.enemies_)) + " enemies")
 		self.delete_out_of_bounds_entities()
-		for entity in self.entities_.values():
+		for entity in self.entities():
 			entity.update(events)
 
 	def delete_out_of_bounds_entities(self):
@@ -45,3 +45,14 @@ class Universe():
 			self.enemies_.pop(entity_ID, None)
 			self.projectiles_.pop(entity_ID, None)
 
+	def entities(self):
+		return self.entities_.values() 
+
+	def main_character(self):
+		return self.main_character_	
+		
+	def enemies(self):
+		return self.enemies_.values() 
+		
+	def projectiles(self):
+		return self.projectiles_.values() 

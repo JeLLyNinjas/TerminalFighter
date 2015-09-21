@@ -9,12 +9,15 @@ pygame.init()
 pygame.font.init()
 pygame.key.set_repeat(100, 25)
 
-screen = pygame.display.set_mode((1000, 700))
-
+DRAWING_SCALE = 2
+GAME_WIDTH = 1000
+GAME_HEIGHT = 700
 WHITE = 0, 0, 0
 
-universe = Universe((screen.get_width(), screen.get_height()))
-gamemaster = GameMaster(universe)
+screen = pygame.display.set_mode((GAME_WIDTH*DRAWING_SCALE, GAME_HEIGHT*DRAWING_SCALE))
+
+universe = Universe((GAME_WIDTH, GAME_HEIGHT))
+gamemaster = GameMaster(universe, DRAWING_SCALE)
 
 # pygame ticks, one tick is 1/1000 second
 # 15 pygame ticks per update is approximately 50 updates per second

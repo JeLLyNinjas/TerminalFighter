@@ -3,7 +3,6 @@ import pygame
 
 pygame.font.init()
 
-UI_FONT = pygame.font.SysFont("monospace", 20)
 BLACK = 0, 0, 0
 RED = 255, 0, 0
 GREEN = 0, 255, 0
@@ -17,8 +16,10 @@ EVENT_KEY_BACKSPACE = 8
 
 class RifleTargetingSystem():
 
-    def __init__(self, universe):
+    def __init__(self, universe, DRAWING_SCALE):
         self.universe_ = universe
+        self.DRAWING_SCALE_ = DRAWING_SCALE
+        self.ui_font_ = pygame.font.SysFont("monospace", 20 * DRAWING_SCALE)
         self.enemy_color_ = RED
         self.main_character_color_ = GREEN
         self.target_tags_ = dict()
@@ -52,37 +53,38 @@ class RifleTargetingSystem():
 
     def draw_entities(self, screen):
         for enemy in self.universe_.enemies():
-            enemy_rect = pygame.Rect(enemy.position_[0]-enemy.size_/2,
-                                     enemy.position_[1]-enemy.size_/2,
-                                     enemy.size_,
-                                     enemy.size_)
+            enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_ ,
+                                     (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_ ,
+                                     enemy.size_ * self.DRAWING_SCALE_,
+                                     enemy.size_ * self.DRAWING_SCALE_)
             pygame.draw.rect(screen, self.enemy_color_, enemy_rect)
 
         main_character = self.universe_.main_character_
-        main_character_rect = pygame.Rect(main_character.position_[0]-main_character.size_/2,
-                                          main_character.position_[1]-main_character.size_/2,
-                                          main_character.size_,
-                                          main_character.size_)
+        main_character_rect = pygame.Rect((main_character.position_[0]-main_character.size_/2) * self.DRAWING_SCALE_,
+                                          (main_character.position_[1]-main_character.size_/2) * self.DRAWING_SCALE_,
+                                          main_character.size_ * self.DRAWING_SCALE_,
+                                          main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(
             screen, self.main_character_color_, main_character_rect)
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
             target_tag_word = self.target_tags_[enemy.ID_]
-            target_tag_label = UI_FONT.render(
+            target_tag_label = self.ui_font_.render(
                 target_tag_word, 1, self.enemy_color_)
-            width = UI_FONT.size(target_tag_word)[0]
-            screen.blit(target_tag_label, (enemy.position_[0] - (width/2),
-                                           (enemy.position_[1] + enemy.size_/2)+10))
+            width = self.ui_font_.size(target_tag_word)[0]
+            screen.blit(target_tag_label, 
+                        (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
+                        (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (10 * self.DRAWING_SCALE_)))
 
     def draw_terminal(self, screen):
-        terminal_rect = pygame.Rect(20, screen.get_height()-75,
-                                    400, 50)
+        terminal_rect = pygame.Rect(20 * self.DRAWING_SCALE_, screen.get_height()-(75* self.DRAWING_SCALE_),
+                                    400 * self.DRAWING_SCALE_, 50 * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, BLUE, terminal_rect)
-        pygame.draw.rect(screen, BLACK, terminal_rect, 4)
+        pygame.draw.rect(screen, WHITE, terminal_rect, 4 * self.DRAWING_SCALE_)
 
-        text_label = UI_FONT.render(self.current_text_, 1, WHITE)
-        screen.blit(text_label, (30, screen.get_height()-60))
+        text_label = self.ui_font_.render(self.current_text_, 1, WHITE)
+        screen.blit(text_label, (30 * self.DRAWING_SCALE_, screen.get_height()-(60 * self.DRAWING_SCALE_)))
 
     def new_word(self):
         return "RifleTestTag"
@@ -90,10 +92,11 @@ class RifleTargetingSystem():
 
 class Rifle():
 
-    def __init__(self, universe):
-        self.NAME_ = "Rifle"
+    def __init__(self, universe, DRAWING_SCALE):
         self.universe_ = universe
-        self.targeting_system = RifleTargetingSystem(universe)
+        self.DRAWING_SCALE_ = DRAWING_SCALE
+        self.NAME_ = "Rifle"
+        self.targeting_system = RifleTargetingSystem(universe, DRAWING_SCALE)
 
     def update(self, events):
         self.targeting_system.update(events)

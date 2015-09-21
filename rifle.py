@@ -65,7 +65,6 @@ class RifleTargetingSystem():
         for enemy in self.universe_.enemies():
             target_tag_word = self.target_tags_[enemy.ID_]
             target_tag_label = UI_FONT.render(target_tag_word, 1, self.enemy_color_)
-            # !!NEW!! Get target tag size and adjust coordinates of tag     
             width = UI_FONT.size(target_tag_word)[0]
             screen.blit(target_tag_label, (enemy.position_[0] - (width/2),  
                                           (enemy.position_[1] + enemy.size_/2)+10))

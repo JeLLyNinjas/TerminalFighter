@@ -71,16 +71,16 @@ class WordGenerator():
     If you want words with length 4-6 (inclusive), request_word(4,3)
     If you want words with length of 2, request_word(2,1)
     '''
-    def request_word(self, shortest_word, number_of_words):
-        if (shortest_word + number_of_words) > self.number_of_lengths: 
+    def request_word(self, shortest_word, word_length_range):
+        if (shortest_word + word_length_range) > self.number_of_lengths: 
             print("WordGenerator: ERROR: Range you requested was too large, giving you the largest valid range instead.")
-            number_of_words = self.number_of_lengths - shortest_word
+            word_length_range = self.number_of_lengths - shortest_word
         if (shortest_word >= self.number_of_lengths):
             print("WordGenerator: ERROR: shortest_word you requested was too large, giving you the largest shortest_word instead.")
             shortest_word = self.number_of_lengths - 1
-            number_of_words = 1
-        if number_of_words >= 1:
-            shortest_word = random.randrange(shortest_word, shortest_word + number_of_words)
+            word_length_range = 1
+        if word_length_range >= 1:
+            shortest_word = random.randrange(shortest_word, shortest_word + word_length_range)
         index_of_word = self.index_prime_locations[shortest_word]
         self.index_prime_locations[shortest_word] += 1
         if shortest_word >= len(self.index_locations)-1:

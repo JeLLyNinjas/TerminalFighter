@@ -18,7 +18,7 @@ EVENT_KEY_BACKSPACE = 8
 class HomingMissilesTargetingSystem():
 
     def __init__(self, universe, DRAWING_SCALE):
-        self.word_generator = WordGenerator()
+        self.word_generator_ = WordGenerator()
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
         self.ui_font_ = pygame.font.SysFont("monospace", 10*DRAWING_SCALE)
@@ -85,7 +85,7 @@ class HomingMissilesTargetingSystem():
         screen.blit(text_label, (15 * self.DRAWING_SCALE_, screen.get_height()-(30 * self.DRAWING_SCALE_)))
 
     def new_word(self):
-        return self.word_generator.request_word(12,1)
+        return self.word_generator_.request_word(12,1)
 
 
 class HomingMissiles():

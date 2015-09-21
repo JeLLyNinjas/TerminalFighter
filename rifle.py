@@ -1,5 +1,5 @@
 import pygame
-
+from wordgenerator import WordGenerator
 
 pygame.font.init()
 
@@ -18,6 +18,7 @@ EVENT_KEY_BACKSPACE = 8
 class RifleTargetingSystem():
 
     def __init__(self, universe):
+        self.word_generator = WordGenerator()
         self.universe_ = universe
         self.enemy_color_ = RED
         self.main_character_color_ = GREEN
@@ -85,7 +86,7 @@ class RifleTargetingSystem():
         screen.blit(text_label, (30, screen.get_height()-60))
 
     def new_word(self):
-        return "RifleTestTag"
+        return self.word_generator.request_word(3,3)
 
 
 class Rifle():

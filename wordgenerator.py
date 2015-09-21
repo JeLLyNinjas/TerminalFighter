@@ -4,7 +4,7 @@ import sys
 import math
 from copy import deepcopy
 
-CONST_FILENAME = "american-english.txt"  
+FILENAME = "american-english.txt"  
 
 '''
 Opens the file CONST_FILENAME and reads entire file to word_array list. Shuffles the array and then sorts according to length
@@ -17,7 +17,7 @@ class WordGenerator():
     smallest_length = []
 
     def __init__(self):
-        with open(CONST_FILENAME) as infile:
+        with open(FILENAME) as infile:
             for line in infile:
                 self.word_array.append(line.rstrip('\n'))
         random.shuffle(self.word_array) 
@@ -33,8 +33,10 @@ class WordGenerator():
     def split_list(self, list):
         self.number_of_lengths = len(list[len(list)-1]) - len(list[0]) 
         self.smallest_length = len(list[0])
+        print("number of lengths my way: " + repr(self.number_of_lengths))
+        print("number of lengths enoghs: " + repr(len(list[:-1]) - self.smallest_length) )
         #For lengths that are smaller than the smallest word, we point them to index 0 in the array
-        for x in range (0, self.smallest_length):
+        for x in range (self.smallest_length):
             self.index_locations.append(0)
         for x in range (self.smallest_length, self.number_of_lengths):
             self.index_locations.append(self.locate_first_length(x))
@@ -92,19 +94,10 @@ class WordGenerator():
         return self.word_array[index_of_word]
 
     def print_list(self):
-        for i in range(0, len(self.word_array)):
+        for i in range(len(self.word_array)):
             print("Index: " + repr(i) + " Word: " + self.word_array[i])
-
 
 if __name__ == '__main__':
     tester = WordGenerator()
-    for i in range(0,100):
+    for i in range(100):
         print("random word: " + tester.request_word(19,1))
-
-
-
-
-
-
-
-

@@ -1,4 +1,5 @@
 import pygame
+from wordgenerator import WordGenerator
 
 pygame.font.init()
 
@@ -18,6 +19,7 @@ EVENT_KEY_BACKSPACE = 8
 class HomingMissilesTargetingSystem():
 
     def __init__(self, universe):
+        self.word_generator = WordGenerator()
         self.universe_ = universe
         self.enemy_color_ = YELLOW
         self.main_character_color_ = GREEN
@@ -83,7 +85,7 @@ class HomingMissilesTargetingSystem():
         screen.blit(text_label, (30, screen.get_height()-60))
 
     def new_word(self):
-        return "HomingMissilesTestTag"
+        return self.word_generator.request_word(12,1)
 
 
 class HomingMissiles():

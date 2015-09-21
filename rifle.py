@@ -79,7 +79,7 @@ class RifleTargetingSystem():
 
     def draw_terminal(self, screen):
         terminal_rect = pygame.Rect(10 * self.DRAWING_SCALE_, screen.get_height()-(40* self.DRAWING_SCALE_),
-                                    200 * self.DRAWING_SCALE_, 25 * self.DRAWING_SCALE_)
+                                    400 * self.DRAWING_SCALE_, 25 * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, BLUE, terminal_rect)
         pygame.draw.rect(screen, WHITE, terminal_rect, 2 * self.DRAWING_SCALE_)
 

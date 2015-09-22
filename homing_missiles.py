@@ -1,5 +1,6 @@
 import pygame
 from wordgenerator import WordGenerator
+from targeting_terminal import TargetingTerminal
 
 pygame.font.init()
 
@@ -26,31 +27,25 @@ class HomingMissilesTargetingSystem():
         self.main_character_color_ = GREEN
         self.target_tags_ = dict()
         self.current_text_ = ""
+        self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
 
     def update(self, events):
         for enemy in self.universe_.enemies_.values():
             if enemy.ID_ not in self.target_tags_:
                 self.target_tags_[enemy.ID_] = self.new_word()
 
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == EVENT_KEY_ENTER:
-                    self.current_text_ = ""
-                if event.key == EVENT_KEY_BACKSPACE:
-                    self.current_text_ = self.current_text_[:-1]
-                elif event.key in range(EVENT_KEY_a, EVENT_KEY_z+1):
-                    self.current_text_ += event.unicode.lower()
+        self.targeting_terminal_.update(events)
 
     def draw(self, screen):
         self.draw_background(screen)
-        self.draw_entities(screen)
+        self.draw_gameobjects(screen)
         self.draw_target_tags(screen)
-        self.draw_terminal(screen)
+        self.targeting_terminal_.draw_terminal(screen)
 
     def draw_background(self, screen):
         pygame.draw.rect(screen, BLACK, pygame.Rect((0,0), screen.get_size()))
 
-    def draw_entities(self, screen):
+    def draw_gameobjects(self, screen):
         for enemy in self.universe_.enemies_.values():
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
@@ -74,15 +69,6 @@ class HomingMissilesTargetingSystem():
             screen.blit(target_tag_label, 
                         (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
                         (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (5 * self.DRAWING_SCALE_)))
-
-    def draw_terminal(self, screen):
-        terminal_rect = pygame.Rect(10 * self.DRAWING_SCALE_, screen.get_height()-(40* self.DRAWING_SCALE_),
-                                    400 * self.DRAWING_SCALE_, 25 * self.DRAWING_SCALE_)
-        pygame.draw.rect(screen, BLUE, terminal_rect)
-        pygame.draw.rect(screen, WHITE, terminal_rect, 2 * self.DRAWING_SCALE_)
-
-        text_label = self.ui_font_.render(self.current_text_, 1, WHITE)
-        screen.blit(text_label, (15 * self.DRAWING_SCALE_, screen.get_height()-(30 * self.DRAWING_SCALE_)))
 
     def new_word(self):
         return self.word_generator_.request_word(12,1)

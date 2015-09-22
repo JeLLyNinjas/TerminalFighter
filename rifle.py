@@ -24,17 +24,24 @@ class RifleTargetingSystem():
         self.enemy_color_ = RED
         self.main_character_color_ = GREEN
         self.target_tags_ = dict()
+
+        self.ids_for_target_tags_ = dict() 
+
         self.current_text_ = ""
 
     def update(self, events):
         for enemy in self.universe_.enemies():
             if enemy.ID_ not in self.target_tags_:
-                self.target_tags_[enemy.ID_] = self.new_word()
+            	new_word = self.new_word()
+            	self.target_tags_[enemy.ID_] = new_word
+            	self.ids_for_target_tags_[new_word] = enemy.ID_ 
 
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == EVENT_KEY_ENTER:
                     self.current_text_ = ""
+                    # ******** this is where you would update rifle projectile 
+					#self.update(self.universe_, self.current_text_)
                 if event.key == EVENT_KEY_BACKSPACE:
                     self.current_text_ = self.current_text_[:-1]
                 elif event.key in range(EVENT_KEY_a, EVENT_KEY_z+1):
@@ -87,6 +94,26 @@ class RifleTargetingSystem():
     def new_word(self):
         return self.word_generator.request_word(3,3)
 
+class RifleProjectile(): 
+
+	def __init__(self, universe, current_text):
+		self.universe = universe 
+		self.input_ = current_text
+
+	def update(self,events): 
+		target_ID = getTargetID(input_)
+		if (targetID): 
+			target_position = self.universe.enemies_[target_ID].position_ 	
+			print(target_position)	#test 
+			# shoot projectile towards where enemy was at that time. 
+
+	def getTargetID(input): 
+		for enemy in self.universe_.enemies(): 
+			target_tag_word = self.target_tags_[enemy.ID_]
+			if(input == target_tag_word)
+				return ids_for_target_tags_[input]
+			else		# input does not exist 
+				return 0
 
 class Rifle():
 
@@ -101,3 +128,5 @@ class Rifle():
 
     def draw(self, screen):
         self.targeting_system.draw(screen)
+
+# self.rifle_projectile = RifleProjectile() 			# where to put this ?

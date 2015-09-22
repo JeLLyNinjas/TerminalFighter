@@ -13,3 +13,8 @@ class BasicGrunt(GameObject):
 
     def update(self, events):
         self.position_ = (self.position_[0], self.position_[1]+self.speed_)
+
+    def collision_box(self):
+    	return pygame.Rect(self.position_[0]-self.size_/2,
+        			       self.position_[1]-self.size_/2,
+        			       self.size_, self.size_)

@@ -9,7 +9,7 @@ class BasicGrunt(GameObject):
         self.position_ = starting_position
         self.ID_ = self.create_ID()
         self.size_ = 15
-        self.speed_ = 2
+        self.speed_ = 0.5
 
     def update(self, events):
         self.position_ = (self.position_[0], self.position_[1]+self.speed_)

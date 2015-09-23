@@ -55,3 +55,8 @@ class MainCharacter(GameObject):
             if event.type == pygame.KEYDOWN:
                 if event.key in range(EVENT_KEY_1, EVENT_KEY_1+len(self.weapons_)):
                     self.selected_weapon_index_ = event.key - EVENT_KEY_1
+
+    def collision_box(self):
+        return pygame.Rect(self.position_[0]-self.size_/2,
+                           self.position_[1]-self.size_/2,
+                           self.size_, self.size_)

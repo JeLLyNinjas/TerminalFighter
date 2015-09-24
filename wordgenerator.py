@@ -25,7 +25,7 @@ class WordGenerator():
     def setup_word_array():
         with open(FILENAME) as infile:
             for line in infile:
-                self.word_array.append(line.rstrip('\n'))
+                self.word_array.append(line.rstrip("\n"))
         random.shuffle(self.word_array)
         self.word_array.sort(key=len)
         self.split_list(self.word_array)
@@ -122,7 +122,7 @@ class WordGenerator():
         for i in range(len(self.word_array)):
             print("Index: " + repr(i) + " Word: " + self.word_array[i])
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     tester = WordGenerator()
     for i in range(100):
         print("random word: " + tester.request_word(19, 1))

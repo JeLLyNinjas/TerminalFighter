@@ -67,6 +67,6 @@ class MainCharacter(GameObject):
                 ui_weapon_text_colour = RED
 
             weapon_label = self.ui_font.render(
-                str(i+1) + '. ' + weapon.NAME_, 1, ui_weapon_text_colour)
+                str(i+1) + ". " + weapon.NAME_, 1, ui_weapon_text_colour)
             screen.blit(weapon_label, (5 * self.DRAWING_SCALE_, (i*10) * self.DRAWING_SCALE_))
 

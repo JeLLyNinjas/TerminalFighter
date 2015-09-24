@@ -10,20 +10,21 @@ EVENT_KEY_a = 97
 EVENT_KEY_z = 122
 EVENT_KEY_ENTER = 13
 EVENT_KEY_BACKSPACE = 8
-fontSize = 15
-terminalRectX = 10
-terminalRectY = 40
-terminalWidth = 400
-terminalHeight = 25
-maxTextWidth = 380
-borderRectWidth = 2
-textAntialias = 1
-textX = 15
-textY = 35 
 
 class TargetingTerminal():
     
-    def __init__(self, DRAWING_SCALE):
+    def __init__(self, DRAWING_SCALE): 
+        self.fontSize_ = 15
+        self.terminalRectX_ = 10
+        self.terminalRectY_ = 40
+        self.terminalWidth_ = 400
+        self.terminalHeight_ = 25
+        self.maxTextWidth_ = 380
+        self.borderRectWidth_ = 2
+        self.textAlias_ = 1
+        self.textX_ = 15
+        self.textY_ = 15
+
         self.current_text_ = ""
         self.ui_font_ = pygame.font.SysFont("monospace", fontSize*DRAWING_SCALE)
         self.DRAWING_SCALE_ = DRAWING_SCALE

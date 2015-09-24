@@ -16,9 +16,12 @@ class WordGenerator():
     def __init__(self):
         self.index_locations = []
         self.index_prime_locations = []
-        self.word_array = []
         self.number_of_lengths = 0
         self.smallest_length = []
+        self.word_array = []
+        self.setup_word_array()
+
+    def setup_word_array():
         with open(FILENAME) as infile:
             for line in infile:
                 self.word_array.append(line.rstrip('\n'))
@@ -110,6 +113,10 @@ class WordGenerator():
      
         return self.word_array[index_of_word]
 
+    '''
+    For debug purposes
+    '''
+    
     def print_list(self):
         for i in range(len(self.word_array)):
             print("Index: " + repr(i) + " Word: " + self.word_array[i])

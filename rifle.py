@@ -1,40 +1,49 @@
 import pygame
-from wordgenerator import WordGenerator
+
 from targeting_terminal import TargetingTerminal 
+from wordgenerator import WordGenerator
 
 pygame.font.init()
 
 BLACK = 0, 0, 0
-RED = 255, 0, 0
-GREEN = 0, 255, 0
 BLUE = 0, 0, 255
+GREEN = 0, 255, 0
+RED = 255, 0, 0
 WHITE = 255, 255, 255
+
 EVENT_KEY_a = 97
-EVENT_KEY_z = 122
-EVENT_KEY_ENTER = 13
 EVENT_KEY_BACKSPACE = 8
+EVENT_KEY_ENTER = 13
+EVENT_KEY_z = 122
 
 
 class RifleTargetingSystem():
 
     def __init__(self, universe, DRAWING_SCALE):
-        self.word_generator_ = WordGenerator()
-        self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
-        self.ui_font_ = pygame.font.SysFont("monospace", 15*DRAWING_SCALE)
+        self.universe_ = universe
+
+        self.current_text_ = ""
         self.enemy_color_ = RED
         self.main_character_color_ = GREEN
         self.target_tags_ = dict()
-        self.current_text_ = ""
         self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
+        self.ui_font_ = pygame.font.SysFont("monospace", 15*DRAWING_SCALE)
+        self.word_generator_ = WordGenerator()
 
+    """
+    Update Functions
+    """
     def update(self, events):
         for enemy in self.universe_.enemies():
             if enemy.ID_ not in self.target_tags_:
-                self.target_tags_[enemy.ID_] = self.new_word()
+                self.target_tags_[enemy.ID_] = self.word_generator_.request_word(3,3)
         
         self.targeting_terminal_.update(events)
 
+    """
+    Draw Functions
+    """
     def draw(self, screen):
         self.draw_background(screen)
         self.draw_entities(screen)
@@ -70,15 +79,12 @@ class RifleTargetingSystem():
                         (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
                         (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (5 * self.DRAWING_SCALE_)))
 
-    def new_word(self):
-        return self.word_generator_.request_word(3,3)
-
-
 class Rifle():
 
     def __init__(self, universe, DRAWING_SCALE):
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
+        
         self.NAME_ = "Rifle"
         self.targeting_system = RifleTargetingSystem(universe, DRAWING_SCALE)
 

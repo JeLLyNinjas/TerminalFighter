@@ -35,9 +35,9 @@ class Universe():
 
     def update(self, events):
         self.update_collisions()
-        print("Collisions : " + str(self.collisions_))
-        # print(str(len(self.gameobjects_)) + "gameobjects, " +
-              # str(len(self.enemies_)) + " enemies")
+        # print("Collisions : " + str(self.collisions_))
+        print(str(len(self.gameobjects_)) + " gameobjects")
+        # print(str(len(self.enemies_)) + " enemies")
         self.delete_out_of_bounds_gameobjects()
         for entity in self.gameobjects():
             entity.update(events)

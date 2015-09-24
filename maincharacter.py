@@ -25,6 +25,7 @@ class MainCharacter(GameObject):
         self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE), HomingMissiles(self.universe_, DRAWING_SCALE)]
         self.selected_weapon_index_ = 0
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
+        self.health_ = 100
 
     def draw_view(self, screen):
         self.current_weapon_.draw(screen)
@@ -60,3 +61,9 @@ class MainCharacter(GameObject):
         return pygame.Rect(self.position_[0]-self.size_/2,
                            self.position_[1]-self.size_/2,
                            self.size_, self.size_)
+
+    def take_damage(self, damage):
+        if damage >= self.health_:
+            self.health_ = 0
+        else:
+            self.health_ -= damage

@@ -11,10 +11,10 @@ EVENT_KEY_z = 122
 EVENT_KEY_ENTER = 13
 EVENT_KEY_BACKSPACE = 8
 fontSize = 15
-rectX = 10
-rectY = 40
-rectWidth = 400
-rectHeight = 25
+terminalRectX = 10
+terminalRectY = 40
+terminalWidth = 400
+terminalHeight = 25
 maxTextWidth = 380
 borderRectWidth = 2
 textAntialias = 1
@@ -37,13 +37,13 @@ class TargetingTerminal():
                     self.current_text_ = ""
                 if event.key == EVENT_KEY_BACKSPACE:
                     self.current_text_ = self.current_text_[:-1]
-                elif event.key in range(EVENT_KEY_a, EVENT_KEY_z) and textWidth < maxTextWidth:
+                elif event.key in range(EVENT_KEY_a, EVENT_KEY_z) and textWidth < maxTextWidth*self.DRAWING_SCALE_:
                     self.current_text_ += event.unicode.lower()
 
     def draw_terminal(self, screen):
         if not self.terminal_rect_:
-            self.terminal_rect_ = pygame.Rect(rectX*self.DRAWING_SCALE_, screen.get_height()-rectY*self.DRAWING_SCALE_, 
-                                              rectWidth*self.DRAWING_SCALE_, rectHeight*self.DRAWING_SCALE_)
+            self.terminal_rect_ = pygame.Rect(terminalRectX*self.DRAWING_SCALE_, screen.get_height()-terminalRectY*self.DRAWING_SCALE_, 
+                                              terminalWidth*self.DRAWING_SCALE_, terminalHeight*self.DRAWING_SCALE_)
         
         pygame.draw.rect(screen, BLUE,self.terminal_rect_)
         pygame.draw.rect(screen, WHITE, self.terminal_rect_, borderRectWidth*self.DRAWING_SCALE_)

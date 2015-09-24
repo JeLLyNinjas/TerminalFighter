@@ -7,9 +7,9 @@ import pygame
 
 FILENAME = "american-english.txt"
 
-'''
+"""
 Opens the file CONST_FILENAME and reads entire file to word_array list. Shuffles the array and then sorts according to length
-'''
+"""
 
 
 class WordGenerator():
@@ -30,12 +30,12 @@ class WordGenerator():
         self.word_array.sort(key=len)
         self.split_list(self.word_array)
 
-    '''
+    """
     Will populate the list index_locations on where each new length starts
     For example, index_locations[3] will give you the location of the first word with length 3
     index_locations[4] will give you location of first word with length 4, etc.
     index_prime_locations will be incremented and used to keep track of which words have been given out.
-    '''
+    """
 
     def split_list(self, list):
         longest_length = len(list[-1])
@@ -49,9 +49,9 @@ class WordGenerator():
             self.index_locations.append(self.locate_first_length(x))
         self.index_prime_locations = deepcopy(self.index_locations)
 
-    '''
+    """
     log(n) binary search to find the first length
-    '''
+    """
 
     def locate_first_length(self, requested_length):
         found = False
@@ -76,10 +76,10 @@ class WordGenerator():
             return True
         return len(self.word_array[index]) != len(self.word_array[index-1])
 
-    '''
+    """
     If you want words with length 4-6 (inclusive), request_word(4,3)
     If you want words with length of 2, request_word(2,1)
-    '''
+    """
 
     def request_word(self, shortest_word, word_length_range):
         if (shortest_word + word_length_range) > self.number_of_lengths:
@@ -114,9 +114,9 @@ class WordGenerator():
      
         return self.word_array[index_of_word]
 
-    '''
+    """
     For debug purposes
-    '''
+    """
 
     def print_list(self):
         for i in range(len(self.word_array)):

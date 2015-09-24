@@ -38,7 +38,7 @@ class TargetingTerminal():
                 if event.key == EVENT_KEY_BACKSPACE:
                     self.current_text_ = self.current_text_[:-1]
                 elif event.key in range(EVENT_KEY_a, EVENT_KEY_z) and textWidth < maxTextWidth*self.DRAWING_SCALE_:
-                    self.current_text_ += event.unicode.lower()
+                    self.current_text_ += chr(event.key)
 
     def draw_terminal(self, screen):
         if not self.terminal_rect_:

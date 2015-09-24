@@ -32,11 +32,16 @@ class HomingMissilesTargetingSystem():
 
         self.current_text_ = ""
         self.enemy_color_ = YELLOW
+        self.font_size_ = 15
         self.main_character_color_ = GREEN
         self.target_tags_ = dict()
+        self.target_tag_y_spacing_ = 5
         self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
-        self.ui_font_ = pygame.font.SysFont("monospace", 15*DRAWING_SCALE)
+        self.text_antialias = 1
+        self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
         self.word_generator_ = WordGenerator()
+        self.word_length_min_ = 12
+        self.word_length_range = 1
 
     """
     Update Functions
@@ -45,10 +50,11 @@ class HomingMissilesTargetingSystem():
     def update(self, events):
         for enemy in self.universe_.enemies_.values():
             if enemy.ID_ not in self.target_tags_:
-                self.target_tags_[
-                    enemy.ID_] = self.word_generator_.request_word(12, 1)
+                self.target_tags_[enemy.ID_] = \
+                                self.word_generator_.request_word(self.word_length_min_, 
+                                                                  self.word_length_range)
 
-        self.targeting_terminal_.update(events)
+        self.targeting_terminal_.update(events) 
 
     """
     Draw Functions
@@ -82,11 +88,11 @@ class HomingMissilesTargetingSystem():
         for enemy in self.universe_.enemies_.values():
             target_tag_word = self.target_tags_[enemy.ID_]
             target_tag_label = self.ui_font_.render(
-                target_tag_word, 1, self.enemy_color_)
+                target_tag_word, self.text_antialias, self.enemy_color_)
             width = self.ui_font_.size(target_tag_word)[0]
             screen.blit(target_tag_label,
                         (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
-                        (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (5 * self.DRAWING_SCALE_)))
+                        (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (self.target_tag_y_spacing_ * self.DRAWING_SCALE_)))
 
 
 class HomingMissiles():

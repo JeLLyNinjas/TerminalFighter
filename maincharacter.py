@@ -20,12 +20,16 @@ class MainCharacter(GameObject):
         self.position_ = starting_position
         self.universe_ = universe
 
+        self.text_antialias_ = 1
         self.ID_ = self.create_ID()
+        self.font_size_ = 15
         self.selected_weapon_index_ = 0
         self.size_ = 20
-        self.ui_font = pygame.font.SysFont("monospace", 15 * DRAWING_SCALE)
+        self.ui_font = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
         self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE), 
                          HomingMissiles(self.universe_, DRAWING_SCALE)]
+        self.weapon_label_x_spacing_ = 5
+        self.weapon_label_y_spacing_ = 10
         
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
 
@@ -72,7 +76,8 @@ class MainCharacter(GameObject):
             if i == self.selected_weapon_index_:
                 ui_weapon_text_colour = RED
 
-            weapon_label = self.ui_font.render(
-                str(i+1) + ". " + weapon.NAME_, 1, ui_weapon_text_colour)
-            screen.blit(
-                weapon_label, (5 * self.DRAWING_SCALE_, (i*10) * self.DRAWING_SCALE_))
+            weapon_label = self.ui_font.render(str(i+1) + ". " + weapon.NAME_, 
+                                               self.text_antialias_, 
+                                               ui_weapon_text_colour)
+            screen.blit(weapon_label, (self.weapon_label_x_spacing_*self.DRAWING_SCALE_, 
+                                       (i*self.weapon_label_y_spacing_)*self.DRAWING_SCALE_))

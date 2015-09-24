@@ -30,8 +30,8 @@ class TargetingTerminal():
         self.textAlias_ = 1
         self.textX_ = 15
         self.textY_ = 35
-        self.ui_font_ = pygame.font.SysFont(
-            "monospace", self.fontSize_*DRAWING_SCALE)
+        self.ui_font_ = pygame.font.SysFont("monospace", 
+                                            self.fontSize_*DRAWING_SCALE)
 
     """
     Update functions
@@ -45,7 +45,8 @@ class TargetingTerminal():
                     self.current_text_ = ""
                 if event.key == EVENT_KEY_BACKSPACE:
                     self.current_text_ = self.current_text_[:-1]
-                elif event.key in range(EVENT_KEY_a, EVENT_KEY_z) and textWidth < self.maxTextWidth_*self.DRAWING_SCALE_:
+                elif event.key in range(EVENT_KEY_a, EVENT_KEY_z) and \
+                                textWidth < self.maxTextWidth_*self.DRAWING_SCALE_:
                     self.current_text_ += chr(event.key)
 
     """
@@ -54,14 +55,20 @@ class TargetingTerminal():
 
     def draw_terminal(self, screen):
         if not self.terminal_rect_:
-            self.terminal_rect_ = pygame.Rect(self.terminalRectX_*self.DRAWING_SCALE_, screen.get_height()-self.terminalRectY_*self.DRAWING_SCALE_,
-                                              self.terminalWidth_*self.DRAWING_SCALE_, self.terminalHeight_*self.DRAWING_SCALE_)
+            self.terminal_rect_ = pygame.Rect(self.terminalRectX_*self.DRAWING_SCALE_, 
+                                              screen.get_height()-self.terminalRectY_*self.DRAWING_SCALE_,
+                                              self.terminalWidth_*self.DRAWING_SCALE_, 
+                                              self.terminalHeight_*self.DRAWING_SCALE_)
 
         pygame.draw.rect(screen, BLUE, self.terminal_rect_)
-        pygame.draw.rect(
-            screen, WHITE, self.terminal_rect_, self.borderRectWidth_*self.DRAWING_SCALE_)
+        pygame.draw.rect(screen, 
+                         WHITE, 
+                         self.terminal_rect_, 
+                         self.borderRectWidth_*self.DRAWING_SCALE_)
 
-        text_label = self.ui_font_.render(
-            self.current_text_, self.textAlias_, WHITE)
-        screen.blit(text_label, (self.textX_ * self.DRAWING_SCALE_,
-                                 screen.get_height()-(self.textY_ * self.DRAWING_SCALE_)))
+        text_label = self.ui_font_.render(self.current_text_, 
+                                          self.textAlias_, 
+                                          WHITE)
+        screen.blit(text_label, 
+                    (self.textX_ * self.DRAWING_SCALE_,
+                     screen.get_height()-(self.textY_ * self.DRAWING_SCALE_)))

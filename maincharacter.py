@@ -24,8 +24,8 @@ class MainCharacter(GameObject):
         self.selected_weapon_index_ = 0
         self.size_ = 20
         self.ui_font = pygame.font.SysFont("monospace", 15 * DRAWING_SCALE)
-        self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE), HomingMissiles(
-            self.universe_, DRAWING_SCALE)]
+        self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE), 
+                         HomingMissiles(self.universe_, DRAWING_SCALE)]
         
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
 
@@ -36,7 +36,8 @@ class MainCharacter(GameObject):
     def collision_box(self):
         return pygame.Rect(self.position_[0]-self.size_/2,
                            self.position_[1]-self.size_/2,
-                           self.size_, self.size_)
+                           self.size_, 
+                           self.size_)
 
     """
     Update Functions

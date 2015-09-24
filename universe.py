@@ -20,6 +20,7 @@ class Universe():
     """
     Access Functions
     """
+
     def get_collisions(self, gameobject):
         return self.collisions_[gameobject.ID_]
 
@@ -38,6 +39,7 @@ class Universe():
     """
     Update Functions
     """
+
     def update_collisions(self):
         self.collisions_ = dict()
         for gameobject_id in self.gameobjects_:
@@ -47,15 +49,18 @@ class Universe():
                 if gameobject_a_id == gameobject_b_id:
                     pass
                 else:
-                    gameobject_a_collision_box = self.gameobjects_[gameobject_a_id].collision_box() 
-                    gameobject_b_collision_box = self.gameobjects_[gameobject_b_id].collision_box() 
+                    gameobject_a_collision_box = self.gameobjects_[
+                        gameobject_a_id].collision_box()
+                    gameobject_b_collision_box = self.gameobjects_[
+                        gameobject_b_id].collision_box()
                     if gameobject_a_collision_box.colliderect(gameobject_b_collision_box):
-                        self.collisions_[gameobject_a_id].append(gameobject_b_id)
+                        self.collisions_[gameobject_a_id].append(
+                            gameobject_b_id)
 
     def create_enemy(self, the_enemy):
         self.enemies_[the_enemy.ID_] = the_enemy
         self.gameobjects_[the_enemy.ID_] = the_enemy
-    
+
     def create_main_character(self, the_main_character):
         self.main_character_ = the_main_character
         self.gameobjects_[the_main_character.ID_] = the_main_character
@@ -80,8 +85,7 @@ class Universe():
         self.update_collisions()
         print("Collisions : " + str(self.collisions_))
         # print(str(len(self.gameobjects_)) + "gameobjects, " +
-              # str(len(self.enemies_)) + " enemies")
+        # str(len(self.enemies_)) + " enemies")
         self.delete_out_of_bounds_gameobjects()
         for entity in self.gameobjects():
             entity.update(events)
-

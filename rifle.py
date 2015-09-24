@@ -1,6 +1,6 @@
 import pygame
 
-from targeting_terminal import TargetingTerminal 
+from targeting_terminal import TargetingTerminal
 from wordgenerator import WordGenerator
 
 pygame.font.init()
@@ -34,16 +34,19 @@ class RifleTargetingSystem():
     """
     Update Functions
     """
+
     def update(self, events):
         for enemy in self.universe_.enemies():
             if enemy.ID_ not in self.target_tags_:
-                self.target_tags_[enemy.ID_] = self.word_generator_.request_word(3,3)
-        
+                self.target_tags_[
+                    enemy.ID_] = self.word_generator_.request_word(3, 3)
+
         self.targeting_terminal_.update(events)
 
     """
     Draw Functions
     """
+
     def draw(self, screen):
         self.draw_background(screen)
         self.draw_entities(screen)
@@ -51,20 +54,23 @@ class RifleTargetingSystem():
         self.targeting_terminal_.draw_terminal(screen)
 
     def draw_background(self, screen):
-        pygame.draw.rect(screen, BLACK, pygame.Rect((0,0), screen.get_size()))
+        pygame.draw.rect(screen, BLACK, pygame.Rect((0, 0), screen.get_size()))
 
     def draw_entities(self, screen):
         for enemy in self.universe_.enemies():
-            enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_ ,
-                                     (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_ ,
+            enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
+                                     (enemy.position_[
+                                      1]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_)
             pygame.draw.rect(screen, self.enemy_color_, enemy_rect)
 
         main_character = self.universe_.main_character_
         main_character_rect = pygame.Rect((main_character.position_[0]-main_character.size_/2) * self.DRAWING_SCALE_,
-                                          (main_character.position_[1]-main_character.size_/2) * self.DRAWING_SCALE_,
-                                          main_character.size_ * self.DRAWING_SCALE_,
+                                          (main_character.position_[
+                                           1]-main_character.size_/2) * self.DRAWING_SCALE_,
+                                          main_character.size_ *
+                                          self.DRAWING_SCALE_,
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(
             screen, self.main_character_color_, main_character_rect)
@@ -75,16 +81,17 @@ class RifleTargetingSystem():
             target_tag_label = self.ui_font_.render(
                 target_tag_word, 1, self.enemy_color_)
             width = self.ui_font_.size(target_tag_word)[0]
-            screen.blit(target_tag_label, 
+            screen.blit(target_tag_label,
                         (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
-                        (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (5 * self.DRAWING_SCALE_)))
+                         (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (5 * self.DRAWING_SCALE_)))
+
 
 class Rifle():
 
     def __init__(self, universe, DRAWING_SCALE):
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
-        
+
         self.NAME_ = "Rifle"
         self.targeting_system = RifleTargetingSystem(universe, DRAWING_SCALE)
 

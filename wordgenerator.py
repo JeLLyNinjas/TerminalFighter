@@ -22,7 +22,7 @@ class WordGenerator():
         self.word_array = []
         self.setup_word_array()
 
-    def setup_word_array():
+    def setup_word_array(self):
         with open(FILENAME) as infile:
             for line in infile:
                 self.word_array.append(line.rstrip("\n"))
@@ -91,14 +91,14 @@ class WordGenerator():
                   "giving you the largest shortest_word instead.")
             shortest_word = self.number_of_lengths - 1
             word_length_range = 1
-        
+
         if word_length_range >= 1:
             shortest_word = random.randrange(
                 shortest_word, shortest_word + word_length_range)
-        
+
         index_of_word = self.index_prime_locations[shortest_word]
         self.index_prime_locations[shortest_word] += 1
-        
+
         if shortest_word >= len(self.index_locations)-1:
             if self.index_prime_locations[shortest_word] == (len(self.word_array)-1):
                 print("You have exhuasted the pool of length " +
@@ -111,7 +111,7 @@ class WordGenerator():
                   repr(shortest_word) + " words, looping back to beginning")
             self.index_prime_locations[
                 shortest_word] = self.index_locations[shortest_word]
-     
+
         return self.word_array[index_of_word]
 
     """

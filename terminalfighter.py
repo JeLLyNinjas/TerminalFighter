@@ -22,7 +22,8 @@ GAME_WIDTH = 1000
 GAME_HEIGHT = 700
 WHITE = 0, 0, 0
 
-screen = pygame.display.set_mode((int(GAME_WIDTH*DRAWING_SCALE), int(GAME_HEIGHT*DRAWING_SCALE)))
+screen = pygame.display.set_mode(
+    (int(GAME_WIDTH*DRAWING_SCALE), int(GAME_HEIGHT*DRAWING_SCALE)))
 
 universe = Universe((GAME_WIDTH, GAME_HEIGHT))
 gamemaster = GameMaster(universe, DRAWING_SCALE)
@@ -46,7 +47,7 @@ while 1:
     gamemaster.update(events)
     # print("update time : " + str(pygame.time.get_ticks() - update_start_time))
 
-    draw_start_time = pygame.time.get_ticks() 
+    draw_start_time = pygame.time.get_ticks()
     gamemaster.draw(screen)
     # print("draw time : " + str(pygame.time.get_ticks() - draw_start_time))
 

@@ -21,8 +21,10 @@ class GameMaster():
         self.universe_.main_character_.draw_ui(screen)
 
     def spawn_main_character(self):
-        starting_position = [self.universe_.width_*0.5, self.universe_.height_*0.9]
-        the_main_character = MainCharacter(starting_position, self.universe_, self.DRAWING_SCALE_)
+        starting_position = [
+            self.universe_.width_*0.5, self.universe_.height_*0.9]
+        the_main_character = MainCharacter(
+            starting_position, self.universe_, self.DRAWING_SCALE_)
         self.universe_.create_main_character(the_main_character)
 
     def spawn_basic_grunt(self):
@@ -37,4 +39,3 @@ class GameMaster():
             self.basic_grunt_spawn_timer = 0
 
         self.universe_.update(events)
-

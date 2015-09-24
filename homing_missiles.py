@@ -37,7 +37,7 @@ class HomingMissilesTargetingSystem():
         self.target_tags_ = dict()
         self.target_tag_y_spacing_ = 5
         self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
-        self.text_antialias = 1
+        self.text_antialias_ = 1
         self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
         self.word_generator_ = WordGenerator()
         self.word_length_min_ = 12
@@ -88,7 +88,7 @@ class HomingMissilesTargetingSystem():
         for enemy in self.universe_.enemies_.values():
             target_tag_word = self.target_tags_[enemy.ID_]
             target_tag_label = self.ui_font_.render(
-                target_tag_word, self.text_antialias, self.enemy_color_)
+                target_tag_word, self.text_antialias_, self.enemy_color_)
             width = self.ui_font_.size(target_tag_word)[0]
             screen.blit(target_tag_label,
                         (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),

@@ -13,7 +13,7 @@ class GameMaster():
         self.DRAWING_SCALE_ = DRAWING_SCALE
 
         self.basic_grunt_spawn_delay_ = 200
-        self.basic_grunt_spawn_timer_ = 0
+        self.basic_grunt_spawn_timer_ = 199
         self.basic_grunt_x_spawn_locations = [x/100 for x in range(20, 80)] 
         self.main_character_spawn_height_ = self.universe_.height_*0.9
         self.spawn_main_character()

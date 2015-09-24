@@ -52,7 +52,8 @@ class Universe():
         for entity_ID in out_of_bounds_IDs:
             self.gameobjects_.pop(entity_ID, None)
             self.enemies_.pop(entity_ID, None)
-            self.projectiles_.pop(entity_ID, None)
+            self.friendly_projectiles_.pop(entity_ID, None)
+            self.enemy_projectiles_.pop(entity_ID, None)
 
     def gameobjects(self):
         return self.gameobjects_.values()

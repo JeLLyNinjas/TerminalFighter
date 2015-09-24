@@ -2,8 +2,8 @@ import random
 
 import pygame
 
-from maincharacter import MainCharacter
 from basic_grunt import BasicGrunt
+from maincharacter import MainCharacter
 
 
 class GameMaster():

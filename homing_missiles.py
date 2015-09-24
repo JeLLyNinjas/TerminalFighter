@@ -1,6 +1,7 @@
 import pygame
-from wordgenerator import WordGenerator
+
 from targeting_terminal import TargetingTerminal
+from wordgenerator import WordGenerator
 
 pygame.font.init()
 

@@ -1,8 +1,8 @@
 import pygame
 
-from rifle import Rifle
-from homing_missiles import HomingMissiles
 from gameobject import GameObject
+from homing_missiles import HomingMissiles
+from rifle import Rifle
 
 
 BLACK = 0, 0, 0

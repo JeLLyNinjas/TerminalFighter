@@ -2,8 +2,8 @@ import sys
 
 import pygame
 
-from universe import Universe
 from gamemaster import GameMaster
+from universe import Universe
 
 pygame.init()
 pygame.font.init()

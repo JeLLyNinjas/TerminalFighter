@@ -1,8 +1,9 @@
-import pygame
+from copy import deepcopy
+import math
 import random
 import sys
-import math
-from copy import deepcopy
+
+import pygame
 
 FILENAME = "american-english.txt"
 
@@ -116,7 +117,7 @@ class WordGenerator():
     '''
     For debug purposes
     '''
-    
+
     def print_list(self):
         for i in range(len(self.word_array)):
             print("Index: " + repr(i) + " Word: " + self.word_array[i])

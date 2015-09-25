@@ -7,10 +7,15 @@ class BasicGrunt(GameObject):
 
     def __init__(self, starting_position, universe):
         self.position_ = starting_position
+
         self.ID_ = self.create_ID()
         self.size_ = 15
         self.speed_ = 0.3
         self.universe_ = universe   
+
+    """
+    Update Functions
+    """
 
     def update(self, events):
         main_character_position = self.universe_.main_character().position_
@@ -32,7 +37,13 @@ class BasicGrunt(GameObject):
         else:
             self.position_ = (self.position_[0], self.position_[1])
                 
+
+    """
+    Access Functions
+    """
+
     def collision_box(self):
-    	return pygame.Rect(self.position_[0]-self.size_/2,
-        			       self.position_[1]-self.size_/2,
-        			       self.size_, self.size_)
+        return pygame.Rect(self.position_[0]-self.size_/2,
+                           self.position_[1]-self.size_/2,
+                           self.size_, 
+                           self.size_)

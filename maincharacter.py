@@ -1,8 +1,8 @@
 import pygame
 
-from rifle import Rifle
-from homing_missiles import HomingMissiles
 from gameobject import GameObject
+from homing_missiles import HomingMissiles
+from rifle import Rifle
 
 
 BLACK = 0, 0, 0
@@ -16,30 +16,36 @@ EVENT_KEY_5 = 53
 class MainCharacter(GameObject):
 
     def __init__(self, starting_position, universe, DRAWING_SCALE):
+        self.DRAWING_SCALE_ = DRAWING_SCALE
         self.position_ = starting_position
         self.universe_ = universe
-        self.DRAWING_SCALE_ = DRAWING_SCALE
-        self.ui_font = pygame.font.SysFont("monospace", 15 * DRAWING_SCALE)
+
+        self.text_antialias_ = 1
         self.ID_ = self.create_ID()
-        self.size_ = 20
-        self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE), HomingMissiles(self.universe_, DRAWING_SCALE)]
+        self.font_size_ = 15
         self.selected_weapon_index_ = 0
+        self.size_ = 20
+        self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
+        self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE), 
+                         HomingMissiles(self.universe_, DRAWING_SCALE)]
+        self.weapon_label_x_spacing_ = 5
+        self.weapon_label_y_spacing_ = 10
+        
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
 
-    def draw_view(self, screen):
-        self.current_weapon_.draw(screen)
-        self.draw_ui(screen)
+    """
+    Access Functions
+    """
 
-    def draw_ui(self, screen):
-        for i, weapon in enumerate(self.weapons_):
+    def collision_box(self):
+        return pygame.Rect(self.position_[0]-self.size_/2,
+                           self.position_[1]-self.size_/2,
+                           self.size_, 
+                           self.size_)
 
-            ui_weapon_text_colour = WHITE
-            if i == self.selected_weapon_index_:
-                ui_weapon_text_colour = RED
-
-            weapon_label = self.ui_font.render(
-                str(i+1) + '. ' + weapon.NAME_, 1, ui_weapon_text_colour)
-            screen.blit(weapon_label, (5 * self.DRAWING_SCALE_, (i*10) * self.DRAWING_SCALE_))
+    """
+    Update Functions
+    """
 
     def update(self, events, position=None):
         if position:
@@ -56,7 +62,22 @@ class MainCharacter(GameObject):
                 if event.key in range(EVENT_KEY_1, EVENT_KEY_1+len(self.weapons_)):
                     self.selected_weapon_index_ = event.key - EVENT_KEY_1
 
-    def collision_box(self):
-        return pygame.Rect(self.position_[0]-self.size_/2,
-                           self.position_[1]-self.size_/2,
-                           self.size_, self.size_)
+    """
+    Draw Functions
+    """
+
+    def draw_view(self, screen):
+        self.current_weapon_.draw(screen)
+        self.draw_ui(screen)
+
+    def draw_ui(self, screen):
+        for i, weapon in enumerate(self.weapons_):
+            ui_weapon_text_colour = WHITE
+            if i == self.selected_weapon_index_:
+                ui_weapon_text_colour = RED
+
+            weapon_label = self.ui_font_.render(str(i+1) + ". " + weapon.NAME_, 
+                                               self.text_antialias_, 
+                                               ui_weapon_text_colour)
+            screen.blit(weapon_label, (self.weapon_label_x_spacing_*self.DRAWING_SCALE_, 
+                                       (i*self.weapon_label_y_spacing_)*self.DRAWING_SCALE_))

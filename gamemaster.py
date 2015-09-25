@@ -24,7 +24,7 @@ class GameMaster():
 
     def spawn_basic_grunt(self):
         starting_position = [self.universe_.width_*random.randint(2, 8)/10, 0]
-        the_basic_grunt = BasicGrunt(starting_position)
+        the_basic_grunt = BasicGrunt(starting_position, self.universe_)
         self.universe_.create_enemy(the_basic_grunt)
 
     def update(self, events):

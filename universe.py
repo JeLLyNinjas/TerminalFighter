@@ -78,10 +78,13 @@ class Universe():
         self.update_enemy_projectiles_collisions()
 
     def update_main_character_collisions(self):
-        pass  # main character doesn't care what it collides with
+        self.collisions_[self.main_character_.ID_] = []
+        # main character doesn't care what it collides with
 
     def update_enemies_collisions(self):
-        pass  # enemies don't care what they collide with
+        for enemy_id in self.enemies_:
+        	self.collisions_[enemy_id] = []
+        # enemies don't care what they collide with
 
     def update_friendly_projectiles_collisions(self):
         for friendly_projectile_id in self.friendly_projectiles_:

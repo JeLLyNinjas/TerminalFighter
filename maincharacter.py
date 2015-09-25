@@ -46,7 +46,10 @@ class MainCharacter(GameObject):
                            self.size_)
 
     def take_damage(self, damage):
-        if damage >= self.health_:
+        if damage <= 0:
+            print("WARNING MainCharacter taking " + str(damage) + " damage")
+            print("Disregarding non positive damage")
+        elif damage >= self.health_:
             self.health_ = 0
         else:
             self.health_ -= damage

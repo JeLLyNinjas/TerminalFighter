@@ -1,8 +1,4 @@
 *.pyc
-
-# ============ #
-# OS generated #
-# ============ #
 .DS_Store
 .DS_Store?
 ._*
@@ -10,4 +6,8 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-.fuse*
+*.fuse*
+*.swo
+*.un~
+*.swp
+tags

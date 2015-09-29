@@ -17,6 +17,7 @@ class Universe(DestroyListener):
         self.created_enemy_projectiles = list()
         self.created_main_character = list()
         self.collisions_ = dict()
+        self.deleted_gameobjects_ = list()
         self.enemies_ = dict()
         self.enemy_projectiles_ = dict()
         self.friendly_projectiles_ = dict()
@@ -73,6 +74,13 @@ class Universe(DestroyListener):
 
         self.update_collisions()
         self.delete_out_of_bounds_gameobjects()
+        
+        for gameobject_id in self.deleted_gameobjects_:
+            self.gameobjects_.pop(gameobject_id, None)
+            self.enemies_.pop(gameobject_id, None)
+            self.friendly_projectiles_.pop(gameobject_id, None)
+            self.enemy_projectiles_.pop(gameobject_id, None)
+
         for gameobject in self.gameobjects():
             gameobject.update(events)
 
@@ -88,6 +96,7 @@ class Universe(DestroyListener):
         self.created_enemy_projectiles.append(the_projectilee)
 
     def create_friendly_projectile(self, the_projectile):
+        the_projectile.register(self)
         self.created_friendly_projectiles.append(the_projectile)
 
     def create_main_character(self, the_main_character):
@@ -134,23 +143,19 @@ class Universe(DestroyListener):
     def delete_out_of_bounds_gameobjects(self):
         out_of_bounds_IDs = []
 
-        for entity_ID in self.gameobjects_:
-            if not pygame.Rect((0, 0), self.bounds_).collidepoint(self.gameobjects_[entity_ID].position_):
-                out_of_bounds_IDs.append(entity_ID)
+        for gameobject_id in self.gameobjects_:
+            if not pygame.Rect((0, 0), self.bounds_).collidepoint(self.gameobjects_[gameobject_id].position_):
+                out_of_bounds_IDs.append(gameobject_id)
 
-        for entity_ID in out_of_bounds_IDs:
-            self.gameobjects_.pop(entity_ID, None)
-            self.enemies_.pop(entity_ID, None)
-            self.friendly_projectiles_.pop(entity_ID, None)
-            self.enemy_projectiles_.pop(entity_ID, None)
+        self.deleted_gameobjects_ += out_of_bounds_IDs
+
 
     """
     Listeners
     """
 
     def reported_destroyed(self, type_gameobject):
-        print("Universe recieved a destroyed object")
-        print(type_gameobject.ID_)
-        pass
-
+        self.deleted_gameobjects_.append(type_gameobject.ID_)
+        # print("Universe recieved a destroyed object")
+        # print(type_gameobject.ID_)
 

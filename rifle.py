@@ -146,6 +146,7 @@ class RifleProjectile(GameObject):
         self.universe_ = universe 
         self.ID_ = self.create_ID()
         self.initial_position_ = initial_position
+        self.listeners_ = []
         self.position_ = self.initial_position_
         self.target_position_ = target_position
         self.speed_ = 15
@@ -174,6 +175,9 @@ class RifleProjectile(GameObject):
         for collision in collisions:
             collision.take_damage(1000)
 
+        if collisions:
+            self.report_destroyed()
+
     def collision_box(self):
         return pygame.Rect(self.position_[0]-self.size_/2,
             self.position_[1]-self.size_/2,
@@ -190,8 +194,6 @@ class RifleProjectile(GameObject):
     
     def register(self, listeners):
         self.listeners_.append(listeners)
-        pass
-
 	
 
 class Rifle():

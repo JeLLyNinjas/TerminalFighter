@@ -73,6 +73,10 @@ class Universe(DestroyListener):
         self.created_enemy_projectiles.clear()
 
         self.update_collisions()
+
+        for gameobject in self.gameobjects():
+            gameobject.update(events)
+
         self.delete_out_of_bounds_gameobjects()
         
         for gameobject_id in self.deleted_gameobjects_:
@@ -80,9 +84,6 @@ class Universe(DestroyListener):
             self.enemies_.pop(gameobject_id, None)
             self.friendly_projectiles_.pop(gameobject_id, None)
             self.enemy_projectiles_.pop(gameobject_id, None)
-
-        for gameobject in self.gameobjects():
-            gameobject.update(events)
 
         #print("Collisions : " + str(self.collisions_))
         # print(str(len(self.gameobjects_)) + " gameobjects")

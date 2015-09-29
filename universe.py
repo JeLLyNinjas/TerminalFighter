@@ -12,6 +12,10 @@ class Universe(DestroyListener):
         self.height_ = bounds[1]
         self.width_ = bounds[0]
 
+        self.created_enemies = list()
+        self.created_friendly_projectiles = list() 
+        self.created_enemy_projectiles = list()
+        self.created_main_character = list()
         self.collisions_ = dict()
         self.enemies_ = dict()
         self.enemy_projectiles_ = dict()
@@ -46,31 +50,48 @@ class Universe(DestroyListener):
     """
 
     def update(self, events):
+        for the_projectile in self.created_friendly_projectiles:
+            self.friendly_projectiles_[the_projectile.ID_] = the_projectile
+            self.gameobjects_[the_projectile.ID_] = the_projectile
+        
+        for the_enemy in self.created_enemies:
+            self.enemies_[the_enemy.ID_] = the_enemy
+            self.gameobjects_[the_enemy.ID_] = the_enemy
+
+        for the_projectile in self.created_enemy_projectiles: 
+            self.enemy_projectiles_[the_projectile.ID_] = the_projectile
+            self.gameobjects_[the_projectile.ID_] = the_projectile
+
+        for the_main_character in self.created_main_character:
+            self.main_character_ = the_main_character
+            self.gameobjects_[the_main_character.ID_] = the_main_character
+
+        self.created_friendly_projectiles.clear()
+        self.created_enemies.clear()
+        self.created_main_character.clear()
+        self.created_enemy_projectiles.clear()
+
         self.update_collisions()
         self.delete_out_of_bounds_gameobjects()
         for gameobject in self.gameobjects():
             gameobject.update(events)
 
-        print("Collisions : " + str(self.collisions_))
+        #print("Collisions : " + str(self.collisions_))
         # print(str(len(self.gameobjects_)) + " gameobjects")
         # print(str(len(self.enemies_)) + " enemies")
 
     def create_enemy(self, the_enemy):
-        self.enemies_[the_enemy.ID_] = the_enemy
-        self.gameobjects_[the_enemy.ID_] = the_enemy
         the_enemy.register(self)
-
+        self.created_enemies.append(the_enemy)
+        
     def create_enemy_projectile(self, the_projectile):
-        self.enemy_projectiles_[the_projectile.ID_] = the_projectile
-        self.gameobjects_[the_projectile.ID_] = the_projectile
+        self.created_enemy_projectiles.append(the_projectilee)
 
     def create_friendly_projectile(self, the_projectile):
-        self.friendly_projectiles_[the_projectile.ID_] = the_projectile
-        self.gameobjects_[the_projectile.ID_] = the_projectile
+        self.created_friendly_projectiles.append(the_projectile)
 
     def create_main_character(self, the_main_character):
-        self.main_character_ = the_main_character
-        self.gameobjects_[the_main_character.ID_] = the_main_character
+        self.created_main_character.append(the_main_character)
 
     def update_collisions(self):
         self.collisions_ = dict()
@@ -97,7 +118,7 @@ class Universe(DestroyListener):
                 enemy_collision_box = self.gameobjects_[
                     enemy_id].collision_box()
                 if enemy_collision_box.colliderect(friendly_projectiles_collision_box):
-                    self.collisions_[friendly_projectile_id].append(enemy_id)
+                    self.collisions_[friendly_projectile_id].append(self.gameobjects_[enemy_id])
 
     def update_enemy_projectiles_collisions(self):
         for enemy_projectile_id in self.enemy_projectiles_:

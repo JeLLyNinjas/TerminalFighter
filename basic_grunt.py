@@ -20,7 +20,6 @@ class BasicGrunt(GameObject):
     """
 
     def update(self, events):
-        self.report_destroyed()
         main_character_position = self.universe_.main_character().position_
         x_distance = main_character_position[0] - self.position_[0]
         y_distance = main_character_position[1] - self.position_[1]
@@ -57,6 +56,7 @@ class BasicGrunt(GameObject):
             print("Disregarding non positive damage")
         elif damage >= self.health_:
             self.health_ = 0
+            self.report_destroyed()
         else:
             self.health_ -= damage
 

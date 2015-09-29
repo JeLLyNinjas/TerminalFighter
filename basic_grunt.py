@@ -13,12 +13,14 @@ class BasicGrunt(GameObject):
         self.speed_ = 0.5
         self.health_ = 30
         self.universe_ = universe
+        self.listeners_ = []
 
     """
     Update Functions
     """
 
     def update(self, events):
+        self.report_destroyed()
         main_character_position = self.universe_.main_character().position_
         x_distance = main_character_position[0] - self.position_[0]
         y_distance = main_character_position[1] - self.position_[1]
@@ -57,3 +59,17 @@ class BasicGrunt(GameObject):
             self.health_ = 0
         else:
             self.health_ -= damage
+
+
+    """
+    Listener Functions
+    """
+
+    def report_destroyed(self):
+        for listener in self.listeners_:
+            listener.reported_destroyed(self)
+    
+    def register(self, listeners):
+        self.listeners_.append(listeners)
+        pass
+

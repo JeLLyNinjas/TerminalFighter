@@ -2,9 +2,10 @@ import pygame
 
 from basic_grunt import BasicGrunt
 from maincharacter import MainCharacter
+from destroy_listener import DestroyListener
 
 
-class Universe():
+class Universe(DestroyListener):
 
     def __init__(self, bounds):
         self.bounds_ = bounds
@@ -57,6 +58,7 @@ class Universe():
     def create_enemy(self, the_enemy):
         self.enemies_[the_enemy.ID_] = the_enemy
         self.gameobjects_[the_enemy.ID_] = the_enemy
+        the_enemy.register(self)
 
     def create_enemy_projectile(self, the_projectile):
         self.enemy_projectiles_[the_projectile.ID_] = the_projectile
@@ -120,3 +122,14 @@ class Universe():
             self.enemies_.pop(entity_ID, None)
             self.friendly_projectiles_.pop(entity_ID, None)
             self.enemy_projectiles_.pop(entity_ID, None)
+
+    """
+    Listeners
+    """
+
+    def reported_destroyed(self, type_gameobject):
+        print("Universe recieved a destroyed object")
+        print(type_gameobject.ID_)
+        pass
+
+

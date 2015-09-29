@@ -91,10 +91,10 @@ class RifleTargetingSystem():
 
     def draw(self, screen):
         self.draw_background(screen)
+        self.draw_friendly_projectiles(screen)
         self.draw_entities(screen)
         self.draw_target_tags(screen)
         self.targeting_terminal_.draw_terminal(screen)
-        self.draw_friendly_projectiles(screen)
 
     def draw_background(self, screen):
         pygame.draw.rect(screen, BLACK, pygame.Rect((0, 0), screen.get_size()))

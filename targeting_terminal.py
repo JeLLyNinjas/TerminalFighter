@@ -28,8 +28,8 @@ class TargetingTerminal():
         self.terminalRectY_ = 40
         self.terminalWidth_ = 400
         self.textAlias_ = 1
-        self.textX_ = 15
-        self.textY_ = 35
+        self.x_input_text_ = 15
+        self.y_input_text_ = 35
         self.ui_font_ = pygame.font.SysFont("monospace", 
                                             self.fontSize_*DRAWING_SCALE)
 
@@ -70,5 +70,5 @@ class TargetingTerminal():
                                           self.textAlias_, 
                                           WHITE)
         screen.blit(text_label, 
-                    (self.textX_ * self.DRAWING_SCALE_,
-                     screen.get_height()-(self.textY_ * self.DRAWING_SCALE_)))
+                    (self.x_input_text_ * self.DRAWING_SCALE_,
+                     screen.get_height()-(self.y_input_text_ * self.DRAWING_SCALE_)))

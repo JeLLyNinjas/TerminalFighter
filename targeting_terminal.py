@@ -34,7 +34,7 @@ class TargetingTerminal():
         self.text_alias_ = 1
         self.text_input_x_ = 15
         self.text_input_y_ = 35
-        self.text_input_maxSize_ = self.terminal_size_width_ - 20 
+        self.text_input_max_size_ = self.terminal_size_width_ - 20 
 
 
 
@@ -51,7 +51,7 @@ class TargetingTerminal():
                 if event.key == EVENT_KEY_BACKSPACE:
                     self.current_text_ = self.current_text_[:-1]
                 elif event.key in range(EVENT_KEY_a, EVENT_KEY_z + 1) and \
-                                textWidth < self.text_input_maxSize_*self.DRAWING_SCALE_:
+                                textWidth < self.text_input_max_size_*self.DRAWING_SCALE_:
                     self.current_text_ += chr(event.key)
 
     """

@@ -22,19 +22,19 @@ class TargetingTerminal():
         self.terminal_rect_ = None
         
         # Terminal Visual Constants
-        self.terminal_RectX_ = 10
-        self.terminal_RectY_ = 40
-        self.terminal_SizeHeight_ = 25
-        self.terminal_SizeWidth_ = 400
-        self.terminal_BorderRectWidth_ = 2
+        self.terminal_rect_x_ = 10
+        self.terminal_rect_y_ = 40
+        self.terminal_size_height_ = 25
+        self.terminal_size_width_ = 400
+        self.terminal_border_width_ = 2
 
         # Terminal Text Input Constants
-        self.fontSize_ = 15
-        self.ui_font_ = pygame.font.SysFont("monospace", self.fontSize_*DRAWING_SCALE)
-        self.textAlias_ = 1
+        self.font_size_ = 15
+        self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
+        self.text_alias_ = 1
         self.text_input_x_ = 15
         self.text_input_y_ = 35
-        self.text_input_maxSize_ = self.terminal_SizeWidth_ - 20 
+        self.text_input_maxSize_ = self.terminal_size_width_ - 20 
 
 
 
@@ -60,19 +60,19 @@ class TargetingTerminal():
 
     def draw_terminal(self, screen):
         if not self.terminal_rect_:
-            self.terminal_rect_ = pygame.Rect(self.terminal_RectX_*self.DRAWING_SCALE_, 
-                                              screen.get_height()-self.terminal_RectY_*self.DRAWING_SCALE_,
-                                              self.terminal_SizeWidth_*self.DRAWING_SCALE_, 
-                                              self.terminal_SizeHeight_*self.DRAWING_SCALE_)
+            self.terminal_rect_ = pygame.Rect(self.terminal_rect_x_*self.DRAWING_SCALE_, 
+                                              screen.get_height()-self.terminal_rect_y_*self.DRAWING_SCALE_,
+                                              self.terminal_size_width_*self.DRAWING_SCALE_, 
+                                              self.terminal_size_height_*self.DRAWING_SCALE_)
 
         pygame.draw.rect(screen, BLUE, self.terminal_rect_)
         pygame.draw.rect(screen, 
                          WHITE, 
                          self.terminal_rect_, 
-                         self.terminal_BorderRectWidth_*self.DRAWING_SCALE_)
+                         self.terminal_border_width_*self.DRAWING_SCALE_)
 
         text_label = self.ui_font_.render(self.current_text_, 
-                                          self.textAlias_, 
+                                          self.text_alias_, 
                                           WHITE)
         screen.blit(text_label, 
                     (self.text_input_x_ * self.DRAWING_SCALE_,

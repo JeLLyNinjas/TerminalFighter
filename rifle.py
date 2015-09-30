@@ -1,9 +1,11 @@
 import math
+
 import pygame
 
+from gameobject import GameObject
 from targeting_terminal import TargetingTerminal
 from wordgenerator import WordGenerator
-from gameobject import GameObject
+
 pygame.font.init()
 
 BLACK = 0, 0, 0

@@ -36,23 +36,14 @@ class TargetingTerminal():
         self.text_input_y_ = 35
         self.text_input_max_size_ = self.terminal_size_width_ - 20 
 
-
-
+        self.max_word_size_ = self.text_input_max_size_ / self.ui_font_.size("W")[0]
+       
     """
     Update functions
     """
 
-    def update(self, events):
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                textWidth = self.ui_font_.size(self.current_text_)[0]
-                if event.key == EVENT_KEY_ENTER:
-                    self.current_text_ = ""
-                if event.key == EVENT_KEY_BACKSPACE:
-                    self.current_text_ = self.current_text_[:-1]
-                elif event.key in range(EVENT_KEY_a, EVENT_KEY_z + 1) and \
-                                textWidth < self.text_input_max_size_*self.DRAWING_SCALE_:
-                    self.current_text_ += chr(event.key)
+    def update(self, current_text):
+        self.current_text_ = current_text      
 
     """
     Draw functions

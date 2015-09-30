@@ -152,7 +152,7 @@ class RifleProjectile(GameObject):
     def calculate_trajectory(self, initial_position, target_position):
         x_distance = target_position[0] - initial_position[0]
         y_distance = target_position[1] - initial_position[1]
-        distance = math.sqrt(tx * tx + ty * ty)
+        distance = math.sqrt(x_distance**2 + y_distance**2)
         
         x_velocity = (x_distance * self.speed_) / distance
         y_velocity = (y_distance * self.speed_) / distance

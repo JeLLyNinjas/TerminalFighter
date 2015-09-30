@@ -42,7 +42,7 @@ class HomingMissilesTargetingSystem():
         self.word_generator_ = WordGenerator()
         self.word_length_min_ = 12
         self.word_length_range = 1
-
+        
     """
     Update Functions
     """

@@ -49,17 +49,17 @@ class Universe():
     """
 
     def update(self, events):
-        for the_projectile in self.created_friendly_projectiles:
-            self.friendly_projectiles_[the_projectile.ID_] = the_projectile
-            self.gameobjects_[the_projectile.ID_] = the_projectile
+        for the_friendly_projectile in self.created_friendly_projectiles:
+            self.friendly_projectiles_[the_friendly_projectile.ID_] = the_friendly_projectile
+            self.gameobjects_[the_friendly_projectile.ID_] = the_friendly_projectile
         
         for the_enemy in self.created_enemies:
             self.enemies_[the_enemy.ID_] = the_enemy
             self.gameobjects_[the_enemy.ID_] = the_enemy
 
-        for the_projectile in self.created_enemy_projectiles: 
-            self.enemy_projectiles_[the_projectile.ID_] = the_projectile
-            self.gameobjects_[the_projectile.ID_] = the_projectile
+        for the_enemy_projectile in self.created_enemy_projectiles: 
+            self.enemy_projectiles_[the_enemy_projectile.ID_] = the_enemy_projectile
+            self.gameobjects_[the_enemy_projectile.ID_] = the_enemy_projectile
 
         for the_main_character in self.created_main_character:
             self.main_character_ = the_main_character
@@ -82,11 +82,11 @@ class Universe():
     def create_enemy(self, the_enemy):
         self.created_enemies.append(the_enemy)
         
-    def create_enemy_projectile(self, the_projectile):
-        self.created_enemy_projectiles.append(the_projectilee)
+    def create_enemy_projectile(self, the_enemy_projectile):
+        self.created_enemy_projectiles.append(the_enemy_projectile)
 
-    def create_friendly_projectile(self, the_projectile):
-        self.created_friendly_projectiles.append(the_projectile)
+    def create_friendly_projectile(self, the_friendly_projectile):
+        self.created_friendly_projectiles.append(the_friendly_projectile)
 
     def create_main_character(self, the_main_character):
         self.created_main_character.append(the_main_character)

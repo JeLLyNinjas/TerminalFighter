@@ -45,7 +45,7 @@ class TargetingTerminal():
                     self.current_text_ = ""
                 if event.key == EVENT_KEY_BACKSPACE:
                     self.current_text_ = self.current_text_[:-1]
-                elif event.key in range(EVENT_KEY_a, EVENT_KEY_z) and \
+                elif event.key in range(EVENT_KEY_a, EVENT_KEY_z + 1) and \
                                 textWidth < self.maxTextWidth_*self.DRAWING_SCALE_:
                     self.current_text_ += chr(event.key)
 

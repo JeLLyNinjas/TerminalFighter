@@ -18,7 +18,7 @@ class GameMaster():
         self.main_character_spawn_height_ = self.universe_.height_*0.9
         self.spawn_main_character()
 
-        self.spawn_difficulty_ = 20
+        self.spawn_difficulty_ = 0.1
         self.minimum_spawn_delay_ = 19 
 
     def draw(self, screen):

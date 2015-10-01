@@ -82,6 +82,7 @@ class MainCharacter(GameObject):
         self.draw_ui(screen)
 
     def draw_ui(self, screen):
+        print('check')
         for i, weapon in enumerate(self.weapons_):
             ui_weapon_text_colour = WHITE
             if i == self.selected_weapon_index_:

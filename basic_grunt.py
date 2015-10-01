@@ -67,8 +67,8 @@ class BasicGrunt(GameObject):
         self.health_ = 30
         self.universe_ = universe
         self.listeners_ = []
-        self.weapon_delay_ = 200
-        self.weapon_delay_timer_ = 199 
+        self.weapon_delay_ = 50
+        self.weapon_delay_timer_ = 50 
 
     """
     Update Functions
@@ -103,9 +103,10 @@ class BasicGrunt(GameObject):
             if self.weapon_delay_timer_ >= self.weapon_delay_:
                 if self.universe_.main_character():
                     new_projectile = BasicGruntProjectile(self.position_,
-                                                          self.universe_.main_character().position_)
+                                                          self.universe_.main_character().position_,
+                                                          self.universe_)
                     self.universe_.create_enemy_projectile(new_projectile)
-                    self.weapon_delay_timer_ = 0
+                    self.weapon_delay_timer_ = 0    
             else:
                 self.weapon_delay_timer_ += 2
 

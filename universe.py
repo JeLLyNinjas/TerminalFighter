@@ -142,7 +142,7 @@ class Universe(DestroyListener):
             main_character_collision_box = self.gameobjects_[
                 self.main_character_.ID_].collision_box()
             if main_character_collision_box.colliderect(enemy_projectile_collision_box):
-                self.collisions_[enemy_projectile_id].append(main_character_)
+                self.collisions_[enemy_projectile_id].append(self.main_character_)
 
     def delete_out_of_bounds_gameobjects(self):
         out_of_bounds_IDs = []

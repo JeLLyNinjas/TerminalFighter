@@ -3,6 +3,7 @@ import random
 import pygame
 
 from basic_grunt import BasicGrunt
+from not_so_basic_grunt import NotSoBasicGrunt
 from maincharacter import MainCharacter
 
 
@@ -34,9 +35,15 @@ class GameMaster():
         the_basic_grunt = BasicGrunt(starting_position, self.universe_)
         self.universe_.create_enemy(the_basic_grunt)
 
+    def spawn_not_so_basic_grunt(self):
+        starting_position = [self.universe_.width_*random.choice(self.basic_grunt_x_spawn_locations), 0]
+        not_so_basic_grunt = NotSoBasicGrunt(starting_position, self.universe_)
+        self.universe_.create_enemy(not_so_basic_grunt)
+
     def update(self, events):
         self.basic_grunt_spawn_timer_ += 1
         if self.basic_grunt_spawn_timer_ > self.basic_grunt_spawn_delay_:
+            self.spawn_not_so_basic_grunt()
             self.spawn_basic_grunt()
             self.basic_grunt_spawn_timer_ = 0
 

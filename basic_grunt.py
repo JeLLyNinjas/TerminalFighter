@@ -13,6 +13,7 @@ class BasicGrunt(GameObject):
         self.speed_ = 0.5
         self.health_ = 30
         self.universe_ = universe
+        self.listeners_ = []
 
     """
     Update Functions
@@ -54,6 +55,20 @@ class BasicGrunt(GameObject):
             print("WARNING BasicGrunt " + str(self.ID_) + " taking " + str(damage) + " damage")
             print("Disregarding non positive damage")
         elif damage >= self.health_:
-            self.health_ = 0
+            self.report_destroyed()
         else:
             self.health_ -= damage
+
+
+    """
+    Listener Functions
+    """
+
+    def report_destroyed(self):
+        for listener in self.listeners_:
+            listener.reported_destroyed(self)
+    
+    def register(self, listeners):
+        self.listeners_.append(listeners)
+        pass
+

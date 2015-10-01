@@ -75,7 +75,7 @@ class RifleTargetingSystem():
                     target_location = self.get_target_position(self.current_text_)
                     self.current_text_ = ""
                     if target_location:
-                        rifle_projectile = RifleProjectile(self.universe_.main_character_.position_, target_location)
+                        rifle_projectile = RifleProjectile(self.universe_.main_character_.position_, target_location, self.universe_)
                         self.universe_.create_friendly_projectile(rifle_projectile)
                     
                 if event.key == EVENT_KEY_BACKSPACE:
@@ -164,8 +164,10 @@ class RifleTargetingSystem():
 
 class RifleProjectile(GameObject): 
 
-    def __init__(self, initial_position, target_position):
+    def __init__(self, initial_position, target_position, universe):
+        self.universe_ = universe 
         self.ID_ = self.create_ID()
+        self.listeners_ = []
         self.position_ = initial_position
         self.speed_ = 15
         self.size_ = 5
@@ -181,7 +183,16 @@ class RifleProjectile(GameObject):
 
         return (x_velocity, y_velocity)
 
+    def check_collisions(self):
+        collisions = self.universe_.get_collisions(self)
+        for enemies in collisions:
+            enemies.take_damage(1000)
+
+        if collisions:
+            self.report_destroyed()
+
     def update(self,events):
+        self.check_collisions()
         self.position_ = (self.position_[0] + self.velocity_[0], self.position_[1] - abs(self.velocity_[1]))
 
     def collision_box(self):
@@ -190,6 +201,16 @@ class RifleProjectile(GameObject):
             self.size_,
             self.size_)
 
+    """
+    Listener Functions
+    """
+
+    def report_destroyed(self):
+        for listener in self.listeners_:
+            listener.reported_destroyed(self)
+    
+    def register(self, listeners):
+        self.listeners_.append(listeners)
 	
 
 class Rifle():

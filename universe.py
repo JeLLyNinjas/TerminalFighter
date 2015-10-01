@@ -128,7 +128,6 @@ class Universe(DestroyListener):
                 enemy_collision_box = self.gameobjects_[
                     enemy_id].collision_box()
                 if enemy_collision_box.colliderect(friendly_projectiles_collision_box):
-                    print(friendly_projectile_id)
                     self.collisions_[friendly_projectile_id].append(self.gameobjects_[enemy_id])
 
     def update_enemy_projectiles_collisions(self):

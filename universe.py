@@ -52,6 +52,7 @@ class Universe(DestroyListener):
 
     def update(self, events):
         for the_friendly_projectile in self.created_friendly_projectiles:
+            print("created friendly projectile")
             self.friendly_projectiles_[the_friendly_projectile.ID_] = the_friendly_projectile
             self.gameobjects_[the_friendly_projectile.ID_] = the_friendly_projectile
         
@@ -94,6 +95,7 @@ class Universe(DestroyListener):
         self.created_enemies.append(the_enemy)
         
     def create_enemy_projectile(self, the_enemy_projectile):
+        the_enemy_projectile.register(self)
         self.created_enemy_projectiles.append(the_enemy_projectile)
 
     def create_friendly_projectile(self, the_friendly_projectile):

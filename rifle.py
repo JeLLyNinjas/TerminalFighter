@@ -92,7 +92,6 @@ class RifleTargetingSystem():
 
     def draw(self, screen):
         self.draw_background(screen)
-        #self.draw_friendly_projectiles(screen)
         self.draw_grid(screen)
         self.draw_entities(screen)
         self.draw_target_tags(screen)
@@ -186,8 +185,8 @@ class RifleProjectile(GameObject):
 
     def check_collisions(self):
         collisions = self.universe_.get_collisions(self)
-        for collision in collisions:
-            collision.take_damage(1000)
+        for enemies in collisions:
+            enemies.take_damage(1000)
 
         if collisions:
             self.report_destroyed()

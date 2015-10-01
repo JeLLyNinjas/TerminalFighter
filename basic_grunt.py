@@ -55,7 +55,6 @@ class BasicGrunt(GameObject):
             print("WARNING BasicGrunt " + str(self.ID_) + " taking " + str(damage) + " damage")
             print("Disregarding non positive damage")
         elif damage >= self.health_:
-            self.health_ = 0
             self.report_destroyed()
         else:
             self.health_ -= damage

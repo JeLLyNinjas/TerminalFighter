@@ -44,19 +44,14 @@ class RifleTargetingSystem():
         self.word_length_range_ = 3
 
     def get_target_id(self, terminal_input):
-        target_ID = None
-
         for enemy in self.universe_.enemies():
             if terminal_input == self.target_tags_[enemy.ID_]:
-                target_ID = self.ids_for_target_tags_[terminal_input]
-                break
-        return target_ID
+                return self.ids_for_target_tags_[terminal_input]
+        return None
 
     def get_target_position(self, current_text):
-        target_ID = self.get_target_id(current_text)
-        if target_ID:
-            target_position = self.universe_.enemies_[target_ID].position_
-            return target_position
+        if self.get_target_id(current_text):
+            return self.universe_.enemies_[target_ID].position_
         else:
             return None
 
@@ -67,8 +62,8 @@ class RifleTargetingSystem():
     def update(self, events):
         for enemy in self.universe_.enemies():
             if enemy.ID_ not in self.target_tags_:
-                new_word = self.word_generator_.request_word(
-                    self.word_length_min_, self.word_length_range_)
+                new_word = self.word_generator_.request_word(self.word_length_min_, 
+                                                             self.word_length_range_)
                 self.target_tags_[enemy.ID_] = new_word
                 self.ids_for_target_tags_[new_word] = enemy.ID_
 
@@ -126,6 +121,13 @@ class RifleTargetingSystem():
                              line_width * self.DRAWING_SCALE_)
 
     def draw_entities(self, screen):
+        self.draw_friendly_projectiles(screen)
+        self.draw_enemy_projectiles(screen)
+        self.draw_enemies(screen)
+        self.draw_target_tags(screen)
+        self.draw_maincharacter(screen)
+
+    def draw_enemies(self, screen):
         for enemy in self.universe_.enemies():
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
@@ -133,14 +135,13 @@ class RifleTargetingSystem():
                                      enemy.size_ * self.DRAWING_SCALE_)
             pygame.draw.rect(screen, self.enemy_color_, enemy_rect)
 
+    def draw_maincharacter(self, screen):
         main_character = self.universe_.main_character_
         main_character_rect = pygame.Rect((main_character.position_[0]-main_character.size_/2) * self.DRAWING_SCALE_,
                                           (main_character.position_[1]-main_character.size_/2) * self.DRAWING_SCALE_,
                                           main_character.size_ * self.DRAWING_SCALE_,
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
-        self.draw_friendly_projectiles(screen)
-        self.draw_enemy_projectiles(screen)
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
@@ -173,12 +174,12 @@ class RifleTargetingSystem():
 class RifleProjectile(GameObject):
 
     def __init__(self, initial_position, target_position, universe):
-        self.universe_ = universe
         self.ID_ = self.create_ID()
         self.listeners_ = []
         self.position_ = initial_position
-        self.speed_ = 15
         self.size_ = 5
+        self.speed_ = 15
+        self.universe_ = universe
         self.velocity_ = self.calculate_trajectory(initial_position, 
                                                    target_position)
 
@@ -190,20 +191,19 @@ class RifleProjectile(GameObject):
         x_velocity = (x_distance * self.speed_) / distance
         y_velocity = (y_distance * self.speed_) / distance
 
-        return (x_velocity, y_velocity)
+        return x_velocity, y_velocity
 
     def check_collisions(self):
         collisions = self.universe_.get_collisions(self)
-        for enemies in collisions:
-            enemies.take_damage(1000)
 
         if collisions:
+            collisions[0].take_damage(1000)
             self.report_destroyed()
 
     def update(self, events):
         self.check_collisions()
-        self.position_ = (
-            self.position_[0] + self.velocity_[0], self.position_[1] - abs(self.velocity_[1]))
+        self.position_ = (self.position_[0] + self.velocity_[0], 
+                          self.position_[1] - abs(self.velocity_[1]))
 
     def collision_box(self):
         return pygame.Rect(self.position_[0]-self.size_/2,

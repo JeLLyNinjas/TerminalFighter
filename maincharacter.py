@@ -56,7 +56,7 @@ class MainCharacter(GameObject):
             self.health_ = 0
         else:
             self.health_ -= damage
-        print("MainCharacter health is " + str(self.health_))
+        # print("MainCharacter health is " + str(self.health_))
     """
     Update Functions
     """

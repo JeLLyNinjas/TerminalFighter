@@ -11,7 +11,7 @@ class BasicGruntProjectile(GameObject):
         self.universe_ = universe
 
         self.damage_ = 5
-        self.ID_ = self.create_ID()
+        self.id_ = self.create_ID()
         self.listeners_ = []
         self.position_ = initial_position
         self.size_ = 5
@@ -72,7 +72,7 @@ class BasicGrunt(GameObject):
     	self.speed_ = 0.5
     	self.weapon_delay_ = 50
     	self.weapon_delay_timer_ = 50
-        self.ID_ = self.create_ID()
+        self.id_ = self.create_ID()
 
     """
     Update Functions
@@ -125,7 +125,7 @@ class BasicGrunt(GameObject):
 
     def take_damage(self, damage):
         if damage <= 0:
-            print("WARNING BasicGrunt " + str(self.ID_) +
+            print("WARNING BasicGrunt " + str(self.id_) +
                   " taking " + str(damage) + " damage")
             print("Disregarding non positive damage")
         elif damage >= self.health_:

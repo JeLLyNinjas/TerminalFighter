@@ -29,7 +29,7 @@ class Universe(DestroyListener):
     """
 
     def get_collisions(self, gameobject):
-        return self.collisions_[gameobject.ID_]
+        return self.collisions_[gameobject.id_]
 
     def enemies(self):
         return self.enemies_.values()
@@ -52,23 +52,23 @@ class Universe(DestroyListener):
 
     def update(self, events):
         for the_friendly_projectile in self.created_friendly_projectiles:
-            self.friendly_projectiles_[the_friendly_projectile.ID_] = the_friendly_projectile
-            self.gameobjects_[the_friendly_projectile.ID_] = the_friendly_projectile
+            self.friendly_projectiles_[the_friendly_projectile.id_] = the_friendly_projectile
+            self.gameobjects_[the_friendly_projectile.id_] = the_friendly_projectile
         self.created_friendly_projectiles.clear()
         
         for the_enemy in self.created_enemies:
-            self.enemies_[the_enemy.ID_] = the_enemy
-            self.gameobjects_[the_enemy.ID_] = the_enemy
+            self.enemies_[the_enemy.id_] = the_enemy
+            self.gameobjects_[the_enemy.id_] = the_enemy
         self.created_enemy_projectiles.clear()
 
         for the_enemy_projectile in self.created_enemy_projectiles: 
-            self.enemy_projectiles_[the_enemy_projectile.ID_] = the_enemy_projectile
-            self.gameobjects_[the_enemy_projectile.ID_] = the_enemy_projectile
+            self.enemy_projectiles_[the_enemy_projectile.id_] = the_enemy_projectile
+            self.gameobjects_[the_enemy_projectile.id_] = the_enemy_projectile
         self.created_enemies.clear()
 
         for the_main_character in self.created_main_character:
             self.main_character_ = the_main_character
-            self.gameobjects_[the_main_character.ID_] = the_main_character
+            self.gameobjects_[the_main_character.id_] = the_main_character
         self.created_main_character.clear()
 
 
@@ -112,7 +112,7 @@ class Universe(DestroyListener):
         self.update_enemy_projectiles_collisions()
 
     def update_main_character_collisions(self):
-        self.collisions_[self.main_character_.ID_] = []
+        self.collisions_[self.main_character_.id_] = []
         # main character doesn't care what it collides with
 
     def update_enemies_collisions(self):
@@ -138,7 +138,7 @@ class Universe(DestroyListener):
                 enemy_projectile_id].collision_box()
 
             main_character_collision_box = self.gameobjects_[
-                self.main_character_.ID_].collision_box()
+                self.main_character_.id_].collision_box()
             if main_character_collision_box.colliderect(enemy_projectile_collision_box):
                 self.collisions_[enemy_projectile_id].append(self.main_character_)
 
@@ -157,5 +157,5 @@ class Universe(DestroyListener):
     """
 
     def reported_destroyed(self, type_gameobject):
-        self.deleted_gameobjects_.append(type_gameobject.ID_)
+        self.deleted_gameobjects_.append(type_gameobject.id_)
 

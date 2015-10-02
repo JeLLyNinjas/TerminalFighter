@@ -43,7 +43,7 @@ class HomingMissilesTargetingSystem():
 
     def get_target_id(self, terminal_input):
         for enemy in self.universe_.enemies():
-            if terminal_input == self.target_tags_[enemy.ID_]:
+            if terminal_input == self.target_tags_[enemy.id_]:
                 return self.ids_for_target_tags_[terminal_input]
         return None
 
@@ -59,11 +59,11 @@ class HomingMissilesTargetingSystem():
 
     def update(self, events):
         for enemy in self.universe_.enemies():
-            if enemy.ID_ not in self.target_tags_:
+            if enemy.id_ not in self.target_tags_:
                 new_word = self.word_generator_.request_word(self.word_length_min_, 
                 	 										 self.word_length_range_)
-                self.target_tags_[enemy.ID_] = new_word
-                self.ids_for_target_tags_[new_word] = enemy.ID_
+                self.target_tags_[enemy.id_] = new_word
+                self.ids_for_target_tags_[new_word] = enemy.id_
 
         for event in events:
             if event.type == pygame.KEYDOWN:
@@ -115,7 +115,7 @@ class HomingMissilesTargetingSystem():
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
-            target_tag_word = self.target_tags_[enemy.ID_]
+            target_tag_word = self.target_tags_[enemy.id_]
             target_tag_label = self.ui_font_.render(target_tag_word,
                                                     self.text_antialias_,
                                                     self.enemy_color_)

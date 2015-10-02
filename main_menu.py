@@ -40,6 +40,7 @@ def spawn_main_character(universe, DRAWING_SCALE):
 def spawn_selection(starting_pos, name, universe, selection_listener):
     the_selection = BasicGrunt(starting_pos, universe)
     the_selection.speed_ = 0
+    the_selection.weapon_delay_ = 0
     universe.create_enemy(the_selection)
     selection_listener.register_selection(name, the_selection)
 

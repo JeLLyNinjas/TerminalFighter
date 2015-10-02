@@ -118,7 +118,7 @@ class Universe(DestroyListener):
     def update_enemies_collisions(self):
         for enemy_id in self.enemies_:
         	self.collisions_[enemy_id] = []
-        # enemies don't care what they collide with
+        # enemies don't collideare what they collide with
 
     def update_friendly_projectiles_collisions(self):
         for friendly_projectile_id in self.friendly_projectiles_:

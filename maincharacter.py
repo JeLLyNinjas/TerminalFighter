@@ -83,6 +83,10 @@ class MainCharacter(GameObject):
         self.draw_ui(screen)
 
     def draw_ui(self, screen):
+        self.draw_weapons_ui()
+        self.draw_health_ui()
+
+    def draw_weapons_ui(self, screen):
         for i, weapon in enumerate(self.weapons_):
             ui_weapon_text_colour = WHITE
             if i == self.selected_weapon_index_:
@@ -93,3 +97,7 @@ class MainCharacter(GameObject):
                                                 ui_weapon_text_colour)
             screen.blit(weapon_label, (self.weapon_label_x_spacing_*self.DRAWING_SCALE_,
                                        (i*self.weapon_label_y_spacing_)*self.DRAWING_SCALE_))
+
+    def draw_health_ui(self, screen):
+        health_label = self.ui_
+

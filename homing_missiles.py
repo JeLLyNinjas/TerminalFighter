@@ -36,7 +36,7 @@ class HomingMissilesTargetingSystem():
         self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
         self.text_antialias_ = 1
         self.ui_font_ = pygame.font.SysFont("monospace", 
-        									self.font_size_*DRAWING_SCALE)
+                                            self.font_size_*DRAWING_SCALE)
         self.word_generator_ = WordGenerator()
         self.word_length_min_ = 12
         self.word_length_range_ = 1
@@ -61,7 +61,7 @@ class HomingMissilesTargetingSystem():
         for enemy in self.universe_.enemies():
             if enemy.id_ not in self.target_tags_:
                 new_word = self.word_generator_.request_word(self.word_length_min_, 
-                	 										 self.word_length_range_)
+                                                             self.word_length_range_)
                 self.target_tags_[enemy.id_] = new_word
                 self.ids_for_target_tags_[new_word] = enemy.id_
 

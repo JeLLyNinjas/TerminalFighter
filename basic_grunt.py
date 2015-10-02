@@ -62,16 +62,16 @@ class BasicGrunt(GameObject):
 
     def __init__(self, starting_position, universe):
         self.position_ = starting_position
-    	self.universe_ = universe
+        self.universe_ = universe
 
-    	self.closest_range_ = 100
-    	self.detection_range_ = 600
-    	self.health_ = 30
-    	self.listeners_ = []
-    	self.size_ = 15
-    	self.speed_ = 0.5
-    	self.weapon_delay_ = 50
-    	self.weapon_delay_timer_ = 50
+        self.closest_range_ = 100
+        self.detection_range_ = 600
+        self.health_ = 30
+        self.listeners_ = []
+        self.size_ = 15
+        self.speed_ = 0.5
+        self.weapon_delay_ = 50
+        self.weapon_delay_timer_ = 50
         self.id_ = self.create_ID()
 
     """
@@ -91,7 +91,7 @@ class BasicGrunt(GameObject):
             x_velocity = (x_distance * self.speed_) / distance
             y_velocity = (y_distance * self.speed_) / distance
             self.position_ = (self.position_[0]+x_velocity, 
-            	              self.position_[1]+y_velocity)
+                              self.position_[1]+y_velocity)
 
             if self.weapon_delay_timer_ >= self.weapon_delay_:
                 if self.universe_.main_character():

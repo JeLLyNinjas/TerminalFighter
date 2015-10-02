@@ -65,7 +65,7 @@ class BasicGrunt(GameObject):
         self.universe_ = universe
 
         self.closest_range_ = 100
-        self.detection_range_ = 600
+        self.detection_range_ = 400
         self.health_ = 30
         self.listeners_ = []
         self.size_ = 15

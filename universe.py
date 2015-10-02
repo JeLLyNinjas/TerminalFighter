@@ -52,26 +52,25 @@ class Universe(DestroyListener):
 
     def update(self, events):
         for the_friendly_projectile in self.created_friendly_projectiles:
-            # print("created friendly projectile")
             self.friendly_projectiles_[the_friendly_projectile.ID_] = the_friendly_projectile
             self.gameobjects_[the_friendly_projectile.ID_] = the_friendly_projectile
+        self.created_friendly_projectiles.clear()
         
         for the_enemy in self.created_enemies:
             self.enemies_[the_enemy.ID_] = the_enemy
             self.gameobjects_[the_enemy.ID_] = the_enemy
+        self.created_enemy_projectiles.clear()
 
         for the_enemy_projectile in self.created_enemy_projectiles: 
             self.enemy_projectiles_[the_enemy_projectile.ID_] = the_enemy_projectile
             self.gameobjects_[the_enemy_projectile.ID_] = the_enemy_projectile
+        self.created_enemies.clear()
 
         for the_main_character in self.created_main_character:
             self.main_character_ = the_main_character
             self.gameobjects_[the_main_character.ID_] = the_main_character
-
-        self.created_friendly_projectiles.clear()
-        self.created_enemies.clear()
         self.created_main_character.clear()
-        self.created_enemy_projectiles.clear()
+
 
         self.update_collisions()
 

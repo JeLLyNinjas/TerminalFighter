@@ -26,7 +26,7 @@ class BasicGrunt(GameObject):
         distance = (x_distance**2 + y_distance**2)**(1/2)
 
         # Outside range
-        if distance > 400:
+        if distance > 600:
             self.position_ = (self.position_[0], self.position_[1]+self.speed_)
         # if distance <= 400:
             # self.position_ = (self.position_[0]+self.speed_, self.position_[1]+self.speed_) funny

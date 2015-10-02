@@ -169,7 +169,7 @@ class RifleProjectile(GameObject):
         self.ID_ = self.create_ID()
         self.listeners_ = []
         self.position_ = initial_position
-        self.speed_ = 15
+        self.speed_ = 17
         self.size_ = 5
         self.velocity_ = self.calculate_trajectory(initial_position, target_position)
 

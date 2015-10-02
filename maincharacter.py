@@ -20,20 +20,20 @@ class MainCharacter(GameObject):
         self.position_ = starting_position
         self.universe_ = universe
 
-        self.text_antialias_ = 1
-        self.ID_ = self.create_ID()
         self.font_size_ = 15
+        self.health_ = 100
+        self.ID_ = self.create_ID()
         self.selected_weapon_index_ = 0
         self.size_ = 20
+        self.text_antialias_ = 1
         self.ui_font_ = pygame.font.SysFont("monospace",
                                             self.font_size_*DRAWING_SCALE)
-        self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE),
-                         HomingMissiles(self.universe_, DRAWING_SCALE)]
         self.weapon_label_x_spacing_ = 5
         self.weapon_label_y_spacing_ = 10
+        self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE),
+                         HomingMissiles(self.universe_, DRAWING_SCALE)]
 
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
-        self.health_ = 100
 
     """
     Access Functions
@@ -53,16 +53,13 @@ class MainCharacter(GameObject):
             self.health_ = 0
         else:
             self.health_ -= damage
-        print("MainCharacter health is " + str(self.health_))
+        # print("MainCharacter health is " + str(self.health_))
 
     """
     Update Functions
     """
 
-    def update(self, events, position=None):
-        if position:
-            self.position_ = position
-
+    def update(self, events):
         self.update_weapon_selection(events)
 
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]

@@ -9,6 +9,7 @@ pygame.init()
 
 GAME_WIDTH = 1000
 GAME_HEIGHT = 700
+
 BLACK = 0, 0, 0
 
 def main_menu(screen, DRAWING_SCALE):

@@ -12,6 +12,7 @@ pygame.init()
 GAME_WIDTH = 1000
 GAME_HEIGHT = 700
 
+WHITE = 255, 255, 255
 BLACK = 0, 0, 0
 
 class SelectionListener(DestroyListener):
@@ -47,16 +48,15 @@ def spawn_selection(starting_pos, name, universe, selection_listener):
 def main_menu(screen, DRAWING_SCALE):
     universe = Universe((GAME_WIDTH, GAME_HEIGHT))
     selection_listener = SelectionListener()
+    ui_font_ = pygame.font.SysFont("monospace", 30*DRAWING_SCALE)
+    LABEL_SPACING = 50
+    play_position = (GAME_WIDTH*(1/3), GAME_HEIGHT*(1/4))
+    quit_position = (GAME_WIDTH*(2/3), GAME_HEIGHT*(1/4))
 
     spawn_main_character(universe, DRAWING_SCALE)   
-    spawn_selection((GAME_WIDTH*(1/3), GAME_HEIGHT*(1/4)),
-                    "PLAY", 
-                    universe, 
-                    selection_listener)
-    spawn_selection((GAME_WIDTH*(2/3), GAME_HEIGHT*(1/4)),
-                    "QUIT", 
-                    universe, 
-                    selection_listener)
+    spawn_selection(play_position, "PLAY",  universe,  selection_listener)
+    spawn_selection(quit_position, "QUIT",  universe,  selection_listener)
+
 
     # pygame ticks, one tick is 1/1000 second
     # 15 pygame ticks per update is approximately 30 updates per second
@@ -75,7 +75,6 @@ def main_menu(screen, DRAWING_SCALE):
             if event.type == pygame.QUIT:
                 sys.exit()
         if selection_listener.selected_:
-            print('returning ' + selection_listener.selected_)
             return selection_listener.selected_
 
         universe.update(events)
@@ -83,6 +82,16 @@ def main_menu(screen, DRAWING_SCALE):
     
         draw_start_time = pygame.time.get_ticks()
         universe.main_character_.current_weapon_.draw(screen)
+
+        play_label = ui_font_.render("PLAY", 1, WHITE)
+        screen.blit(play_label, 
+                    (play_position[0] * DRAWING_SCALE - (play_label.get_width()/2), 
+                     play_position[1] * DRAWING_SCALE - LABEL_SPACING*DRAWING_SCALE))
+
+        quit_label = ui_font_.render("QUIT", 1, WHITE)
+        screen.blit(quit_label, 
+                    (quit_position[0] * DRAWING_SCALE - (quit_label.get_width()/2), 
+                     quit_position[1] * DRAWING_SCALE - LABEL_SPACING*DRAWING_SCALE))
         # print("draw time : " + str(pygame.time.get_ticks() - draw_start_time))
     
         flip_start_time = pygame.time.get_ticks()

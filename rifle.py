@@ -42,12 +42,12 @@ class RifleTargetingSystem():
         self.word_length_range_ = 3
         
     def get_target_id(self, terminal_input): 
+        target_ID = None
+        
         for enemy in self.universe_.enemies(): 
             if terminal_input == self.target_tags_[enemy.ID_]:
                 target_ID = self.ids_for_target_tags_[terminal_input]
                 break
-            else:       
-                target_ID = None
         return target_ID  
 
     def get_target_position(self, current_text): 
@@ -135,6 +135,7 @@ class RifleTargetingSystem():
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
         self.draw_friendly_projectiles(screen)
+        self.draw_enemy_projectiles(screen)
 
 
     def draw_target_tags(self, screen):
@@ -174,6 +175,14 @@ class RifleTargetingSystem():
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
 
+    def draw_enemy_projectiles(self, screen):
+        for projectile in self.universe_.enemy_projectiles():
+            projectile_rect = pygame.Rect((projectile.position_[0]-projectile.size_/2) * self.DRAWING_SCALE_,
+                                     (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
+                                     projectile.size_ * self.DRAWING_SCALE_,
+                                     projectile.size_ * self.DRAWING_SCALE_)
+            pygame.draw.rect(screen, self.enemy_color_, projectile_rect)
+
 class RifleProjectile(GameObject): 
 
     def __init__(self, initial_position, target_position, universe):
@@ -181,7 +190,7 @@ class RifleProjectile(GameObject):
         self.ID_ = self.create_ID()
         self.listeners_ = []
         self.position_ = initial_position
-        self.speed_ = 15
+        self.speed_ = 17
         self.size_ = 5
         self.velocity_ = self.calculate_trajectory(initial_position, target_position)
 

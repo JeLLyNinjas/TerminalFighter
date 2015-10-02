@@ -5,9 +5,8 @@
     register function
 """
 
+
 class DestroyListener():
 
     def reported_destroyed(self, type_gameobject):
         raise NotImplementedError()
-        
-

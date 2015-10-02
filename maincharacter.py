@@ -25,8 +25,8 @@ class MainCharacter(GameObject):
         self.font_size_ = 15
         self.selected_weapon_index_ = 0
         self.size_ = 20
-        self.ui_font_ = pygame.font.SysFont(
-            "monospace", self.font_size_*DRAWING_SCALE)
+        self.ui_font_ = pygame.font.SysFont("monospace",
+                                            self.font_size_*DRAWING_SCALE)
         self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE),
                          HomingMissiles(self.universe_, DRAWING_SCALE)]
         self.weapon_label_x_spacing_ = 5
@@ -54,6 +54,7 @@ class MainCharacter(GameObject):
         else:
             self.health_ -= damage
         print("MainCharacter health is " + str(self.health_))
+
     """
     Update Functions
     """
@@ -91,5 +92,6 @@ class MainCharacter(GameObject):
             weapon_label = self.ui_font_.render(str(i+1) + ". " + weapon.NAME_,
                                                 self.text_antialias_,
                                                 ui_weapon_text_colour)
-            screen.blit(weapon_label, (self.weapon_label_x_spacing_*self.DRAWING_SCALE_,
-                                       (i*self.weapon_label_y_spacing_)*self.DRAWING_SCALE_))
+            screen.blit(weapon_label,
+                        (self.weapon_label_x_spacing_*self.DRAWING_SCALE_,
+                         (i*self.weapon_label_y_spacing_)*self.DRAWING_SCALE_))

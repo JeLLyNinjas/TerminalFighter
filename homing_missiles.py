@@ -28,54 +28,56 @@ class HomingMissilesTargetingSystem():
         self.current_text_ = ""
         self.enemy_color_ = YELLOW
         self.font_size_ = 15
-        self.ids_for_target_tags_ = dict() 
+        self.ids_for_target_tags_ = dict()
         self.main_character_color_ = GREEN
-        self.projectile_color_ = WHITE 
+        self.projectile_color_ = WHITE
         self.target_tag_y_spacing_ = 5
         self.target_tags_ = dict()
         self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
         self.text_antialias_ = 1
-        self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
+        self.ui_font_ = pygame.font.SysFont("monospace", 
+        	        					    self.font_size_*DRAWING_SCALE)
         self.word_generator_ = WordGenerator()
         self.word_length_min_ = 12
         self.word_length_range_ = 1
-        
-    def get_target_id(self, terminal_input): 
+
+    def get_target_id(self, terminal_input):
         target_ID = None
-        for enemy in self.universe_.enemies(): 
+        for enemy in self.universe_.enemies():
             if terminal_input == self.target_tags_[enemy.ID_]:
                 target_ID = self.ids_for_target_tags_[terminal_input]
                 break
-        return target_ID  
+        return target_ID
 
-    def get_target_position(self, current_text): 
-        target_ID =  self.get_target_id(current_text)
-        if target_ID: 
-            target_position = self.universe_.enemies_[target_ID].position_  
-            return target_position 
+    def get_target_position(self, current_text):
+        target_ID = self.get_target_id(current_text)
+        if target_ID:
+            target_position = self.universe_.enemies_[target_ID].position_
+            return target_position
         else:
             return None
-    
+
     """
     Update Functions
     """
+
     def update(self, events):
         for enemy in self.universe_.enemies():
             if enemy.ID_ not in self.target_tags_:
-                new_word = self.word_generator_.request_word(self.word_length_min_, self.word_length_range_)
+                new_word = self.word_generator_.request_word(self.word_length_min_, 
+                	 										 self.word_length_range_)
                 self.target_tags_[enemy.ID_] = new_word
-                self.ids_for_target_tags_[new_word] = enemy.ID_ 
+                self.ids_for_target_tags_[new_word] = enemy.ID_
 
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == EVENT_KEY_ENTER:
                     target_location = self.get_target_position(self.current_text_)
                     self.current_text_ = ""
-
-                if event.key == EVENT_KEY_BACKSPACE:
+                elif event.key == EVENT_KEY_BACKSPACE:
                     self.current_text_ = self.current_text_[:-1]
                 elif event.key in range(EVENT_KEY_a, EVENT_KEY_z+1):
-                    if len(self.current_text_)<= self.targeting_terminal_.max_word_size_:
+                    if len(self.current_text_) <= self.targeting_terminal_.max_word_size_:
                         self.current_text_ += chr(event.key)
 
         self.targeting_terminal_.update(self.current_text_)
@@ -112,8 +114,8 @@ class HomingMissilesTargetingSystem():
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
             target_tag_word = self.target_tags_[enemy.ID_]
-            target_tag_label = self.ui_font_.render(target_tag_word, 
-                                                    self.text_antialias_, 
+            target_tag_label = self.ui_font_.render(target_tag_word,
+                                                    self.text_antialias_,
                                                     self.enemy_color_)
             width = self.ui_font_.size(target_tag_word)[0]
             screen.blit(target_tag_label,
@@ -123,9 +125,9 @@ class HomingMissilesTargetingSystem():
     def draw_friendly_projectiles(self, screen):
         for projectile in self.universe_.friendly_projectiles():
             projectile_rect = pygame.Rect((projectile.position_[0]-projectile.size_/2) * self.DRAWING_SCALE_,
-                                     (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
-                                     projectile.size_ * self.DRAWING_SCALE_,
-                                     projectile.size_ * self.DRAWING_SCALE_)
+                                          (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
+                                          projectile.size_ * self.DRAWING_SCALE_,
+                                          projectile.size_ * self.DRAWING_SCALE_)
             pygame.draw.rect(screen, self.projectile_color_, projectile_rect)
 
         main_character = self.universe_.main_character_
@@ -134,7 +136,7 @@ class HomingMissilesTargetingSystem():
                                           main_character.size_ * self.DRAWING_SCALE_,
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
-    
+
 
 class HomingMissiles():
 
@@ -143,7 +145,8 @@ class HomingMissiles():
         self.DRAWING_SCALE_ = DRAWING_SCALE
 
         self.NAME_ = "Homing Missiles"
-        self.targeting_system = HomingMissilesTargetingSystem(universe, DRAWING_SCALE)
+        self.targeting_system = HomingMissilesTargetingSystem(
+            universe, DRAWING_SCALE)
 
     def update(self, events):
         self.targeting_system.update(events)

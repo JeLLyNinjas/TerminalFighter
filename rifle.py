@@ -50,8 +50,9 @@ class RifleTargetingSystem():
         return None
 
     def get_target_position(self, current_text):
-        if self.get_target_id(current_text):
-            return self.universe_.enemies_[target_ID].position_
+        target_id = self.get_target_id(current_text)
+        if target_id:
+            return self.universe_.enemies_[target_id].position_
         else:
             return None
 

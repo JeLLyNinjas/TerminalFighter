@@ -14,8 +14,8 @@ class BasicGruntProjectile(GameObject):
         self.ID_ = self.create_ID()
         self.listeners_ = []
         self.position_ = initial_position
-        self.speed_ = 15
         self.size_ = 5
+        self.speed_ = 15
         self.velocity_ = self.calculate_trajectory(initial_position,
                                                    target_position)
 
@@ -27,14 +27,12 @@ class BasicGruntProjectile(GameObject):
         x_velocity = (x_distance * self.speed_) / distance
         y_velocity = (y_distance * self.speed_) / distance
 
-        return (x_velocity, y_velocity)
+        return x_velocity, y_velocity
 
     def check_collisions(self):
         collisions = self.universe_.get_collisions(self)
-        for main_character in collisions:
-            main_character.take_damage(self.damage_)
-
         if collisions:
+            collisions[0].take_damage(self.damage_)
             self.report_destroyed()
 
     def update(self, events):
@@ -64,17 +62,17 @@ class BasicGrunt(GameObject):
 
     def __init__(self, starting_position, universe):
         self.position_ = starting_position
+    	self.universe_ = universe
 
-        self.ID_ = self.create_ID()
+    	self.closest_range_ = 100
+    	self.detection_range_ = 600
+    	self.health_ = 30
+    	self.listeners_ = []
     	self.size_ = 15
     	self.speed_ = 0.5
-    	self.health_ = 30
-    	self.universe_ = universe
-    	self.listeners_ = []
     	self.weapon_delay_ = 50
     	self.weapon_delay_timer_ = 50
-    	self.detection_range_ = 600
-    	self.closest_range_ = 100
+        self.ID_ = self.create_ID()
 
     """
     Update Functions
@@ -87,7 +85,8 @@ class BasicGrunt(GameObject):
         distance = (x_distance**2 + y_distance**2)**(1/2)
 
         if distance > self.detection_range_:
-            self.position_ = (self.position_[0], self.position_[1]+self.speed_)
+            self.position_[1] += self.speed_
+
         elif distance >= self.closest_range_:
             x_velocity = (x_distance * self.speed_) / distance
             y_velocity = (y_distance * self.speed_) / distance

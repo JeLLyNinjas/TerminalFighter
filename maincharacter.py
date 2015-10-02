@@ -22,7 +22,7 @@ class MainCharacter(GameObject):
 
         self.font_size_ = 15
         self.health_ = 100
-        self.ID_ = self.create_ID()
+        self.id_ = self.create_ID()
         self.selected_weapon_index_ = 0
         self.size_ = 20
         self.text_antialias_ = 1

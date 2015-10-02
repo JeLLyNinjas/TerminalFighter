@@ -80,7 +80,7 @@ class BasicGrunt(GameObject):
         y_distance = main_character_position[1] - self.position_[1]
         distance = (x_distance**2 + y_distance**2)**(1/2)
 
-        if distance > 600:
+        if distance > 400:
             self.position_ = (self.position_[0], self.position_[1]+self.speed_)
         elif distance >= 100:
             x_velocity = (x_distance * self.speed_) / distance

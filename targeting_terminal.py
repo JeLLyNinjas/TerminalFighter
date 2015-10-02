@@ -30,12 +30,13 @@ class TargetingTerminal():
 
         # Terminal Text Input Constants
         self.font_size_ = 15
-        self.max_word_size_ = self.text_input_max_size_ / self.ui_font_.size("W")[0]
         self.text_alias_ = 1
         self.text_input_max_size_ = self.terminal_size_width_ - 20 
         self.text_input_x_ = 15
         self.text_input_y_ = 35
         self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
+        
+        self.max_word_size_ = self.text_input_max_size_ / self.ui_font_.size("W")[0]
 
        
     """

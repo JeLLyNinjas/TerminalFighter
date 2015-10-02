@@ -51,3 +51,20 @@ def terminalfighter(screen, DRAWING_SCALE):
             pygame.time.wait(FRAME_LENGTH_TICKS - frame_time_elapsed)
         else:
             print("WARNING: Cannot keep up with 30FPS update time!")
+
+if __name__ == '__main__':  
+    DRAWING_SCALE = 1
+    if len(sys.argv) >= 2:
+        try:
+            DRAWING_SCALE = int(sys.argv[1])
+        except ValueError:
+            print("Scale argument must be int")
+            sys.exit()
+    
+    GAME_WIDTH = 1000
+    GAME_HEIGHT = 700
+
+    screen = pygame.display.set_mode(
+        (int(GAME_WIDTH*DRAWING_SCALE), int(GAME_HEIGHT*DRAWING_SCALE)))
+
+    terminalfighter(screen, DRAWING_SCALE)

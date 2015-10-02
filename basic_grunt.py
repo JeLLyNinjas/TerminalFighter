@@ -13,6 +13,7 @@ class BasicGrunt(GameObject):
         self.speed_ = 0.5
         self.health_ = 30
         self.universe_ = universe
+        self.enemy_type_ = "BasicGrunt"
         self.listeners_ = []
 
     """
@@ -59,6 +60,8 @@ class BasicGrunt(GameObject):
         else:
             self.health_ -= damage
 
+    def get_type(self):
+        return self.enemy_type_
 
     """
     Listener Functions

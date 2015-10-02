@@ -28,7 +28,6 @@ class RifleTargetingSystem():
         self.universe_ = universe
 
         self.current_text_ = ""
-        self.enemy_color_ = RED
         self.font_size_ = 15
         self.ids_for_target_tags_ = dict() 
         self.main_character_color_ = GREEN
@@ -122,11 +121,12 @@ class RifleTargetingSystem():
 
     def draw_entities(self, screen):
         for enemy in self.universe_.enemies():
+            enemy_color = self.determine_enemy_color(enemy)
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_)
-            pygame.draw.rect(screen, self.enemy_color_, enemy_rect)
+            pygame.draw.rect(screen, enemy_color, enemy_rect)
 
         main_character = self.universe_.main_character_
         main_character_rect = pygame.Rect((main_character.position_[0]-main_character.size_/2) * self.DRAWING_SCALE_,
@@ -136,16 +136,28 @@ class RifleTargetingSystem():
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
         self.draw_friendly_projectiles(screen)
 
+
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
+            enemy_color = self.determine_enemy_color(enemy)
             target_tag_word = self.target_tags_[enemy.ID_]
             target_tag_label = self.ui_font_.render(target_tag_word, 
                                                     self.text_antialias_, 
-                                                    self.enemy_color_)
+                                                    enemy_color)
             width = self.ui_font_.size(target_tag_word)[0]
             screen.blit(target_tag_label,
                         (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
                         (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (self.target_tag_y_spacing_ * self.DRAWING_SCALE_)))
+
+    def determine_enemy_color(self, enemy):
+        enemy_type = enemy.get_type()
+        if enemy_type == "BasicGrunt":
+            return RED
+        elif enemy_type == "NotSoBasicGrunt":
+            return WHITE
+
+        return RED
+            
 
     def draw_friendly_projectiles(self, screen):
         for projectile in self.universe_.friendly_projectiles():

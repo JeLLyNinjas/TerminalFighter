@@ -15,6 +15,7 @@ class NotSoBasicGrunt(GameObject):
         self.health_ = 30
         self.universe_ = universe
         self.listeners_ = []
+        self.enemy_type_ = "NotSoBasicGrunt"
 
         self.x_velocity = 0
         self.y_velocity = 0.3 
@@ -61,6 +62,9 @@ class NotSoBasicGrunt(GameObject):
             self.report_destroyed()
         else:
             self.health_ -= damage
+
+    def get_type(self):
+        return self.enemy_type_
     """"
     Private Functions
     """

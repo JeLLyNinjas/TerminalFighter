@@ -69,6 +69,8 @@ class BasicGrunt(GameObject):
         self.listeners_ = []
         self.weapon_delay_ = 50
         self.weapon_delay_timer_ = 50 
+        self.detection_range_ = 600
+        self.closest_range_ = 100
 
     """
     Update Functions
@@ -80,9 +82,9 @@ class BasicGrunt(GameObject):
         y_distance = main_character_position[1] - self.position_[1]
         distance = (x_distance**2 + y_distance**2)**(1/2)
 
-        if distance > 400:
+        if distance > self.detection_range_:
             self.position_ = (self.position_[0], self.position_[1]+self.speed_)
-        elif distance >= 100:
+        elif distance >= self.closest_range_:
             x_velocity = (x_distance * self.speed_) / distance
             y_velocity = (y_distance * self.speed_) / distance
             self.position_ = (

@@ -37,7 +37,7 @@ class HomingMissilesTargetingSystem():
         self.target_tag_y_spacing_ = 5
         self.target_tags_ = dict()
         self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
-        self.targetted_enemies_ = list() 
+        self.targeted_enemies_ = list() 
         self.text_antialias_ = 1
         self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
         self.word_generator_ = WordGenerator()
@@ -75,15 +75,16 @@ class HomingMissilesTargetingSystem():
                 if event.key == EVENT_KEY_ENTER:
                     target_id = self.get_target_id(self.current_text_)
                     if target_id and self.current_text_ != "fire":
-                        if len(self.targetted_enemies_) == 5:
-                            untargetted_enemy = self.targetted_enemies_.pop(0)
-                        self.targetted_enemies_.append(self.universe_.enemies_[target_id])
+                        if len(self.targeted_enemies_) == 5:
+                            untargetted_enemy = self.targeted_enemies_.pop(0)
+                        self.targeted_enemies_.append(self.universe_.enemies_[target_id])
+                        self.targeted_enemies_[len(self.targeted_enemies_)-1].register(self)
                        
-                    if len(self.targetted_enemies_) > 0 and self.current_text_ == "fire":
-                        for enemy in self.targetted_enemies_:
+                    if len(self.targeted_enemies_) > 0 and self.current_text_ == "fire":
+                        for enemy in self.targeted_enemies_:
                             homing_missiles_projectile = HomingMissilesProjectile(self.universe_.main_character_.position_, enemy, self.universe_)
                             self.universe_.create_friendly_projectile(homing_missiles_projectile)
-                        self.targetted_enemies_.clear()
+                        self.targeted_enemies_.clear()
 
                     self.current_text_ = ""
 
@@ -111,6 +112,9 @@ class HomingMissilesTargetingSystem():
         pygame.draw.rect(screen, BLACK, pygame.Rect((0, 0), screen.get_size()))
 
     def draw_entities(self, screen):
+        self.draw_friendly_projectiles(screen)
+        self.draw_enemy_projectiles(screen)
+
         for enemy in self.universe_.enemies():
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
@@ -124,8 +128,7 @@ class HomingMissilesTargetingSystem():
                                           main_character.size_ * self.DRAWING_SCALE_,
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
-        self.draw_friendly_projectiles(screen)
-        self.draw_enemy_projectiles(screen)
+        
 
     def draw_grid(self, screen):
         height = screen.get_height()
@@ -175,7 +178,7 @@ class HomingMissilesTargetingSystem():
             pygame.draw.rect(screen, self.enemy_color_, projectile_rect)
 
     def draw_targets(self, screen):
-        for enemy in self.targetted_enemies_: 
+        for enemy in self.targeted_enemies_: 
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_,
@@ -183,18 +186,28 @@ class HomingMissilesTargetingSystem():
 
             pygame.draw.rect(screen, self.target_color_, enemy_rect, 4)
 
+    """
+    Listener Functions
+    """
+
+    def reported_destroyed(self, game_object):
+        for enemy in self.targeted_enemies_:
+            if enemy == game_object:
+                self.targeted_enemies_.pop(self.targeted_enemies_.index(enemy))
+    
+
 class HomingMissilesProjectile(GameObject): 
 
     def __init__(self, initial_position, enemy, universe):
         self.position_ = initial_position
-        self.targetted_enemy_ = enemy
+        self.targeted_enemy_ = enemy
         self.universe_ = universe
         
         self.ID_ = self.create_ID()
         self.listeners_ = []
         self.size_ = 5
         self.speed_ = 5
-        self.velocity_ = self.calculate_trajectory(self.position_, self.targetted_enemy_.position_)
+        self.velocity_ = self.calculate_trajectory(self.position_, self.targeted_enemy_.position_)
         
     def calculate_trajectory(self, initial_position, target_position):
         x_distance = target_position[0] - initial_position[0]
@@ -216,7 +229,8 @@ class HomingMissilesProjectile(GameObject):
 
     def update(self,events):
         self.check_collisions()
-        target_position_ = self.targetted_enemy_.position_
+
+        target_position_ = self.targeted_enemy_.position_
         self.velocity_ = self.calculate_trajectory(self.position_, target_position_)
         self.position_ = (self.position_[0] + self.velocity_[0], self.position_[1] + self.velocity_[1])
 

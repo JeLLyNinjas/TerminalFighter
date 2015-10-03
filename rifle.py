@@ -121,6 +121,9 @@ class RifleTargetingSystem():
                              line_width * self.DRAWING_SCALE_)
 
     def draw_entities(self, screen):
+        self.draw_friendly_projectiles(screen)
+        self.draw_enemy_projectiles(screen)
+
         for enemy in self.universe_.enemies():
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
@@ -134,8 +137,7 @@ class RifleTargetingSystem():
                                           main_character.size_ * self.DRAWING_SCALE_,
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
-        self.draw_friendly_projectiles(screen)
-        self.draw_enemy_projectiles(screen)
+        
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():

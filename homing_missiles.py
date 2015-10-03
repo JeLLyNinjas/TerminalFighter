@@ -164,8 +164,8 @@ class HomingMissilesTargetingSystem():
 class HomingMissilesProjectile(GameObject): 
 
     def __init__(self, initial_position, enemy, universe):
-        self.targetted_enemy_ = enemy
         self.position_ = initial_position
+        self.targetted_enemy_ = enemy
         self.universe_ = universe
         
         self.ID_ = self.create_ID()

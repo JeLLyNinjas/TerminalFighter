@@ -6,8 +6,10 @@ from rifle import Rifle
 
 
 BLACK = 0, 0, 0
+GREEN = 0, 255, 0
 RED = 255, 0, 0
 WHITE = 255, 255, 255
+YELLOW = 255, 255, 0
 
 EVENT_KEY_1 = 49
 EVENT_KEY_5 = 53
@@ -23,6 +25,7 @@ class MainCharacter(GameObject):
         self.text_antialias_ = 1
         self.ID_ = self.create_ID()
         self.font_size_ = 15
+        self.max_health_ = 100
         self.selected_weapon_index_ = 0
         self.size_ = 20
         self.ui_font_ = pygame.font.SysFont(
@@ -33,7 +36,7 @@ class MainCharacter(GameObject):
         self.weapon_label_y_spacing_ = 10
 
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
-        self.health_ = 100
+        self.health_ = self.max_health_
 
     """
     Access Functions
@@ -53,6 +56,7 @@ class MainCharacter(GameObject):
             self.health_ = 0
         else:
             self.health_ -= damage
+        # print("MainCharacter health is " + str(self.health_))
     """
     Update Functions
     """
@@ -82,6 +86,10 @@ class MainCharacter(GameObject):
         self.draw_ui(screen)
 
     def draw_ui(self, screen):
+        self.draw_weapons_ui(screen)
+        self.draw_health_ui(screen)
+
+    def draw_weapons_ui(self, screen):
         for i, weapon in enumerate(self.weapons_):
             ui_weapon_text_colour = WHITE
             if i == self.selected_weapon_index_:
@@ -92,3 +100,20 @@ class MainCharacter(GameObject):
                                                 ui_weapon_text_colour)
             screen.blit(weapon_label, (self.weapon_label_x_spacing_*self.DRAWING_SCALE_,
                                        (i*self.weapon_label_y_spacing_)*self.DRAWING_SCALE_))
+
+    def draw_health_ui(self, screen):
+        if self.health_ > self.max_health_ * 0.5:
+            health_text_color = GREEN
+        elif self.health_ > self.max_health_ * 0.1:
+            health_text_color = YELLOW
+        else:
+            health_text_color = RED
+
+        health_label = self.ui_font_.render("HEALTH " + str(self.health_) + " ",
+                                            self.text_antialias_,
+                                            health_text_color)
+        screen.blit(health_label, 
+                    ((screen.get_width()-health_label.get_width())/2, 
+                     screen.get_height()*0.97-health_label.get_height()))
+
+

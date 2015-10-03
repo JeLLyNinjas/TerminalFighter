@@ -43,12 +43,12 @@ class RifleTargetingSystem():
         self.word_length_range_ = 3
         
     def get_target_id(self, terminal_input): 
+        target_ID = None
+        
         for enemy in self.universe_.enemies(): 
             if terminal_input == self.target_tags_[enemy.ID_]:
                 target_ID = self.ids_for_target_tags_[terminal_input]
                 break
-            else:       
-                target_ID = None
         return target_ID  
 
     def get_target_position(self, current_text): 
@@ -75,7 +75,7 @@ class RifleTargetingSystem():
                     target_location = self.get_target_position(self.current_text_)
                     self.current_text_ = ""
                     if target_location:
-                        rifle_projectile = RifleProjectile(self.universe_.main_character_.position_, target_location)
+                        rifle_projectile = RifleProjectile(self.universe_.main_character_.position_, target_location, self.universe_)
                         self.universe_.create_friendly_projectile(rifle_projectile)
                     
                 if event.key == EVENT_KEY_BACKSPACE:
@@ -135,6 +135,7 @@ class RifleTargetingSystem():
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
         self.draw_friendly_projectiles(screen)
+        self.draw_enemy_projectiles(screen)
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
@@ -156,12 +157,22 @@ class RifleTargetingSystem():
             pygame.draw.rect(screen, self.projectile_color_, projectile_rect)
 
 
+    def draw_enemy_projectiles(self, screen):
+        for projectile in self.universe_.enemy_projectiles():
+            projectile_rect = pygame.Rect((projectile.position_[0]-projectile.size_/2) * self.DRAWING_SCALE_,
+                                     (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
+                                     projectile.size_ * self.DRAWING_SCALE_,
+                                     projectile.size_ * self.DRAWING_SCALE_)
+            pygame.draw.rect(screen, self.enemy_color_, projectile_rect)
+
 class RifleProjectile(GameObject): 
 
-    def __init__(self, initial_position, target_position):
+    def __init__(self, initial_position, target_position, universe):
+        self.universe_ = universe 
         self.ID_ = self.create_ID()
+        self.listeners_ = []
         self.position_ = initial_position
-        self.speed_ = 15
+        self.speed_ = 17
         self.size_ = 5
         self.velocity_ = self.calculate_trajectory(initial_position, target_position)
 
@@ -175,7 +186,16 @@ class RifleProjectile(GameObject):
 
         return (x_velocity, y_velocity)
 
+    def check_collisions(self):
+        collisions = self.universe_.get_collisions(self)
+        for enemies in collisions:
+            enemies.take_damage(1000)
+
+        if collisions:
+            self.report_destroyed()
+
     def update(self,events):
+        self.check_collisions()
         self.position_ = (self.position_[0] + self.velocity_[0], self.position_[1] + self.velocity_[1])
 
     def collision_box(self):
@@ -184,6 +204,16 @@ class RifleProjectile(GameObject):
             self.size_,
             self.size_)
 
+    """
+    Listener Functions
+    """
+
+    def report_destroyed(self):
+        for listener in self.listeners_:
+            listener.reported_destroyed(self)
+    
+    def register(self, listeners):
+        self.listeners_.append(listeners)
 	
 
 class Rifle():

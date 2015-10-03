@@ -44,12 +44,11 @@ class HomingMissilesTargetingSystem():
         self.target_color_ = WHITE
         
     def get_target_id(self, terminal_input): 
+        target_ID = None
         for enemy in self.universe_.enemies(): 
             if terminal_input == self.target_tags_[enemy.ID_]:
                 target_ID = self.ids_for_target_tags_[terminal_input]
                 break
-            else:       
-                target_ID = None
         return target_ID  
 
     def get_target_position(self, current_text): 

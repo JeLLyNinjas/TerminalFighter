@@ -92,6 +92,11 @@ def main_menu(screen, DRAWING_SCALE):
         screen.blit(quit_label, 
                     (quit_position[0] * DRAWING_SCALE - (quit_label.get_width()/2), 
                      quit_position[1] * DRAWING_SCALE - LABEL_SPACING*DRAWING_SCALE))
+    
+        instruction_label = ui_font_.render("TYPE TO SHOOT!", 1, WHITE)
+        screen.blit(instruction_label, 
+                    (screen.get_width()/2 - (instruction_label.get_width()/2), 
+                     screen.get_height()/2))
         # print("draw time : " + str(pygame.time.get_ticks() - draw_start_time))
     
         flip_start_time = pygame.time.get_ticks()

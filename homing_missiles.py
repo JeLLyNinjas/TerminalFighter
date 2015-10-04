@@ -9,7 +9,9 @@ from wordgenerator import WordGenerator
 pygame.font.init()
 
 BLACK = 0, 0, 0
+DARK_GREEN = 0, 100, 0
 GREEN = 0, 255, 0
+RED = 255, 0, 0
 WHITE = 255, 255, 255
 YELLOW = 255, 255, 0
 
@@ -31,14 +33,16 @@ class HomingMissilesTargetingSystem():
         self.ids_for_target_tags_ = dict() 
         self.main_character_color_ = GREEN
         self.projectile_color_ = WHITE 
+        self.target_color_ = RED
         self.target_tag_y_spacing_ = 5
         self.target_tags_ = dict()
         self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
+        self.targeted_enemies_ = list() 
         self.text_antialias_ = 1
         self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
         self.word_generator_ = WordGenerator()
-        self.word_length_min_ = 12
-        self.word_length_range_ = 1
+        self.word_length_min_ = 5
+        self.word_length_range_ = 3 
         
     def get_target_id(self, terminal_input): 
         target_ID = None
@@ -69,7 +73,19 @@ class HomingMissilesTargetingSystem():
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == EVENT_KEY_ENTER:
-                    target_location = self.get_target_position(self.current_text_)
+                    target_id = self.get_target_id(self.current_text_)
+                    if target_id and self.current_text_ != "fire":
+                        if len(self.targeted_enemies_) == 5:
+                            untargetted_enemy = self.targeted_enemies_.pop(0)
+                        self.targeted_enemies_.append(self.universe_.enemies_[target_id])
+                        self.targeted_enemies_[len(self.targeted_enemies_)-1].register(self)
+                       
+                    if len(self.targeted_enemies_) > 0 and self.current_text_ == "fire":
+                        for enemy in self.targeted_enemies_:
+                            homing_missiles_projectile = HomingMissilesProjectile(self.universe_.main_character_.position_, enemy, self.universe_)
+                            self.universe_.create_friendly_projectile(homing_missiles_projectile)
+                        self.targeted_enemies_.clear()
+
                     self.current_text_ = ""
 
                 if event.key == EVENT_KEY_BACKSPACE:
@@ -86,14 +102,19 @@ class HomingMissilesTargetingSystem():
 
     def draw(self, screen):
         self.draw_background(screen)
+        self.draw_grid(screen)
         self.draw_entities(screen)
         self.draw_target_tags(screen)
+        self.draw_targets(screen)
         self.targeting_terminal_.draw_terminal(screen)
 
     def draw_background(self, screen):
         pygame.draw.rect(screen, BLACK, pygame.Rect((0, 0), screen.get_size()))
 
     def draw_entities(self, screen):
+        self.draw_friendly_projectiles(screen)
+        self.draw_enemy_projectiles(screen)
+
         for enemy in self.universe_.enemies():
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
@@ -107,7 +128,27 @@ class HomingMissilesTargetingSystem():
                                           main_character.size_ * self.DRAWING_SCALE_,
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
-        self.draw_friendly_projectiles(screen)
+        
+
+    def draw_grid(self, screen):
+        height = screen.get_height()
+        width = screen.get_width()
+        line_separation = 30
+        line_width = 1
+
+        for i in range(line_separation, width, line_separation):
+            pygame.draw.line(screen, 
+                             DARK_GREEN, 
+                             (i, 0), 
+                             (i, height), 
+                             line_width * self.DRAWING_SCALE_)
+
+        for i in range(line_separation, height, line_separation):
+            pygame.draw.line(screen, 
+                             DARK_GREEN, 
+                             (0, i), 
+                             (width, i), 
+                             line_width * self.DRAWING_SCALE_)
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
@@ -123,21 +164,98 @@ class HomingMissilesTargetingSystem():
     def draw_friendly_projectiles(self, screen):
         for projectile in self.universe_.friendly_projectiles():
             projectile_rect = pygame.Rect((projectile.position_[0]-projectile.size_/2) * self.DRAWING_SCALE_,
+                                    (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
+                                    projectile.size_ * self.DRAWING_SCALE_,
+                                    projectile.size_ * self.DRAWING_SCALE_)
+            pygame.draw.rect(screen, self.projectile_color_, projectile_rect)
+    
+    def draw_enemy_projectiles(self, screen):
+        for projectile in self.universe_.enemy_projectiles():
+            projectile_rect = pygame.Rect((projectile.position_[0]-projectile.size_/2) * self.DRAWING_SCALE_,
                                      (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
                                      projectile.size_ * self.DRAWING_SCALE_,
                                      projectile.size_ * self.DRAWING_SCALE_)
-            pygame.draw.rect(screen, self.projectile_color_, projectile_rect)
+            pygame.draw.rect(screen, self.enemy_color_, projectile_rect)
 
-        main_character = self.universe_.main_character_
-        main_character_rect = pygame.Rect((main_character.position_[0]-main_character.size_/2) * self.DRAWING_SCALE_,
-                                          (main_character.position_[1]-main_character.size_/2) * self.DRAWING_SCALE_,
-                                          main_character.size_ * self.DRAWING_SCALE_,
-                                          main_character.size_ * self.DRAWING_SCALE_)
-        pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
+    def draw_targets(self, screen):
+        for enemy in self.targeted_enemies_: 
+            enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
+                                     (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
+                                     enemy.size_ * self.DRAWING_SCALE_,
+                                     enemy.size_ * self.DRAWING_SCALE_)
+
+            pygame.draw.rect(screen, self.target_color_, enemy_rect, 4)
+
+    """
+    Listener Functions
+    """
+
+    def reported_destroyed(self, game_object):
+        for enemy in self.targeted_enemies_:
+            if enemy == game_object:
+                self.targeted_enemies_.pop(self.targeted_enemies_.index(enemy))
     
 
-class HomingMissiles():
+class HomingMissilesProjectile(GameObject): 
 
+    def __init__(self, initial_position, enemy, universe):
+        self.position_ = initial_position
+        self.targeted_enemy_ = enemy
+        self.universe_ = universe
+        
+        self.ID_ = self.create_ID()
+        self.listeners_ = []
+        self.size_ = 5
+        self.speed_ = 5
+        self.velocity_ = self.calculate_trajectory(self.position_, self.targeted_enemy_.position_)
+        
+    def calculate_trajectory(self, initial_position, target_position):
+        x_distance = target_position[0] - initial_position[0]
+        y_distance = target_position[1] - initial_position[1]
+        distance = math.sqrt(x_distance**2 + y_distance**2)
+        
+        x_velocity = (x_distance * self.speed_) / distance
+        y_velocity = (y_distance * self.speed_) / distance
+
+        return x_velocity, y_velocity
+   
+    def check_collisions(self):
+        collisions = self.universe_.get_collisions(self)
+        for enemies in collisions:
+            enemies.take_damage(1000)
+
+        if collisions:
+            self.report_destroyed()
+
+    def update(self,events):
+        self.check_collisions()
+        for game_object in self.universe_.deleted_gameobjects_:
+            if game_object == self.targeted_enemy_.ID_:
+                self.report_destroyed()
+
+        target_position_ = self.targeted_enemy_.position_
+        self.velocity_ = self.calculate_trajectory(self.position_, target_position_)
+        self.position_ = (self.position_[0] + self.velocity_[0], self.position_[1] + self.velocity_[1])
+
+
+    def collision_box(self):
+        return pygame.Rect(self.position_[0]-self.size_/2,
+                        self.position_[1]-self.size_/2,
+                        self.size_,
+                        self.size_)
+    """
+    Listener Functions
+    """
+
+    def report_destroyed(self):
+        for listener in self.listeners_:
+            listener.reported_destroyed(self)
+    
+    def register(self, listeners):
+        self.listeners_.append(listeners)
+            
+class HomingMissiles():
+            
     def __init__(self, universe, DRAWING_SCALE):
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE

@@ -229,6 +229,9 @@ class HomingMissilesProjectile(GameObject):
 
     def update(self,events):
         self.check_collisions()
+        for game_object in self.universe_.deleted_gameobjects_:
+            if game_object == self.targeted_enemy_.ID_:
+                self.report_destroyed()
 
         target_position_ = self.targeted_enemy_.position_
         self.velocity_ = self.calculate_trajectory(self.position_, target_position_)

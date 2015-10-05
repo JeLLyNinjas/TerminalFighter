@@ -1,11 +1,3 @@
-import math
-
-import pygame
-
-from gameobject import GameObject
-from targeting_terminal import TargetingTerminal
-from wordgenerator import WordGenerator
-
 pygame.font.init()
 
 BLACK = 0, 0, 0
@@ -14,6 +6,7 @@ DARK_GREEN = 0, 100, 0
 GREEN = 0, 255, 0
 RED = 255, 0, 0
 WHITE = 255, 255, 255
+GRAY = 88, 88, 88
 
 EVENT_KEY_a = 97
 EVENT_KEY_BACKSPACE = 8
@@ -34,6 +27,7 @@ class RifleTargetingSystem():
         self.main_character_color_ = GREEN
         self.projectile_color_ = WHITE 
         self.target_tag_y_spacing_ = 5
+        self.target_tag_rect_spacing_ = 2
         self.target_tags_ = dict()
         self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
         self.text_antialias_ = 1
@@ -41,6 +35,7 @@ class RifleTargetingSystem():
         self.word_generator_ = WordGenerator()
         self.word_length_min_ = 3
         self.word_length_range_ = 3
+    
         
     def get_target_id(self, terminal_input): 
         target_ID = None
@@ -148,8 +143,8 @@ class RifleTargetingSystem():
             height = self.ui_font_.size(target_tag_word)[1] 
             target_tag_x = enemy.position_[0] * self.DRAWING_SCALE_ - (width/2)
             target_tag_y = (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2 +(self.target_tag_y_spacing_ * self. DRAWING_SCALE_)) 
-            pygame.draw.rect(screen, BLACK, (target_tag_x - 2, target_tag_y -2, width+4, height+2), 0)
-            pygame.draw.rect(screen, (88,88,88), (target_tag_x -2 , target_tag_y - 2, width+4, height+2), 1)
+            pygame.draw.rect(screen, BLACK, (target_tag_x-target_tag_rect_spacing_, target_tag_y-target_tag_rect_spacing_, width+4, height+2), 0)
+            pygame.draw.rect(screen, GRAY, (target_tag_x-target_tag_rect_spacing_, target_tag_y-target_tag_rect_spacing_, width+4, height+2), 1)
             screen.blit(target_tag_label, (target_tag_x, target_tag_y))
 
     def draw_friendly_projectiles(self, screen):

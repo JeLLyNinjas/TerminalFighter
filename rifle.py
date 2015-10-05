@@ -137,8 +137,7 @@ class RifleTargetingSystem():
                                           main_character.size_ * self.DRAWING_SCALE_,
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
-        
-
+    
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
             target_tag_word = self.target_tags_[enemy.ID_]
@@ -146,6 +145,13 @@ class RifleTargetingSystem():
                                                     self.text_antialias_, 
                                                     self.enemy_color_)
             width = self.ui_font_.size(target_tag_word)[0]
+            height = self.ui_font_.size(target_tag_word)[1] 
+            pygame.draw.rect(screen, BLACK, ((enemy.position_[0] * self.DRAWING_SCALE_ - (width/2))-2,
+                            ((enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2 +(self.target_tag_y_spacing_ * self. DRAWING_SCALE_))-2), 
+                            width+4, height+2), 0)
+            pygame.draw.rect(screen, (20,20,20), ((enemy.position_[0] * self.DRAWING_SCALE_ - (width/2))-2,
+                            ((enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2 +(self.target_tag_y_spacing_ * self. DRAWING_SCALE_))-2), 
+                            width+4, height+2), 1)
             screen.blit(target_tag_label,
                         (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
                         (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (self.target_tag_y_spacing_ * self.DRAWING_SCALE_)))

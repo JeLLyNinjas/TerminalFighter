@@ -18,8 +18,8 @@ class GameMaster():
         self.main_character_spawn_height_ = self.universe_.height_*0.9
         self.spawn_main_character()
 
-        self.spawn_difficulty_ = 0.8
-        self.minimum_spawn_delay_ = 25 
+        self.spawn_difficulty_ = 0.9993
+        self.minimum_spawn_delay_ = 20
 
     def draw(self, screen):
         self.universe_.main_character_.draw_view(screen)
@@ -38,13 +38,14 @@ class GameMaster():
         self.universe_.create_enemy(the_basic_grunt)
 
     def update(self, events):
+        print('self.basic_grunt_spawn_delay_:' + str(self.basic_grunt_spawn_delay_))
         self.basic_grunt_spawn_timer_ += 1
         if self.basic_grunt_spawn_delay_ > self.minimum_spawn_delay_: 
-            self.basic_grunt_spawn_delay_ -= self.spawn_difficulty_ 
-            if self.basic_grunt_spawn_delay_ < self.minimum_spawn_delay_:
-                self.basic_grunt_spawn_delay_ = self.minimum_spawn_delay_
+            self.basic_grunt_spawn_delay_ *= self.spawn_difficulty_
         else:
+            self.basic_grunt_spawn_delay_ = self.minimum_spawn_delay_
             print("maximum difficulty reached")
+
         if self.basic_grunt_spawn_timer_ > self.basic_grunt_spawn_delay_:
             self.spawn_basic_grunt()
             self.basic_grunt_spawn_timer_ = 0

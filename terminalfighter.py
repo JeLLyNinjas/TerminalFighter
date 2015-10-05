@@ -35,6 +35,8 @@ def terminalfighter(screen, DRAWING_SCALE):
             if event.type == pygame.QUIT:
                 sys.exit()
         gamemaster.update(events)
+        if gamemaster.universe_.main_character().health_ <= 0:
+            return "MENU"
         # print("update time : " + str(pygame.time.get_ticks() - update_start_time))
     
         draw_start_time = pygame.time.get_ticks()

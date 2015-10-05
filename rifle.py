@@ -28,9 +28,9 @@ class RifleTargetingSystem():
         self.universe_ = universe
 
         self.current_text_ = ""
-        self.enemy_colors_ = {"NotSoBasicGrunt" : WHITE}
         self.default_enemy_color_ = RED
-        self.font_size_ = 15
+        self.enemy_colors_ = {"NotSoBasicGrunt" : WHITE}
+        self.font_size_ = 15 
         self.ids_for_target_tags_ = dict() 
         self.main_character_color_ = GREEN
         self.projectile_color_ = WHITE 

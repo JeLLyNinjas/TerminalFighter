@@ -209,7 +209,7 @@ class HomingMissilesProjectile(GameObject):
         self.ID_ = self.create_ID()
         self.listeners_ = []
         self.size_ = 5
-        self.speed_ = 5
+        self.speed_ = 8
         self.velocity_ = self.calculate_trajectory(self.position_, self.targeted_enemy_.position_)
         
     def calculate_trajectory(self, initial_position, target_position):

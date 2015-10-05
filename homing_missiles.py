@@ -12,7 +12,7 @@ BLACK = 0, 0, 0
 DARK_GREEN = 0, 100, 0
 GREEN = 0, 255, 0
 RED = 255, 0, 0
-WHITE = 255, 255, 255
+WHITE = 255, 255, 255   
 YELLOW = 255, 255, 0
 
 EVENT_KEY_a = 97
@@ -178,7 +178,7 @@ class HomingMissilesTargetingSystem():
                                      (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
                                      projectile.size_ * self.DRAWING_SCALE_,
                                      projectile.size_ * self.DRAWING_SCALE_)
-            pygame.draw.rect(screen, self.enemy_color_, projectile_rect)
+            pygame.draw.rect(screen, self.default_enemy_color_, projectile_rect)
 
     def draw_targets(self, screen):
         for enemy in self.targeted_enemies_: 

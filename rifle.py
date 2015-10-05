@@ -169,7 +169,7 @@ class RifleTargetingSystem():
                                      (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
                                      projectile.size_ * self.DRAWING_SCALE_,
                                      projectile.size_ * self.DRAWING_SCALE_)
-            pygame.draw.rect(screen, self.enemy_color_, projectile_rect)
+            pygame.draw.rect(screen, self.default_enemy_color_, projectile_rect)
 
 class RifleProjectile(GameObject): 
 

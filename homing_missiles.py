@@ -28,8 +28,8 @@ class HomingMissilesTargetingSystem():
         self.universe_ = universe
 
         self.current_text_ = ""
-        self.default_enemy_color_ = YELLOW
-        self.enemy_colors_ = {"NotSoBasicGrunt" : WHITE}
+        self.default_enemy_color_ = RED
+        self.enemy_colors_ = {"NotSoBasicGrunt" : YELLOW}
         self.font_size_ = 15
         self.ids_for_target_tags_ = dict() 
         self.main_character_color_ = GREEN

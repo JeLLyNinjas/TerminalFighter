@@ -10,36 +10,38 @@ class NotSoBasicGrunt(GameObject):
     def __init__(self, starting_position, universe):
         self.position_ = starting_position
 
-        self.ID_ = self.create_ID()
-        self.size_ = 15
-        self.health_ = 30
-        self.universe_ = universe
-        self.listeners_ = []
         self.enemy_type_ = "NotSoBasicGrunt"
+        self.health_ = 30
+        self.ID_ = self.create_ID()
+        self.listeners_ = []
+        self.size_ = 15
+        self.universe_ = universe
 
         self.x_velocity = 0
         self.y_velocity = 0.3 
         self.x_accel = 0
         self.y_accel = 0
 
-        self.gravity_hole_1 = (500,300)
+        self.gravity_holes_ = [(500,300)]
+        self.gravity_hole_force_ = 0.18
 
     """
     Update Functions
     """
 
     def update(self, events):
-        force_1 = self.calculate_force_from_(self.gravity_hole_1)
+        forces = [self.calculate_force_from(gravity_hole) 
+                  for gravity_hole in self.gravity_holes_]
 
-        self.x_accel = force_1[0]
-        self.y_accel = force_1[1]
+        self.x_accel = sum([force[0] for force in forces])
+        self.y_accel = sum([force[1] for force in forces])
 
         self.x_velocity += self.x_accel
         self.y_velocity += self.y_accel
 
         #Space friction, the not_so_basic_grunt will eventuall be at a stanstill
-        self.x_velocity += -self.x_velocity*0.00001
-        self.y_velocity += -self.y_velocity*0.003
+        self.x_velocity *= 0.999999
+        self.y_velocity *= 0.997
 
         self.position_ = (self.position_[0] + self.x_velocity, self.position_[1] + self.y_velocity)
 
@@ -70,21 +72,19 @@ class NotSoBasicGrunt(GameObject):
     """
     
 
-    def calculate_force_from_(self, gravity_hole):
+    def calculate_force_from(self, gravity_hole):
         x_distance = gravity_hole[0] - self.position_[0]
         y_distance = gravity_hole[1] - self.position_[1]
 
+        x_force = self.gravity_hole_force_
         if x_distance < 0:
-            x_force = -0.18
-        else:
-            x_force = 0.18
+            x_force *= -1.0
 
+        y_force = self.gravity_hole_force_
         if y_distance < 0:
-            y_force = -0.18
-        else:
-            y_force = 0.18
+            y_force *= -1.0
 
-        return (x_force, y_force)
+        return x_force, y_force
 
     """
     Listener Functions
@@ -96,5 +96,4 @@ class NotSoBasicGrunt(GameObject):
     
     def register(self, listeners):
         self.listeners_.append(listeners)
-        pass
 

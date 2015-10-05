@@ -23,7 +23,7 @@ class NotSoBasicGrunt(GameObject):
         self.y_accel = 0
 
         self.gravity_holes_ = [(500,300)]
-        self.gravity_hole_force_ = 0.18
+        self.gravity_hole_force_ = 0.12
 
     """
     Update Functions

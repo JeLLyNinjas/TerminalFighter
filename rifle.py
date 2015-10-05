@@ -205,7 +205,7 @@ class RifleProjectile(GameObject):
     def update(self, events):
         self.check_collisions()
         self.position_ = (self.position_[0] + self.velocity_[0], 
-                          self.position_[1] - abs(self.velocity_[1]))
+                          self.position_[1] + self.velocity_[1])
 
     def collision_box(self):
         return pygame.Rect(self.position_[0]-self.size_/2,

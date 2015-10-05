@@ -122,6 +122,9 @@ class RifleTargetingSystem():
                              line_width * self.DRAWING_SCALE_)
 
     def draw_entities(self, screen):
+        self.draw_friendly_projectiles(screen)
+        self.draw_enemy_projectiles(screen)
+
         for enemy in self.universe_.enemies():
             enemy_color = self.enemy_colors_.get(enemy.get_type(), self.default_enemy_color_)
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
@@ -136,8 +139,7 @@ class RifleTargetingSystem():
                                           main_character.size_ * self.DRAWING_SCALE_,
                                           main_character.size_ * self.DRAWING_SCALE_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
-        self.draw_friendly_projectiles(screen)
-        self.draw_enemy_projectiles(screen)
+        
 
 
     def draw_target_tags(self, screen):
@@ -160,12 +162,6 @@ class RifleTargetingSystem():
                                      projectile.size_ * self.DRAWING_SCALE_)
             pygame.draw.rect(screen, self.projectile_color_, projectile_rect)
 
-        main_character = self.universe_.main_character_
-        main_character_rect = pygame.Rect((main_character.position_[0]-main_character.size_/2) * self.DRAWING_SCALE_,
-                                          (main_character.position_[1]-main_character.size_/2) * self.DRAWING_SCALE_,
-                                          main_character.size_ * self.DRAWING_SCALE_,
-                                          main_character.size_ * self.DRAWING_SCALE_)
-        pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
 
     def draw_enemy_projectiles(self, screen):
         for projectile in self.universe_.enemy_projectiles():
@@ -206,7 +202,7 @@ class RifleProjectile(GameObject):
 
     def update(self,events):
         self.check_collisions()
-        self.position_ = (self.position_[0] + self.velocity_[0], self.position_[1] - abs(self.velocity_[1]))
+        self.position_ = (self.position_[0] + self.velocity_[0], self.position_[1] + self.velocity_[1])
 
     def collision_box(self):
         return pygame.Rect(self.position_[0]-self.size_/2,

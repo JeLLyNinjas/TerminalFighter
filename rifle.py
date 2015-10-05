@@ -146,15 +146,11 @@ class RifleTargetingSystem():
                                                     self.enemy_color_)
             width = self.ui_font_.size(target_tag_word)[0]
             height = self.ui_font_.size(target_tag_word)[1] 
-            pygame.draw.rect(screen, BLACK, ((enemy.position_[0] * self.DRAWING_SCALE_ - (width/2))-2,
-                            ((enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2 +(self.target_tag_y_spacing_ * self. DRAWING_SCALE_))-2), 
-                            width+4, height+2), 0)
-            pygame.draw.rect(screen, (20,20,20), ((enemy.position_[0] * self.DRAWING_SCALE_ - (width/2))-2,
-                            ((enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2 +(self.target_tag_y_spacing_ * self. DRAWING_SCALE_))-2), 
-                            width+4, height+2), 1)
-            screen.blit(target_tag_label,
-                        (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
-                        (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (self.target_tag_y_spacing_ * self.DRAWING_SCALE_)))
+            target_tag_x = enemy.position_[0] * self.DRAWING_SCALE_ - (width/2)
+            target_tag_y = (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2 +(self.target_tag_y_spacing_ * self. DRAWING_SCALE_)) 
+            pygame.draw.rect(screen, BLACK, (target_tag_x - 2, target_tag_y -2, width+4, height+2), 0)
+            pygame.draw.rect(screen, (88,88,88), (target_tag_x -2 , target_tag_y - 2, width+4, height+2), 1)
+            screen.blit(target_tag_label, (target_tag_x, target_tag_y))
 
     def draw_friendly_projectiles(self, screen):
         for projectile in self.universe_.friendly_projectiles():

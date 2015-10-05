@@ -28,6 +28,8 @@ class HomingMissilesTargetingSystem():
         self.universe_ = universe
 
         self.current_text_ = ""
+        self.default_enemy_color_ = YELLOW
+        self.enemy_colors_ = {"NotSoBasicGrunt" : WHITE}
         self.font_size_ = 15
         self.ids_for_target_tags_ = dict() 
         self.main_character_color_ = GREEN
@@ -115,7 +117,7 @@ class HomingMissilesTargetingSystem():
         self.draw_enemy_projectiles(screen)
 
         for enemy in self.universe_.enemies():
-            enemy_color = self.determine_enemy_color(enemy)
+            enemy_color = self.enemy_colors_.get(enemy.get_type(), self.default_enemy_color_)
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_,
@@ -150,18 +152,9 @@ class HomingMissilesTargetingSystem():
                              (width, i), 
                              line_width * self.DRAWING_SCALE_)
 
-    def determine_enemy_color(self, enemy):
-        enemy_type = enemy.get_type()
-        if enemy_type == "BasicGrunt":
-            return YELLOW
-        elif enemy_type == "NotSoBasicGrunt":
-            return WHITE
-
-        return RED
-
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
-            enemy_color = self.determine_enemy_color(enemy)
+            enemy_color = self.enemy_colors_.get(enemy.get_type(), self.default_enemy_color_)
             target_tag_word = self.target_tags_[enemy.ID_]
             target_tag_label = self.ui_font_.render(target_tag_word, 
                                                     self.text_antialias_, 

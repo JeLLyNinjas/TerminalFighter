@@ -151,8 +151,10 @@ class RifleTargetingSystem():
             height = self.ui_font_.size(target_tag_word)[1] 
             target_tag_x = enemy.position_[0] * self.DRAWING_SCALE_ - (width/2)
             target_tag_y = (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2 +(self.target_tag_y_spacing_ * self. DRAWING_SCALE_)) 
-            pygame.draw.rect(screen, BLACK, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_, width+4, height+2), 0)
-            pygame.draw.rect(screen, GRAY, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_, width+4, height+2), 1)
+            pygame.draw.rect(screen, BLACK, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_, 
+                            width+4, height+2), 0) # Filled rect. Dimensions of rect adjusted to contain the word
+            pygame.draw.rect(screen, GRAY, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_, 
+                            width+4, height+2), 1) # Outline rect.  Dimensions of rect adjusted to contain the word
             screen.blit(target_tag_label, (target_tag_x, target_tag_y))
 
     def draw_friendly_projectiles(self, screen):

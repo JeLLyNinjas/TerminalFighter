@@ -206,7 +206,7 @@ class HomingMissilesProjectile(GameObject):
         self.targeted_enemy_ = enemy
         self.universe_ = universe
         
-        self.ID_ = self.create_ID()
+        self.id_ = self.create_ID()
         self.listeners_ = []
         self.size_ = 5
         self.speed_ = 5
@@ -233,7 +233,7 @@ class HomingMissilesProjectile(GameObject):
     def update(self,events):
         self.check_collisions()
         for game_object in self.universe_.deleted_gameobjects_:
-            if game_object == self.targeted_enemy_.ID_:
+            if game_object == self.targeted_enemy_.id_:
                 self.report_destroyed()
 
         target_position_ = self.targeted_enemy_.position_

@@ -22,15 +22,12 @@ screen = pygame.display.set_mode(
     (int(GAME_WIDTH*DRAWING_SCALE), int(GAME_HEIGHT*DRAWING_SCALE)))
 
 run_game_state = {
-    "MENU": main_menu,
-    "GAME": terminal_fighter
-    "QUIT": sys.exit
-}
-
-gamestate_handler = GameStateHandler()
+    "MENU" : main_menu.main_menu,
+    "PLAY" : terminalfighter.terminalfighter,
+    "QUIT" : sys.exit
+} 
 
 gamestate = "MENU"
 
 while True:
-    gamestate = run_game_state.get(
-        gamestate, sys.exit())(screen, DRAWING_SCALE)
+    gamestate = run_game_state.get(gamestate, sys.exit())(screen, DRAWING_SCALE)

@@ -12,6 +12,7 @@ BLACK = 0, 0, 0
 BLUE = 0, 0, 255
 DARK_GREEN = 0, 100, 0
 GREEN = 0, 255, 0
+LIGHT_BLUE = 
 RED = 255, 0, 0
 WHITE = 255, 255, 255
 
@@ -29,7 +30,7 @@ class RifleTargetingSystem():
 
         self.current_text_ = ""
         self.default_enemy_color_ = RED
-        self.enemy_colors_ = {}
+        self.enemy_colors_ = {"NotSoBasicGrunt" : BLUE}
         self.font_size_ = 15 
         self.ids_for_target_tags_ = dict() 
         self.main_character_color_ = GREEN

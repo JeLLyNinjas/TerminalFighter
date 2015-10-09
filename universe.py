@@ -59,12 +59,12 @@ class Universe(DestroyListener):
         for the_enemy in self.created_enemies:
             self.enemies_[the_enemy.id_] = the_enemy
             self.gameobjects_[the_enemy.id_] = the_enemy
-        self.created_enemy_projectiles.clear()
+        self.created_enemies.clear()
 
         for the_enemy_projectile in self.created_enemy_projectiles: 
             self.enemy_projectiles_[the_enemy_projectile.id_] = the_enemy_projectile
             self.gameobjects_[the_enemy_projectile.id_] = the_enemy_projectile
-        self.created_enemies.clear()
+        self.created_enemy_projectiles.clear()
 
         for the_main_character in self.created_main_character:
             self.main_character_ = the_main_character

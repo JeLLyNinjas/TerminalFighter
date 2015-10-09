@@ -70,7 +70,7 @@ class BasicGrunt(GameObject):
         self.health_ = 30
         self.listeners_ = []
         self.size_ = 15
-        self.speed_ = 3
+        self.speed_ = 0.3
         self.weapon_delay_ = 50
         self.weapon_delay_timer_ = 50
         self.id_ = self.create_ID()

@@ -66,10 +66,11 @@ class BasicGrunt(GameObject):
 
         self.closest_range_ = 100
         self.detection_range_ = 400
+        self.ID_ = self.create_ID()
         self.health_ = 30
         self.listeners_ = []
         self.size_ = 15
-        self.speed_ = 0.5
+        self.speed_ = 0.3
         self.weapon_delay_ = 50
         self.weapon_delay_timer_ = 50
         self.id_ = self.create_ID()

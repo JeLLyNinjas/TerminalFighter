@@ -14,6 +14,7 @@ GREEN = 0, 255, 0
 RED = 255, 0, 0
 WHITE = 255, 255, 255
 YELLOW = 255, 255, 0
+GRAY = 88, 88, 88
 
 EVENT_KEY_a = 97
 EVENT_KEY_BACKSPACE = 8
@@ -36,6 +37,7 @@ class HomingMissilesTargetingSystem():
         self.projectile_color_ = WHITE 
         self.target_color_ = RED
         self.target_tag_y_spacing_ = 5
+        self.target_tag_rect_spacing_  = 2
         self.target_tags_ = dict()
         self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
         self.targeted_enemies_ = list() 
@@ -160,9 +162,14 @@ class HomingMissilesTargetingSystem():
                                                     self.text_antialias_,
                                                     self.enemy_color_)
             width = self.ui_font_.size(target_tag_word)[0]
-            screen.blit(target_tag_label,
-                        (enemy.position_[0] * self.DRAWING_SCALE_ - (width/2),
-                        (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2) + (self.target_tag_y_spacing_ * self.DRAWING_SCALE_)))
+            height = self.ui_font_.size(target_tag_word)[1] 
+            target_tag_x = enemy.position_[0] * self.DRAWING_SCALE_ - (width/2)
+            target_tag_y = (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2 +(self.target_tag_y_spacing_ * self. DRAWING_SCALE_)) 
+            pygame.draw.rect(screen, BLACK, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_, 
+                            width+4, height+2), 0) # Filled rect. Dimensions of rect adjusted to contain the word
+            pygame.draw.rect(screen, GRAY, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_, 
+                            width+4, height+2), 1) # Outline rect.  Dimensions of rect adjusted to contain the word
+            screen.blit(target_tag_label, (target_tag_x, target_tag_y))
 
     def draw_friendly_projectiles(self, screen):
         for projectile in self.universe_.friendly_projectiles():

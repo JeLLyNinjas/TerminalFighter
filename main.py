@@ -23,7 +23,7 @@ screen = pygame.display.set_mode(
 
 run_game_state = {
     "MENU" : main_menu,
-    "GAME" : terminalfighter,
+    "PLAY" : terminalfighter,
     "QUIT" : sys.exit
 } 
 

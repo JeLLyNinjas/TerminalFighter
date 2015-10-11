@@ -50,8 +50,8 @@ def main_menu(screen, DRAWING_SCALE):
     selection_listener = SelectionListener()
     ui_font_ = pygame.font.SysFont("monospace", 30*DRAWING_SCALE)
     LABEL_SPACING = 50
-    play_position = (GAME_WIDTH*(1/3), GAME_HEIGHT*(1/4))
-    quit_position = (GAME_WIDTH*(2/3), GAME_HEIGHT*(1/4))
+    play_position = [GAME_WIDTH*(1/3), GAME_HEIGHT*(1/4)]
+    quit_position = [GAME_WIDTH*(2/3), GAME_HEIGHT*(1/4)]
 
     spawn_main_character(universe, DRAWING_SCALE)   
     spawn_selection(play_position, "PLAY",  universe,  selection_listener)

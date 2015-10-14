@@ -63,7 +63,7 @@ class BasicGrunt(GameObject):
 
         self.ID_ = self.create_ID()
         self.size_ = 15
-        self.speed_ = 0.5
+        self.speed_ = 0.3
         self.health_ = 30
         self.universe_ = universe
         self.enemy_type_ = "BasicGrunt"

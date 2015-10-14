@@ -13,14 +13,14 @@ class GameMaster():
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
 
-        self.basic_grunt_spawn_delay_ = 150
+        self.basic_grunt_spawn_delay_ = 300
         self.basic_grunt_spawn_timer_ = self.basic_grunt_spawn_delay_
         self.enemy_x_spawn_locations = [x/100 for x in range(20, 80)] 
         self.main_character_spawn_height_ = self.universe_.height_*0.9
         self.spawn_main_character()
 
-        self.spawn_difficulty_ = 0.9993
-        self.minimum_spawn_delay_ = 20
+        self.spawn_difficulty_ = 0.9995
+        self.minimum_spawn_delay_ = 40
 
     def draw(self, screen):
         self.universe_.main_character_.draw_view(screen)

@@ -4,6 +4,7 @@ import pygame
 
 from basic_grunt import BasicGrunt
 from maincharacter import MainCharacter
+from not_so_basic_grunt import NotSoBasicGrunt
 
 
 class GameMaster():
@@ -12,14 +13,14 @@ class GameMaster():
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
 
-        self.basic_grunt_spawn_delay_ = 150
+        self.basic_grunt_spawn_delay_ = 300
         self.basic_grunt_spawn_timer_ = self.basic_grunt_spawn_delay_
-        self.basic_grunt_x_spawn_locations = [x/100 for x in range(20, 80)] 
+        self.enemy_x_spawn_locations = [x/100 for x in range(20, 80)] 
         self.main_character_spawn_height_ = self.universe_.height_*0.9
         self.spawn_main_character()
 
-        self.spawn_difficulty_ = 0.9993
-        self.minimum_spawn_delay_ = 20
+        self.spawn_difficulty_ = 0.9995
+        self.minimum_spawn_delay_ = 40
 
     def draw(self, screen):
         self.universe_.main_character_.draw_view(screen)
@@ -33,9 +34,14 @@ class GameMaster():
         self.universe_.create_main_character(the_main_character)
 
     def spawn_basic_grunt(self):
-        starting_position = [self.universe_.width_*random.choice(self.basic_grunt_x_spawn_locations), 0]
+        starting_position = [self.universe_.width_*random.choice(self.enemy_x_spawn_locations), 0]
         the_basic_grunt = BasicGrunt(starting_position, self.universe_)
         self.universe_.create_enemy(the_basic_grunt)
+
+    def spawn_not_so_basic_grunt(self):
+        starting_position = [self.universe_.width_*random.choice(self.enemy_x_spawn_locations), 0]
+        not_so_basic_grunt = NotSoBasicGrunt(starting_position, self.universe_)
+        self.universe_.create_enemy(not_so_basic_grunt)
 
     def update(self, events):
         # print('self.basic_grunt_spawn_delay_:' + str(self.basic_grunt_spawn_delay_))
@@ -49,6 +55,7 @@ class GameMaster():
 
         if self.basic_grunt_spawn_timer_ > self.basic_grunt_spawn_delay_:
             self.spawn_basic_grunt()
+            self.spawn_not_so_basic_grunt()
             self.basic_grunt_spawn_timer_ = 0
 
         self.universe_.update(events)

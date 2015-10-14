@@ -9,9 +9,9 @@ from wordgenerator import WordGenerator
 pygame.font.init()
 
 BLACK = 0, 0, 0
-BLUE = 0, 0, 255
 DARK_GREEN = 0, 100, 0
 GREEN = 0, 255, 0
+LIGHT_BLUE = 100, 100, 255
 RED = 255, 0, 0
 WHITE = 255, 255, 255
 GRAY = 88, 88, 88
@@ -29,9 +29,10 @@ class RifleTargetingSystem():
         self.universe_ = universe
 
         self.current_text_ = ""
-        self.enemy_color_ = RED
-        self.font_size_ = 15
-        self.ids_for_target_tags_ = dict()
+        self.default_enemy_color_ = RED
+        self.enemy_colors_ = {"NotSoBasicGrunt" : LIGHT_BLUE}
+        self.font_size_ = 15 
+        self.ids_for_target_tags_ = dict() 
         self.main_character_color_ = GREEN
         self.projectile_color_ = WHITE
         self.target_tag_y_spacing_ = 5
@@ -130,11 +131,12 @@ class RifleTargetingSystem():
 
     def draw_enemies(self, screen):
         for enemy in self.universe_.enemies():
+            enemy_color = self.enemy_colors_.get(enemy.get_type(), self.default_enemy_color_)
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_)
-            pygame.draw.rect(screen, self.enemy_color_, enemy_rect)
+            pygame.draw.rect(screen, enemy_color, enemy_rect)
 
     def draw_maincharacter(self, screen):
         main_character = self.universe_.main_character_
@@ -146,10 +148,11 @@ class RifleTargetingSystem():
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
+            enemy_color = self.enemy_colors_.get(enemy.get_type(), self.default_enemy_color_)
             target_tag_word = self.target_tags_[enemy.id_]
-            target_tag_label = self.ui_font_.render(target_tag_word,
-                                                    self.text_antialias_,
-                                                    self.enemy_color_)
+            target_tag_label = self.ui_font_.render(target_tag_word, 
+                                                    self.text_antialias_, 
+                                                    enemy_color)
             width = self.ui_font_.size(target_tag_word)[0]
             height = self.ui_font_.size(target_tag_word)[1] 
 
@@ -177,7 +180,7 @@ class RifleTargetingSystem():
                                           (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
                                           projectile.size_ * self.DRAWING_SCALE_,
                                           projectile.size_ * self.DRAWING_SCALE_)
-            pygame.draw.rect(screen, self.enemy_color_, projectile_rect)
+            pygame.draw.rect(screen, self.default_enemy_color_, projectile_rect)
 
 
 class RifleProjectile(GameObject):

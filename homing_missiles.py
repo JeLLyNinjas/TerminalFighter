@@ -12,7 +12,7 @@ BLACK = 0, 0, 0
 DARK_GREEN = 0, 100, 0
 GREEN = 0, 255, 0
 RED = 255, 0, 0
-WHITE = 255, 255, 255
+WHITE = 255, 255, 255   
 YELLOW = 255, 255, 0
 GRAY = 88, 88, 88
 
@@ -29,7 +29,8 @@ class HomingMissilesTargetingSystem():
         self.universe_ = universe
 
         self.current_text_ = ""
-        self.enemy_color_ = YELLOW
+        self.default_enemy_color_ = YELLOW
+        self.enemy_colors_ = {"NotSoBasicGrunt" : WHITE}
         self.font_size_ = 15
         self.ids_for_target_tags_ = dict()
         self.main_character_color_ = GREEN
@@ -121,11 +122,12 @@ class HomingMissilesTargetingSystem():
 
     def draw_enemies(self, screen):
         for enemy in self.universe_.enemies():
+            enemy_color = self.enemy_colors_.get(enemy.get_type(), self.default_enemy_color_)
             enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_,
                                      enemy.size_ * self.DRAWING_SCALE_)
-            pygame.draw.rect(screen, self.enemy_color_, enemy_rect)
+            pygame.draw.rect(screen, enemy_color, enemy_rect)
 
     def draw_main_character(self, screen):
         main_character = self.universe_.main_character_
@@ -157,10 +159,11 @@ class HomingMissilesTargetingSystem():
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
+            enemy_color = self.enemy_colors_.get(enemy.get_type(), self.default_enemy_color_)
             target_tag_word = self.target_tags_[enemy.id_]
-            target_tag_label = self.ui_font_.render(target_tag_word,
-                                                    self.text_antialias_,
-                                                    self.enemy_color_)
+            target_tag_label = self.ui_font_.render(target_tag_word, 
+                                                    self.text_antialias_, 
+                                                    enemy_color)
             width = self.ui_font_.size(target_tag_word)[0]
             height = self.ui_font_.size(target_tag_word)[1] 
             target_tag_x = enemy.position_[0] * self.DRAWING_SCALE_ - (width/2)
@@ -185,7 +188,7 @@ class HomingMissilesTargetingSystem():
                                      (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
                                      projectile.size_ * self.DRAWING_SCALE_,
                                      projectile.size_ * self.DRAWING_SCALE_)
-            pygame.draw.rect(screen, self.enemy_color_, projectile_rect)
+            pygame.draw.rect(screen, self.default_enemy_color_, projectile_rect)
 
     def draw_targets(self, screen):
         for enemy in self.targeted_enemies_: 
@@ -216,7 +219,7 @@ class HomingMissilesProjectile(GameObject):
         self.id_ = self.create_ID()
         self.listeners_ = []
         self.size_ = 5
-        self.speed_ = 5
+        self.speed_ = 8
         self.velocity_ = self.calculate_trajectory(self.position_, self.targeted_enemy_.position_)
         
     def calculate_trajectory(self, initial_position, target_position):

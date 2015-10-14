@@ -12,7 +12,7 @@ class NotSoBasicGrunt(GameObject):
 
         self.enemy_type_ = "NotSoBasicGrunt"
         self.health_ = 30
-        self.ID_ = self.create_ID()
+        self.id_ = self.create_ID()
         self.listeners_ = []
         self.size_ = 15
         self.universe_ = universe
@@ -58,7 +58,7 @@ class NotSoBasicGrunt(GameObject):
 
     def take_damage(self, damage):
         if damage <= 0:
-            print("WARNING BasicGrunt " + str(self.ID_) + " taking " + str(damage) + " damage")
+            print("WARNING BasicGrunt " + str(self.id_) + " taking " + str(damage) + " damage")
             print("Disregarding non positive damage")
         elif damage >= self.health_:
             self.report_destroyed()

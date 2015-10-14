@@ -22,7 +22,7 @@ class SelectionListener(DestroyListener):
         self.selected_ = None
 
     def register_selection(self, name, gameobject):
-        self.selections_[gameobject.ID_] = name
+        self.selections_[gameobject.id_] = name
         gameobject.register(self)
 
     """
@@ -31,7 +31,7 @@ class SelectionListener(DestroyListener):
 
     def reported_destroyed(self, type_gameobject):
         if not self.selected_:
-            self.selected_ = self.selections_[type_gameobject.ID_]
+            self.selected_ = self.selections_[type_gameobject.id_]
 
 def spawn_main_character(universe, DRAWING_SCALE):
     the_main_character = MainCharacter([universe.width_/2, universe.height_*0.9], universe, DRAWING_SCALE)
@@ -50,8 +50,8 @@ def main_menu(screen, DRAWING_SCALE):
     selection_listener = SelectionListener()
     ui_font_ = pygame.font.SysFont("monospace", 30*DRAWING_SCALE)
     LABEL_SPACING = 50
-    play_position = (GAME_WIDTH*(1/3), GAME_HEIGHT*(1/4))
-    quit_position = (GAME_WIDTH*(2/3), GAME_HEIGHT*(1/4))
+    play_position = [GAME_WIDTH*(1/3), GAME_HEIGHT*(1/4)]
+    quit_position = [GAME_WIDTH*(2/3), GAME_HEIGHT*(1/4)]
 
     spawn_main_character(universe, DRAWING_SCALE)   
     spawn_selection(play_position, "PLAY",  universe,  selection_listener)

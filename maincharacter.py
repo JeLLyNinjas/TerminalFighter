@@ -22,18 +22,18 @@ class MainCharacter(GameObject):
         self.position_ = starting_position
         self.universe_ = universe
 
-        self.text_antialias_ = 1
-        self.ID_ = self.create_ID()
         self.font_size_ = 15
+        self.id_ = self.create_ID()
         self.max_health_ = 100
         self.selected_weapon_index_ = 0
         self.size_ = 20
-        self.ui_font_ = pygame.font.SysFont(
-            "monospace", self.font_size_*DRAWING_SCALE)
-        self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE),
-                         HomingMissiles(self.universe_, DRAWING_SCALE)]
+        self.text_antialias_ = 1
+        self.ui_font_ = pygame.font.SysFont("monospace",
+                                            self.font_size_*DRAWING_SCALE)
         self.weapon_label_x_spacing_ = 5
         self.weapon_label_y_spacing_ = 10
+        self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE),
+                         HomingMissiles(self.universe_, DRAWING_SCALE)]
 
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
         self.health_ = self.max_health_
@@ -57,14 +57,12 @@ class MainCharacter(GameObject):
         else:
             self.health_ -= damage
         # print("MainCharacter health is " + str(self.health_))
+
     """
     Update Functions
     """
 
-    def update(self, events, position=None):
-        if position:
-            self.position_ = position
-
+    def update(self, events):
         self.update_weapon_selection(events)
 
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
@@ -98,8 +96,9 @@ class MainCharacter(GameObject):
             weapon_label = self.ui_font_.render(str(i+1) + ". " + weapon.NAME_,
                                                 self.text_antialias_,
                                                 ui_weapon_text_colour)
-            screen.blit(weapon_label, (self.weapon_label_x_spacing_*self.DRAWING_SCALE_,
-                                       (i*self.weapon_label_y_spacing_)*self.DRAWING_SCALE_))
+            screen.blit(weapon_label,
+                        (self.weapon_label_x_spacing_*self.DRAWING_SCALE_,
+                         (i*self.weapon_label_y_spacing_)*self.DRAWING_SCALE_))
 
     def draw_health_ui(self, screen):
         if self.health_ > self.max_health_ * 0.5:
@@ -115,5 +114,3 @@ class MainCharacter(GameObject):
         screen.blit(health_label, 
                     ((screen.get_width()-health_label.get_width())/2, 
                      screen.get_height()*0.97-health_label.get_height()))
-
-

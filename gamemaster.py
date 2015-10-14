@@ -44,17 +44,18 @@ class GameMaster():
         self.universe_.create_enemy(not_so_basic_grunt)
 
     def update(self, events):
-        print('self.basic_grunt_spawn_delay_:' + str(self.basic_grunt_spawn_delay_))
+        # print('self.basic_grunt_spawn_delay_:' + str(self.basic_grunt_spawn_delay_))
         self.basic_grunt_spawn_timer_ += 1
+
         if self.basic_grunt_spawn_delay_ > self.minimum_spawn_delay_: 
             self.basic_grunt_spawn_delay_ *= self.spawn_difficulty_
         else:
             self.basic_grunt_spawn_delay_ = self.minimum_spawn_delay_
-            print("maximum difficulty reached")
+            # print("maximum difficulty reached")
 
         if self.basic_grunt_spawn_timer_ > self.basic_grunt_spawn_delay_:
             self.spawn_basic_grunt()
             self.spawn_not_so_basic_grunt()
             self.basic_grunt_spawn_timer_ = 0
-             
+
         self.universe_.update(events)

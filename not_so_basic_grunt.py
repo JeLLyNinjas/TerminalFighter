@@ -46,6 +46,7 @@ class NotSoBasicGrunt(GameObject):
         self.position_ = (self.position_[0] + self.x_velocity, self.position_[1] + self.y_velocity)
 
 
+
     """
     Access Functions
     """

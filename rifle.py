@@ -9,9 +9,9 @@ from wordgenerator import WordGenerator
 pygame.font.init()
 
 BLACK = 0, 0, 0
-BLUE = 0, 0, 255
 DARK_GREEN = 0, 100, 0
 GREEN = 0, 255, 0
+LIGHT_BLUE = 100, 100, 255
 RED = 255, 0, 0
 WHITE = 255, 255, 255
 GRAY = 88, 88, 88
@@ -30,7 +30,7 @@ class RifleTargetingSystem():
 
         self.current_text_ = ""
         self.default_enemy_color_ = RED
-        self.enemy_colors_ = {"NotSoBasicGrunt" : BLUE}
+        self.enemy_colors_ = {"NotSoBasicGrunt" : LIGHT_BLUE}
         self.font_size_ = 15 
         self.ids_for_target_tags_ = dict() 
         self.main_character_color_ = GREEN

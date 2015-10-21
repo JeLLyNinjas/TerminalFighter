@@ -55,6 +55,8 @@ class RifleTargetingSystem():
         target_id = self.get_target_id(current_text)
         if target_id:
             return self.universe_.enemies_[target_id].position_
+        else:
+            return None
 
     """
     Update Functions
@@ -78,6 +80,8 @@ class RifleTargetingSystem():
                                                            target_location, 
                                                            self.universe_)
                         self.universe_.create_friendly_projectile(rifle_projectile)
+                    else:
+                        self.targeting_terminal_.notify_misfire()
 
                 if event.key == EVENT_KEY_BACKSPACE:
                     self.current_text_ = self.current_text_[:-1]

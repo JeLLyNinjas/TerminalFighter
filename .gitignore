@@ -14,3 +14,4 @@ tags
 *.spec
 build
 dist
+run-game

@@ -22,7 +22,7 @@ class MainCharacter(GameObject):
         self.position_ = starting_position
         self.universe_ = universe
 
-        self.font_size_ = 15
+        self.font_size_ = 20
         self.id_ = self.create_ID()
         self.max_health_ = 100
         self.selected_weapon_index_ = 0

@@ -2,87 +2,83 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <vector>
 
-typedef void (*FnPtr)(void);
 
-
-class Bullet {
+class Missile {
 public:
-    Bullet(std::string my_name) {
-        name = my_name;
+    Missile(std::string missile_name) {
+        name = missile_name;
     }
-
-    void print_name() {
-        printf("Bullet: My name is %s\n", name.c_str());
+    
+    std::string print_name() {
+        return name;
     }
 
 private:
     std::string name;
 };
 
-class Nosy_person {
+
+
+//Interface
+class MissileLauncherListener {
+
+public: 
+    virtual void notify_missile_launched(Missile *missile) = 0;
+
+};
+
+class MissileLauncher {
 
 public:
-   void pistolFired(Bullet *the_bullet) {
-       the_bullet->print_name();
-   }
-    
-};
+    Missile * create_missile(std::string name) {
+        Missile *return_missile = new Missile(name);
+        for (MissileLauncherListener * listener : listeners) { 
+            listener->notify_missile_launched(return_missile);
+        }
 
-
-template <class T>
-class Pistol {
-    
-public: 
-
-    Pistol(Bullet *the_bullet){
-        onebullet = the_bullet;
+        return  return_missile;
     }
 
-    void print_hello(T* listener){
-        listener->pistolFired(onebullet);
+    void add_listener(MissileLauncherListener *listener) {
+        listeners.push_back(listener);
     }
+
+
 private:
-    Bullet *onebullet;
+    std::vector<MissileLauncherListener *> listeners;
 };
 
 
-typedef void (Bullet::*func_ptr_t)();
+class NosyPerson : public MissileLauncherListener {
+
+public:
+    NosyPerson(std::string person_name) {
+        name = person_name;
+    }
+
+    std::string print_name() {
+        return name;
+    }
+
+    void notify_missile_launched(Missile *missile) {
+        printf("Got a notification!!!\n");
+        printf("Name of missile is! %s \n", missile->print_name().c_str());
+    }
+
+private:
+    std::string name;
+        
+};
+
 
 int main () {
+    MissileLauncher *my_missile_launcher = new MissileLauncher();
+    NosyPerson * enoch =  new NosyPerson("enoch has a big nose");
+    my_missile_launcher->add_listener(enoch);  
+    Missile *big_missile = my_missile_launcher->create_missile("BIG MISSILE!");
 
-    //Nosy_person me; 
-    //Bullet *the_bullet = new Bullet("Best Bullet");
-    //Pistol<Nosy_person> my_pistol(the_bullet);
-    ////my_pistol.print_hello(&me);
-
-    //// initialization:
-    //std::map<std::string, void(Bullet::*)()> myMap;
-    //myMap["print_name"] = &Bullet::print_name;
-
-    //// usage:
-    //myMap.find("print_name");
-
-    ////std::string s("print_name");
-    ////myMap[s](
-
-    //return 0; 
-    Bullet abullet("hello");
-    std::map<std::string, func_ptr_t> func_map;
-
-    func_map["print_name"] = &Bullet::print_name;
-
-    std::map<std::string, func_ptr_t>::iterator it = func_map.find("print_name");
-
-    if(it != func_map.end())
-    {
-    func_ptr_t func_ptr = it->second;
-    (abullet.*func_ptr)();
-    }
-    else
-    {
-    std::cout << "wrong function name!" << std::endl;
-    }
 
     return 0;
 }

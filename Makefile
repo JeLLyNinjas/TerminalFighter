@@ -1,5 +1,5 @@
 #OBJS = files to compile
-OBJS = src/main.cpp 
+OBJS = src/main.cpp src/missile_launcher.cpp src/observable.h src/missile_launcher_listener.h src/missile.cpp
 
 
 #CC = compiler used

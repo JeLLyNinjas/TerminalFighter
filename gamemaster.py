@@ -12,7 +12,7 @@ class GameMaster():
     def __init__(self, universe, DRAWING_SCALE):
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
-        self.score_counter_ = ScoreCounter()
+        self.score_counter_ = ScoreCounter(DRAWING_SCALE)
 
         self.basic_grunt_spawn_delay_ = 300
         self.basic_grunt_spawn_timer_ = self.basic_grunt_spawn_delay_
@@ -26,6 +26,7 @@ class GameMaster():
     def draw(self, screen):
         self.universe_.main_character_.draw_view(screen)
         self.universe_.main_character_.draw_ui(screen)
+        self.score_counter_.draw(screen)
 
     def spawn_main_character(self):
         starting_position = [

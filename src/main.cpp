@@ -38,7 +38,6 @@ bool init_SDL()
         return false;
     }
 
-
     //Creates the renderer. 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer == NULL)
@@ -55,8 +54,6 @@ bool init_SDL()
     }
     return true;
 }
-
-
 
 void processEvents()
 {
@@ -105,6 +102,8 @@ void close()
     exit(0);
 }
 
+
+
 int main(int argc, char* argv[])
 {
     if (!init_SDL())
@@ -113,10 +112,32 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    //Render red filled quad
+    int x = 0; 
+
+
     Delay delayer(false);
     while (!quit)
     {
+
+        if (x > SCREEN_HEIGHT - 1)
+            x = 0;
+        x++;
+
         processEvents();
+
+        //Draw blue horizontal line
+        SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
+        SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );        
+        SDL_RenderFillRect( renderer, &fillRect );
+
+        SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );        
+        SDL_RenderDrawLine( renderer, 0, x, SCREEN_WIDTH, x );
+        SDL_RenderPresent(renderer);
+        
+        SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0x00 );        
+        SDL_RenderClear(renderer);
+
         delayer.delay_with_fps(60);
     }
 

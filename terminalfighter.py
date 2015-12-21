@@ -15,6 +15,10 @@ WHITE = 0, 0, 0
 
 def terminalfighter(screen, DRAWING_SCALE):
 
+    pygame.mixer.music.load("TerminalFighterPrototypeTheme.ogg")
+    pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.set_volume(1.1)
+    print("volume is " + str(pygame.mixer.music.get_volume()))
     universe = Universe((GAME_WIDTH, GAME_HEIGHT))
     gamemaster = GameMaster(universe, DRAWING_SCALE)
     
@@ -36,6 +40,7 @@ def terminalfighter(screen, DRAWING_SCALE):
                 sys.exit()
         gamemaster.update(events)
         if gamemaster.universe_.main_character().health_ <= 0:
+            pygame.mixer.music.stop()
             return "MENU"
         # print("update time : " + str(pygame.time.get_ticks() - update_start_time))
     

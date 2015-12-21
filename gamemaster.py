@@ -3,15 +3,16 @@ import random
 import pygame
 
 from basic_grunt import BasicGrunt
+from score_counter import ScoreCounter
 from maincharacter import MainCharacter
 from not_so_basic_grunt import NotSoBasicGrunt
-
 
 class GameMaster():
 
     def __init__(self, universe, DRAWING_SCALE):
         self.universe_ = universe
         self.DRAWING_SCALE_ = DRAWING_SCALE
+        self.score_counter_ = ScoreCounter()
 
         self.basic_grunt_spawn_delay_ = 300
         self.basic_grunt_spawn_timer_ = self.basic_grunt_spawn_delay_
@@ -37,11 +38,13 @@ class GameMaster():
         starting_position = [self.universe_.width_*random.choice(self.enemy_x_spawn_locations), 0]
         the_basic_grunt = BasicGrunt(starting_position, self.universe_)
         self.universe_.create_enemy(the_basic_grunt)
+        the_basic_grunt.register(self.score_counter_)
 
     def spawn_not_so_basic_grunt(self):
         starting_position = [self.universe_.width_*random.choice(self.enemy_x_spawn_locations), 0]
         not_so_basic_grunt = NotSoBasicGrunt(starting_position, self.universe_)
         self.universe_.create_enemy(not_so_basic_grunt)
+        not_so_basic_grunt.register(self.score_counter_)
 
     def update(self, events):
         # print('self.basic_grunt_spawn_delay_:' + str(self.basic_grunt_spawn_delay_))
@@ -58,4 +61,5 @@ class GameMaster():
             self.spawn_not_so_basic_grunt()
             self.basic_grunt_spawn_timer_ = 0
 
+        self.score_counter_.update()
         self.universe_.update(events)

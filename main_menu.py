@@ -15,6 +15,8 @@ GAME_HEIGHT = 700
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
 
+HIGH_SCORE_FILE = "HighScore.txt"
+
 class SelectionListener(DestroyListener):
 
     def __init__(self):
@@ -45,6 +47,16 @@ def spawn_selection(starting_pos, name, universe, selection_listener):
     universe.create_enemy(the_selection)
     selection_listener.register_selection(name, the_selection)
 
+def get_high_score():
+    try:
+        with open(HIGH_SCORE_FILE, 'r') as f:
+            high_score = f.readline()
+            if high_score:
+                return high_score
+    except FileNotFoundError:
+        return None
+
+
 def main_menu(screen, DRAWING_SCALE):
     universe = Universe((GAME_WIDTH, GAME_HEIGHT))
     selection_listener = SelectionListener()
@@ -56,7 +68,8 @@ def main_menu(screen, DRAWING_SCALE):
     spawn_main_character(universe, DRAWING_SCALE)   
     spawn_selection(play_position, "PLAY",  universe,  selection_listener)
     spawn_selection(quit_position, "QUIT",  universe,  selection_listener)
-
+    high_score = get_high_score()
+    print('high_score is ' + str(high_score))
 
     # pygame ticks, one tick is 1/1000 second
     # 15 pygame ticks per update is approximately 30 updates per second

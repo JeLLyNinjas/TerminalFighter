@@ -3,6 +3,7 @@
 Delay::Delay(bool debug_mode) {
     started_ = false;
     debug_mode_ = debug_mode;
+    default_delay_font_ = TTF_OpenFont("/usr/share/fonts/ArialUni.ttf", 38);
 }
 
 void Delay::delay_with_fps(double fps) {
@@ -10,17 +11,22 @@ void Delay::delay_with_fps(double fps) {
     if (started_ == false) {
         started_ = true;
         start_timer();
+        time_debug = high_resolution_clock::now();
     } else {
         stop_timer(); 
         double time_to_achieve_fps = (1/fps)*1000000;
-        microseconds time_duration = duration_cast<microseconds>(time_end - time_start);
-        //printf("Time between loops: %d\n", time_duration.count());
-        //printf("Time needed between loops: %lf\n", time_to_achieve_fps);
-        usleep(time_to_achieve_fps - time_duration.count());
+        time_duration_ = duration_cast<microseconds>(time_end - time_start);
+        time_to_achieve_fps = time_to_achieve_fps - time_duration_.count();
+        if (time_to_achieve_fps > 0) { 
+            usleep(time_to_achieve_fps);
+        }
         start_timer();
+        if (debug_mode_) {
+            printf("Time between loops: %d\n", time_duration_.count());
+            printf("Time needed between loops: %lf\n", time_to_achieve_fps);
+        }
+        time_debug = high_resolution_clock::now();
     }
-
-    
 }
 
 void Delay::start_timer() {
@@ -29,13 +35,13 @@ void Delay::start_timer() {
 
 void Delay::stop_timer() {
     time_end = high_resolution_clock::now();
-    
-    
-
 }
 
-void Delay::sleep(unsigned int microseconds) {
-
+SDL_Surface * Delay::grab_frame_rate() {
+    SDL_Color frame_rate_color = {255, 255, 255};
+    //time_duration_ = duration_cast<microseconds>(time_end - time_debug);
+    return TTF_RenderText_Blended(default_delay_font_, std::to_string(1/((double)time_duration_.count()/1000000)).c_str(), frame_rate_color); 
+    
 }
 
 

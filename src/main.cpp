@@ -8,6 +8,8 @@ extern "C" {
 }
 #include <stdio.h>
 #include <unistd.h>
+#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
 
 #include "delay.h"
 
@@ -106,9 +108,13 @@ void close()
 
 int main(int argc, char* argv[])
 {
-    if (!init_SDL())
-    {
+    if (!init_SDL()){
         fprintf(stderr, "Could not initialize SDL!\n");
+        return -1;
+    }
+
+    if (TTF_Init() != 0){
+        fprintf(stderr, "TTF Init failed! %s\n", TTF_GetError());
         return -1;
     }
 
@@ -133,12 +139,23 @@ int main(int argc, char* argv[])
 
         SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );        
         SDL_RenderDrawLine( renderer, 0, x, SCREEN_WIDTH, x );
+
+        SDL_Surface *frame_rate_surface = delayer.grab_frame_rate();
+        SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface( renderer, frame_rate_surface);
+        SDL_Rect Message_rect; //create a rect
+        Message_rect.x = 0;  //controls the rect's x coordinate 
+        Message_rect.y = 0; // controls the rect's y coordinte
+        Message_rect.w = 200; // controls the width of the rect
+        Message_rect.h = 70; // controls the height of the rect
+        SDL_RenderCopy( renderer, frame_rate_texture, NULL, &Message_rect);
+        SDL_FreeSurface(frame_rate_surface);
+
         SDL_RenderPresent(renderer);
-        
         SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0x00 );        
         SDL_RenderClear(renderer);
 
         delayer.delay_with_fps(60);
+
     }
 
     return 0;

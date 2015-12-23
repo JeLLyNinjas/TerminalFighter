@@ -4,6 +4,7 @@ import pygame
 
 from basic_grunt import BasicGrunt
 from destroy_listener import DestroyListener 
+import highscore_service 
 from maincharacter import MainCharacter
 from universe import Universe
 
@@ -47,15 +48,6 @@ def spawn_selection(starting_pos, name, universe, selection_listener):
     universe.create_enemy(the_selection)
     selection_listener.register_selection(name, the_selection)
 
-def get_high_score():
-    try:
-        with open(HIGH_SCORE_FILE, 'r') as f:
-            high_score = f.readline()
-            if high_score:
-                return high_score
-    except FileNotFoundError:
-        return None
-
 
 def main_menu(screen, DRAWING_SCALE):
     universe = Universe((GAME_WIDTH, GAME_HEIGHT))
@@ -68,8 +60,7 @@ def main_menu(screen, DRAWING_SCALE):
     spawn_main_character(universe, DRAWING_SCALE)   
     spawn_selection(play_position, "PLAY",  universe,  selection_listener)
     spawn_selection(quit_position, "QUIT",  universe,  selection_listener)
-    high_score = get_high_score()
-    print('high_score is ' + str(high_score))
+    highscore = highscore_service.get_highscore() 
 
     # pygame ticks, one tick is 1/1000 second
     # 15 pygame ticks per update is approximately 30 updates per second
@@ -110,6 +101,10 @@ def main_menu(screen, DRAWING_SCALE):
         screen.blit(instruction_label, 
                     (screen.get_width()/2 - (instruction_label.get_width()/2), 
                      screen.get_height()/2))
+
+        highscore_label = ui_font_.render("HIGHSCORE : " + str(highscore), 1, WHITE)
+        screen.blit(highscore_label,
+                    (screen.get_width()/2 - (highscore_label.get_width()/2), 0))
         # print("draw time : " + str(pygame.time.get_ticks() - draw_start_time))
     
         flip_start_time = pygame.time.get_ticks()

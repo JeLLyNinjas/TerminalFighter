@@ -143,22 +143,22 @@ class HomingMissilesTargetingSystem():
     def draw_grid(self, screen):
         height = screen.get_height()
         width = screen.get_width()
-        line_separation = 30
-        line_width = 1
+        line_separation = 25 * self.DRAWING_SCALE_
+        line_width = 1 * self.DRAWING_SCALE_
 
         for i in range(line_separation, width, line_separation):
-            pygame.draw.line(screen, 
-                             DARK_GREEN, 
-                             (i, 0), 
-                             (i, height), 
-                             line_width * self.DRAWING_SCALE_)
+            pygame.draw.line(screen,
+                             DARK_GREEN,
+                             (i, 0),
+                             (i, height),
+                             line_width)
 
         for i in range(line_separation, height, line_separation):
-            pygame.draw.line(screen, 
-                             DARK_GREEN, 
-                             (0, i), 
-                             (width, i), 
-                             line_width * self.DRAWING_SCALE_)
+            pygame.draw.line(screen,
+                             DARK_GREEN,
+                             (0, i),
+                             (width, i),
+                             line_width)
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():

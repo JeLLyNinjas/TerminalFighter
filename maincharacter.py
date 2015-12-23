@@ -22,7 +22,7 @@ class MainCharacter(GameObject):
         self.position_ = starting_position
         self.universe_ = universe
 
-        self.font_size_ = 15
+        self.font_size_ = 22 
         self.id_ = self.create_ID()
         self.max_health_ = 100
         self.selected_weapon_index_ = 0
@@ -98,7 +98,7 @@ class MainCharacter(GameObject):
                                                 ui_weapon_text_colour)
             screen.blit(weapon_label,
                         (self.weapon_label_x_spacing_*self.DRAWING_SCALE_,
-                         (i*self.weapon_label_y_spacing_)*self.DRAWING_SCALE_))
+                         (i*(weapon_label.get_height()))))
 
     def draw_health_ui(self, screen):
         if self.health_ > self.max_health_ * 0.5:

@@ -25,4 +25,5 @@ private:
 
     bool started_, debug_mode_;
     TTF_Font *default_delay_font_;
+    double lowest_fps;
 };

@@ -4,6 +4,7 @@ Delay::Delay(bool debug_mode) {
     started_ = false;
     debug_mode_ = debug_mode;
     default_delay_font_ = TTF_OpenFont("/usr/share/fonts/ArialUni.ttf", 38);
+    lowest_fps = 10000;
 }
 
 void Delay::delay_with_fps(double fps) {
@@ -40,6 +41,13 @@ void Delay::stop_timer() {
 SDL_Surface * Delay::grab_frame_rate() {
     SDL_Color frame_rate_color = {255, 255, 255};
     //time_duration_ = duration_cast<microseconds>(time_end - time_debug);
+    
+
+    if (lowest_fps > 1/((double)time_duration_.count()/1000000)) {
+        lowest_fps = 1/((double)time_duration_.count()/1000000);
+        printf("lowest fps is now %lf\n", lowest_fps);
+    }
+
     return TTF_RenderText_Blended(default_delay_font_, std::to_string(1/((double)time_duration_.count()/1000000)).c_str(), frame_rate_color); 
     
 }

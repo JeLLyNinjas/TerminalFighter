@@ -150,11 +150,11 @@ int main(int argc, char* argv[])
         SDL_RenderCopy( renderer, frame_rate_texture, NULL, &Message_rect);
         SDL_FreeSurface(frame_rate_surface);
 
+        delayer.delay_with_fps(60);
         SDL_RenderPresent(renderer);
         SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0x00 );        
         SDL_RenderClear(renderer);
 
-        delayer.delay_with_fps(60);
 
     }
 

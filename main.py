@@ -7,6 +7,9 @@ from terminalfighter import terminalfighter
 
 pygame.init()
 
+def exit_game(screen, DRAWING_SCALE):
+    sys.exit()
+
 DRAWING_SCALE = 1
 if len(sys.argv) >= 2:
     try:
@@ -24,10 +27,10 @@ screen = pygame.display.set_mode(
 run_game_state = {
     "MENU" : main_menu,
     "PLAY" : terminalfighter,
-    "QUIT" : sys.exit
+    "QUIT" : exit_game
 } 
 
 gamestate = "MENU"
 
 while True:
-    gamestate = run_game_state.get(gamestate, sys.exit)(screen, DRAWING_SCALE)
+    gamestate = run_game_state.get(gamestate, exit_game)(screen, DRAWING_SCALE)

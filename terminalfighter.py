@@ -3,6 +3,7 @@ import sys
 import pygame
 
 from gamemaster import GameMaster
+import highscore_service
 from universe import Universe
 
 pygame.init()
@@ -36,6 +37,7 @@ def terminalfighter(screen, DRAWING_SCALE):
                 sys.exit()
         gamemaster.update(events)
         if gamemaster.universe_.main_character().health_ <= 0:
+            highscore_service.update_highscore(gamemaster.score_counter_.score_)
             return "MENU"
         # print("update time : " + str(pygame.time.get_ticks() - update_start_time))
     

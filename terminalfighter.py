@@ -66,7 +66,8 @@ def terminalfighter(screen, DRAWING_SCALE):
                          screen.get_height()/2 + gameover_label.get_height()/2 + press_any_key_label.get_height()/2))
 
             pygame.display.flip()
-            
+            pygame.time.delay(1000)
+            pygame.event.clear()
             while 1:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:

@@ -16,6 +16,10 @@ WHITE = 255, 255, 255
 
 def terminalfighter(screen, DRAWING_SCALE):
 
+    pygame.mixer.music.load("TerminalFighterPrototypeTheme.ogg")
+    pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.set_volume(1.1)
+    print("volume is " + str(pygame.mixer.music.get_volume()))
     universe = Universe((GAME_WIDTH, GAME_HEIGHT))
     gamemaster = GameMaster(universe, DRAWING_SCALE)
     
@@ -47,6 +51,7 @@ def terminalfighter(screen, DRAWING_SCALE):
         # print("flip time : " + str(pygame.time.get_ticks() - flip_start_time))
         if gamemaster.universe_.main_character().health_ <= 0:
             highscore_service.update_highscore(gamemaster.score_counter_.score_)
+            pygame.mixer.music.stop()
             
             gameover_font = pygame.font.SysFont("monospace", 120*DRAWING_SCALE)
             gameover_label = gameover_font.render("GAME OVER", 1, WHITE)

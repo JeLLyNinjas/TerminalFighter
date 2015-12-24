@@ -1,12 +1,19 @@
 #pragma once
 #include <string>
+#include "game_object.h"
 
-class Missile {
+class Missile : public Game_Object {
 public:
-    Missile(std::string missile_name);
-    
-    std::string print_name();
+    Missile(double x_vel, double y_vel, double x_pos, double y_pos);
+    void update();
+    static void set_texture(SDL_Texture* texture);
+
+    double return_x_velocity();
+    double return_y_velocity();
+    double return_x_position();
+    double return_y_position();
 
 private:
-    std::string name;
+    static SDL_Texture* missile_texture_;
 };
+

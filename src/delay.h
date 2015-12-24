@@ -16,14 +16,13 @@ public:
     void delay_with_fps(double fps);
     SDL_Surface *grab_frame_rate();
 
-
 private:
     void start_timer();
     void stop_timer();
-    high_resolution_clock::time_point time_start, time_end, time_debug;
+    
+    high_resolution_clock::time_point time_start, time_end;
     microseconds time_duration_;
-
     bool started_, debug_mode_;
-    TTF_Font *default_delay_font_;
     double lowest_fps;
+    TTF_Font *default_delay_font_;
 };

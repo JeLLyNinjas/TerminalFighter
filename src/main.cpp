@@ -10,6 +10,9 @@ extern "C" {
 #include <unistd.h>
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
+#include <iostream>
+
+using namespace std;
 
 #include "delay.h"
 
@@ -25,6 +28,25 @@ bool quit;
 
 bool init_SDL()
 {
+    int numdrivers = SDL_GetNumRenderDrivers (); 
+    cout << "Render driver count: " << numdrivers << endl; 
+    for (int i=0; i<numdrivers; i++) { 
+        SDL_RendererInfo drinfo; 
+        SDL_GetRenderDriverInfo (0, &drinfo); 
+        cout << "Driver name ("<<i<<"): " << drinfo.name << endl; 
+        if (drinfo.flags & SDL_RENDERER_SOFTWARE) 
+            cout << " the renderer is a software fallback" << endl; 
+        if (drinfo.flags & SDL_RENDERER_ACCELERATED) 
+            cout << " the renderer uses hardware acceleration" << endl; 
+        if (drinfo.flags & SDL_RENDERER_PRESENTVSYNC) 
+            cout << " present is synchronized with the refresh rate" << endl; 
+        if (drinfo.flags & SDL_RENDERER_TARGETTEXTURE) 
+            cout << " the renderer supports rendering to texture" << endl; 
+    }
+
+
+    printf("Driver: %s\n", SDL_GetCurrentVideoDriver());
+
     //Initializes SDL
     if (SDL_Init(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) < 0)
     {
@@ -39,6 +61,7 @@ bool init_SDL()
         printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
         return false;
     }
+    printf("Driver: %s\n", SDL_GetCurrentVideoDriver());
 
     //Creates the renderer. 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);

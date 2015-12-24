@@ -1,9 +1,30 @@
 #include "missile.h"
 
-Missile::Missile(std::string missile_name) {
-    name = missile_name;
+
+Missile::Missile(double x_vel, double y_vel, double x_pos, double y_pos) 
+: Game_Object(x_vel, y_vel, x_pos, y_pos) {
+
 }
 
-std::string Missile::print_name() {
-    return name;
+void Missile::update() {
+    x_position_ += x_velocity_;
+    y_position_ += y_velocity_; 
+}
+
+
+double Missile::return_x_velocity() {
+    return x_velocity_;
+}
+double Missile::return_y_velocity() {
+    return y_velocity_;
+}
+double Missile::return_x_position() { 
+    return x_position_;
+}
+double Missile::return_y_position() {
+    return y_position_;
+}
+
+void Missile::set_texture(SDL_Texture* texture) {
+    missile_texture_ = texture;
 }

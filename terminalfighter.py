@@ -12,7 +12,7 @@ pygame.key.set_repeat(100, 25)
 
 GAME_WIDTH = 1000
 GAME_HEIGHT = 700
-WHITE = 0, 0, 0
+WHITE = 255, 255, 255
 
 def terminalfighter(screen, DRAWING_SCALE):
 
@@ -36,9 +36,6 @@ def terminalfighter(screen, DRAWING_SCALE):
             if event.type == pygame.QUIT:
                 sys.exit()
         gamemaster.update(events)
-        if gamemaster.universe_.main_character().health_ <= 0:
-            highscore_service.update_highscore(gamemaster.score_counter_.score_)
-            return "MENU"
         # print("update time : " + str(pygame.time.get_ticks() - update_start_time))
     
         draw_start_time = pygame.time.get_ticks()
@@ -48,6 +45,29 @@ def terminalfighter(screen, DRAWING_SCALE):
         flip_start_time = pygame.time.get_ticks()
         pygame.display.flip()
         # print("flip time : " + str(pygame.time.get_ticks() - flip_start_time))
+        if gamemaster.universe_.main_character().health_ <= 0:
+            highscore_service.update_highscore(gamemaster.score_counter_.score_)
+            
+            gameover_font = pygame.font.SysFont("monospace", 120*DRAWING_SCALE)
+            gameover_label = gameover_font.render("GAME OVER", 1, WHITE)
+            screen.blit(gameover_label, 
+                        (screen.get_width()/2 - gameover_label.get_width()/2,
+                         screen.get_height()/2 - gameover_label.get_height()/2))
+            
+            press_any_key_font = pygame.font.SysFont("monospace", 30*DRAWING_SCALE)
+            press_any_key_label = press_any_key_font.render("Press any key...", 1, WHITE)
+            screen.blit(press_any_key_label, 
+                        (screen.get_width()/2 - press_any_key_label.get_width()/2,
+                         screen.get_height()/2 + gameover_label.get_height()/2 + press_any_key_label.get_height()/2))
+
+            pygame.display.flip()
+            
+            while 1:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        sys.exit()
+                    elif event.type == pygame.KEYDOWN:
+                        return "MENU"
     
         frame_end_time = pygame.time.get_ticks()
         frame_time_elapsed = frame_end_time - frame_start_time

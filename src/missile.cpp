@@ -1,5 +1,6 @@
 #include "missile.h"
 
+SDL_Texture* Missile::missile_texture_ = NULL;
 
 Missile::Missile(double x_vel, double y_vel, double x_pos, double y_pos) 
 : Game_Object(x_vel, y_vel, x_pos, y_pos) {

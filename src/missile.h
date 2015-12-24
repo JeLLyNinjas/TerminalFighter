@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "game_object.h"
+#include <SDL2/SDL.h>
 
 class Missile : public Game_Object {
 public:

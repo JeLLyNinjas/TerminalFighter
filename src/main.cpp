@@ -168,8 +168,9 @@ int main(int argc, char* argv[])
         SDL_Rect Message_rect; //create a rect
         Message_rect.x = 0;  //controls the rect's x coordinate 
         Message_rect.y = 0; // controls the rect's y coordinte
-        Message_rect.w = 200; // controls the width of the rect
-        Message_rect.h = 70; // controls the height of the rect
+        //Message_rect.w = 200; // controls the width of the rect
+        //Message_rect.h = 70; // controls the height of the rect
+        SDL_QueryTexture(frame_rate_texture, NULL, NULL, &Message_rect.w, &Message_rect.h);
         SDL_RenderCopy( renderer, frame_rate_texture, NULL, &Message_rect);
         SDL_FreeSurface(frame_rate_surface);
 

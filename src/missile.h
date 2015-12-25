@@ -8,7 +8,8 @@ public:
     Missile(double x_vel, double y_vel, double x_pos, double y_pos);
 
     void update();
-    SDL_Texture *graphic_update();
+    void draw(GraphicsHandler *graphics);
+    
     static void set_texture(SDL_Texture* texture);
 
     double return_x_velocity();

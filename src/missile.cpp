@@ -12,8 +12,9 @@ void Missile::update() {
     y_position_ += y_velocity_; 
 }
 
-SDL_Texture *Missile::graphic_update() {
-    return missile_texture_;
+void Missile::draw(GraphicsHandler *graphics) {
+
+
 }
 
 double Missile::return_x_velocity() {

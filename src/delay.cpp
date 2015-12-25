@@ -3,7 +3,7 @@
 Delay::Delay(bool debug_mode) {
     started_ = false;
     debug_mode_ = debug_mode;
-    default_delay_font_ = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 64);
+    default_delay_font_ = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 84);
     lowest_fps = 1000000; //arbitrary large number
 }
 

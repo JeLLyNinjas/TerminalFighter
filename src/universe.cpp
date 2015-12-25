@@ -1,8 +1,7 @@
 #include "universe.h"
 
-
 Universe::Universe(SDL_Renderer *renderer) {
-    renderer_ = renderer;
+    graphics_handler_ = new GraphicsHandler(renderer);
 }
 
 void Universe::get_events() {
@@ -15,7 +14,7 @@ void Universe::update_all() {
     }
 }
 
-void Universe::draw_all() {
+void Universe::draw_all(GraphicsHandler *graphics) {
             
 }
 

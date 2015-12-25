@@ -13,8 +13,7 @@ void Missile::update() {
 }
 
 void Missile::draw(GraphicsHandler *graphics) {
-
-
+    graphics->draw(missile_texture_, (int)return_x_position(), (int)return_y_position());
 }
 
 double Missile::return_x_velocity() {

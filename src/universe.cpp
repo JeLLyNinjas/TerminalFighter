@@ -9,13 +9,23 @@ void Universe::get_events() {
 }
 
 void Universe::update_all() {
-    for (Game_Object * game_object : all_game_objects) {
+    for (Game_Object *game_object : all_game_objects) {
         game_object->update();
     }
 }
 
-void Universe::draw_all(GraphicsHandler *graphics) {
-            
+void Universe::draw_all() {
+    for (Game_Object *game_object : all_game_objects) {
+        game_object->draw(graphics_handler_);
+    }
+}
+
+void Universe::draw_to_screen() { 
+    graphics_handler_->update_screen(); 
+}
+
+void remove_deleted_objects() {
+    //TODO
 }
 
 /***********
@@ -25,5 +35,6 @@ void Universe::draw_all(GraphicsHandler *graphics) {
 void Universe::notify_missile_launched(Missile *missile) {
     all_game_objects.push_back(missile);
 }
+
 
 

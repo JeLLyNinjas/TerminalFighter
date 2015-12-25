@@ -11,15 +11,19 @@ extern "C" {
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <SDL_image.h>
 
 using namespace std;
 
 #include "delay.h"
+#include "universe.h"
+#include "missile_launcher.h"
+#include "missile.h"
 
 #define SCREEN_HEIGHT 768
 #define SCREEN_WIDTH 1232
 
-SDL_Renderer* renderer = NULL;
+SDL_Renderer* main_renderer = NULL;
 SDL_Window* window = NULL;
 
 void close();
@@ -35,13 +39,13 @@ bool init_SDL()
         SDL_GetRenderDriverInfo (0, &drinfo); 
         cout << "Driver name ("<<i<<"): " << drinfo.name << endl; 
         if (drinfo.flags & SDL_RENDERER_SOFTWARE) 
-            cout << " the renderer is a software fallback" << endl; 
+            cout << " the main_renderer is a software fallback" << endl; 
         if (drinfo.flags & SDL_RENDERER_ACCELERATED) 
-            cout << " the renderer uses hardware acceleration" << endl; 
+            cout << " the main_renderer uses hardware acceleration" << endl; 
         if (drinfo.flags & SDL_RENDERER_PRESENTVSYNC) 
             cout << " present is synchronized with the refresh rate" << endl; 
         if (drinfo.flags & SDL_RENDERER_TARGETTEXTURE) 
-            cout << " the renderer supports rendering to texture" << endl; 
+            cout << " the main_renderer supports rendering to texture" << endl; 
     }
 
 
@@ -63,18 +67,18 @@ bool init_SDL()
     }
     printf("Driver: %s\n", SDL_GetCurrentVideoDriver());
 
-    //Creates the renderer. 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == NULL)
+    //Creates the main_renderer. 
+    main_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (main_renderer == NULL)
     {
         printf("Renderer could not be created. SDL_Error: %s \n", SDL_GetError());
-        printf("Creating a software renderer instead\n");
-        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
-        if (renderer == NULL)
+        printf("Creating a software main_renderer instead\n");
+        main_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+        if (main_renderer == NULL)
         {
             printf("Renderer could not be created. SDL_Error: %s \n", SDL_GetError());
             return false;                    
-            //SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+            //SDL_SetRenderDrawColor(main_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         }
     }
     return true;
@@ -119,10 +123,10 @@ void processEvents()
 /* Cleans up and should free everything used in the program*/
 void close()
 {
-    SDL_DestroyRenderer(renderer);
+    SDL_DestroyRenderer(main_renderer);
     SDL_DestroyWindow(window);
     window = NULL;
-    renderer = NULL;
+    main_renderer = NULL;
     SDL_Quit();
     exit(0);
 }
@@ -141,6 +145,14 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    Universe universe(main_renderer);
+    MissileLauncher test_launcher;
+    SDL_Surface *the_missile_surface = IMG_Load("assets/missile.png");
+    SDL_Texture *the_missile_texture = SDL_CreateTextureFromSurface(main_renderer, the_missile_surface);
+    Missile::set_texture(the_missile_texture);
+    test_launcher.add_listener(universe);
+
+
     //Render red filled quad
     int x = 0; 
 
@@ -154,30 +166,37 @@ int main(int argc, char* argv[])
         x++;
 
         processEvents();
+        //universe.update_all();
+        universe.draw_all();
+        test_launcher.create_missile(-1, 0, SCREEN_HEIGHT-50, SCREEN_WIDTH/2);
+
+        //universe.draw_to_screen();  
 
         //Draw blue horizontal line
         SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-        SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );        
-        SDL_RenderFillRect( renderer, &fillRect );
+        SDL_SetRenderDrawColor( main_renderer, 0xFF, 0x00, 0x00, 0xFF );        
+        SDL_RenderFillRect( main_renderer, &fillRect );
 
-        SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );        
-        SDL_RenderDrawLine( renderer, 0, x, SCREEN_WIDTH, x );
+        SDL_SetRenderDrawColor( main_renderer, 0x00, 0x00, 0xFF, 0xFF );        
+        SDL_RenderDrawLine( main_renderer, 0, x, SCREEN_WIDTH, x );
 
         SDL_Surface *frame_rate_surface = delayer.grab_frame_rate();
-        SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface( renderer, frame_rate_surface);
+        SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface( main_renderer, frame_rate_surface);
         SDL_Rect Message_rect; //create a rect
         Message_rect.x = 0;  //controls the rect's x coordinate 
         Message_rect.y = 0; // controls the rect's y coordinte
         //Message_rect.w = 200; // controls the width of the rect
         //Message_rect.h = 70; // controls the height of the rect
-        SDL_QueryTexture(frame_rate_texture, NULL, NULL, &Message_rect.w, &Message_rect.h);
-        SDL_RenderCopy( renderer, frame_rate_texture, NULL, &Message_rect);
+        SDL_QueryTexture(the_missile_texture, NULL, NULL, &Message_rect.w, &Message_rect.h);
+        //SDL_RenderCopy( main_renderer, frame_rate_texture, NULL, &Message_rect);
+        SDL_RenderCopy( main_renderer, the_missile_texture, NULL, &Message_rect);
+        universe.draw_to_screen();
         SDL_FreeSurface(frame_rate_surface);
 
         delayer.delay_with_fps(60);
-        SDL_RenderPresent(renderer);
-        SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0x00 );        
-        SDL_RenderClear(renderer);
+        SDL_RenderPresent(main_renderer);
+        SDL_SetRenderDrawColor( main_renderer, 0x00, 0x00, 0x00, 0x00 );        
+        SDL_RenderClear(main_renderer);
 
 
     }

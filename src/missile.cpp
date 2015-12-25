@@ -13,6 +13,11 @@ void Missile::update() {
 }
 
 void Missile::draw(GraphicsHandler *graphics) {
+    if(missile_texture_ == NULL) {
+        printf("My graphics were null! Not anymore :)\n");
+        set_texture(graphics->load_image("assets/projectiles/missile.png"));
+    }
+
     graphics->draw(missile_texture_, (int)return_x_position(), (int)return_y_position());
 }
 

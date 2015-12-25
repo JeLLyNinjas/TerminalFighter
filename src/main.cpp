@@ -11,7 +11,6 @@ extern "C" {
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
 #include <iostream>
-#include <SDL_image.h>
 
 using namespace std;
 
@@ -47,7 +46,6 @@ bool init_SDL()
         if (drinfo.flags & SDL_RENDERER_TARGETTEXTURE) 
             cout << " the main_renderer supports rendering to texture" << endl; 
     }
-
 
     printf("Driver: %s\n", SDL_GetCurrentVideoDriver());
 
@@ -147,10 +145,6 @@ int main(int argc, char* argv[])
 
     Universe universe(main_renderer);
     MissileLauncher test_launcher;
-    SDL_Surface *the_missile_surface = IMG_Load("assets/missile.png");
-    SDL_Texture *the_missile_texture = SDL_CreateTextureFromSurface(main_renderer, the_missile_surface);
-    SDL_FreeSurface(the_missile_surface);
-    Missile::set_texture(the_missile_texture);
     test_launcher.add_listener(&universe);
 
 
@@ -166,7 +160,7 @@ int main(int argc, char* argv[])
             x = 0;
         x += 10;
 
-        test_launcher.create_missile(0, -1, x, SCREEN_WIDTH/2);
+        test_launcher.create_missile(0, -5, x, SCREEN_WIDTH/2);
 
         processEvents();
         universe.update_all();
@@ -186,9 +180,6 @@ int main(int argc, char* argv[])
 
         delayer.delay_with_fps(60);
         universe.draw_to_screen();
-        //SDL_RenderPresent(main_renderer);
-        //SDL_SetRenderDrawColor( main_renderer, 0x00, 0x00, 0x00, 0x00 );        
-        //SDL_RenderClear(main_renderer);
 
 
     }

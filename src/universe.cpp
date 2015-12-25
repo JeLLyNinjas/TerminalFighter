@@ -2,6 +2,7 @@
 
 Universe::Universe(SDL_Renderer *renderer) {
     graphics_handler_ = new GraphicsHandler(renderer);
+    graphics_handler_->init();
 }
 
 void Universe::get_events() {

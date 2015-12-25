@@ -129,6 +129,18 @@ void close()
     exit(0);
 }
 
+void display_debug_frames(Delay delayer) {
+    SDL_Surface *frame_rate_surface = delayer.grab_frame_rate();
+    SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface( main_renderer, frame_rate_surface);
+    SDL_Rect Message_rect; //create a rect
+    Message_rect.x = 0;  //controls the rect's x coordinate 
+    Message_rect.y = 0; // controls the rect's y coordinte
+    Message_rect.w = 200; // controls the width of the rect
+    Message_rect.h = 70; // controls the height of the rect
+    SDL_RenderCopy( main_renderer, frame_rate_texture, NULL, &Message_rect);
+    SDL_FreeSurface(frame_rate_surface);
+}
+
 
 
 int main(int argc, char* argv[])
@@ -147,10 +159,8 @@ int main(int argc, char* argv[])
     MissileLauncher test_launcher;
     test_launcher.add_listener(&universe);
 
-
     //Render red filled quad
     int x = 0; 
-
 
     Delay delayer(false);
     while (!quit)
@@ -166,18 +176,9 @@ int main(int argc, char* argv[])
         universe.update_all();
         universe.draw_all();
 
-        SDL_Surface *frame_rate_surface = delayer.grab_frame_rate();
-        SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface( main_renderer, frame_rate_surface);
-        SDL_Rect Message_rect; //create a rect
-        Message_rect.x = 0;  //controls the rect's x coordinate 
-        Message_rect.y = 0; // controls the rect's y coordinte
-        Message_rect.w = 200; // controls the width of the rect
-        Message_rect.h = 70; // controls the height of the rect
-        //SDL_RenderCopy( main_renderer, frame_rate_texture, NULL, &Message_rect);
-        SDL_RenderCopy( main_renderer, frame_rate_texture, NULL, &Message_rect);
-        SDL_FreeSurface(frame_rate_surface);
+        display_debug_frames(delayer);
 
-
+        //delay and draw to screen should stick together in the order: delay -> draw
         delayer.delay_with_fps(60);
         universe.draw_to_screen();
 

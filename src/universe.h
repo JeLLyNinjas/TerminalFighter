@@ -21,7 +21,7 @@ public:
     void notify_missile_launched(Missile *missile);
 
 private:
-    void remove_deleted_objects();  /*removes all empty/NULL objects from the all_game_objects vector*/
+    void remove_deleted_objects();  /*TODO removes all empty/NULL objects from the all_game_objects vector*/
 
     std::vector<Game_Object*> all_game_objects;
     GraphicsHandler *graphics_handler_;

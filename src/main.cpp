@@ -129,8 +129,8 @@ void close()
     exit(0);
 }
 
-void display_debug_frames(Delay delayer) {
-    SDL_Surface *frame_rate_surface = delayer.grab_frame_rate();
+void display_debug_frames(Delay *delayer) {
+    SDL_Surface *frame_rate_surface = delayer->grab_frame_rate();
     SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface( main_renderer, frame_rate_surface);
     SDL_Rect Message_rect; //create a rect
     Message_rect.x = 0;  //controls the rect's x coordinate 
@@ -176,7 +176,7 @@ int main(int argc, char* argv[])
         universe.update_all();
         universe.draw_all();
 
-        display_debug_frames(delayer);
+        display_debug_frames(&delayer);
 
         //delay and draw to screen should stick together in the order: delay -> draw
         delayer.delay_with_fps(60);

@@ -13,6 +13,7 @@ public:
     }
 
     virtual void update() = 0;
+    virtual SDL_Texture* graphic_update() = 0; 
     virtual double return_x_velocity() = 0;
     virtual double return_y_velocity() = 0;
     virtual double return_x_position() = 0;

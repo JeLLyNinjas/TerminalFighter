@@ -13,7 +13,6 @@ void Missile::update() {
 }
 
 void Missile::draw(GraphicsHandler *graphics) {
-    printf("Got called to draw!\n");
     graphics->draw(missile_texture_, (int)return_x_position(), (int)return_y_position());
 }
 

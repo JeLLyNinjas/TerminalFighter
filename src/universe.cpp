@@ -16,7 +16,6 @@ void Universe::update_all() {
 
 void Universe::draw_all() {
     for (Game_Object *game_object : all_game_objects) {
-        printf("Calling draw_all\n");
         game_object->draw(graphics_handler_);
     }
 }
@@ -24,6 +23,7 @@ void Universe::draw_all() {
 void Universe::draw_to_screen() { 
     graphics_handler_->update_screen(); 
 }
+
 
 void remove_deleted_objects() {
     //TODO
@@ -34,7 +34,6 @@ void remove_deleted_objects() {
  ***********/
 
 void Universe::notify_missile_launched(Missile *missile) {
-    printf("got a missile notification!\n");
     all_game_objects.push_back(missile);
 }
 

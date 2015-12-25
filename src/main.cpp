@@ -149,8 +149,9 @@ int main(int argc, char* argv[])
     MissileLauncher test_launcher;
     SDL_Surface *the_missile_surface = IMG_Load("assets/missile.png");
     SDL_Texture *the_missile_texture = SDL_CreateTextureFromSurface(main_renderer, the_missile_surface);
+    SDL_FreeSurface(the_missile_surface);
     Missile::set_texture(the_missile_texture);
-    test_launcher.add_listener(universe);
+    test_launcher.add_listener(&universe);
 
 
     //Render red filled quad
@@ -161,42 +162,33 @@ int main(int argc, char* argv[])
     while (!quit)
     {
 
-        if (x > SCREEN_HEIGHT - 1)
+        if (x > SCREEN_WIDTH - 1)
             x = 0;
-        x++;
+        x += 10;
+
+        test_launcher.create_missile(0, -1, x, SCREEN_WIDTH/2);
 
         processEvents();
-        //universe.update_all();
+        universe.update_all();
         universe.draw_all();
-        test_launcher.create_missile(-1, 0, SCREEN_HEIGHT-50, SCREEN_WIDTH/2);
-
-        //universe.draw_to_screen();  
-
-        //Draw blue horizontal line
-        SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-        SDL_SetRenderDrawColor( main_renderer, 0xFF, 0x00, 0x00, 0xFF );        
-        SDL_RenderFillRect( main_renderer, &fillRect );
-
-        SDL_SetRenderDrawColor( main_renderer, 0x00, 0x00, 0xFF, 0xFF );        
-        SDL_RenderDrawLine( main_renderer, 0, x, SCREEN_WIDTH, x );
 
         SDL_Surface *frame_rate_surface = delayer.grab_frame_rate();
         SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface( main_renderer, frame_rate_surface);
         SDL_Rect Message_rect; //create a rect
         Message_rect.x = 0;  //controls the rect's x coordinate 
         Message_rect.y = 0; // controls the rect's y coordinte
-        //Message_rect.w = 200; // controls the width of the rect
-        //Message_rect.h = 70; // controls the height of the rect
-        SDL_QueryTexture(the_missile_texture, NULL, NULL, &Message_rect.w, &Message_rect.h);
+        Message_rect.w = 200; // controls the width of the rect
+        Message_rect.h = 70; // controls the height of the rect
         //SDL_RenderCopy( main_renderer, frame_rate_texture, NULL, &Message_rect);
-        SDL_RenderCopy( main_renderer, the_missile_texture, NULL, &Message_rect);
-        universe.draw_to_screen();
+        SDL_RenderCopy( main_renderer, frame_rate_texture, NULL, &Message_rect);
         SDL_FreeSurface(frame_rate_surface);
 
+
         delayer.delay_with_fps(60);
-        SDL_RenderPresent(main_renderer);
-        SDL_SetRenderDrawColor( main_renderer, 0x00, 0x00, 0x00, 0x00 );        
-        SDL_RenderClear(main_renderer);
+        universe.draw_to_screen();
+        //SDL_RenderPresent(main_renderer);
+        //SDL_SetRenderDrawColor( main_renderer, 0x00, 0x00, 0x00, 0x00 );        
+        //SDL_RenderClear(main_renderer);
 
 
     }

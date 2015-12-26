@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
             x = 0;
         x += 10;
 
-        test_launcher.create_missile(0, -5, x, SCREEN_WIDTH/2);
+        test_launcher.create_missile(0, -2.2, x, SCREEN_WIDTH/2);
 
         processEvents();
         universe.update_all();

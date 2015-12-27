@@ -5,6 +5,7 @@ pygame.font.init()
 # CONSTANTS
 BLACK = 0, 0, 0
 BLUE = 0, 0, 255
+RED = 255, 0, 0
 WHITE = 255, 255, 255
 
 EVENT_KEY_a = 97
@@ -20,13 +21,17 @@ class TargetingTerminal():
         self.DRAWING_SCALE_ = DRAWING_SCALE
         self.current_text_ = ""
         self.terminal_rect_ = None
-        
+        self.error_timer_ = 0
+        self.error_duration_ = 5
+
         # Terminal Visual Constants
         self.terminal_border_width_ = 2
         self.terminal_rect_x_ = 10
         self.terminal_rect_y_ = 40
         self.terminal_size_height_ = 25
         self.terminal_size_width_ = 400
+        self.terminal_color_ = BLUE
+        self.error_color_ = RED
 
         # Terminal Text Input Constants
         self.font_size_ = 15
@@ -38,13 +43,20 @@ class TargetingTerminal():
         
         self.max_word_size_ = self.text_input_max_size_ / self.ui_font_.size("W")[0]
 
-       
+    """
+    Access functions
+    """
+    def notify_misfire(self):
+        self.error_timer_ = self.error_duration_
+
     """
     Update functions
     """
 
     def update(self, current_text):
-        self.current_text_ = current_text      
+        self.current_text_ = current_text     
+        if self.error_timer_ > 0:
+          self.error_timer_ -= 1 
 
     """
     Draw functions
@@ -57,7 +69,11 @@ class TargetingTerminal():
                                               self.terminal_size_width_*self.DRAWING_SCALE_, 
                                               self.terminal_size_height_*self.DRAWING_SCALE_)
 
-        pygame.draw.rect(screen, BLUE, self.terminal_rect_)
+        if self.error_timer_ > 0:
+            pygame.draw.rect(screen, self.error_color_, self.terminal_rect_)            
+        else:
+            pygame.draw.rect(screen, self.terminal_color_, self.terminal_rect_)
+        
         pygame.draw.rect(screen, 
                          WHITE, 
                          self.terminal_rect_, 

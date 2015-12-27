@@ -77,13 +77,16 @@ class HomingMissilesTargetingSystem():
             if event.type == pygame.KEYDOWN:
                 if event.key == EVENT_KEY_ENTER:
                     target_id = self.get_target_id(self.current_text_)
-                    if target_id and self.current_text_ != "fire":
+                    if not target_id and self.current_text_ != "fire":
+                        self.targeting_terminal_.notify_misfire()
+                    
+                    elif target_id and self.current_text_ != "fire":
                         if len(self.targeted_enemies_) == 5:
                             untargetted_enemy = self.targeted_enemies_.pop(0)
                         self.targeted_enemies_.append(self.universe_.enemies_[target_id])
                         self.targeted_enemies_[len(self.targeted_enemies_)-1].register(self)
-                       
-                    if len(self.targeted_enemies_) > 0 and self.current_text_ == "fire":
+                     
+                    elif len(self.targeted_enemies_) > 0 and self.current_text_ == "fire":
                         for enemy in self.targeted_enemies_:
                             homing_missiles_projectile = HomingMissilesProjectile(self.universe_.main_character_.position_, enemy, self.universe_)
                             self.universe_.create_friendly_projectile(homing_missiles_projectile)

@@ -25,23 +25,23 @@ class TargetingTerminal():
         self.error_duration_ = 5
 
         # Terminal Visual Constants
-        self.terminal_border_width_ = 2
+        self.terminal_border_width_ = 1
         self.terminal_rect_x_ = 10
         self.terminal_rect_y_ = 40
         self.terminal_size_height_ = 25
-        self.terminal_size_width_ = 400
+        self.terminal_size_width_ = 395
         self.terminal_color_ = BLUE
         self.error_color_ = RED
 
         # Terminal Text Input Constants
-        self.font_size_ = 15
+        self.font_size_ = 20
         self.text_alias_ = 1
         self.text_input_max_size_ = self.terminal_size_width_ - 20 
         self.text_input_x_ = 15
-        self.text_input_y_ = 35
+        self.text_input_y_ = 37
         self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
         
-        self.max_word_size_ = self.text_input_max_size_ / self.ui_font_.size("W")[0]
+        self.max_word_size_ = self.text_input_max_size_ * DRAWING_SCALE / self.ui_font_.size("W")[0]
 
     """
     Access functions

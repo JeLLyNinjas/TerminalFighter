@@ -6,7 +6,7 @@ from rifle import Rifle
 from shield import Shield
 
 BLACK = 0, 0, 0
-BLUE = 0, 255, 255
+CYAN = 0, 255, 255
 GREEN = 0, 255, 0
 RED = 255, 0, 0
 WHITE = 255, 255, 255
@@ -129,7 +129,7 @@ class MainCharacter(GameObject):
         if self.shield_.active_:
             shield_graphic = pygame.Surface((self.shield_.radius_*self.DRAWING_SCALE_, self.shield_.radius_*self.DRAWING_SCALE_))
             pygame.draw.circle(shield_graphic, WHITE, (int(self.shield_.radius_*self.DRAWING_SCALE_/2),int(self.shield_.radius_*self.DRAWING_SCALE_/2)), int(self.shield_.radius_/2*self.DRAWING_SCALE_))
-            pygame.draw.circle(shield_graphic, BLUE, (int(self.shield_.radius_*self.DRAWING_SCALE_/2),int(self.shield_.radius_*self.DRAWING_SCALE_/2)), int(self.shield_.radius_/2*self.DRAWING_SCALE_),5*self.DRAWING_SCALE_)
+            pygame.draw.circle(shield_graphic, CYAN, (int(self.shield_.radius_*self.DRAWING_SCALE_/2),int(self.shield_.radius_*self.DRAWING_SCALE_/2)), int(self.shield_.radius_/2*self.DRAWING_SCALE_),5*self.DRAWING_SCALE_)
             shield_graphic.set_colorkey((255,0,255))
             shield_graphic.set_alpha(50)
             screen.blit(shield_graphic, ((self.shield_.position_[0]-self.shield_.radius_/2)*self.DRAWING_SCALE_, (self.shield_.position_[1]-self.shield_.radius_/2)*self.DRAWING_SCALE_))

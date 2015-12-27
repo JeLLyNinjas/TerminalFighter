@@ -50,7 +50,6 @@ def terminalfighter(screen, DRAWING_SCALE):
         pygame.display.flip()
         # print("flip time : " + str(pygame.time.get_ticks() - flip_start_time))
         if gamemaster.universe_.main_character().health_ <= 0:
-            highscore_service.update_highscore(gamemaster.score_counter_.score_)
             pygame.mixer.music.stop()
             
             gameover_font = pygame.font.SysFont("monospace", 120*DRAWING_SCALE)
@@ -58,12 +57,28 @@ def terminalfighter(screen, DRAWING_SCALE):
             screen.blit(gameover_label, 
                         (screen.get_width()/2 - gameover_label.get_width()/2,
                          screen.get_height()/2 - gameover_label.get_height()/2))
+
+            highscore_font = pygame.font.SysFont("monospace", 30*DRAWING_SCALE)
+            highscore_text = "Highscore : "
+            if not highscore_service.get_highscore() or \
+                highscore_service.get_highscore() < gamemaster.score_counter_.score_:
+                highscore_service.update_highscore(gamemaster.score_counter_.score_)
+                highscore_text += str(highscore_service.get_highscore()) + " NEW HIGHSCORE"
+            else:
+                highscore_text += str(highscore_service.get_highscore())
+            highscore_label = highscore_font.render(highscore_text, 1, WHITE)
+            screen.blit(highscore_label, 
+                        (screen.get_width()/2 - highscore_label.get_width()/2,
+                         screen.get_height()/2 + gameover_label.get_height()/2 + highscore_label.get_height()/2))
             
             press_any_key_font = pygame.font.SysFont("monospace", 30*DRAWING_SCALE)
             press_any_key_label = press_any_key_font.render("Press any key...", 1, WHITE)
             screen.blit(press_any_key_label, 
                         (screen.get_width()/2 - press_any_key_label.get_width()/2,
-                         screen.get_height()/2 + gameover_label.get_height()/2 + press_any_key_label.get_height()/2))
+                         screen.get_height()/2 + 
+                         gameover_label.get_height()/2 + 
+                         highscore_label.get_height() + 
+                         press_any_key_label.get_height()/2))
 
             pygame.display.flip()
             pygame.time.delay(1000)

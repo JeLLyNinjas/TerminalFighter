@@ -5,16 +5,20 @@
 class GameObject {
 
 public:
-    GameObject(double x_pos, double y_pos) {
-        position_.x = x_pos;
-        position_.y = y_pos; 
-    }
+    GameObject(double x_pos, double y_pos);
 
     virtual void update() = 0;
     virtual void draw(GraphicsHandler *graphics) = 0;
-    virtual SDL_Point position() { return position_; }
+    double x_pos();
+    double y_pos();
+    int id();
 
 protected:
-    SDL_Point position_;
+    double x_pos_;
+    double y_pos_;
+    unsigned int id_;
+
+private:
+    static unsigned int id_counter_;
 };
- 
+

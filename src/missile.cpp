@@ -3,7 +3,7 @@
 
 SDL_Texture* Missile::missile_texture_ = NULL;
 
-Missile::Missile(double x_vel, double y_vel, double x_pos, double y_pos) 
+Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel) 
 : Projectile(x_pos, y_pos, x_vel, y_vel) 
 { }    
 

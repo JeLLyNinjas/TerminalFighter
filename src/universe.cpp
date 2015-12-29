@@ -10,13 +10,13 @@ void Universe::get_events() {
 }
 
 void Universe::update_all() {
-    for (Game_Object *game_object : all_game_objects) {
+    for (GameObject *game_object : all_game_objects) {
         game_object->update();
     }
 }
 
 void Universe::draw_all() {
-    for (Game_Object *game_object : all_game_objects) {
+    for (GameObject *game_object : all_game_objects) {
         game_object->draw(graphics_handler_);
     }
 }

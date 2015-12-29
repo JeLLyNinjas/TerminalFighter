@@ -23,6 +23,6 @@ public:
 private:
     void remove_deleted_objects();  /*TODO removes all empty/NULL objects from the all_game_objects vector*/
 
-    std::vector<Game_Object*> all_game_objects;
+    std::vector<GameObject*> all_game_objects;
     GraphicsHandler *graphics_handler_;
 };

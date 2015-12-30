@@ -14,6 +14,7 @@ public:
 	virtual void draw(GraphicsHandler *graphics) = 0;
 	virtual double x_vel() { return x_vel_; }
 	virtual double y_vel() { return y_vel_; }
+	virtual void notify_collision(Ship* collided_ship, int hitbox_number);
 
 protected:
 	double x_vel_;

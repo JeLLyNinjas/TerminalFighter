@@ -1,4 +1,4 @@
-install: sudo bash ./installer/installer.sh
+install: bash ./installer/installer.sh
 
 script: ./make-all
 

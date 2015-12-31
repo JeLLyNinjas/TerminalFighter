@@ -2,10 +2,6 @@ install:
     - sudo bash ./installer/installer.sh
     - chmod +x make-all
 
-script:
-    - make
-    - make -C ./test
-    - chmod +x test/run-tests
-    - ./test/run-tests
+script: sudo ./make-all
 
 language: cpp

@@ -1,0 +1,5 @@
+install: sudo bash ./installer/installer.sh
+
+script: ./make-all
+
+language: cpp

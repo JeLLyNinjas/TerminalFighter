@@ -1,5 +1,0 @@
-install: bash ./installer/installer.sh
-
-script: ./make-all
-
-language: cpp

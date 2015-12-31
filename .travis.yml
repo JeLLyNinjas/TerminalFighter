@@ -1,8 +1,5 @@
-install: sudo bash ./installer/installer.sh
+install: bash ./installer/installer.sh
 
-script: 
-	- make
-	- make -C ./test
-	- ./test/run-tests
+script: ./make-all
 
 language: cpp

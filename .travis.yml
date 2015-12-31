@@ -1,4 +1,6 @@
-install: bash ./installer/installer.sh
+install: 
+    - bash ./installer/installer.sh
+    - chmod +x make-all
 
 script: ./make-all
 

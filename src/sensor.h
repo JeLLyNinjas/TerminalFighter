@@ -9,5 +9,5 @@ class Sensor : public GameObject {
 
 	virtual void update() = 0;
 	virtual void draw(GraphicsHandler* graphics) = 0;
-	virtual void 
+	virtual void get_hitboxes() = 0; 
 };

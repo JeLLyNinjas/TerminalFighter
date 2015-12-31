@@ -2,26 +2,26 @@
 void check_friendly_sensor_collisions() {
     //check friendly_sensors_ against enemy_sensors_, enemy_projectiles_, enemy_ships_
     for(auto friendly_sensor : friendly_sensors_){
-        std::vector<hitboxes> friendly_sensor_hitboxes = friendly_sensor.hitboxes();
+        std::vector<Hitbox> friendly_sensor_hitboxes = friendly_sensor.get_hitboxes();
         for(auto friendly_hitbox : friendly_sensor_hitboxes){
             int hitbox_number = 0;
             for(auto enemy_sensor : enemy_sensors_){
-                for(auto enemy_hitbox : enemy_sensor.hitboxes()){
-                    if(Hitbox::isOverlapping(friendly_hitbox, enemy_hitbox){
+                for(auto enemy_hitbox : enemy_sensor.get_hitboxes()){
+                    if(Hitbox::is_overlapping(friendly_hitbox, enemy_hitbox){
                         friendly_sensor.notify_collision(enemy_sensor, hitbox_number)
                     }
                 }
             }
             for(auto enemy_projectile : enemy_projectiles_){
-                for(auto enemy_hitbox : enemy_projectile.hitboxes()){
-                    if(Hitbox::isOverlapping(friendly_hitbox, enemy_hitbox){
+                for(auto enemy_hitbox : enemy_projectile.get_hitboxes()){
+                    if(Hitbox::is_overlapping(friendly_hitbox, enemy_hitbox){
                         friendly_sensor.notify_collision(enemy_projectile, hitbox_number)
                     }
                 }
             }
             for(auto enemy_ship : enemy_ships_){
-                for(auto enemy_hitbox : enemy_ship.hitboxes()){
-                    if(Hitbox::isOverlapping(friendly_hitbox, enemy_hitbox){
+                for(auto enemy_hitbox : enemy_ship.get_hitboxes()){
+                    if(Hitbox::is_overlapping(friendly_hitbox, enemy_hitbox){
                         friendly_sensor.notify_collision(enemy_ship, hitbox_number)
                     }
                 }

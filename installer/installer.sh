@@ -16,15 +16,6 @@ function finish {
 
 trap finish EXIT
 
-apt-get update --yes
-apt-get install libao-dev --yes
-apt-get install g++ --yes
-apt-get install libasound2-dev --yes
-apt-get install libpulse-dev --yes
-
-apt-get install libdbus-1-dev --yes
-apt-get install libudev-dev --yes
-
 #SDL2.0
 wget https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
 tar -xzvf SDL2-2.0.3.tar.gz

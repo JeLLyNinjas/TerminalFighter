@@ -1,6 +1,8 @@
 #pragma once
 
 #include "game_object.h"
+#include "hitbox.h"
+#include <vector>
 
 class Ship : public GameObject {
 public:
@@ -15,6 +17,7 @@ public:
 	virtual double x_vel() { return x_vel_; }
 	virtual double y_vel() { return y_vel_; }
 	virtual void notify_collision(Ship* collided_ship, int hitbox_number);
+	virtual std::vector<Hitbox> get_hitboxes() = 0; 
 
 protected:
 	double x_vel_;

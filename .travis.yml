@@ -7,6 +7,7 @@ install:
     - g++ -isystem googletest/include/ -Igoogletest -isystem googlemock/include/ -Igooglemock -pthread -c googletest/src/gtest-all.cc
     - ar -rv libgmock.a gtest-all.o gmock-all.o
     - cp libgmock.a ../test/
+    - cd ..
 
 script: sudo ./make-all
 

@@ -1,5 +1,5 @@
-install: 
-	- gcc -v
+install:
+    - gcc -v
     - sudo bash ./installer/installer.sh
     - chmod +x make-all
     - git clone https://github.com/google/googletest.git
@@ -9,7 +9,6 @@ install:
     - ar -rv libgmock.a gtest-all.o gmock-all.o
     - cp libgmock.a ../test/
     - cd ..
-
 
 script: sudo ./make-all
 

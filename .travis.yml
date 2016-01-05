@@ -2,6 +2,7 @@ install:
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     - sudo apt-get -qq update
     - sudo apt-get -qq install g++-4.8
+    - g++ -v
     - sudo bash ./installer/installer.sh
     - chmod +x make-all
     - git clone https://github.com/google/googletest.git

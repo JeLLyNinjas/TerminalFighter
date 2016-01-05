@@ -1,5 +1,15 @@
 #!/bin/bash -e
 
+USER=`whoami`
+if [ $USER = "root" ]
+    then
+    echo "Running as ROOT"
+else
+    echo "***********YOU ARE NOT ROOT************"
+    exit 0
+fi
+
+
 DIR=`pwd`
 
 function finish {
@@ -27,7 +37,9 @@ make -j4
 make install -j4
 cd ..
 
+
 #SDL2_ttf
+apt-get install libfreetype6-dev
 wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
 tar -xzvf SDL2_ttf-2.0.12.tar.gz
 cd SDL2_ttf-2.0.12

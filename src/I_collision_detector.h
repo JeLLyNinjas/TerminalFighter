@@ -7,4 +7,4 @@ public:
 	virtual void notifyProjectileCollisions() = 0;
 	virtual void notifyShipCollisions() = 0;
 
-}
+};

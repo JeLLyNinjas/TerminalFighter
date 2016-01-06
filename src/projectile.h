@@ -1,6 +1,8 @@
 #pragma once
 
 #include "game_object.h"
+#include "hitbox.h"
+#include <vector>
 
 class Projectile : public GameObject {
 public:
@@ -14,6 +16,7 @@ public:
 	virtual void draw(GraphicsHandler *graphics) = 0;
 	virtual double x_vel() { return x_vel_; }
 	virtual double y_vel() { return y_vel_; }
+	virtual std::vector<Hitbox> get_hitboxes() = 0; 
 
 protected:
 	double x_vel_;

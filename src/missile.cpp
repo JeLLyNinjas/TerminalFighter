@@ -23,3 +23,7 @@ void Missile::draw(GraphicsHandler *graphics) {
 void Missile::set_texture(SDL_Texture* texture) {
     missile_texture_ = texture;
 }
+
+std::vector<Hitbox> Missile::get_hitboxes() {
+	return std::vector<Hitbox>();
+}

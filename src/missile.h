@@ -8,6 +8,7 @@ public:
 
     void update();
     void draw(GraphicsHandler *graphics);
+    std::vector<Hitbox> get_hitboxes();
     
     static void set_texture(SDL_Texture* texture);
 

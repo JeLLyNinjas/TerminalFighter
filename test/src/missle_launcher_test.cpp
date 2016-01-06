@@ -2,11 +2,11 @@
 #include "gmock/gmock.h"
 
 #include "missile_launcher.h"
-#include "mocks/mock_missile_launcher_listener.h"
+#include "mocks/mock_projectile_creator_listener.h"
 
 using ::testing::_;
 
-class MissleLauncherTest : public ::testing::Test {
+class MissileLauncherTest : public ::testing::Test {
 protected:
     virtual void SetUp() {
     }
@@ -16,8 +16,8 @@ protected:
 };
 
 TEST(MissileLauncherTest, check_listeners_notified_onlaunch) {
-    MockMissileLauncherListener launcher_listener;
-    EXPECT_CALL(launcher_listener, notify_missile_launched(_))
+    MockProjectileCreatorListener launcher_listener;
+    EXPECT_CALL(launcher_listener, notify_projectile_launched(_))
         .Times(1);
 
     MissileLauncher launcher;

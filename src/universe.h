@@ -3,9 +3,10 @@
 
 #include "game_object.h"
 #include "graphics_handler.h"
-#include "missile_launcher_listener.h"
+#include "projectile_creator_listener.h"
+#include "projectile.h"
 
-class Universe : public MissileLauncherListener {
+class Universe : public ProjectileCreatorListener {
 
 public:
     Universe(SDL_Renderer *renderer);
@@ -15,7 +16,7 @@ public:
     void draw_to_screen();
 
     /* listeners */
-    void notify_missile_launched(Missile *missile);
+    void notify_projectile_launched(Projectile *projectile);
 
 private:
     void remove_deleted_objects();  /*TODO removes all empty/NULL objects from the all_game_objects vector*/

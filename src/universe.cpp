@@ -30,6 +30,6 @@ void remove_deleted_objects() {
 }
 
 /* listeners */
-void Universe::notify_missile_launched(Missile *missile) {
-    all_game_objects.push_back(missile);
+void Universe::notify_projectile_launched(Projectile *projectile) {
+    all_game_objects.push_back(projectile);
 }

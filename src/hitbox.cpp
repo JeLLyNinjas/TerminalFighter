@@ -11,6 +11,10 @@ Hitbox::Hitbox(SDL_Rect hitbox) {
 	hitbox_ = hitbox;
 }
 
-bool Hitbox::is_overlapping(Hitbox hitbox1, Hitbox hitbox2) {
-	return SDL_HasIntersection(&hitbox1.hitbox_, &hitbox2.hitbox_);
+bool Hitbox::is_overlapping(const Hitbox& other_hitbox) {
+	return SDL_HasIntersection(&hitbox_, &other_hitbox.hitbox());
+}
+
+const SDL_Rect& Hitbox::hitbox() const {
+	return hitbox_;
 }

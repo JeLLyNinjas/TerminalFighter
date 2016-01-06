@@ -1,9 +1,10 @@
-#pragma once 
+#pragma once
+#include <vector>
+
 #include "I_collision_detector.h"
 #include "sensor.h"
 #include "projectile.h"
 #include "ship.h"
-#include <vector>
 
 class CollisionDetector : public I_CollisionDetector {
 public:

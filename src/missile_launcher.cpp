@@ -5,6 +5,5 @@ Missile * MissileLauncher::create_missile(double x_vel, double y_vel, double x_p
     for (MissileLauncherListener * listener : listeners) { 
         listener->notify_missile_launched(return_missile);
     }
-
     return  return_missile;
 }

@@ -22,7 +22,7 @@ void GraphicsHandler::update_screen() {
     SDL_RenderClear(renderer_);
 }
 
-//TODO make this function load from a list of objects defined in a text file (.INI file maybe?) depending on each game state enum. 
+//TODO make this function load from a list of objects defined in a text file (.INI file maybe?) depending on each game state enum.
 //Right now, this function should just load all of our assets. Maybe later when we need to conserve more space, load only things we need
 //defined by .INI
 void GraphicsHandler::init() {

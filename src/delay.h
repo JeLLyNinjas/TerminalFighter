@@ -1,9 +1,9 @@
 #pragma once
-
 #include <chrono>
-#include <unistd.h>
 #include <iostream>
 #include <stdio.h>
+#include <unistd.h>
+
 #include <SDL_ttf.h>
 
 
@@ -19,7 +19,7 @@ public:
 private:
     void start_timer();
     void stop_timer();
-    
+
     high_resolution_clock::time_point time_start, time_end;
     microseconds time_duration_;
     bool started_, debug_mode_;

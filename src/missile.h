@@ -1,6 +1,7 @@
 #pragma once
-#include "projectile.h"
 #include <SDL2/SDL.h>
+
+#include "projectile.h"
 
 class Missile : public Projectile {
 public:
@@ -15,4 +16,3 @@ public:
 private:
     static SDL_Texture* missile_texture_;
 };
-

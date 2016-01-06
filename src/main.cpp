@@ -3,8 +3,8 @@
 #define UINT64_C(c) (c ## ULL)
 #endif
 extern "C" {
-    #include <SDL.h>
-    #include <SDL_ttf.h>
+#include <SDL.h>
+#include <SDL_ttf.h>
 }
 #include <stdio.h>
 #include <unistd.h>
@@ -24,27 +24,29 @@ using namespace std;
 
 SDL_Renderer* main_renderer = NULL;
 SDL_Window* window = NULL;
-
-void close();
 bool quit;
 
+bool init_SDL();
+void processEvents();
+void close();
+void display_debug_frames(Delay *delayer);
 
 bool init_SDL()
 {
-    int numdrivers = SDL_GetNumRenderDrivers (); 
-    cout << "Render driver count: " << numdrivers << endl; 
-    for (int i=0; i<numdrivers; i++) { 
-        SDL_RendererInfo drinfo; 
-        SDL_GetRenderDriverInfo (0, &drinfo); 
-        cout << "Driver name ("<<i<<"): " << drinfo.name << endl; 
-        if (drinfo.flags & SDL_RENDERER_SOFTWARE) 
-            cout << " the main_renderer is a software fallback" << endl; 
-        if (drinfo.flags & SDL_RENDERER_ACCELERATED) 
-            cout << " the main_renderer uses hardware acceleration" << endl; 
-        if (drinfo.flags & SDL_RENDERER_PRESENTVSYNC) 
-            cout << " present is synchronized with the refresh rate" << endl; 
-        if (drinfo.flags & SDL_RENDERER_TARGETTEXTURE) 
-            cout << " the main_renderer supports rendering to texture" << endl; 
+    int numdrivers = SDL_GetNumRenderDrivers ();
+    cout << "Render driver count: " << numdrivers << endl;
+    for (int i = 0; i < numdrivers; i++) {
+        SDL_RendererInfo drinfo;
+        SDL_GetRenderDriverInfo (0, &drinfo);
+        cout << "Driver name (" << i << "): " << drinfo.name << endl;
+        if (drinfo.flags & SDL_RENDERER_SOFTWARE)
+            cout << " the main_renderer is a software fallback" << endl;
+        if (drinfo.flags & SDL_RENDERER_ACCELERATED)
+            cout << " the main_renderer uses hardware acceleration" << endl;
+        if (drinfo.flags & SDL_RENDERER_PRESENTVSYNC)
+            cout << " present is synchronized with the refresh rate" << endl;
+        if (drinfo.flags & SDL_RENDERER_TARGETTEXTURE)
+            cout << " the main_renderer supports rendering to texture" << endl;
     }
 
     printf("Driver: %s\n", SDL_GetCurrentVideoDriver());
@@ -55,7 +57,7 @@ bool init_SDL()
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
         return false;
     }
-    
+
     //Creates the SDL Window
     window = SDL_CreateWindow("Video Application", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (window == NULL)
@@ -65,7 +67,7 @@ bool init_SDL()
     }
     printf("Driver: %s\n", SDL_GetCurrentVideoDriver());
 
-    //Creates the main_renderer. 
+    //Creates the main_renderer.
     main_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (main_renderer == NULL)
     {
@@ -75,7 +77,7 @@ bool init_SDL()
         if (main_renderer == NULL)
         {
             printf("Renderer could not be created. SDL_Error: %s \n", SDL_GetError());
-            return false;                    
+            return false;
             //SDL_SetRenderDrawColor(main_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         }
     }
@@ -85,37 +87,37 @@ bool init_SDL()
 void processEvents()
 {
     SDL_Event event;
-        while (SDL_PollEvent(&event))
+    while (SDL_PollEvent(&event))
+    {
+        switch (event.type)
         {
-            switch(event.type)
-            {
-                case SDL_QUIT:
-                    printf("SDL_QUIT was called\n");
-                    close();
-                    break;
+        case SDL_QUIT:
+            printf("SDL_QUIT was called\n");
+            close();
+            break;
 
-                case SDL_KEYDOWN:
-                    switch(event.key.keysym.sym)
-                    {
-                        case SDLK_ESCAPE:
-                            printf("Esc was Pressed!\n");
-                            close();
-                            break;
-                        case SDLK_LEFT:
-                            printf("Left arrow was Pressed!\n");
-                            break;
-                        case SDLK_RIGHT:
-                            printf("Right arrow was Pressed!\n");
-                            break;
-                        case SDLK_UP:
-                            break;
-                        case SDLK_DOWN:
-                            break;
-                        case SDLK_SPACE:
-                            printf("Space was pressed!\n");
-                    }
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym)
+            {
+            case SDLK_ESCAPE:
+                printf("Esc was Pressed!\n");
+                close();
+                break;
+            case SDLK_LEFT:
+                printf("Left arrow was Pressed!\n");
+                break;
+            case SDLK_RIGHT:
+                printf("Right arrow was Pressed!\n");
+                break;
+            case SDLK_UP:
+                break;
+            case SDLK_DOWN:
+                break;
+            case SDLK_SPACE:
+                printf("Space was pressed!\n");
             }
         }
+    }
 }
 
 /* Cleans up and should free everything used in the program*/
@@ -133,7 +135,7 @@ void display_debug_frames(Delay *delayer) {
     SDL_Surface *frame_rate_surface = delayer->grab_frame_rate();
     SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface( main_renderer, frame_rate_surface);
     SDL_Rect Message_rect; //create a rect
-    Message_rect.x = 0;  //controls the rect's x coordinate 
+    Message_rect.x = 0;  //controls the rect's x coordinate
     Message_rect.y = 0; // controls the rect's y coordinte
     Message_rect.w = 200; // controls the width of the rect
     Message_rect.h = 70; // controls the height of the rect
@@ -145,12 +147,12 @@ void display_debug_frames(Delay *delayer) {
 
 int main(int argc, char* argv[])
 {
-    if (!init_SDL()){
+    if (!init_SDL()) {
         fprintf(stderr, "Could not initialize SDL!\n");
         return -1;
     }
 
-    if (TTF_Init() != 0){
+    if (TTF_Init() != 0) {
         fprintf(stderr, "TTF Init failed! %s\n", TTF_GetError());
         return -1;
     }
@@ -160,17 +162,16 @@ int main(int argc, char* argv[])
     test_launcher.add_listener(&universe);
 
     //Render red filled quad
-    int x = 0; 
+    int x = 0;
 
     Delay delayer(false);
     while (!quit)
     {
-
         if (x > SCREEN_WIDTH - 1)
             x = 0;
         x += 10;
 
-        test_launcher.create_missile(x, SCREEN_WIDTH/2, 0, -2.2);
+        test_launcher.create_missile(x, SCREEN_WIDTH / 2, 0, -2.2);
 
         processEvents();
         universe.update_all();
@@ -181,10 +182,7 @@ int main(int argc, char* argv[])
         //delay and draw to screen should stick together in the order: delay -> draw
         delayer.delay_with_fps(60);
         universe.draw_to_screen();
-
-
     }
-
     return 0;
 }
 

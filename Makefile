@@ -1,10 +1,6 @@
 #OBJS = files to compile
 OBJS = $(wildcard src/*.cpp) 
 
-
-#CC = compiler used
-CC = g++
-
 #COMPLIE_FLAGS = additional flags
 COMPILE_FLAGS = -w -g -std=c++0x
 
@@ -18,7 +14,7 @@ OUTPUT_NAME = TerminalFighter
 INCLUDE_FLAGS = -Ilib -Iinclude
 
 all :
-	 $(CC) $(OBJS) $(INCLUDE_FLAGS) $(LINK_FLAGS) $(COMPILE_FLAGS) -o $(OUTPUT_NAME)
+	 $(CXX) $(OBJS) $(INCLUDE_FLAGS) $(LINK_FLAGS) $(COMPILE_FLAGS) -o $(OUTPUT_NAME)
 
 clean :
 	rm $(OUTPUT_NAME)

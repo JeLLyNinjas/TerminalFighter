@@ -1,15 +1,11 @@
 #include "gtest/gtest.h"
+
 #include "hitbox.h"
 
 class HitboxTest : public ::testing::Test {
 protected:
-    virtual void SetUp() {
-    }
-
-    virtual void TearDown() {
-        // Code here will be called immediately after each test
-        // (right before the destructor).
-    }
+    virtual void SetUp() { }
+    virtual void TearDown() { }
 };
 
 TEST (HitboxTest, simple_hitbox_overlapping_true) {

@@ -2,8 +2,8 @@
 #include <vector>
 
 #include "game_object.h"
-#include "missile_launcher_listener.h"
 #include "graphics_handler.h"
+#include "missile_launcher_listener.h"
 
 class Universe : public MissileLauncherListener {
 
@@ -14,10 +14,7 @@ public:
     void draw_all();
     void draw_to_screen();
 
-
-    /***********
-     *listeners 
-     ***********/
+    /* listeners */
     void notify_missile_launched(Missile *missile);
 
 private:

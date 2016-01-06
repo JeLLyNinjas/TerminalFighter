@@ -21,22 +21,15 @@ void Universe::draw_all() {
     }
 }
 
-void Universe::draw_to_screen() { 
-    graphics_handler_->update_screen(); 
+void Universe::draw_to_screen() {
+    graphics_handler_->update_screen();
 }
-
 
 void remove_deleted_objects() {
     //TODO
 }
 
-/***********
- *listeners 
- ***********/
-
+/* listeners */
 void Universe::notify_missile_launched(Missile *missile) {
     all_game_objects.push_back(missile);
 }
-
-
-

@@ -1,5 +1,11 @@
 set -e
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
 make
+printf "\n${GREEN}|*******| SOURCE COMPILATION SUCCESSFUL |*******|${NC}\n\n"
 make -C ./test
+printf "\n${GREEN}|*******| TEST COMPILATION SUCCESSFUL |*******|${NC}\n\n"
 ./test/run-tests

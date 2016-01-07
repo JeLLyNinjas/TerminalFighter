@@ -25,7 +25,7 @@ TEST (HitboxTest, simple_hitbox_overlapping_false) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST (HitboxTest, constructor_1) {
+TEST (HitboxTest, member_constructor) {
     Hitbox hitbox1 = Hitbox(0, 5, 100, 110);
     EXPECT_EQ(hitbox1.hitbox().x, 0);
     EXPECT_EQ(hitbox1.hitbox().y, 5);
@@ -33,7 +33,7 @@ TEST (HitboxTest, constructor_1) {
     EXPECT_EQ(hitbox1.hitbox().h, 110);
 }
 
-TEST (HitboxTest, constructor_2) {
+TEST (HitboxTest, SDL_rect_constructor) {
     SDL_Rect rect1 = {0, 5, 100, 110};
     Hitbox hitbox1 = Hitbox(rect1);
     EXPECT_EQ(hitbox1.hitbox().x, 0);

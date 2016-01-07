@@ -9,21 +9,21 @@ void CollisionDetector::check_friendly_sensor_collisions() {
             int hitbox_number = 0;
             for (auto enemy_sensor : enemy_sensors_) {
                 for (auto enemy_hitbox : enemy_sensor->get_hitboxes()) {
-                    if (Hitbox::is_overlapping(friendly_hitbox, enemy_hitbox)) {
+                    if (friendly_hitbox.is_overlapping(enemy_hitbox)) {
                         friendly_sensor->notify_collision(enemy_sensor, hitbox_number);
                     }
                 }
             }
             for (auto enemy_projectile : enemy_projectiles_) {
                 for (auto enemy_hitbox : enemy_projectile->get_hitboxes()) {
-                    if (Hitbox::is_overlapping(friendly_hitbox, enemy_hitbox)) {
+                    if (friendly_hitbox.is_overlapping(enemy_hitbox)) {
                         friendly_sensor->notify_collision(enemy_projectile, hitbox_number);
                     }
                 }
             }
             for (auto enemy_ship : enemy_ships_) {
                 for (auto enemy_hitbox : enemy_ship->get_hitboxes()) {
-                    if (Hitbox::is_overlapping(friendly_hitbox, enemy_hitbox)) {
+                    if (friendly_hitbox.is_overlapping(enemy_hitbox)) {
                         friendly_sensor->notify_collision(enemy_ship, hitbox_number);
                     }
                 }

@@ -14,8 +14,8 @@ public:
 
 	virtual void update() = 0;
 	virtual void draw(GraphicsHandler *graphics) = 0;
-	virtual double x_vel() { return x_vel_; }
-	virtual double y_vel() { return y_vel_; }
+	virtual const double x_vel() const { return x_vel_; }
+	virtual const double y_vel() const { return y_vel_; }
 	virtual std::vector<Hitbox> get_hitboxes() = 0;
 
 protected:

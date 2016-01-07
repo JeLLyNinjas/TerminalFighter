@@ -6,6 +6,7 @@
 
 using ::testing::_;
 using ::testing::Property;
+using ::testing::InSequence;
 
 class MissileLauncherTest : public ::testing::Test {
 protected:
@@ -42,7 +43,7 @@ TEST_F(MissileLauncherTest, listeners_multiple_notifications) {
     launcher->create_missile(0, 0, 0, 0);
 }
 
-TEST_F(MissileLauncherTest, correct_missile_passed) {
+TEST_F(MissileLauncherTest, correct_params_passed) {
     EXPECT_CALL(*launcher_listener,
                 notify_missile_launched(AllOf(Property(&Missile::x_pos, 11.0),
                                               Property(&Missile::y_pos, 12.0),
@@ -50,4 +51,22 @@ TEST_F(MissileLauncherTest, correct_missile_passed) {
                                               Property(&Missile::y_vel, 14.0))));   
 
     launcher->create_missile(11, 12, 13, 14);
+}
+
+TEST_F(MissileLauncherTest, correct_missiles_passed) {
+    InSequence dummy;
+
+    EXPECT_CALL(*launcher_listener,
+                notify_missile_launched(AllOf(Property(&Missile::x_pos, 10.0),
+                                              Property(&Missile::y_pos, 10.0),
+                                              Property(&Missile::x_vel, 10.0),
+                                              Property(&Missile::y_vel, 10.0))));   
+    EXPECT_CALL(*launcher_listener,
+                notify_missile_launched(AllOf(Property(&Missile::x_pos, 20.0),
+                                              Property(&Missile::y_pos, 20.0),
+                                              Property(&Missile::x_vel, 20.0),
+                                              Property(&Missile::y_vel, 20.0))));   
+
+    launcher->create_missile(10, 10, 10, 10);
+    launcher->create_missile(20, 20, 20, 20);
 }

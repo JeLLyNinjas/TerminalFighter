@@ -28,3 +28,15 @@ TEST(MissileLauncherTest, multiple_listeners_notified) {
     launcher.add_listener(&launcher_listener2);
     launcher.create_missile(0, 0, 0, 0);
 }
+
+TEST(MissileLauncherTest, listeners_multiple_notifications) {
+    MockMissileLauncherListener launcher_listener;
+    EXPECT_CALL(launcher_listener, notify_missile_launched(_))
+        .Times(3);
+
+    MissileLauncher launcher;
+    launcher.add_listener(&launcher_listener);
+    launcher.create_missile(0, 0, 0, 0);
+    launcher.create_missile(0, 0, 0, 0);
+    launcher.create_missile(0, 0, 0, 0);
+}

@@ -16,7 +16,8 @@ public:
     void draw_to_screen();
 
     /* listeners */
-    void notify_projectile_launched(Projectile *projectile);
+    void notify_friendly_projectile_launched(Projectile *projectile);
+    void notify_enemy_projectile_launched(Projectile *projectile);
 
 private:
     void remove_deleted_objects();  /*TODO removes all empty/NULL objects from the all_game_objects vector*/

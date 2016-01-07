@@ -16,6 +16,13 @@ protected:
     }
 };
 
+TEST(MissileLauncherTest, team_set) {
+    MissileLauncher friendly_launcher = MissileLauncher(FRIENDLY);
+    friendly_launcher.team() == FRIENDLY;
+    MissileLauncher enemy_launcher = MissileLauncher(ENEMY);
+    enemy_launcher.team() == ENEMY;
+}
+
 TEST(MissileLauncherTest, check_listeners_notified_onlaunch) {
     MockProjectileCreatorListener launcher_listener;
     EXPECT_CALL(launcher_listener, notify_friendly_projectile_launched(_))

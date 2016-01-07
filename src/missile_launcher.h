@@ -10,7 +10,7 @@
 class MissileLauncher : public Observable <ProjectileCreatorListener> {
 public:
 	MissileLauncher(Team team);
-	void set_team(Team team);
+	const Team& team() const;
     Missile * create_missile(double x_vel, double y_vel, double x_pos, double y_pos);
 
 private:

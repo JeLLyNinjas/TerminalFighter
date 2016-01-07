@@ -16,11 +16,15 @@ protected:
 };
 
 TEST(MissileLauncherTest, check_listeners_notified_onlaunch) {
-    MockMissileLauncherListener launcher_listener;
-    EXPECT_CALL(launcher_listener, notify_missile_launched(_))
+    MockMissileLauncherListener launcher_listener1;
+    MockMissileLauncherListener launcher_listener2;
+    EXPECT_CALL(launcher_listener1, notify_missile_launched(_))
+        .Times(1);
+    EXPECT_CALL(launcher_listener2, notify_missile_launched(_))
         .Times(1);
 
     MissileLauncher launcher;
-    launcher.add_listener(&launcher_listener);
+    launcher.add_listener(&launcher_listener1);
+    launcher.add_listener(&launcher_listener2);
     launcher.create_missile(0, 0, 0, 0);
 }

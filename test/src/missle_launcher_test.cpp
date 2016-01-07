@@ -26,7 +26,7 @@ TEST(MissileLauncherTest, team_set) {
 
 TEST(MissileLauncherTest, check_listeners_notified_onlaunch) {
     MockProjectileCreatorListener launcher_listener;
-    EXPECT_CALL(launcher_listener, notify_friendly_projectile_launched(_))
+    EXPECT_CALL(launcher_listener, notify_projectile_launched(_, _))
         .Times(1);
 
     MissileLauncher launcher = MissileLauncher(FRIENDLY);
@@ -38,8 +38,8 @@ TEST(MissileLauncherTest, check_team_notify_called) {
     InSequence dummy;
 
     MockProjectileCreatorListener launcher_listener;
-    EXPECT_CALL(launcher_listener, notify_friendly_projectile_launched(_));
-    EXPECT_CALL(launcher_listener, notify_enemy_projectile_launched(_));
+    EXPECT_CALL(launcher_listener, notify_projectile_launched(_, FRIENDLY));
+    EXPECT_CALL(launcher_listener, notify_projectile_launched(_, ENEMY));
 
     MissileLauncher friendly_launcher = MissileLauncher(FRIENDLY);
     friendly_launcher.add_listener(&launcher_listener);

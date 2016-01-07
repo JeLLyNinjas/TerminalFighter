@@ -15,7 +15,7 @@ protected:
     }
 };
 
-TEST(MissileLauncherTest, check_listeners_notified_onlaunch) {
+TEST(MissileLauncherTest, multiple_listeners_notified) {
     MockMissileLauncherListener launcher_listener1;
     MockMissileLauncherListener launcher_listener2;
     EXPECT_CALL(launcher_listener1, notify_missile_launched(_))

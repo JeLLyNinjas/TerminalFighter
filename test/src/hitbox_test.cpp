@@ -26,22 +26,18 @@ TEST (HitboxTest, simple_hitbox_overlapping_false) {
 }
 
 TEST (HitboxTest, constructor_1) {
-    Hitbox hitbox1 = Hitbox(0, 0, 100, 100);
-    bool actual, expected = true;
-    if (hitbox1.hitbox().x == 0 && hitbox1.hitbox().y == 0 && hitbox1.hitbox().w == 100 && hitbox1.hitbox().h == 100)
-    	actual = true;
-    else 
-    	actual = false;
-    EXPECT_EQ(expected, actual);
+    Hitbox hitbox1 = Hitbox(0, 5, 100, 110);
+    EXPECT_EQ(hitbox1.hitbox().x, 0);
+    EXPECT_EQ(hitbox1.hitbox().y, 5);
+    EXPECT_EQ(hitbox1.hitbox().w, 100);
+    EXPECT_EQ(hitbox1.hitbox().h, 110);
 }
 
 TEST (HitboxTest, constructor_2) {
-    SDL_Rect rect1 = {0, 0, 100, 100};
+    SDL_Rect rect1 = {0, 5, 100, 110};
     Hitbox hitbox1 = Hitbox(rect1);
-    bool actual, expected = true;
-    if (hitbox1.hitbox().x == 0 && hitbox1.hitbox().y == 0 && hitbox1.hitbox().w == 100 && hitbox1.hitbox().h == 100)
-    	actual = true;
-    else
-    	actual = false;
-    EXPECT_EQ(expected, actual);
+    EXPECT_EQ(hitbox1.hitbox().x, 0);
+    EXPECT_EQ(hitbox1.hitbox().y, 5);
+    EXPECT_EQ(hitbox1.hitbox().w, 100);
+    EXPECT_EQ(hitbox1.hitbox().h, 110);
 }

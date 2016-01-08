@@ -1,7 +1,6 @@
 #pragma once
 #include <string> 
 
-#include "observable.h"
 #include "missile.h"
 
 class MissileLauncherListener {

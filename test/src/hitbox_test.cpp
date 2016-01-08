@@ -25,6 +25,14 @@ TEST (HitboxTest, simple_hitbox_overlapping_false) {
     EXPECT_EQ(expected, actual);
 }
 
+TEST (HitboxTest, simple_hitbox_overlapping_enclosed) {
+    Hitbox hitbox1 = Hitbox(0, 0, 100, 100);
+    Hitbox hitbox2 = Hitbox(1, 1, 50, 50);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
 TEST (HitboxTest, member_constructor) {
     Hitbox hitbox1 = Hitbox(0, 5, 100, 110);
     EXPECT_EQ(hitbox1.hitbox().x, 0);

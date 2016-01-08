@@ -1,6 +1,6 @@
 #include "gamestate_handler.h"
 
-GameStateHandler::GameStateHandler(std::map<GameStateName, I_GameState*>* gamestates)
+GameStateHandler::GameStateHandler(std::map<gamestates::GameStateName, I_GameState*>* gamestates)
     : gamestates_(gamestates)
     , window_(NULL)
     , renderer_(NULL)
@@ -14,10 +14,10 @@ void GameStateHandler::set_window(SDL_Window* window) {
     window_ = window;
 }
 
-void GameStateHandler::start(GameStateName first_state){
-    GameStateName next_state = first_state;
-    std::map<GameStateName, I_GameState*>::iterator it; 
-    while(next_state != EXIT){
+void GameStateHandler::start(gamestates::GameStateName first_state){
+    gamestates::GameStateName next_state = first_state;
+    std::map<gamestates::GameStateName, I_GameState*>::iterator it; 
+    while(next_state != gamestates::EXIT){
         it = gamestates_->find(next_state);
         SDL_assert(it != gamestates_->end());
         next_state = it->second->run(renderer_);

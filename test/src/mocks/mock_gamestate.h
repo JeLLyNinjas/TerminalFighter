@@ -4,6 +4,6 @@
 
 class MockGameState : public I_GameState {
 public:
-	MOCK_METHOD1(run, GameStateName(SDL_Renderer* renderer));
-	MOCK_CONST_METHOD0(name, GameStateName());  
+	MOCK_METHOD1(run, gamestates::GameStateName(SDL_Renderer* renderer));
+	MOCK_CONST_METHOD0(name, gamestates::GameStateName());  
 };

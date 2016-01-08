@@ -24,13 +24,13 @@ protected:
 TEST(GameStateHandlerTest, runs_gamestate){
     MockGameState* mock_mainmenu = new MockGameState();
     EXPECT_CALL(*mock_mainmenu, run(_))
-        .WillOnce(Return(EXIT));
+        .WillOnce(Return(gamestates::EXIT));
 
-    std::map<GameStateName, I_GameState*> gamestates;
-    gamestates.insert(std::pair<GameStateName, I_GameState*>(MAIN_MENU, mock_mainmenu));
+    std::map<gamestates::GameStateName, I_GameState*> gamestates;
+    gamestates.insert(std::pair<gamestates::GameStateName, I_GameState*>(gamestates::MAIN_MENU, mock_mainmenu));
     
     GameStateHandler gs_handler = GameStateHandler(&gamestates);
-    gs_handler.start(MAIN_MENU);
+    gs_handler.start(gamestates::MAIN_MENU);
 
     delete mock_mainmenu;
 }
@@ -42,16 +42,16 @@ TEST(GameStateHandlerTest, runs_next_gamestate) {
     MockGameState* mock_mainmenu = new MockGameState();
 
     EXPECT_CALL(*mock_opening, run(_))
-        .WillOnce(Return(MAIN_MENU));
+        .WillOnce(Return(gamestates::MAIN_MENU));
     EXPECT_CALL(*mock_mainmenu, run(_))
-        .WillOnce(Return(EXIT));    
+        .WillOnce(Return(gamestates::EXIT));    
     
-    std::map<GameStateName, I_GameState*> gamestates;
-    gamestates.insert(std::pair<GameStateName, I_GameState*>(OPENING_CUTSCENE, mock_opening));
-    gamestates.insert(std::pair<GameStateName, I_GameState*>(MAIN_MENU, mock_mainmenu));
+    std::map<gamestates::GameStateName, I_GameState*> gamestates;
+    gamestates.insert(std::pair<gamestates::GameStateName, I_GameState*>(gamestates::OPENING_CUTSCENE, mock_opening));
+    gamestates.insert(std::pair<gamestates::GameStateName, I_GameState*>(gamestates::MAIN_MENU, mock_mainmenu));
     
     GameStateHandler gs_handler = GameStateHandler(&gamestates);
-    gs_handler.start(OPENING_CUTSCENE);
+    gs_handler.start(gamestates::OPENING_CUTSCENE);
 
     delete mock_opening;
     delete mock_mainmenu;

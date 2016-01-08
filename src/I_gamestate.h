@@ -1,10 +1,18 @@
 #pragma once 
 
 #include <SDL.h>
-#include "game_constants.h"
+
+namespace gamestates {
+enum GameStateName { 
+	MAIN_MENU, 
+	OPENING_CUTSCENE, 
+	LEVEL_1,
+	EXIT
+};	
+}
 
 class I_GameState {
 public:
-	virtual GameStateName run(SDL_Renderer* renderer) = 0;
-	virtual GameStateName name() const = 0;
+	virtual gamestates::GameStateName run(SDL_Renderer* renderer) = 0;
+	virtual gamestates::GameStateName name() const = 0;
 };

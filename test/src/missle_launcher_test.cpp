@@ -19,9 +19,9 @@ protected:
 
 TEST(MissileLauncherTest, team_set) {
     MissileLauncher friendly_launcher = MissileLauncher(FRIENDLY);
-    friendly_launcher.team() == FRIENDLY;
+    EXPECT_EQ(friendly_launcher.team(), FRIENDLY);
     MissileLauncher enemy_launcher = MissileLauncher(ENEMY);
-    enemy_launcher.team() == ENEMY;
+    EXPECT_EQ(enemy_launcher.team(), ENEMY);
 }
 
 TEST(MissileLauncherTest, check_listeners_notified_onlaunch) {

@@ -13,7 +13,7 @@ protected:
     }
 };
 
-TEST(GameObjectTest, check_id_start_0) {
+TEST(GameObjectTest, id_start_0) {
     GameObject* gameobject = new MockGameObject();
     unsigned int expected = 0;
     unsigned int actual = gameobject->id();

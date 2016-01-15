@@ -21,6 +21,7 @@ protected:
     }
 
     virtual void TearDown() {
+        delete launcher;
         delete launcher_listener;
     }
 };

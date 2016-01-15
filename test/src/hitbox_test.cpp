@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "hitbox.h"
+#include <SDL2/SDL.h>
 
 class HitboxTest : public ::testing::Test {
 protected:
@@ -22,4 +23,29 @@ TEST (HitboxTest, simple_hitbox_overlapping_false) {
     bool expected = false;
     bool actual = hitbox1.is_overlapping(hitbox2);
     EXPECT_EQ(expected, actual);
+}
+
+TEST (HitboxTest, hitbox_overlapping_enclosed) {
+    Hitbox hitbox1 = Hitbox(0, 0, 100, 100);
+    Hitbox hitbox2 = Hitbox(1, 1, 50, 50);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST (HitboxTest, member_constructor) {
+    Hitbox hitbox1 = Hitbox(0, 5, 100, 110);
+    EXPECT_EQ(hitbox1.hitbox().x, 0);
+    EXPECT_EQ(hitbox1.hitbox().y, 5);
+    EXPECT_EQ(hitbox1.hitbox().w, 100);
+    EXPECT_EQ(hitbox1.hitbox().h, 110);
+}
+
+TEST (HitboxTest, SDL_rect_constructor) {
+    SDL_Rect rect1 = {0, 5, 100, 110};
+    Hitbox hitbox1 = Hitbox(rect1);
+    EXPECT_EQ(hitbox1.hitbox().x, 0);
+    EXPECT_EQ(hitbox1.hitbox().y, 5);
+    EXPECT_EQ(hitbox1.hitbox().w, 100);
+    EXPECT_EQ(hitbox1.hitbox().h, 110);
 }

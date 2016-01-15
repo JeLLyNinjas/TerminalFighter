@@ -1,12 +1,14 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
+#include "game_constants.h"
 #include "missile_launcher.h"
-#include "mocks/mock_missile_launcher_listener.h"
+#include "mocks/mock_projectile_creator_listener.h"
 
 using ::testing::_;
+using ::testing::InSequence;
 
-class MissleLauncherTest : public ::testing::Test {
+class MissileLauncherTest : public ::testing::Test {
 protected:
     virtual void SetUp() {
     }
@@ -15,12 +17,35 @@ protected:
     }
 };
 
+TEST(MissileLauncherTest, team_set) {
+    MissileLauncher friendly_launcher = MissileLauncher(FRIENDLY);
+    EXPECT_EQ(friendly_launcher.team(), FRIENDLY);
+    MissileLauncher enemy_launcher = MissileLauncher(ENEMY);
+    EXPECT_EQ(enemy_launcher.team(), ENEMY);
+}
+
 TEST(MissileLauncherTest, check_listeners_notified_onlaunch) {
-    MockMissileLauncherListener launcher_listener;
-    EXPECT_CALL(launcher_listener, notify_missile_launched(_))
+    MockProjectileCreatorListener launcher_listener;
+    EXPECT_CALL(launcher_listener, notify_projectile_launched(_, _))
         .Times(1);
 
-    MissileLauncher launcher;
+    MissileLauncher launcher = MissileLauncher(FRIENDLY);
     launcher.add_listener(&launcher_listener);
     launcher.create_missile(0, 0, 0, 0);
+}
+
+TEST(MissileLauncherTest, check_team_notify_called) {
+    InSequence dummy;
+
+    MockProjectileCreatorListener launcher_listener;
+    EXPECT_CALL(launcher_listener, notify_projectile_launched(_, FRIENDLY));
+    EXPECT_CALL(launcher_listener, notify_projectile_launched(_, ENEMY));
+
+    MissileLauncher friendly_launcher = MissileLauncher(FRIENDLY);
+    friendly_launcher.add_listener(&launcher_listener);
+    friendly_launcher.create_missile(0, 0, 0, 0);
+
+    MissileLauncher enemy_launcher = MissileLauncher(ENEMY);
+    enemy_launcher.add_listener(&launcher_listener);
+    enemy_launcher.create_missile(0, 0, 0, 0);
 }

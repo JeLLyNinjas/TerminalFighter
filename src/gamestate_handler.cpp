@@ -20,6 +20,9 @@ void GameStateHandler::start(gamestates::GameStateName first_state){
     while(next_state != gamestates::EXIT){
         it = gamestates_->find(next_state);
         SDL_assert(it != gamestates_->end());
+        if(next_state == gamestates::EXIT){
+            return;
+        }
         next_state = it->second->run(renderer_);
     }
 }

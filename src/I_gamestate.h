@@ -7,7 +7,8 @@ enum GameStateName {
 	MAIN_MENU, 
 	OPENING_CUTSCENE, 
 	LEVEL_1,
-	EXIT
+	EXIT,
+	TEST
 };	
 }
 

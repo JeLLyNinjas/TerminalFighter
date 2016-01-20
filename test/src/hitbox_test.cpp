@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "hitbox.h"
-#include <SDL2/SDL.h>
+//#include <SDL2/SDL.h>
 
 class HitboxTest : public ::testing::Test {
 protected:
@@ -33,7 +33,7 @@ TEST (HitboxTest, hitbox_overlapping_enclosed) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST (HitboxTest, member_constructor) {
+TEST (HitboxTest, rect_member_constructor) {
     Hitbox hitbox1 = Hitbox(0, 5, 100, 110);
     EXPECT_EQ(hitbox1.hitbox().x, 0);
     EXPECT_EQ(hitbox1.hitbox().y, 5);
@@ -49,3 +49,117 @@ TEST (HitboxTest, SDL_rect_constructor) {
     EXPECT_EQ(hitbox1.hitbox().w, 100);
     EXPECT_EQ(hitbox1.hitbox().h, 110);
 }
+
+TEST (HitboxTest, circle_member_constructor) {
+    Hitbox hitbox1 = Hitbox(20,30,5);
+    EXPECT_EQ(hitbox1.hitbox_circle().x, 20);
+    EXPECT_EQ(hitbox1.hitbox_circle().y, 30);
+    EXPECT_EQ(hitbox1.hitbox_circle().r, 5);
+}
+
+TEST (HitboxTest, Circle_circle_construtor) {
+    Circle circle1 = {20, 30, 5};
+    Hitbox hitbox1 = Hitbox(circle1);
+    EXPECT_EQ(hitbox1.hitbox_circle().x, 20);
+    EXPECT_EQ(hitbox1.hitbox_circle().y, 30);
+    EXPECT_EQ(hitbox1.hitbox_circle().r, 5);
+}
+
+TEST (HitboxTest, circle_circle_touching_true) {
+    Hitbox hitbox1 = Hitbox(10, 10, 10);
+    Hitbox hitbox2 = Hitbox(20, 20, 10);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, circle_circle_overlapping_false) {
+    Hitbox hitbox1 = Hitbox(10, 10, 2);
+    Hitbox hitbox2 = Hitbox(40, 40, 2);
+    bool expected = false;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, circle_circle_overlapping_true) {
+    Hitbox hitbox1 = Hitbox(10, 10, 10);
+    Hitbox hitbox2 = Hitbox(20, 20, 15);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, circle_circle_enclosed) {
+    Hitbox hitbox1 = Hitbox(10, 10, 10);
+    Hitbox hitbox2 = Hitbox(10, 10, 5);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, circle_rect_touching) {
+    Hitbox hitbox1 = Hitbox(10, 10, 10);
+    Hitbox hitbox2 = Hitbox(20, 0, 10, 20);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, circle_rect_overlapping_true) {
+    Hitbox hitbox1 = Hitbox(10, 10, 10);
+    Hitbox hitbox2 = Hitbox(10, 0, 20, 20);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, circle_rect_overlapping_false) {
+    Hitbox hitbox1 = Hitbox(10, 10, 10);
+    Hitbox hitbox2 = Hitbox(40, 40, 20, 20);
+    bool expected = false;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, circle_rect_enclosed) {
+    Hitbox hitbox1 = Hitbox(20, 20, 20);
+    Hitbox hitbox2 = Hitbox(15, 15, 5);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+
+TEST(HitboxTest, rect_circle_touching) {
+    Hitbox hitbox2 = Hitbox(10, 10, 10);
+    Hitbox hitbox1 = Hitbox(20, 0, 10, 20);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, rect_circle_overlapping_true) {
+    Hitbox hitbox2 = Hitbox(10, 10, 10);
+    Hitbox hitbox1 = Hitbox(10, 0, 20, 20);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, rect_circle_overlapping_false) {
+    Hitbox hitbox2 = Hitbox(10, 10, 10);
+    Hitbox hitbox1 = Hitbox(40, 40, 20, 20);
+    bool expected = false;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(HitboxTest, rect_circle_enclosed) {
+    Hitbox hitbox2 = Hitbox(20, 20, 20);
+    Hitbox hitbox1 = Hitbox(15, 15, 5);
+    bool expected = true;
+    bool actual = hitbox1.is_overlapping(hitbox2);
+    EXPECT_EQ(expected, actual);
+}
+
+

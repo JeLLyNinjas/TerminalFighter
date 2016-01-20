@@ -111,8 +111,6 @@ int main(int argc, char* argv[])
     
     GameStateHandler gs_handler = GameStateHandler(&gamestates);
     gs_handler.start(gamestates::TEST);
-
     close();
-
     return 0;
 }

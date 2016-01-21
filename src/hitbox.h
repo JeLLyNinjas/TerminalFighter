@@ -23,7 +23,7 @@ protected:
     Circle circle_hitbox_;
 
 private:
-    bool check_collision(Circle &hitbox, Circle& other_hitbox);
-    bool check_collision(Circle &hitbox, SDL_Rect &other_hitbox);
-    bool check_collision(SDL_Rect &hitbox, SDL_Rect &other_hitbox);
+    bool check_overlap(Circle &hitbox, Circle& other_hitbox);
+    bool check_overlap(Circle &hitbox, SDL_Rect &other_hitbox);
+    bool check_overlap(SDL_Rect &hitbox, SDL_Rect &other_hitbox);
 };

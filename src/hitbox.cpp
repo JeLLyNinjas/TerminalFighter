@@ -31,21 +31,21 @@ bool Hitbox::is_overlapping(Hitbox& other_hitbox) {
 
     // CHECK COLLISION BETWEEN CIRCLES
     if (this->hitbox_.w == 0 && other_hitbox.hitbox_.w == 0)
-        is_overlapping = check_collision(this->circle_hitbox_, other_hitbox.circle_hitbox_) ;
+        is_overlapping = check_overlap(this->circle_hitbox_, other_hitbox.circle_hitbox_) ;
     // CHECKS COLLISION BETWEEN RECTS
     else if(this->circle_hitbox_.r == 0 && other_hitbox.circle_hitbox_.r == 0)
-        is_overlapping = check_collision(this->hitbox_, other_hitbox.hitbox_);
+        is_overlapping = check_overlap(this->hitbox_, other_hitbox.hitbox_);
     // CHECKS COLLISION BETWEEN CIRCLE AND RECT
     else if(this->hitbox_.w == 0 && other_hitbox.circle_hitbox_.r == 0)
-        is_overlapping = check_collision(this->circle_hitbox_, other_hitbox.hitbox_);
+        is_overlapping = check_overlap(this->circle_hitbox_, other_hitbox.hitbox_);
     // CHECKS COLLISION BETWEEN RECT AND CIRCLE
     else if(this->circle_hitbox_.r == 0 && other_hitbox.hitbox_.w == 0)
-        is_overlapping = check_collision(other_hitbox.circle_hitbox_, this->hitbox_);    
+        is_overlapping = check_overlap(other_hitbox.circle_hitbox_, this->hitbox_);    
 
     return is_overlapping;
 }
 
-bool Hitbox::check_collision(Circle& hitbox, Circle& other_hitbox)
+bool Hitbox::check_overlap(Circle& hitbox, Circle& other_hitbox)
 {
     double radiusSquared = hitbox.r + other_hitbox.r;
     radiusSquared = radiusSquared * radiusSquared;
@@ -62,7 +62,7 @@ bool Hitbox::check_collision(Circle& hitbox, Circle& other_hitbox)
     return false;
 }
 
-bool Hitbox::check_collision(Circle &hitbox, SDL_Rect &other_hitbox)
+bool Hitbox::check_overlap(Circle &hitbox, SDL_Rect &other_hitbox)
 {
    double rect_centre_x = (other_hitbox.x + other_hitbox.w)/2;
    double rect_centre_y = (other_hitbox.y + other_hitbox.h)/2;
@@ -92,7 +92,7 @@ bool Hitbox::check_collision(Circle &hitbox, SDL_Rect &other_hitbox)
    return (cornerDistance_sq <= (hitbox.r * hitbox.r));
 }
 
-bool Hitbox::check_collision(SDL_Rect &hitbox, SDL_Rect &other_hitbox)
+bool Hitbox::check_overlap(SDL_Rect &hitbox, SDL_Rect &other_hitbox)
 {
     return SDL_HasIntersection(&hitbox_, &other_hitbox);
 }

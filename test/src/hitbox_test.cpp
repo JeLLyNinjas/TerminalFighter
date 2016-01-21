@@ -129,37 +129,10 @@ TEST(HitboxTest, circle_rect_enclosed) {
     EXPECT_EQ(expected, actual);
 }
 
-
-TEST(HitboxTest, rect_circle_touching) {
-    Hitbox hitbox2 = Hitbox(10, 10, 10);
-    Hitbox hitbox1 = Hitbox(20, 0, 10, 20);
+TEST(HitboxTest, circle_rect_corner) {
+    Hitbox hitbox1 = Hitbox(0, 0, 10, 10);
+    Hitbox hitbox2 = Hitbox(14, 13, 5);
     bool expected = true;
     bool actual = hitbox1.is_overlapping(hitbox2);
     EXPECT_EQ(expected, actual);
 }
-
-TEST(HitboxTest, rect_circle_overlapping_true) {
-    Hitbox hitbox2 = Hitbox(10, 10, 10);
-    Hitbox hitbox1 = Hitbox(10, 0, 20, 20);
-    bool expected = true;
-    bool actual = hitbox1.is_overlapping(hitbox2);
-    EXPECT_EQ(expected, actual);
-}
-
-TEST(HitboxTest, rect_circle_overlapping_false) {
-    Hitbox hitbox2 = Hitbox(10, 10, 10);
-    Hitbox hitbox1 = Hitbox(40, 40, 20, 20);
-    bool expected = false;
-    bool actual = hitbox1.is_overlapping(hitbox2);
-    EXPECT_EQ(expected, actual);
-}
-
-TEST(HitboxTest, rect_circle_enclosed) {
-    Hitbox hitbox2 = Hitbox(20, 20, 20);
-    Hitbox hitbox1 = Hitbox(15, 15, 5);
-    bool expected = true;
-    bool actual = hitbox1.is_overlapping(hitbox2);
-    EXPECT_EQ(expected, actual);
-}
-
-

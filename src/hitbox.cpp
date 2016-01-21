@@ -25,35 +25,19 @@ Hitbox::Hitbox(Circle hitbox) {
     circle_hitbox_ = hitbox;
 }
 
-#if 0
-bool Hitbox::is_overlapping(const Hitbox& other_hitbox) {
-    return SDL_HasIntersection(&hitbox_, &other_hitbox.hitbox());
-}
-#endif
-
-#if 0
-bool Hitbox::is_overlapping(const Hitbox& other_hitbox) {
-    return check_collision(*this, other_hitbox);
-}
-#endif
-
 
 bool Hitbox::is_overlapping(Hitbox& other_hitbox) {
-
     bool is_overlapping;
 
     // CHECK COLLISION BETWEEN CIRCLES
     if (this->hitbox_.w == 0 && other_hitbox.hitbox_.w == 0)
         is_overlapping = check_collision(this->circle_hitbox_, other_hitbox.circle_hitbox_) ;
-
     // CHECKS COLLISION BETWEEN RECTS
     else if(this->circle_hitbox_.r == 0 && other_hitbox.circle_hitbox_.r == 0)
         is_overlapping = check_collision(this->hitbox_, other_hitbox.hitbox_);
-
     // CHECKS COLLISION BETWEEN CIRCLE AND RECT
     else if(this->hitbox_.w == 0 && other_hitbox.circle_hitbox_.r == 0)
         is_overlapping = check_collision(this->circle_hitbox_, other_hitbox.hitbox_);
-
     // CHECKS COLLISION BETWEEN RECT AND CIRCLE
     else if(this->circle_hitbox_.r == 0 && other_hitbox.hitbox_.w == 0)
         is_overlapping = check_collision(other_hitbox.circle_hitbox_, this->hitbox_);    
@@ -80,11 +64,11 @@ bool Hitbox::check_collision(Circle& hitbox, Circle& other_hitbox)
 
 bool Hitbox::check_collision(Circle &hitbox, SDL_Rect &other_hitbox)
 {
-   double rect_center_x = (other_hitbox.x + other_hitbox.w)/2;
-   double rect_center_y = (other_hitbox.y + other_hitbox.h)/2;
+   double rect_centre_x = (other_hitbox.x + other_hitbox.w)/2;
+   double rect_centre_y = (other_hitbox.y + other_hitbox.h)/2;
 
-   double distance_x = abs(hitbox.x - rect_center_x);
-   double distance_y = abs(hitbox.y - rect_center_y);
+   double distance_x = abs(hitbox.x - rect_centre_x);
+   double distance_y = abs(hitbox.y - rect_centre_y);
 
    if (distance_x > (other_hitbox.w/2 + hitbox.r))
        return false;

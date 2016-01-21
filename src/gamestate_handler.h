@@ -7,8 +7,6 @@
 class GameStateHandler {
 public:
 	GameStateHandler(std::map<gamestates::GameStateName, I_GameState*> &gamestates);
-	void set_renderer(SDL_Renderer* renderer);
-	void set_window(SDL_Window* window);
 	void start(gamestates::GameStateName first_state);
 
 private:

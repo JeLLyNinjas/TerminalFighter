@@ -7,14 +7,6 @@ GameStateHandler::GameStateHandler(std::map<gamestates::GameStateName, I_GameSta
     , renderer_(NULL)
 { }
 
-void GameStateHandler::set_renderer(SDL_Renderer* renderer) {
-    renderer_ = renderer;
-}
-
-void GameStateHandler::set_window(SDL_Window* window) {
-    window_ = window;
-}
-
 void GameStateHandler::start(gamestates::GameStateName first_state){
     gamestates::GameStateName next_state = first_state;
     for(;;){

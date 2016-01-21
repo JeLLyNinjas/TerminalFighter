@@ -12,5 +12,4 @@ public:
 private:
 	std::map<gamestates::GameStateName, I_GameState*>& gamestates_;
 	SDL_Renderer* renderer_;
-	SDL_Window* window_;
 };

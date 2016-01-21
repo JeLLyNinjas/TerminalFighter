@@ -107,10 +107,11 @@ int main(int argc, char* argv[])
 
     I_GameState* test_state = new TestState(main_renderer);
     std::map<gamestates::GameStateName, I_GameState*> gamestates;
-    gamestates.insert(std::pair<gamestates::GameStateName, I_GameState*>(test_state->name(), test_state));
-    
-    GameStateHandler gs_handler = GameStateHandler(&gamestates);
+    gamestates[test_state->name()] = test_state;
+
+    GameStateHandler gs_handler = GameStateHandler(gamestates);
     gs_handler.start(gamestates::TEST);
     close();
+
     return 0;
 }

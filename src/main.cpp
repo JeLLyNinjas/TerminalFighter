@@ -106,12 +106,14 @@ int main(int argc, char* argv[])
     }
 
     I_GameState* test_state = new TestState(main_renderer);
-    std::map<gamestates::GameStateName, I_GameState*> gamestates;
-    gamestates[test_state->name()] = test_state;
+    std::vector<I_GameState*> gamestates;
+    gamestates.push_back(test_state);
 
     GameStateHandler gs_handler = GameStateHandler(gamestates);
     gs_handler.start(gamestates::TEST);
     close();
+
+    delete test_state;
 
     return 0;
 }

@@ -14,6 +14,6 @@ enum GameStateName {
 
 class I_GameState {
 public:
-	virtual gamestates::GameStateName run(SDL_Renderer* renderer) = 0;
+	virtual gamestates::GameStateName run() = 0;
 	virtual gamestates::GameStateName name() const = 0;
 };

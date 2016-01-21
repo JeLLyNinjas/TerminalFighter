@@ -8,7 +8,7 @@ class SDL_Renderer;
 class TestState : public I_GameState {
 public:
 	TestState(SDL_Renderer* renderer);
-	gamestates::GameStateName run(SDL_Renderer* renderer);
+	gamestates::GameStateName run();
 	gamestates::GameStateName name() const;
 
 private:

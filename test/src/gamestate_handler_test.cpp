@@ -23,11 +23,14 @@ protected:
 
 TEST(GameStateHandlerTest, runs_gamestate){
     MockGameState* mock_mainmenu = new MockGameState();
-    EXPECT_CALL(*mock_mainmenu, run(_))
+    EXPECT_CALL(*mock_mainmenu, name())
+        .WillRepeatedly(Return(gamestates::MAIN_MENU));
+    
+    EXPECT_CALL(*mock_mainmenu, run())
         .WillOnce(Return(gamestates::EXIT));
 
-    std::map<gamestates::GameStateName, I_GameState*> gamestates;
-    gamestates[gamestates::MAIN_MENU] = mock_mainmenu;
+    std::vector<I_GameState*> gamestates;
+    gamestates.push_back(mock_mainmenu);
     
     GameStateHandler gs_handler = GameStateHandler(gamestates);
     gs_handler.start(gamestates::MAIN_MENU);
@@ -36,19 +39,26 @@ TEST(GameStateHandlerTest, runs_gamestate){
 }
 
 TEST(GameStateHandlerTest, runs_next_gamestate) {
-    InSequence dummy;   
 
     MockGameState* mock_opening = new MockGameState();
-    MockGameState* mock_mainmenu = new MockGameState();
-
-    EXPECT_CALL(*mock_opening, run(_))
-        .WillOnce(Return(gamestates::MAIN_MENU));
-    EXPECT_CALL(*mock_mainmenu, run(_))
-        .WillOnce(Return(gamestates::EXIT));    
+    EXPECT_CALL(*mock_opening, name())
+        .WillRepeatedly(Return(gamestates::OPENING_CUTSCENE));
     
-    std::map<gamestates::GameStateName, I_GameState*> gamestates;
-    gamestates[gamestates::OPENING_CUTSCENE] = mock_opening;
-    gamestates[gamestates::MAIN_MENU] = mock_mainmenu;
+    MockGameState* mock_mainmenu = new MockGameState();
+    EXPECT_CALL(*mock_mainmenu, name())
+        .WillRepeatedly(Return(gamestates::MAIN_MENU));    
+    
+    {
+        InSequence dummy;   
+        EXPECT_CALL(*mock_opening, run())
+            .WillOnce(Return(gamestates::MAIN_MENU));
+        EXPECT_CALL(*mock_mainmenu, run())
+            .WillOnce(Return(gamestates::EXIT));    
+    }
+
+    std::vector<I_GameState*> gamestates;
+    gamestates.push_back(mock_mainmenu);
+    gamestates.push_back(mock_opening);
 
     GameStateHandler gs_handler = GameStateHandler(gamestates);
     gs_handler.start(gamestates::OPENING_CUTSCENE);

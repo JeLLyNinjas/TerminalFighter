@@ -11,7 +11,7 @@ TestState::TestState(SDL_Renderer* renderer)
 : renderer_(renderer)
 {}
 
-gamestates::GameStateName TestState::run(SDL_Renderer* renderer)
+gamestates::GameStateName TestState::run()
 {
     Universe universe(renderer_);
     MissileLauncher test_launcher = MissileLauncher(FRIENDLY);

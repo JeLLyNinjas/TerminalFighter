@@ -1,3 +1,5 @@
+#include <map>
+    
 #ifndef INT64_C
 #define INT64_C(c) (c ## LL)
 #define UINT64_C(c) (c ## ULL)
@@ -14,14 +16,10 @@ extern "C" {
 
 using namespace std;
 
+#include "I_gamestate.h"
+#include "test_state.h"
 #include "game_constants.h"
-#include "delay.h"
-#include "universe.h"
-#include "missile_launcher.h"
-#include "missile.h"
-
-#define SCREEN_HEIGHT 768
-#define SCREEN_WIDTH 1232
+#include "gamestate_handler.h"
 
 SDL_Renderer* main_renderer = NULL;
 SDL_Window* window = NULL;
@@ -30,7 +28,6 @@ bool quit;
 bool init_SDL();
 void processEvents();
 void close();
-void display_debug_frames(Delay *delayer);
 
 bool init_SDL()
 {
@@ -85,42 +82,6 @@ bool init_SDL()
     return true;
 }
 
-void processEvents()
-{
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-            printf("SDL_QUIT was called\n");
-            close();
-            break;
-
-        case SDL_KEYDOWN:
-            switch (event.key.keysym.sym)
-            {
-            case SDLK_ESCAPE:
-                printf("Esc was Pressed!\n");
-                close();
-                break;
-            case SDLK_LEFT:
-                printf("Left arrow was Pressed!\n");
-                break;
-            case SDLK_RIGHT:
-                printf("Right arrow was Pressed!\n");
-                break;
-            case SDLK_UP:
-                break;
-            case SDLK_DOWN:
-                break;
-            case SDLK_SPACE:
-                printf("Space was pressed!\n");
-            }
-        }
-    }
-}
-
 /* Cleans up and should free everything used in the program*/
 void close()
 {
@@ -131,20 +92,6 @@ void close()
     SDL_Quit();
     exit(0);
 }
-
-void display_debug_frames(Delay *delayer) {
-    SDL_Surface *frame_rate_surface = delayer->grab_frame_rate();
-    SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface( main_renderer, frame_rate_surface);
-    SDL_Rect Message_rect; //create a rect
-    Message_rect.x = 0;  //controls the rect's x coordinate
-    Message_rect.y = 0; // controls the rect's y coordinte
-    Message_rect.w = 200; // controls the width of the rect
-    Message_rect.h = 70; // controls the height of the rect
-    SDL_RenderCopy( main_renderer, frame_rate_texture, NULL, &Message_rect);
-    SDL_FreeSurface(frame_rate_surface);
-}
-
-
 
 int main(int argc, char* argv[])
 {
@@ -158,31 +105,15 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    Universe universe(main_renderer);
-    MissileLauncher test_launcher = MissileLauncher(FRIENDLY);
-    test_launcher.add_listener(&universe);
+    I_GameState* test_state = new TestState(main_renderer);
+    std::vector<I_GameState*> gamestates;
+    gamestates.push_back(test_state);
 
-    //Render red filled quad
-    int x = 0;
+    GameStateHandler gs_handler = GameStateHandler(gamestates);
+    gs_handler.start(gamestates::TEST);
+    close();
 
-    Delay delayer(false);
-    while (!quit)
-    {
-        if (x > SCREEN_WIDTH - 1)
-            x = 0;
-        x += 10;
+    delete test_state;
 
-        test_launcher.create_missile(0, -2.2, x, SCREEN_WIDTH / 2);
-
-        processEvents();
-        universe.update_all();
-        universe.draw_all();
-
-        display_debug_frames(&delayer);
-
-        //delay and draw to screen should stick together in the order: delay -> draw
-        delayer.delay_with_fps(60);
-        universe.draw_to_screen();
-    }
     return 0;
 }

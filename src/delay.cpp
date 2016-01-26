@@ -21,7 +21,7 @@ void Delay::delay_with_fps(double fps) {
             usleep(time_to_achieve_fps);
         }
         if (debug_mode_) {
-            printf("Time between loops: %d\n", time_duration_.count());
+            printf("Time between loops: %d\n", (int)time_duration_.count());
             printf("Time needed between loops: %lf\n", time_to_achieve_fps);
         }
         start_timer();

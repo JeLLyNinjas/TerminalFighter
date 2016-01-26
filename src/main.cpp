@@ -18,6 +18,7 @@ using namespace std;
 
 #include "I_gamestate.h"
 #include "test_state.h"
+#include "menu_state.h"
 #include "game_constants.h"
 #include "gamestate_handler.h"
 
@@ -106,14 +107,17 @@ int main(int argc, char* argv[])
     }
 
     I_GameState* test_state = new TestState(main_renderer);
+    I_GameState* menu_state = new MenuState(main_renderer);
     std::vector<I_GameState*> gamestates;
     gamestates.push_back(test_state);
+    gamestates.push_back(menu_state);
 
     GameStateHandler gs_handler = GameStateHandler(gamestates);
-    gs_handler.start(gamestates::TEST);
+    gs_handler.start(gamestates::MAIN_MENU);
     close();
 
     delete test_state;
+    delete menu_state;
 
     return 0;
 }

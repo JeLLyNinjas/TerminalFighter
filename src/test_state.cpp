@@ -1,4 +1,9 @@
 #include "test_state.h"
+#include "game_constants.h"
+#include "delay.h"
+#include "universe.h"
+#include "missile_launcher.h"
+#include "missile.h"
 
 TestState::TestState(SDL_Renderer* renderer)
 : renderer_(renderer)

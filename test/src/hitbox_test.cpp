@@ -51,7 +51,7 @@ TEST (HitboxTest, SDL_rect_constructor) {
 }
 
 TEST (HitboxTest, circle_member_constructor) {
-    Hitbox hitbox1 = Hitbox(20,30,5);
+    Hitbox hitbox1 = Hitbox(20, 30, 5);
     EXPECT_EQ(hitbox1.hitbox_circle().x, 20);
     EXPECT_EQ(hitbox1.hitbox_circle().y, 30);
     EXPECT_EQ(hitbox1.hitbox_circle().r, 5);

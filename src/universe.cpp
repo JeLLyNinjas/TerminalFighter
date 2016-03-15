@@ -25,8 +25,12 @@ void Universe::draw_to_screen() {
     graphics_handler_->update_screen();
 }
 
-void remove_deleted_objects() {
+void Universe::remove_deleted_objects() {
     //TODO
+}
+
+void Universe::add_keyboard(Keyboard *keyboard) {
+    all_game_objects.push_back(keyboard);
 }
 
 /* listeners */

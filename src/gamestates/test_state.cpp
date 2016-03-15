@@ -1,21 +1,20 @@
-#include <SDL2/SDL.h>
-
 #include "test_state.h"
-#include "game_constants.h"
-#include "delay.h"
-#include "universe.h"
-#include "missile_launcher.h"
-#include "missile.h"
 
 TestState::TestState(SDL_Renderer* renderer)
 : renderer_(renderer)
-{}
+{ 
+    exit = false;
+}
 
 gamestates::GameStateName TestState::run()
 {
+    Keyboard keyboard = Keyboard();
+    keyboard.add_listener(this);
     Universe universe(renderer_);
+    universe.add_keyboard(&keyboard);
     MissileLauncher test_launcher = MissileLauncher(FRIENDLY);
     test_launcher.add_listener(&universe);
+    
 
     //Render red filled quad
     int x = 0;
@@ -29,7 +28,7 @@ gamestates::GameStateName TestState::run()
 
         test_launcher.create_missile(x, SCREEN_WIDTH / 2, 0, -2.2);
 
-        if(!process_events()){
+        if(exit){
         	return gamestates::EXIT;
         }
         universe.update_all();
@@ -61,39 +60,11 @@ void TestState::display_debug_frames(Delay *delayer) {
     SDL_FreeSurface(frame_rate_surface);
 }
 
-bool TestState::process_events()
-{
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-            printf("SDL_QUIT was called\n");
-            return false;
-            break;
-
-        case SDL_KEYDOWN:
-            switch (event.key.keysym.sym)
-            {
-            case SDLK_ESCAPE:
-                printf("Esc was Pressed!\n");
-                return false;
-                break;
-            case SDLK_LEFT:
-                printf("Left arrow was Pressed!\n");
-                break;
-            case SDLK_RIGHT:
-                printf("Right arrow was Pressed!\n");
-                break;
-            case SDLK_UP:
-                break;
-            case SDLK_DOWN:
-                break;
-            case SDLK_SPACE:
-                printf("Space was pressed!\n");
-            }
-        }
+void TestState::notify_keyboard_key_pressed(std::string keypress) {
+    if (keypress == "ESC"){
+        exit = true;
     }
-    return true;
+
+    printf("Key returned was: %s\n", keypress.c_str());
 }
+

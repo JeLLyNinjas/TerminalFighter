@@ -2,7 +2,7 @@
 OBJS = $(wildcard src/*.cpp) $(wildcard src/gamestates/*.cpp) 
 
 #COMPLIE_FLAGS = additional flags
-COMPILE_FLAGS = -w -g -std=c++0x
+COMPILE_FLAGS = -Werror -g -std=c++0x
 
 LINK_FLAGS = `sdl2-config --cflags` `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -pthread -I src/gamestates/ -I src/
 	

@@ -6,9 +6,6 @@ TestState::TestState(SDL_Renderer* renderer)
     exit = false;
 }
 
-TestState:: ~TestState() {}
-
-
 gamestates::GameStateName TestState::run()
 {
     Keyboard keyboard = Keyboard();
@@ -19,13 +16,15 @@ gamestates::GameStateName TestState::run()
     test_launcher.add_listener(&universe);
     
 
+    //Render red filled quad
     int x = 0;
 
     Delay delayer(false);
     for(;;)
     {
         if (x > SCREEN_WIDTH - 1)
-            x = 0; x += 10;
+            x = 0;
+        x += 10;
 
         test_launcher.create_missile(x, SCREEN_WIDTH / 2, 0, -2.2);
 

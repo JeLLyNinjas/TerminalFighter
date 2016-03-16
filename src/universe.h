@@ -6,7 +6,7 @@
 #include "graphics_handler.h"
 #include "projectile_creator_listener.h"
 #include "projectile.h"
-#include "keyboard.h"
+#include "events.h"
 
 class Universe : public ProjectileCreatorListener {
 
@@ -16,7 +16,7 @@ public:
     void update_all();
     void draw_all();
     void draw_to_screen();
-    void add_keyboard(Keyboard *keyboard);
+    void add_events_handler(Events *event);
 
     /* listeners */
     void notify_projectile_launched(Projectile *projectile, Team team);

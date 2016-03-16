@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include "graphics_handler.h"
+#include "events_listener.h"
 
 
 /* Keyboard
@@ -24,18 +25,15 @@
  *  
  */
 
-class Keyboard : public GameObject, public Observable<KeyboardListener> {
+class Keyboard : public EventsListener, public Observable<KeyboardListener> {
 
 public: 
-    Keyboard() 
-    : GameObject(0, 0) //default coordinates. 
-    { }
+    Keyboard() { };
 
     /* Keyboard will have an empty draw */
-    void draw(GraphicsHandler *graphics) { };
-    void update();
-
 private:
+
+    void notify_events(SDL_Event e);
     void notify_key(std::string key);
 
 };

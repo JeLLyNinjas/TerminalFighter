@@ -9,9 +9,13 @@ TestState::TestState(SDL_Renderer* renderer)
 gamestates::GameStateName TestState::run()
 {
     Keyboard keyboard = Keyboard();
-    keyboard.add_listener(this);
+    Events events = Events();
     Universe universe(renderer_);
-    universe.add_keyboard(&keyboard);
+
+    keyboard.add_listener(this);
+    events.add_listener(this);
+    events.add_listener(&keyboard);
+    universe.add_events_handler(&events);
     MissileLauncher test_launcher = MissileLauncher(FRIENDLY);
     test_launcher.add_listener(&universe);
     
@@ -60,11 +64,22 @@ void TestState::display_debug_frames(Delay *delayer) {
     SDL_FreeSurface(frame_rate_surface);
 }
 
+/* listeners */
+
 void TestState::notify_keyboard_key_pressed(std::string keypress) {
     if (keypress == "ESC"){
         exit = true;
     }
 
     printf("Key returned was: %s\n", keypress.c_str());
+}
+
+void TestState::notify_events(SDL_Event e) {
+    switch(e.type) {
+        case SDL_QUIT:
+            printf("SDL_QUIT was called!\n");
+            exit = true;
+            break;
+    }
 }
 

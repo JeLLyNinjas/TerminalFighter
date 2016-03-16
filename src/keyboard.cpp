@@ -6,17 +6,10 @@ void Keyboard::notify_key(std::string key) {
     }
 }
 
-void Keyboard::update() {
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
-        switch (event.type) {
-            case SDL_QUIT:
-                printf("SDL_QUIT was called\n");
-                break;
-
-            case SDL_KEYDOWN:
-            switch (event.key.keysym.sym) {
+void Keyboard::notify_events(SDL_Event e) {
+    switch (e.type) {
+        case SDL_KEYDOWN:
+            switch (e.key.keysym.sym) {
                 case SDLK_ESCAPE:
                     notify_key("ESC");
                     break;
@@ -40,6 +33,9 @@ void Keyboard::update() {
                     break;
                 case SDLK_SLASH:
                     notify_key("SLASH");
+                    break;
+                case SDLK_RETURN:
+                    notify_key("ENTER");
                     break;
                 case SDLK_0: 
                     notify_key("0");
@@ -149,8 +145,8 @@ void Keyboard::update() {
                 case SDLK_z: 
                     notify_key("z");
                     break;
-            }
         }
+        break;
     }
 }
 

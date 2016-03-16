@@ -29,8 +29,8 @@ void Universe::remove_deleted_objects() {
     //TODO
 }
 
-void Universe::add_keyboard(Keyboard *keyboard) {
-    all_game_objects.push_back(keyboard);
+void Universe::add_events_handler(Events *events) {
+    all_game_objects.push_back(events);
 }
 
 /* listeners */

@@ -10,9 +10,11 @@
 
 
 /* Keyboard
+ * Listens to events.h using the "notify_events" function. Keyboard will then look for events that are keyboard related
+ * and return characters. 
  * Will return a single character std::string when a keypress is made
  * Will return non-single character std::string when the following keypresses are made
- *  Button              Return Value
+ *  [Button]            [Return Value]
  *  Left arrow          LEFT         
  *  Right arrow         RIGHT
  *  Up arrow            UP

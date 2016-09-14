@@ -6,13 +6,15 @@
 #include "mocks/mock_keyboard_listener.h"
 #include "keyboard.h"
 #include "events.h"
+
 #include <SDL2/SDL.h>
+#include <tuple>
 
 using ::testing::_;
 using ::testing::Property;
 using ::testing::InSequence;
 
-class KeyboardListenerTest : public ::testing::Test {
+class KeyboardListenerTest : public ::testing::TestWithParam<std::tuple<std::string , int>> {
 public: 
     MockKeyboardListener *keyboard_listener;
     Keyboard             *keyboard;
@@ -38,246 +40,53 @@ public:
 
 };
 
-TEST_F(KeyboardListenerTest, test_key_esc) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("ESC"));
-    sdlevent->key.keysym.sym = SDLK_ESCAPE;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
 
-TEST_F(KeyboardListenerTest, test_key_left) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("LEFT"));
-    sdlevent->key.keysym.sym = SDLK_LEFT;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
+INSTANTIATE_TEST_CASE_P(testKeys,
+                        KeyboardListenerTest,
+                        ::testing::Values(std::make_tuple("a",SDLK_a),
+                            std::make_tuple("b", SDLK_b),
+                            std::make_tuple("c", SDLK_c),
+                            std::make_tuple("d", SDLK_d),
+                            std::make_tuple("e", SDLK_e),
+                            std::make_tuple("f", SDLK_f),
+                            std::make_tuple("g", SDLK_g),
+                            std::make_tuple("h", SDLK_h),
+                            std::make_tuple("i", SDLK_i),
+                            std::make_tuple("j", SDLK_j),
+                            std::make_tuple("k", SDLK_k),
+                            std::make_tuple("l", SDLK_l),
+                            std::make_tuple("m", SDLK_m),
+                            std::make_tuple("n", SDLK_n),
+                            std::make_tuple("o", SDLK_o),
+                            std::make_tuple("p", SDLK_p),
+                            std::make_tuple("q", SDLK_q),
+                            std::make_tuple("r", SDLK_r),
+                            std::make_tuple("s", SDLK_s),
+                            std::make_tuple("t", SDLK_t),
+                            std::make_tuple("u", SDLK_u),
+                            std::make_tuple("v", SDLK_v),
+                            std::make_tuple("w", SDLK_w),
+                            std::make_tuple("x", SDLK_x),
+                            std::make_tuple("y", SDLK_y),
+                            std::make_tuple("z", SDLK_z),
+                            std::make_tuple("ESC", SDLK_ESCAPE),
+                            std::make_tuple("LEFT", SDLK_LEFT),
+                            std::make_tuple("RIGHT", SDLK_RIGHT),
+                            std::make_tuple("UP", SDLK_UP),
+                            std::make_tuple("DOWN", SDLK_DOWN),
+                            std::make_tuple("SPACE", SDLK_SPACE),
+                            std::make_tuple("BKSPACE", SDLK_BACKSPACE),
+                            std::make_tuple("SLASH", SDLK_SLASH),
+                            std::make_tuple("ENTER", SDLK_RETURN)
+                        ));
 
-TEST_F(KeyboardListenerTest, test_key_right) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("RIGHT"));
-    sdlevent->key.keysym.sym = SDLK_RIGHT;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
+TEST_P(KeyboardListenerTest, testAllKeys)
+{
+    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed(std::get<0>(GetParam())));
 
-TEST_F(KeyboardListenerTest, test_key_up) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("UP"));
-    sdlevent->key.keysym.sym = SDLK_UP;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_down) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("DOWN"));
-    sdlevent->key.keysym.sym = SDLK_DOWN;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_space) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("SPACE"));
-    sdlevent->key.keysym.sym = SDLK_SPACE;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_backspace) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("BKSPACE"));
-    sdlevent->key.keysym.sym = SDLK_BACKSPACE;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_slash) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("SLASH"));
-    sdlevent->key.keysym.sym = SDLK_SLASH;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_enter) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("ENTER"));
-    sdlevent->key.keysym.sym = SDLK_RETURN;
+    sdlevent->key.keysym.sym = std::get<1>(GetParam());
     SDL_PushEvent(sdlevent);
     events->update();
 }
 
 
-TEST_F(KeyboardListenerTest, test_key_a) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("a"));
-    sdlevent->key.keysym.sym = SDLK_a;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_b) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("b"));
-    sdlevent->key.keysym.sym = SDLK_b;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_c) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("c"));
-    sdlevent->key.keysym.sym = SDLK_c;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_d) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("d"));
-    sdlevent->key.keysym.sym = SDLK_d;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_e) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("e"));
-    sdlevent->key.keysym.sym = SDLK_e;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_f) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("f"));
-    sdlevent->key.keysym.sym = SDLK_f;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_g) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("g"));
-    sdlevent->key.keysym.sym = SDLK_g;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_h) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("h"));
-    sdlevent->key.keysym.sym = SDLK_h;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_i) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("i"));
-    sdlevent->key.keysym.sym = SDLK_i;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_j) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("j"));
-    sdlevent->key.keysym.sym = SDLK_j;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_k) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("k"));
-    sdlevent->key.keysym.sym = SDLK_k;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_l) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("l"));
-    sdlevent->key.keysym.sym = SDLK_l;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_m) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("m"));
-    sdlevent->key.keysym.sym = SDLK_m;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_n) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("n"));
-    sdlevent->key.keysym.sym = SDLK_n;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_o) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("o"));
-    sdlevent->key.keysym.sym = SDLK_o;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_p) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("p"));
-    sdlevent->key.keysym.sym = SDLK_p;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_q) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("q"));
-    sdlevent->key.keysym.sym = SDLK_q;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_r) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("r"));
-    sdlevent->key.keysym.sym = SDLK_r;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_s) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("s"));
-    sdlevent->key.keysym.sym = SDLK_s;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_t) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("t"));
-    sdlevent->key.keysym.sym = SDLK_t;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_u) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("u"));
-    sdlevent->key.keysym.sym = SDLK_u;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_v) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("v"));
-    sdlevent->key.keysym.sym = SDLK_v;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_w) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("w"));
-    sdlevent->key.keysym.sym = SDLK_w;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-TEST_F(KeyboardListenerTest, test_key_x) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("x"));
-    sdlevent->key.keysym.sym = SDLK_x;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-TEST_F(KeyboardListenerTest, test_key_y) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("y"));
-    sdlevent->key.keysym.sym = SDLK_y;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}
-
-TEST_F(KeyboardListenerTest, test_key_z) {
-    EXPECT_CALL(*keyboard_listener, notify_keyboard_key_pressed("z"));
-    sdlevent->key.keysym.sym = SDLK_z;
-    SDL_PushEvent(sdlevent);
-    events->update();
-}

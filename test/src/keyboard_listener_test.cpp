@@ -1,3 +1,5 @@
+#include <SDL2/SDL.h>
+#include <tuple>
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
@@ -7,8 +9,6 @@
 #include "keyboard.h"
 #include "events.h"
 
-#include <SDL2/SDL.h>
-#include <tuple>
 
 using ::testing::_;
 using ::testing::Property;

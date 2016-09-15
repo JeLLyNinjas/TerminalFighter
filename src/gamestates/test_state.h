@@ -24,8 +24,8 @@ public:
     void notify_events(SDL_Event e);
 
 private:
-	void display_debug_frames(Delay *delayer);
-	bool exit;
+	void display_debug_frames_(Delay *delayer);
+	bool exit_;
 
 	SDL_Renderer* renderer_;
 };

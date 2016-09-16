@@ -20,7 +20,7 @@ public:
 	gamestates::GameStateName name() const;
 
     /* listeners */
-    void notify_keyboard_key_pressed(std::string keypress);
+    void handle_keyboard_key_pressed(std::string keypress);
     void notify_events(SDL_Event e);
 
 private:

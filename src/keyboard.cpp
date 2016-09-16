@@ -2,7 +2,7 @@
 
 void Keyboard::notify_key(std::string key) {
     for(KeyboardListener *listener : listeners) {
-        listener->notify_keyboard_key_pressed(key);
+        listener->handle_keyboard_key_pressed(key);
     }
 }
 

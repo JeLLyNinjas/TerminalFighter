@@ -4,5 +4,5 @@
 
 class KeyboardListener{
 public:
-    virtual void notify_keyboard_key_pressed(std::string keypress) = 0;
+    virtual void handle_keyboard_key_pressed(std::string keypress) = 0;
 };

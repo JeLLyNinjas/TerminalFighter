@@ -69,6 +69,16 @@ INSTANTIATE_TEST_CASE_P(testKeys,
                             std::make_tuple("x", SDLK_x),
                             std::make_tuple("y", SDLK_y),
                             std::make_tuple("z", SDLK_z),
+                            std::make_tuple("0", SDLK_0),
+                            std::make_tuple("1", SDLK_1),
+                            std::make_tuple("2", SDLK_2),
+                            std::make_tuple("3", SDLK_3),
+                            std::make_tuple("4", SDLK_4),
+                            std::make_tuple("5", SDLK_5),
+                            std::make_tuple("6", SDLK_6),
+                            std::make_tuple("7", SDLK_7),
+                            std::make_tuple("8", SDLK_8),
+                            std::make_tuple("9", SDLK_9),
                             std::make_tuple("ESC", SDLK_ESCAPE),
                             std::make_tuple("LEFT", SDLK_LEFT),
                             std::make_tuple("RIGHT", SDLK_RIGHT),
@@ -82,7 +92,7 @@ INSTANTIATE_TEST_CASE_P(testKeys,
 
 TEST_P(KeyboardListenerTest, testAllKeys)
 {
-    EXPECT_CALL(*mock_keyboard_listener_, notify_keyboard_key_pressed(std::get<0>(GetParam())));
+    EXPECT_CALL(*mock_keyboard_listener_, handle_keyboard_key_pressed(std::get<0>(GetParam())));
 
     sdl_event_->key.keysym.sym = std::get<1>(GetParam());
     SDL_PushEvent(sdl_event_);

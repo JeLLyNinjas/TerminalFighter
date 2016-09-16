@@ -5,5 +5,5 @@
 
 class MockKeyboardListener : public KeyboardListener{
 public:
-    MOCK_METHOD1(notify_keyboard_key_pressed, void(std::string keypress));
+    MOCK_METHOD1(handle_keyboard_key_pressed, void(std::string keypress));
 };

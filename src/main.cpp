@@ -1,4 +1,7 @@
 #include <map>
+#include <iostream>
+#include <stdio.h>
+#include <unistd.h>
     
 #ifndef INT64_C
 #define INT64_C(c) (c ## LL)
@@ -8,11 +11,8 @@ extern "C" {
 #include <SDL.h>
 #include <SDL_ttf.h>
 }
-#include <stdio.h>
-#include <unistd.h>
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
-#include <iostream>
 
 using namespace std;
 

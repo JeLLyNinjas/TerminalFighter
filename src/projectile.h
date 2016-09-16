@@ -1,8 +1,9 @@
 #pragma once
 
+#include <vector>
+
 #include "game_object.h"
 #include "hitbox.h"
-#include <vector>
 
 class Projectile : public GameObject {
 public:

@@ -1,4 +1,6 @@
 #pragma once
+#include <SDL2/SDL.h>
+
 #include "I_gamestate.h"
 #include "delay.h"
 #include "game_constants.h"
@@ -8,7 +10,6 @@
 #include "missile_launcher.h"
 #include "universe.h"
 #include "events.h"
-#include <SDL2/SDL.h>
 
 class Delay;
 class SDL_Renderer;

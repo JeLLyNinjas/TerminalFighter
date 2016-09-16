@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
+#include <SDL2/SDL.h>
 
 #include "hitbox.h"
-#include <SDL2/SDL.h>
 
 class HitboxTest : public ::testing::Test {
 protected:

@@ -1,7 +1,10 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+
 #include "I_gamestate.h"
+#include "delay.h"
+#include "game_constants.h"
 
 class Delay;
 class SDL_Renderer;

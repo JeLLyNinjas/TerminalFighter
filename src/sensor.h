@@ -1,10 +1,11 @@
 #pragma once
 
+#include <vector>
+
 #include "game_object.h"
 #include "hitbox.h"
 #include "projectile.h"
 #include "ship.h"
-#include <vector>
 
 class Sensor : public GameObject {
 

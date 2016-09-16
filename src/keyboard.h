@@ -1,10 +1,12 @@
 #pragma once
 
+#include <string>
+
+#include <SDL2/SDL.h>
+
 #include "game_object.h"
 #include "keyboard_listener.h"
 #include "observable.h"
-#include <SDL2/SDL.h>
-#include <string>
 #include "graphics_handler.h"
 #include "events_listener.h"
 

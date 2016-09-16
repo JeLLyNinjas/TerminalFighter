@@ -24,7 +24,7 @@ GraphicsHandler::GraphicsHandler(SDL_Renderer *renderer)
 { }
 
 void GraphicsHandler::draw(SDL_Texture *texture, SDL_Rect texture_rect, GraphicPriority priority) {
-    draw_queue_.at(priority).push_back(DrawRequest(texture, texture_rect, priority));
+    draw_queue_.at(priority).push_back(DrawRequest(texture, texture_rect));
 }
 
 void GraphicsHandler::draw(SDL_Texture *texture, int x_pos, int y_pos, GraphicPriority priority) {

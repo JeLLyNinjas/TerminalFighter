@@ -92,7 +92,7 @@ INSTANTIATE_TEST_CASE_P(testKeys,
 
 TEST_P(KeyboardListenerTest, testAllKeys)
 {
-    EXPECT_CALL(*mock_keyboard_listener_, handle_keyboard_key_pressed(std::get<0>(GetParam())));
+    EXPECT_CALL(*mock_keyboard_listener_, handle_key_press(std::get<0>(GetParam())));
 
     sdl_event_->key.keysym.sym = std::get<1>(GetParam());
     SDL_PushEvent(sdl_event_);

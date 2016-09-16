@@ -66,7 +66,7 @@ void TestState::display_debug_frames_(Delay *delayer) {
 
 /* listeners */
 
-void TestState::handle_keyboard_key_pressed(std::string keypress) {
+void TestState::handle_key_press(std::string keypress) {
     if (keypress == "ESC"){
         exit_ = true;
     }

@@ -9,8 +9,6 @@
 
 #include "draw_request.h"
 
-#include "draw_request.h"
-
 enum GraphicPriority {
     OVERLAY,
     UI,

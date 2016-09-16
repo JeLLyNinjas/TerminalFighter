@@ -11,7 +11,7 @@ class Events : public GameObject, public Observable<EventsListener> {
 
 public: 
     Events() 
-    : GameObject() //default coordinates. 
+    : GameObject() 
     { }
 
     /* Events will have an empty draw */

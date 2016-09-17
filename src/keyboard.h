@@ -21,11 +21,8 @@
  *  Right arrow         RIGHT
  *  Up arrow            UP
  *  Down arrow          DOWN
- *  Space Key           SPACE
  *  Backspace           BKSPACE
  *  Esc Key             ESC
- *  Enter Key           ENTER
- *  Forward Slash       SLASH
  *  
  */
 

@@ -26,16 +26,16 @@ void Keyboard::notify_events(SDL_Event e) {
                     notify_key("DOWN");
                     break;
                 case SDLK_SPACE:
-                    notify_key("SPACE");
+                    notify_key(" ");
                     break;
                 case SDLK_BACKSPACE:
                     notify_key("BKSPACE");
                     break;
                 case SDLK_SLASH:
-                    notify_key("SLASH");
+                    notify_key("/");
                     break;
                 case SDLK_RETURN:
-                    notify_key("ENTER");
+                    notify_key("\n");
                     break;
                 case SDLK_0: 
                     notify_key("0");

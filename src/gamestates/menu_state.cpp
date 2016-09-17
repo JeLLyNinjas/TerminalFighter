@@ -1,8 +1,4 @@
-#include <SDL2/SDL.h>
-
-#include "delay.h"
 #include "menu_state.h"
-#include "game_constants.h"
 
 MenuState::MenuState(SDL_Renderer* renderer)
 : renderer_(renderer)

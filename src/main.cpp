@@ -1,4 +1,7 @@
 #include <map>
+#include <iostream>
+#include <stdio.h>
+#include <unistd.h>
     
 #ifndef INT64_C
 #define INT64_C(c) (c ## LL)
@@ -8,11 +11,8 @@ extern "C" {
 #include <SDL.h>
 #include <SDL_ttf.h>
 }
-#include <stdio.h>
-#include <unistd.h>
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
-#include <iostream>
 
 using namespace std;
 
@@ -29,9 +29,7 @@ bool quit;
 bool init_SDL();
 void processEvents();
 void close();
-
-bool init_SDL()
-{
+bool init_SDL() {
     int numdrivers = SDL_GetNumRenderDrivers ();
     cout << "Render driver count: " << numdrivers << endl;
     for (int i = 0; i < numdrivers; i++) {
@@ -67,7 +65,7 @@ bool init_SDL()
     printf("Driver: %s\n", SDL_GetCurrentVideoDriver());
 
     //Creates the main_renderer.
-    main_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    main_renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (main_renderer == NULL)
     {
         printf("Renderer could not be created. SDL_Error: %s \n", SDL_GetError());

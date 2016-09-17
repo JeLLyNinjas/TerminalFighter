@@ -3,6 +3,7 @@
 #include <map>
 
 #include <SDL.h>
+
 #include "I_gamestate.h"
 
 class GameStateHandler {

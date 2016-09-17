@@ -6,6 +6,7 @@
 class GameObject {
 
 public:
+    GameObject();
     GameObject(double x_pos, double y_pos);
 
     virtual void update() = 0;

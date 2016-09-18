@@ -1,4 +1,5 @@
 #pragma once
+
 #include <vector>
 
 #include "game_constants.h"
@@ -6,6 +7,7 @@
 #include "graphics_handler.h"
 #include "projectile_creator_listener.h"
 #include "projectile.h"
+#include "events.h"
 
 class Universe : public ProjectileCreatorListener {
 
@@ -15,6 +17,7 @@ public:
     void update_all();
     void draw_all();
     void draw_to_screen();
+    void add_events_handler(Events *event);
 
     /* listeners */
     void notify_projectile_launched(Projectile *projectile, Team team);

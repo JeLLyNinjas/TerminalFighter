@@ -1,17 +1,17 @@
 #OBJS = files to compile
-OBJS = $(wildcard src/*.cpp) 
+OBJS = $(wildcard src/*.cpp) $(wildcard src/gamestates/*.cpp) 
 
 #COMPLIE_FLAGS = additional flags
 COMPILE_FLAGS = -Werror -g -std=c++0x
 
-LINK_FLAGS = `sdl2-config --cflags` `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -pthread
+LINK_FLAGS = `sdl2-config --cflags` `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -pthread 
 	
 
 #OUTPUT_NAME = final name
 OUTPUT_NAME = TerminalFighter
 
 #INCLUDE FLAGS
-INCLUDE_FLAGS = -Ilib -Iinclude
+INCLUDE_FLAGS = -Ilib -Iinclude -I src/gamestates/ -I src/
 
 all :
 	 $(CXX) $(OBJS) $(INCLUDE_FLAGS) $(LINK_FLAGS) $(COMPILE_FLAGS) -o $(OUTPUT_NAME)

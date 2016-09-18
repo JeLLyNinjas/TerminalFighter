@@ -18,6 +18,17 @@ enum GraphicPriority {
     BACKGROUND
 };
 
+#include "draw_request.h"
+
+enum GraphicPriority {
+    OVERLAY,
+    UI,
+    FRONT,
+    MIDDLE,
+    BACK,
+    BACKGROUND
+};
+
 class GraphicsHandler {
 
 public:

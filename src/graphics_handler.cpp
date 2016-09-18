@@ -24,15 +24,7 @@ GraphicsHandler::GraphicsHandler(SDL_Renderer *renderer)
 { }
 
 void GraphicsHandler::draw(SDL_Texture *texture, SDL_Rect texture_rect, GraphicPriority priority) {
-<<<<<<< HEAD
-<<<<<<< HEAD
     draw_queue_.at(priority).push_back(DrawRequest(texture, texture_rect));
-=======
-    draw_queue_.at(priority).push_back(DrawRequest(texture, texture_rect, priority));
->>>>>>> a948aa3... first attempt at graphics layering
-=======
-    draw_queue_.at(priority).push_back(DrawRequest(texture, texture_rect));
->>>>>>> 6e2c05a... reposnd to pr
 }
 
 void GraphicsHandler::draw(SDL_Texture *texture, int x_pos, int y_pos, GraphicPriority priority) {
@@ -74,7 +66,7 @@ SDL_Texture *GraphicsHandler::load_image(std::string path) {
     if (game_graphics_.find(path) == game_graphics_.end() ) {
         printf("Fatal error, could not find the sprite %s! Exiting program\n", path.c_str());
         exit(1);
-    } 
+    }
 
     return game_graphics_.find(path)->second;
 }

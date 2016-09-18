@@ -39,8 +39,9 @@ SDL_Texture *GraphicsHandler::internal_load_image(std::string path) {
 SDL_Texture *GraphicsHandler::load_image(std::string path) {
     if (game_graphics_.find(path) == game_graphics_.end() ) {
         printf("Fatal error, could not find the sprite %s! Exiting program\n", path.c_str());
-    } else {
-        return game_graphics_.find(path)->second;
-    }
+        exit(1);
+    } 
+
+    return game_graphics_.find(path)->second;
 }
 

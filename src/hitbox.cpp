@@ -30,16 +30,16 @@ bool Hitbox::is_overlapping(Hitbox& other_hitbox) {
     bool is_overlapping;
 
     // CHECK COLLISION BETWEEN CIRCLES
-    if (this->hitbox_type() == circle && other_hitbox.hitbox_type() == circle)
+    if (*(this->hitbox_type()) == circle && *(other_hitbox.hitbox_type()) == circle)
         is_overlapping = check_overlap(this->circle_hitbox_, other_hitbox.circle_hitbox_);
     // CHECKS COLLISION BETWEEN RECTS
-    else if (this->hitbox_type() == rect && other_hitbox.hitbox_type() == rect)
+    else if (*(this->hitbox_type()) == rect && *(other_hitbox.hitbox_type()) == rect)
         is_overlapping = check_overlap(this->hitbox_, other_hitbox.hitbox_);
     // CHECKS COLLISION BETWEEN CIRCLE AND RECT
-    else if (this->hitbox_type() == circle && other_hitbox.hitbox_type() == rect)
+    else if (*(this->hitbox_type()) == circle && *(other_hitbox.hitbox_type()) == rect)
         is_overlapping = check_overlap(this->circle_hitbox_, other_hitbox.hitbox_);
     // CHECKS COLLISION BETWEEN RECT AND CIRCLE
-    else if (this->hitbox_type() == rect && other_hitbox.hitbox_type() == circle)
+    else if (*(this->hitbox_type()) == rect && *(other_hitbox.hitbox_type()) == circle)
         is_overlapping = check_overlap(other_hitbox.circle_hitbox_, this->hitbox_);
 
     return is_overlapping;
@@ -97,14 +97,14 @@ bool Hitbox::check_overlap(SDL_Rect &hitbox, SDL_Rect &other_hitbox)
     return SDL_HasIntersection(&hitbox_, &other_hitbox);
 }
 
-const Shape& Hitbox::hitbox_type() const {
-    return hitbox_type_;
+const Shape* Hitbox::hitbox_type() const {
+    return &hitbox_type_;
 }
 
-const SDL_Rect& Hitbox::hitbox() const {
-    return hitbox_;
+const SDL_Rect* Hitbox::hitbox() const {
+    return &hitbox_;
 }
 
-const Circle& Hitbox::hitbox_circle() const {
-    return circle_hitbox_;
+const Circle* Hitbox::hitbox_circle() const {
+    return &circle_hitbox_;
 }

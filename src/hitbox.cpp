@@ -1,32 +1,32 @@
 #include "hitbox.h"
 
-Hitbox::Hitbox(double x_pos, double y_pos, double width, double height) {
+Hitbox::Hitbox(double x_pos, double y_pos, double width, double height)
+    : hitbox_type_(rect)
+{
     hitbox_.x = x_pos;
     hitbox_.y = y_pos;
     hitbox_.w = width;
     hitbox_.h = height;
-
-    hitbox_type_ = rect;
 }
 
-Hitbox::Hitbox(double x_pos, double y_pos, double radius) {
+Hitbox::Hitbox(double x_pos, double y_pos, double radius)
+    : hitbox_type_(circle),
+{
     circle_hitbox_.x = x_pos;
     circle_hitbox_.y = y_pos;
     circle_hitbox_.r = radius;
-
-    hitbox_type_ = circle;
 }
 
-Hitbox::Hitbox(SDL_Rect hitbox) {
-    hitbox_ = hitbox;
-}
+Hitbox::Hitbox(SDL_Rect hitbox)
+    :hitbox_(hitbox)
+{}
 
 Hitbox::Hitbox(Circle hitbox) {
     circle_hitbox_ = hitbox;
 }
 
 
-bool Hitbox::is_overlapping(Hitbox& other_hitbox) {
+bool Hitbox::is_overlapping(const Hitbox& other_hitbox) {
     bool is_overlapping;
 
     // CHECK COLLISION BETWEEN CIRCLES
@@ -45,7 +45,7 @@ bool Hitbox::is_overlapping(Hitbox& other_hitbox) {
     return is_overlapping;
 }
 
-bool Hitbox::check_overlap(Circle& hitbox, Circle& other_hitbox)
+bool Hitbox::check_overlap(const Circle& hitbox, const Circle& other_hitbox)
 {
     double radiusSquared = hitbox.r + other_hitbox.r;
     radiusSquared = radiusSquared * radiusSquared;
@@ -62,7 +62,7 @@ bool Hitbox::check_overlap(Circle& hitbox, Circle& other_hitbox)
     return false;
 }
 
-bool Hitbox::check_overlap(Circle &hitbox, SDL_Rect &other_hitbox)
+bool Hitbox::check_overlap(const Circle &hitbox, const SDL_Rect &other_hitbox)
 {
     double rect_centre_x = (other_hitbox.x + other_hitbox.w) / 2;
     double rect_centre_y = (other_hitbox.y + other_hitbox.h) / 2;
@@ -92,7 +92,7 @@ bool Hitbox::check_overlap(Circle &hitbox, SDL_Rect &other_hitbox)
     return (cornerDistance_sq <= (hitbox.r * hitbox.r));
 }
 
-bool Hitbox::check_overlap(SDL_Rect &hitbox, SDL_Rect &other_hitbox)
+bool Hitbox::check_overlap(const SDL_Rect &hitbox, const SDL_Rect &other_hitbox)
 {
     return SDL_HasIntersection(&hitbox_, &other_hitbox);
 }

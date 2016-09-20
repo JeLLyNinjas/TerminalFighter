@@ -11,15 +11,15 @@ enum Shape {rect, circle};
 
 class Hitbox {
     public:
-        Hitbox(double x_pos, double y_pos, double width, double height);
-        Hitbox(double x_pos, double y_pos, double radius);
+        Hitbox(int x_pos, int y_pos, int width, int height);
+        Hitbox(int x_pos, int y_pos, int radius);
         Hitbox(SDL_Rect hitbox);
         Hitbox(Circle hitbox);
 
         bool is_overlapping(const Hitbox& other_hitbox);
         const SDL_Rect* hitbox() const;
         const Circle* hitbox_circle() const;
-        const Shape* hitbox_type() const;
+        const Shape& hitbox_type() const;
 
     protected:
         SDL_Rect hitbox_;

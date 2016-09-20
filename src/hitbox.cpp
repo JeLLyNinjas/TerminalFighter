@@ -1,15 +1,11 @@
 #include "hitbox.h"
 
-Hitbox::Hitbox(double x_pos, double y_pos, double width, double height)
-    : hitbox_type_(rect)
-{
-    hitbox_.x = x_pos;
-    hitbox_.y = y_pos;
-    hitbox_.w = width;
-    hitbox_.h = height;
-}
+Hitbox::Hitbox(int x_pos, int y_pos, int width, int height)
+    : hitbox_type_(rect),
+    hitbox_{x_pos, y_pos, width, height}
+{}
 
-Hitbox::Hitbox(double x_pos, double y_pos, double radius)
+Hitbox::Hitbox(int x_pos, int y_pos, int radius)
     : hitbox_type_(circle)
 {
     circle_hitbox_.x = x_pos;
@@ -18,24 +14,26 @@ Hitbox::Hitbox(double x_pos, double y_pos, double radius)
 }
 
 Hitbox::Hitbox(SDL_Rect hitbox)
-    :hitbox_(hitbox)
+    :hitbox_(hitbox),
+    hitbox_type_(rect)
 {}
 
 Hitbox::Hitbox(Circle hitbox)
-    :circle_hitbox_(hitbox)
+    :circle_hitbox_(hitbox),
+    hitbox_type_(circle)
 {}
 
 
 bool Hitbox::is_overlapping(const Hitbox& other_hitbox) {
     bool is_overlapping = false;
 
-    if (*(this->hitbox_type()) == circle && *(other_hitbox.hitbox_type()) == circle) {
+    if (this->hitbox_type() == circle && other_hitbox.hitbox_type() == circle) {
         // CHECK COLLISION BETWEEN CIRCLES
         is_overlapping = check_overlap(this->circle_hitbox_, other_hitbox.circle_hitbox_);
-    } else if (*(this->hitbox_type()) == rect && *(other_hitbox.hitbox_type()) == rect) {
+    } else if (this->hitbox_type() == rect && other_hitbox.hitbox_type() == rect) {
         // CHECKS COLLISION BETWEEN RECTS
         is_overlapping = check_overlap(this->hitbox_, other_hitbox.hitbox_);
-    } else if (*(this->hitbox_type()) == circle && *(other_hitbox.hitbox_type()) == rect) {
+    } else if (this->hitbox_type() == circle && other_hitbox.hitbox_type() == rect) {
         // CHECKS COLLISION BETWEEN CIRCLE AND RECT
         is_overlapping = check_overlap(this->circle_hitbox_, other_hitbox.hitbox_);
     } else {
@@ -95,8 +93,8 @@ bool Hitbox::check_overlap(const SDL_Rect &hitbox, const SDL_Rect &other_hitbox)
     return SDL_HasIntersection(&hitbox_, &other_hitbox);
 }
 
-const Shape* Hitbox::hitbox_type() const {
-    return &hitbox_type_;
+const Shape& Hitbox::hitbox_type() const {
+    return hitbox_type_;
 }
 
 const SDL_Rect* Hitbox::hitbox() const {

@@ -7,12 +7,15 @@
 #include "observable.h"
 #include "game_constants.h"
 
-class MissileLauncher : public Observable <ProjectileCreatorListener> {
-    public:
-        MissileLauncher(Team team);
-        const Team& team() const;
-        Missile * create_missile(double x_vel, double y_vel, double x_pos, double y_pos);
+class I_GameObjectMediator;
 
-    private:
-        Team team_;
+class MissileLauncher {
+public:
+	MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator);
+	Team::Team team() const;
+	void create_missile(double x_vel, double y_vel, double x_pos, double y_pos);
+
+private:
+	Team::Team team_;
+	I_GameObjectMediator& game_object_mediator_;
 };

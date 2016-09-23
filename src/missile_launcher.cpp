@@ -1,17 +1,17 @@
 #include "missile_launcher.h"
 
-MissileLauncher::MissileLauncher(Team team)
+#include "I_game_object_mediator.h"
+
+MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator)
     : team_(team)
+    , game_object_mediator_(game_object_mediator)
 { }
 
-const Team& MissileLauncher::team() const {
+Team::Team MissileLauncher::team() const {
     return team_;
 }
 
-Missile* MissileLauncher::create_missile(double x_pos, double y_pos, double x_vel, double y_vel){
-    Missile *return_missile = new Missile(x_pos, y_pos, x_vel, y_vel);
-    for (ProjectileCreatorListener * listener : listeners) {
-        listener->notify_projectile_launched(return_missile, team_);
-    }
-    return  return_missile;
+void MissileLauncher::create_missile(double x_pos, double y_pos, double x_vel, double y_vel){
+    std::unique_ptr<Missile> missile(new Missile(x_pos, y_pos, x_vel, y_vel));
+    game_object_mediator_.add_projectile(team_, std::move(missile));
 }

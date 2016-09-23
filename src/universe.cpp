@@ -10,13 +10,13 @@ void Universe::get_events() {
 }
 
 void Universe::update_all() {
-    for (GameObject *game_object : all_game_objects) {
+    for (auto game_object : all_game_objects_) {
         game_object->update();
     }
 }
 
 void Universe::draw_all() {
-    for (GameObject *game_object : all_game_objects) {
+    for (auto game_object : all_game_objects_) {
         game_object->draw(graphics_handler_);
     }
 }
@@ -29,11 +29,11 @@ void Universe::remove_deleted_objects() {
     //TODO
 }
 
-void Universe::add_events_handler(Events *events) {
-    all_game_objects.push_back(events);
+void Universe::add_events_handler(Events&& events) {
+    all_game_objects_.push_back(std::move(events));
 }
 
-/* listeners */
-void Universe::notify_projectile_launched(Projectile *projectile, Team team) {
-    all_game_objects.push_back(projectile);
+void Universe::add_game_object(GameObject&& game_object) {
+    all_game_objects_.push_back(std::move(game_object));
 }
+

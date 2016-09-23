@@ -5,5 +5,5 @@
 
 class MockProjectileCreatorListener : public ProjectileCreatorListener {
 public:
-    MOCK_METHOD2(notify_projectile_launched, void(Projectile* projectile, Team team));
+    MOCK_METHOD2(notify_projectile_launched, void(Projectile* projectile, Team::Team team));
 };

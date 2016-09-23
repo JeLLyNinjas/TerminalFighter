@@ -52,3 +52,13 @@ void CollisionDetector::check_friendly_ship_collisions() {
 void CollisionDetector::check_enemy_ship_collisions() {
     //check enemy_ships_ against friendlysu_ships_
 }
+
+void add_projectile(Team::Team team, Projectile& projectile)
+{
+
+}
+
+void add_game_object(Team::Team team, GameObject& game_object)
+{
+
+}

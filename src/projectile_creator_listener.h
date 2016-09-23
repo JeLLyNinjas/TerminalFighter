@@ -8,5 +8,5 @@
 
 class ProjectileCreatorListener {
 public: 
-    virtual void notify_projectile_launched(Projectile *projectile, Team team) = 0;
+    virtual void notify_projectile_launched(Projectile *projectile, Team::Team team) = 0;
 };

@@ -1,5 +1,9 @@
 #include "test_state.h"
 
+#include "game_object_mediator.h"
+#include "universe.h"
+#include "collision_detector.h"
+
 TestState::TestState(SDL_Renderer* renderer)
 : renderer_(renderer),
   exit_(false)
@@ -9,15 +13,16 @@ gamestates::GameStateName TestState::run()
 {
     Keyboard keyboard = Keyboard();
     Events events = Events();
-    Universe universe(renderer_);
+    Universe universe = Universe(renderer_);
+    CollisionDetector collision_detector = CollisionDetector();
+    GameObjectMediator game_object_mediator(universe, collision_detector);
 
     keyboard.add_listener(this);
     events.add_listener(this);
     events.add_listener(&keyboard);
-    universe.add_events_handler(&events);
-    MissileLauncher test_launcher = MissileLauncher(FRIENDLY);
-    test_launcher.add_listener(&universe);
-    
+    universe.add_events_handler(std::move(events));
+
+    MissileLauncher test_launcher = MissileLauncher(Team::FRIENDLY, game_object_mediator);    
 
     //Render red filled quad
     int x = 0;

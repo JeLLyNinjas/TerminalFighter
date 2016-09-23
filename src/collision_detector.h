@@ -5,11 +5,14 @@
 #include "sensor.h"
 #include "projectile.h"
 #include "ship.h"
+#include "game_object.h"
 
 class CollisionDetector : public I_CollisionDetector {
 public:
     CollisionDetector();
 
+    void add_projectile(Team::Team team, Projectile& projectile);
+    void add_game_object(Team::Team team, GameObject& game_object);
     void check_friendly_sensor_collisions();
     void check_enemy_sensor_collisions();
     void check_friendly_projectile_collisions();

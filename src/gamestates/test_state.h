@@ -8,7 +8,6 @@
 #include "keyboard.h"
 #include "missile.h"
 #include "missile_launcher.h"
-#include "universe.h"
 #include "events.h"
 
 class Delay;

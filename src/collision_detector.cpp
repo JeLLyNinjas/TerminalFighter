@@ -1,6 +1,17 @@
 #include "collision_detector.h"
 #include "hitbox.h"
 
+CollisionDetector::CollisionDetector()
+{
+
+}
+
+
+CollisionDetector::~CollisionDetector()
+{
+
+}
+
 void CollisionDetector::check_friendly_sensor_collisions() {
     //check friendly_sensors_ against enemy_sensors_, enemy_projectiles_, enemy_ships_
     for (auto friendly_sensor : friendly_sensors_) {
@@ -53,12 +64,12 @@ void CollisionDetector::check_enemy_ship_collisions() {
     //check enemy_ships_ against friendlysu_ships_
 }
 
-void add_projectile(Team::Team team, Projectile& projectile)
+void CollisionDetector::add_projectile(Team::Team team, Projectile& projectile)
 {
 
 }
 
-void add_game_object(Team::Team team, GameObject& game_object)
+void CollisionDetector::add_game_object(Team::Team team, GameObject& game_object)
 {
 
 }

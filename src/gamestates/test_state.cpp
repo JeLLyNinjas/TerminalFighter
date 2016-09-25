@@ -12,17 +12,17 @@ TestState::TestState(SDL_Renderer* renderer)
 gamestates::GameStateName TestState::run()
 {
     Keyboard keyboard = Keyboard();
-    Events events = Events();
+    std::unique_ptr<Events> events(new Events());
     Universe universe = Universe(renderer_);
     CollisionDetector collision_detector = CollisionDetector();
     GameObjectMediator game_object_mediator(universe, collision_detector);
 
     keyboard.add_listener(this);
-    events.add_listener(this);
-    events.add_listener(&keyboard);
+    events->add_listener(this);
+    events->add_listener(&keyboard);
     universe.add_events_handler(std::move(events));
 
-    MissileLauncher test_launcher = MissileLauncher(Team::FRIENDLY, game_object_mediator);    
+    MissileLauncher test_launcher = MissileLauncher(Team::FRIENDLY, game_object_mediator);
 
     //Render red filled quad
     int x = 0;

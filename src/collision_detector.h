@@ -10,6 +10,7 @@
 class CollisionDetector : public I_CollisionDetector {
 public:
     CollisionDetector();
+    ~CollisionDetector();
 
     void add_projectile(Team::Team team, Projectile& projectile);
     void add_game_object(Team::Team team, GameObject& game_object);

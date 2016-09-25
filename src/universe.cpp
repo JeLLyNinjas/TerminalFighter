@@ -10,13 +10,13 @@ void Universe::get_events() {
 }
 
 void Universe::update_all() {
-    for (auto game_object : all_game_objects_) {
+    for (auto& game_object : all_game_objects_) {
         game_object->update();
     }
 }
 
 void Universe::draw_all() {
-    for (auto game_object : all_game_objects_) {
+    for (auto& game_object : all_game_objects_) {
         game_object->draw(graphics_handler_);
     }
 }
@@ -29,11 +29,11 @@ void Universe::remove_deleted_objects() {
     //TODO
 }
 
-void Universe::add_events_handler(Events&& events) {
+void Universe::add_events_handler(std::unique_ptr<Events> events) {
     all_game_objects_.push_back(std::move(events));
 }
 
-void Universe::add_game_object(GameObject&& game_object) {
+void Universe::add_game_object(std::unique_ptr<GameObject> game_object) {
     all_game_objects_.push_back(std::move(game_object));
 }
 

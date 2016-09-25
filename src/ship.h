@@ -17,7 +17,7 @@ class Ship : public GameObject {
         virtual void draw(GraphicsHandler *graphics) = 0;
         virtual double x_vel() { return x_vel_; }
         virtual double y_vel() { return y_vel_; }
-        virtual void notify_collision(Ship* collided_ship, int hitbox_number);
+        virtual void notify_collision(Ship* collided_ship, int hitbox_number) = 0;
         virtual std::vector<Hitbox> get_hitboxes() = 0;
 
     protected:

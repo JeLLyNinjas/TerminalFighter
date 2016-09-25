@@ -15,9 +15,9 @@ class DrawRequest {
 
 public:
     explicit DrawRequest(SDL_Texture *texture,
-                SDL_Rect texture_rect)
-    :texture_(texture)
-    ,texture_rect_(texture_rect)
+                         SDL_Rect texture_rect)
+        :texture_(texture)
+        ,texture_rect_(texture_rect)
     {}
 
     SDL_Texture* texture() const {

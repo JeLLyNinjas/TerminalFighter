@@ -2,7 +2,7 @@
 
 Hitbox::Hitbox(int x_pos, int y_pos, int width, int height)
     : hitbox_type_(rect),
-    hitbox_{x_pos, y_pos, width, height}
+      hitbox_ {x_pos, y_pos, width, height}
 {}
 
 Hitbox::Hitbox(int x_pos, int y_pos, int radius)
@@ -15,12 +15,12 @@ Hitbox::Hitbox(int x_pos, int y_pos, int radius)
 
 Hitbox::Hitbox(SDL_Rect hitbox)
     :hitbox_(hitbox),
-    hitbox_type_(rect)
+     hitbox_type_(rect)
 {}
 
 Hitbox::Hitbox(Circle hitbox)
     :circle_hitbox_(hitbox),
-    hitbox_type_(circle)
+     hitbox_type_(circle)
 {}
 
 

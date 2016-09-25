@@ -6,8 +6,8 @@
 SDL_Texture* BasicEnemy::texture_ = NULL;
 
 BasicEnemy::BasicEnemy(double x_pos, double y_pos, double x_vel, double y_vel)
-: GameObject(x_pos, y_pos, x_vel, y_vel)
-, hitbox_(Hitbox(x_pos_, y_pos_, 100, 100))
+    : GameObject(x_pos, y_pos, x_vel, y_vel)
+    , hitbox_(Hitbox(x_pos_, y_pos_, 100, 100))
 { }
 
 void BasicEnemy::update() {

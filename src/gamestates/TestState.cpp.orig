@@ -5,8 +5,8 @@
 #include "CollisionDetector.h"
 
 TestState::TestState(SDL_Renderer* renderer)
-    : renderer_(renderer),
-      exit_(false)
+: renderer_(renderer),
+  exit_(false)
 {}
 
 gamestates::GameStateName TestState::run()
@@ -37,8 +37,8 @@ gamestates::GameStateName TestState::run()
 
         test_launcher.create_missile(x, SCREEN_WIDTH / 2, 0, -2.2);
 
-        if(exit_) {
-            return gamestates::EXIT;
+        if(exit_){
+        	return gamestates::EXIT;
         }
         universe.update_all();
         universe.draw_all();
@@ -54,7 +54,7 @@ gamestates::GameStateName TestState::run()
 
 gamestates::GameStateName TestState::name() const
 {
-    return gamestates::TEST;
+	return gamestates::TEST;
 }
 
 void TestState::display_debug_frames_(Delay *delayer) {
@@ -72,7 +72,7 @@ void TestState::display_debug_frames_(Delay *delayer) {
 /* listeners */
 
 void TestState::handle_key_press(std::string keypress) {
-    if (keypress == "ESC") {
+    if (keypress == "ESC"){
         exit_ = true;
     }
 
@@ -81,10 +81,10 @@ void TestState::handle_key_press(std::string keypress) {
 
 void TestState::notify_events(SDL_Event e) {
     switch(e.type) {
-    case SDL_QUIT:
-        printf("SDL_QUIT was called!\n");
-        exit_ = true;
-        break;
+        case SDL_QUIT:
+            printf("SDL_QUIT was called!\n");
+            exit_ = true;
+            break;
     }
 }
 

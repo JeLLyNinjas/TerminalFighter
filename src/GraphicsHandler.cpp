@@ -1,26 +1,26 @@
 #include "GraphicsHandler.h"
 
 namespace {
-    const std::vector<GraphicPriority> DRAW_ORDER = {
-        GraphicPriority::BACKGROUND,
-        GraphicPriority::BACK,
-        GraphicPriority::MIDDLE,
-        GraphicPriority::FRONT,
-        GraphicPriority::UI,
-        GraphicPriority::OVERLAY
-    };
+const std::vector<GraphicPriority> DRAW_ORDER = {
+    GraphicPriority::BACKGROUND,
+    GraphicPriority::BACK,
+    GraphicPriority::MIDDLE,
+    GraphicPriority::FRONT,
+    GraphicPriority::UI,
+    GraphicPriority::OVERLAY
+};
 }
 
 GraphicsHandler::GraphicsHandler(SDL_Renderer *renderer)
-: renderer_(renderer)
-, draw_queue_({
-        {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },
-        {GraphicPriority::UI, std::vector<DrawRequest>() },
-        {GraphicPriority::FRONT, std::vector<DrawRequest>() },
-        {GraphicPriority::MIDDLE, std::vector<DrawRequest>() },
-        {GraphicPriority::BACK, std::vector<DrawRequest>() },
-        {GraphicPriority::BACKGROUND, std::vector<DrawRequest>() }
-    })
+    : renderer_(renderer)
+    , draw_queue_({
+    {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },
+    {GraphicPriority::UI, std::vector<DrawRequest>() },
+    {GraphicPriority::FRONT, std::vector<DrawRequest>() },
+    {GraphicPriority::MIDDLE, std::vector<DrawRequest>() },
+    {GraphicPriority::BACK, std::vector<DrawRequest>() },
+    {GraphicPriority::BACKGROUND, std::vector<DrawRequest>() }
+})
 { }
 
 void GraphicsHandler::draw(SDL_Texture *texture, SDL_Rect texture_rect, GraphicPriority priority) {

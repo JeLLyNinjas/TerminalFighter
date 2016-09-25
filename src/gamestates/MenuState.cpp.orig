@@ -1,35 +1,35 @@
 #include "MenuState.h"
 
 MenuState::MenuState(SDL_Renderer* renderer)
-    : renderer_(renderer)
+: renderer_(renderer)
 {}
 
 MenuState::~MenuState() {}
 
 gamestates::GameStateName MenuState::run() {
-    Delay delayer(false);
+	Delay delayer(false);
     for(;;)
     {
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            switch (event.type)
-            {
-            case SDL_QUIT:
-                printf("SDL_QUIT was called\n");
-                return gamestates::EXIT;
-                break;
-            case SDL_KEYDOWN:
-                switch (event.key.keysym.sym)
-                {
-                case SDLK_RETURN:
-                    printf("Enter was Pressed!\n");
-                    return gamestates::TEST;
-                    break;
-                }
-            }
-        }
-
+		SDL_Event event;
+    	while (SDL_PollEvent(&event))
+    	{
+    	    switch (event.type)
+    	    {
+    	    case SDL_QUIT:
+    	        printf("SDL_QUIT was called\n");
+    	        return gamestates::EXIT;
+    	        break;
+    	    case SDL_KEYDOWN:
+    	        switch (event.key.keysym.sym)
+    	        {
+    	        case SDLK_RETURN:
+    	            printf("Enter was Pressed!\n");
+    	            return gamestates::TEST;
+    	            break;
+    	        }
+    	    }
+    	}
+        
         display_debug_frames(&delayer);
 
         //delay and draw to screen should stick together in the order: delay -> draw
@@ -39,7 +39,7 @@ gamestates::GameStateName MenuState::run() {
 }
 
 gamestates::GameStateName MenuState::name() const {
-    return gamestates::MAIN_MENU;
+	return gamestates::MAIN_MENU;
 }
 
 void MenuState::display_debug_frames(Delay *delayer) {
@@ -54,4 +54,4 @@ void MenuState::display_debug_frames(Delay *delayer) {
     SDL_FreeSurface(frame_rate_surface);
 }
 
-
+    

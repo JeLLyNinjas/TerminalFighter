@@ -6,8 +6,8 @@
 SDL_Texture* Missile::missile_texture_ = NULL;
 
 Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel)
-: GameObject(x_pos, y_pos, x_vel, y_vel)
-, hitbox_(Hitbox(x_pos, y_pos, 10, 50))
+    : GameObject(x_pos, y_pos, x_vel, y_vel)
+    , hitbox_(Hitbox(x_pos, y_pos, 10, 50))
 { }
 
 void Missile::update() {

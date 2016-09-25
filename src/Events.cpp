@@ -9,6 +9,6 @@ void Events::notify_event(SDL_Event e) {
 void Events::update() {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
-       notify_event(event);
+        notify_event(event);
     }
 }

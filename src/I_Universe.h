@@ -8,7 +8,7 @@
 class I_Universe
 {
 public:
-	virtual void get_events() = 0;
+    virtual void get_events() = 0;
     virtual void update_all() = 0;
     virtual void draw_all() = 0;
     virtual void draw_to_screen() = 0;

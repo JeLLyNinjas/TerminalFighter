@@ -2,7 +2,7 @@
 
 #include <string>
 
-class KeyboardListener{
+class KeyboardListener {
 public:
     virtual void handle_key_press(std::string keypress) = 0;
 };

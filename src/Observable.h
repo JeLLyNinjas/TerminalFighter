@@ -1,5 +1,5 @@
-#pragma once 
-#include <vector> 
+#pragma once
+#include <vector>
 
 template <class T>
 class Observable {

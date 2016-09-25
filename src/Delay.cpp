@@ -11,7 +11,7 @@ void Delay::delay_with_fps(double fps) {
     if (started_ == false) {
         started_ = true;
         start_timer();
-    } 
+    }
     else {
         stop_timer();
         double time_to_achieve_fps = (1 / fps) * 1000000;

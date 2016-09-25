@@ -3,23 +3,17 @@
 #include <SDL2/SDL.h>
 
 #include "events_listener.h"
-#include "game_object.h" 
-#include "graphics_handler.h"
+#include "I_Updatable.h"
 #include "observable.h"
 
-class Events : public GameObject, public Observable<EventsListener> {
+class Events : public I_Updatable, public Observable<EventsListener> {
 
-public: 
-    Events() 
-    : GameObject() 
-    { }
+public:
+    Events() {}
 
-    /* Events will have an empty draw */
-    void draw(GraphicsHandler *graphics) { };
     void update();
 
 private:
     void notify_event(SDL_Event e);
-
 };
 

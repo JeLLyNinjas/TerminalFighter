@@ -2,19 +2,21 @@
 
 #include <SDL2/SDL.h>
 
-#include "ship.h"
+#include "game_object.h"
+#include "hitbox.h"
 
-class BasicEnemy : public Ship {
+class BasicEnemy : public GameObject {
 public:
     BasicEnemy(double x_pos, double y_pos, double x_vel, double y_vel);
 
     void update();
     void draw(GraphicsHandler *graphics);
-    std::vector<Hitbox> get_hitboxes();
-    void notify_collision(Ship* collided_ship, int hitbox_number);
+    const Hitbox& hitbox() const;
+    void notify_collision(GameObject* collided_object);
 
     static void set_texture(SDL_Texture* texture);
 
 private:
-    static SDL_Texture* missile_texture_;
+    static SDL_Texture* texture_;
+    Hitbox hitbox_;
 };

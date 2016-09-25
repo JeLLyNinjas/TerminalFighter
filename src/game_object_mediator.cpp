@@ -14,7 +14,7 @@ void GameObjectMediator::add_game_object(Team::Team team, std::unique_ptr<GameOb
 	collision_detector_.add_game_object(team, *game_object);
 }
 
-void GameObjectMediator::add_projectile(Team::Team team, std::unique_ptr<Projectile> projectile)
+void GameObjectMediator::add_projectile(Team::Team team, std::unique_ptr<GameObject> projectile)
 {
 	universe_.add_game_object(std::move(projectile));
 	collision_detector_.add_projectile(team, *projectile);

@@ -3,7 +3,6 @@
 
 #include "game_object.h"
 #include "missile.h"
-#include "projectile_creator_listener.h"
 #include "observable.h"
 #include "game_constants.h"
 

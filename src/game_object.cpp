@@ -8,21 +8,33 @@ GameObject::GameObject(){
     id_ = id_counter_++;
 }
 
-GameObject::GameObject(double x_pos, double y_pos)
+GameObject::GameObject(double x_pos, double y_pos, double x_vel, double y_vel)
     : x_pos_(x_pos)
     , y_pos_(y_pos)
+    , x_vel_(x_vel)
+    , y_vel_(y_vel)
     , id_(id_counter_++)
 { }
 
-const double GameObject::x_pos() const {
+double GameObject::x_pos() const {
     return x_pos_;
 }
 
-const double GameObject::y_pos() const {
+double GameObject::y_pos() const {
     return y_pos_;
 }
 
-const int GameObject::id() const {
+double GameObject::x_vel() const
+{
+    return x_vel_;
+}
+
+double GameObject::y_vel() const
+{
+    return y_vel_;
+}
+
+int GameObject::id() const {
     return id_;
 }
 

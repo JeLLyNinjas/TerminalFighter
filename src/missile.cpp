@@ -1,11 +1,13 @@
 #include <stdio.h>
 
 #include "missile.h"
+#include "graphics_handler.h"
 
 SDL_Texture* Missile::missile_texture_ = NULL;
 
 Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel)
-: Projectile(x_pos, y_pos, x_vel, y_vel)
+: GameObject(x_pos, y_pos, x_vel, y_vel)
+, hitbox_(Hitbox(x_pos, y_pos, 10, 50))
 { }
 
 void Missile::update() {
@@ -21,10 +23,16 @@ void Missile::draw(GraphicsHandler *graphics) {
     graphics->draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE);
 }
 
+const Hitbox& Missile::hitbox() const {
+    return hitbox_;
+}
+
+void Missile::notify_collision(GameObject* collided_object)
+{
+
+}
+
 void Missile::set_texture(SDL_Texture* texture) {
     missile_texture_ = texture;
 }
 
-std::vector<Hitbox> Missile::get_hitboxes() {
-    return std::vector<Hitbox>();
-}

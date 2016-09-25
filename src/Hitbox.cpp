@@ -1,4 +1,4 @@
-#include "hitbox.h"
+#include "Hitbox.h"
 
 Hitbox::Hitbox(int x_pos, int y_pos, int width, int height)
     : hitbox_type_(rect),

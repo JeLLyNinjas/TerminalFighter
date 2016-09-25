@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "basic_enemy.h"
-#include "graphics_handler.h"
+#include "BasicEnemy.h"
+#include "GraphicsHandler.h"
 
 SDL_Texture* BasicEnemy::texture_ = NULL;
 

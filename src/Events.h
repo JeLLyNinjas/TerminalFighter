@@ -2,9 +2,9 @@
 
 #include <SDL2/SDL.h>
 
-#include "events_listener.h"
+#include "EventsListener.h"
 #include "I_Updatable.h"
-#include "observable.h"
+#include "Observable.h"
 
 class Events : public I_Updatable, public Observable<EventsListener> {
 

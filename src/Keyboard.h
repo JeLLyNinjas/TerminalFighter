@@ -4,11 +4,11 @@
 
 #include <SDL2/SDL.h>
 
-#include "game_object.h"
-#include "keyboard_listener.h"
-#include "observable.h"
-#include "graphics_handler.h"
-#include "events_listener.h"
+#include "GameObject.h"
+#include "KeyboardListener.h"
+#include "Observable.h"
+#include "GraphicsHandler.h"
+#include "EventsListener.h"
 
 
 /* Keyboard

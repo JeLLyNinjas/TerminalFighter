@@ -16,11 +16,11 @@ extern "C" {
 
 using namespace std;
 
-#include "I_gamestate.h"
-#include "test_state.h"
-#include "menu_state.h"
-#include "game_constants.h"
-#include "gamestate_handler.h"
+#include "I_Gamestate.h"
+#include "TestState.h"
+#include "MenuState.h"
+#include "GameConstants.h"
+#include "GamestateHandler.h"
 
 SDL_Renderer* main_renderer = NULL;
 SDL_Window* window = NULL;

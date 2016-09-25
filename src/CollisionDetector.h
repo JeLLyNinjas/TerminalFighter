@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "I_collision_detector.h"
+#include "I_CollisionDetector.h"
 
 class GameObject;
 
@@ -13,6 +13,7 @@ public:
     void add_game_object(Team::Team team, GameObject& game_object);
     void add_projectile(Team::Team team, GameObject& projectile);
     void check_collisions();
+    void update();
 
 private:
     std::vector<GameObject*> non_projectiles_;

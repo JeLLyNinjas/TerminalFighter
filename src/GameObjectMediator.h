@@ -1,6 +1,6 @@
 #pragma once
 
-#include "I_game_object_mediator.h"
+#include "I_GameObjectMediator.h"
 
 class I_Universe;
 class I_CollisionDetector;

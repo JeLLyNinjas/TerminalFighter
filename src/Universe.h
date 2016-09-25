@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "I_universe.h"
+#include "I_Universe.h"
 
 class GraphicsHandler;
 

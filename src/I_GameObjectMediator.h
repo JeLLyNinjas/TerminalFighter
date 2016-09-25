@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "game_constants.h"
-#include "game_object.h"
+#include "GameConstants.h"
+#include "GameObject.h"
 
 class I_GameObjectMediator {
 public:

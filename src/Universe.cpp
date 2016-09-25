@@ -1,6 +1,6 @@
-#include "universe.h"
+#include "Universe.h"
 
-#include "graphics_handler.h"
+#include "GraphicsHandler.h"
 
 Universe::Universe(SDL_Renderer *renderer) {
     graphics_handler_ = new GraphicsHandler(renderer);

@@ -1,4 +1,4 @@
-#include "menu_state.h"
+#include "MenuState.h"
 
 MenuState::MenuState(SDL_Renderer* renderer)
 : renderer_(renderer)

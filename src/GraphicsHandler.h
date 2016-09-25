@@ -7,7 +7,7 @@
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
 
-#include "draw_request.h"
+#include "DrawRequest.h"
 
 
 class GraphicsHandler {

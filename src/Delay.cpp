@@ -1,4 +1,4 @@
-#include "delay.h"
+#include "Delay.h"
 
 Delay::Delay(bool debug_mode) {
     started_ = false;

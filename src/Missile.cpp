@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "missile.h"
-#include "graphics_handler.h"
+#include "Missile.h"
+#include "GraphicsHandler.h"
 
 SDL_Texture* Missile::missile_texture_ = NULL;
 

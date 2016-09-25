@@ -1,4 +1,4 @@
-#include "game_object.h"
+#include "GameObject.h"
 
 unsigned int GameObject::id_counter_ = 0;
 

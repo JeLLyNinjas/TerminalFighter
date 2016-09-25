@@ -1,4 +1,4 @@
-#include "graphics_handler.h"
+#include "GraphicsHandler.h"
 
 namespace {
     const std::vector<GraphicPriority> DRAW_ORDER = {

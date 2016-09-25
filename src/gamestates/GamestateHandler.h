@@ -4,7 +4,7 @@
 
 #include <SDL.h>
 
-#include "I_gamestate.h"
+#include "I_Gamestate.h"
 
 class GameStateHandler {
 public:

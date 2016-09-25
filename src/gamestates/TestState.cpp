@@ -1,8 +1,8 @@
-#include "test_state.h"
+#include "TestState.h"
 
-#include "game_object_mediator.h"
-#include "universe.h"
-#include "collision_detector.h"
+#include "GameObjectMediator.h"
+#include "Universe.h"
+#include "CollisionDetector.h"
 
 TestState::TestState(SDL_Renderer* renderer)
 : renderer_(renderer),

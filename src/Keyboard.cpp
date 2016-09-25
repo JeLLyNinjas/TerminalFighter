@@ -1,4 +1,4 @@
-#include "keyboard.h"
+#include "Keyboard.h"
 
 void Keyboard::notify_key(std::string key) {
     for(KeyboardListener *listener : listeners) {

@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "game_object.h"
-#include "events.h"
+#include "GameObject.h"
+#include "Events.h"
 
 class I_Universe
 {

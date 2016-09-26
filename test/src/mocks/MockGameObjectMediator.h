@@ -10,7 +10,7 @@ public:
     }
 
     virtual void add_projectile(Team::Team team, std::unique_ptr<GameObject> uPtr) {
-        add_game_object_proxy(team, uPtr.get());
+        add_projectile_proxy(team, uPtr.get());
     }
 
     MOCK_METHOD2(add_game_object_proxy, void(Team::Team, GameObject*));

@@ -145,7 +145,7 @@ void Keyboard::notify_events(const SDL_Event& e) {
 }
 
 void Keyboard::notify_key(const std::string& key) {
-    for(KeyboardListener *listener : listeners) {
+    for(KeyboardListener *listener : listeners_) {
         listener->handle_key_press(key);
     }
 }

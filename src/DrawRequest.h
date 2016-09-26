@@ -2,8 +2,6 @@
 
 #include <SDL2/SDL.h>
 
-#include "I_DrawRequest.h"
-
 enum GraphicPriority {
     OVERLAY,
     UI,
@@ -13,7 +11,7 @@ enum GraphicPriority {
     BACKGROUND
 };
 
-class DrawRequest : public I_DrawRequest {
+class DrawRequest {
 public:
     explicit DrawRequest(SDL_Texture *texture,
                          SDL_Rect texture_rect);

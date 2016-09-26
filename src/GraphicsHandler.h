@@ -7,9 +7,9 @@
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
 
-#include "I_DrawRequest.h"
+#include "I_GraphicsHandler.h"
 
-class GraphicsHandler {
+class GraphicsHandler : public I_GraphicsHandler {
 
 public:
     GraphicsHandler(SDL_Renderer& renderer);
@@ -23,5 +23,5 @@ private:
     SDL_Texture *internal_load_image(std::string path);
     SDL_Renderer& renderer_;
     std::map <std::string, SDL_Texture *> game_graphics_;
-    std::map <GraphicPriority, std::vector<I_DrawRequest> > draw_queue_;
+    std::map <GraphicPriority, std::vector<DrawRequest> > draw_queue_;
 };

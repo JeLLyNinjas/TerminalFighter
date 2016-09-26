@@ -16,7 +16,6 @@ void GameStateHandler::start(gamestates::GameStateName first_state) {
             return;
         }
         if(gamestates_.count(next_state) == 0) {
-            std::cout << "Gamestate " << next_state << " non-existent!" << std::endl;
             exit(1);
         }
         next_state = (gamestates_)[next_state]->run();

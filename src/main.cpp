@@ -112,6 +112,7 @@ int main(int argc, char* argv[])
     gamestates.push_back(menu_state.get());
 
     GameStateHandler gs_handler = GameStateHandler(gamestates);
+#include <iostream>
     gs_handler.start(gamestates::MAIN_MENU);
     close();
     

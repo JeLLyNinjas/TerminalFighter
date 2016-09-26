@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DrawRequest.h"
+
 class I_GraphicsHandler {
 public:
     virtual ~I_GraphicsHandler() {}

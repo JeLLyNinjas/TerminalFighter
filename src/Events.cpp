@@ -11,7 +11,7 @@ void Events::update() {
 }
 
 void Events::notify_event(SDL_Event e) {
-    for(EventsListener *listener : listeners) {
+    for(EventsListener *listener : listeners_) {
         listener->notify_events(e);
     }
 }

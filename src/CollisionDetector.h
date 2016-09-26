@@ -14,6 +14,7 @@ public:
     void add_projectile(Team::Team team, GameObject& projectile);
     void check_collisions();
     void update();
+    void object_destroyed(int id);
 
 private:
     std::vector<GameObject*> non_projectiles_;

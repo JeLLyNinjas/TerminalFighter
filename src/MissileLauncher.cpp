@@ -1,6 +1,7 @@
 #include "MissileLauncher.h"
 
 #include "I_GameObjectMediator.h"
+#include "Missile.h"
 
 MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator)
     : team_(team)

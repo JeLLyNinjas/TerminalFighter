@@ -15,6 +15,7 @@ public:
     void draw_to_screen();
     void add_game_service(std::unique_ptr<I_Updatable> game_service);
     void add_game_object(std::unique_ptr<GameObject> game_object);
+    void object_destroyed(int id);
 
 private:
     void remove_deleted_objects();  /*TODO removes all empty/NULL objects from the all_game_objects vector*/

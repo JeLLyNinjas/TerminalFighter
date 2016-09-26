@@ -19,6 +19,15 @@ GameObject::GameObject(double x_pos, double y_pos, double x_vel, double y_vel)
     , id_(id_counter_++)
 { }
 
+GameObject::~GameObject()
+{}
+
+void GameObject::notify_destroyed() {
+    for(DestroyedListener* listener: listeners_) {
+        listener->object_destroyed(id_);
+    }
+}
+
 double GameObject::x_pos() const {
     return x_pos_;
 }

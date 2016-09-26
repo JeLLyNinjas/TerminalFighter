@@ -4,9 +4,9 @@
 #include "Universe.h"
 #include "CollisionDetector.h"
 
-TestState::TestState(SDL_Renderer* renderer)
-    : renderer_(renderer),
-      exit_(false)
+TestState::TestState(SDL_Renderer& renderer)
+    : renderer_(renderer)
+    , exit_(false)
 {}
 
 gamestates::GameStateName TestState::run()
@@ -59,19 +59,19 @@ gamestates::GameStateName TestState::name() const
 
 void TestState::display_debug_frames_(Delay *delayer) {
     SDL_Surface *frame_rate_surface = delayer->grab_frame_rate();
-    SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface(renderer_, frame_rate_surface);
+    SDL_Texture *frame_rate_texture = SDL_CreateTextureFromSurface(&renderer_, frame_rate_surface);
     SDL_Rect Message_rect; //create a rect
     Message_rect.x = 0;  //controls the rect's x coordinate
     Message_rect.y = 0; // controls the rect's y coordinte
     Message_rect.w = 200; // controls the width of the rect
     Message_rect.h = 70; // controls the height of the rect
-    SDL_RenderCopy(renderer_, frame_rate_texture, NULL, &Message_rect);
+    SDL_RenderCopy(&renderer_, frame_rate_texture, NULL, &Message_rect);
     SDL_FreeSurface(frame_rate_surface);
 }
 
 /* listeners */
 
-void TestState::handle_key_press(std::string keypress) {
+void TestState::handle_key_press(const std::string& keypress) {
     if (keypress == "ESC") {
         exit_ = true;
     }
@@ -79,7 +79,7 @@ void TestState::handle_key_press(std::string keypress) {
     printf("Key returned was: %s\n", keypress.c_str());
 }
 
-void TestState::notify_events(SDL_Event e) {
+void TestState::notify_events(const SDL_Event& e) {
     switch(e.type) {
     case SDL_QUIT:
         printf("SDL_QUIT was called!\n");

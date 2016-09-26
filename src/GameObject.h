@@ -13,7 +13,7 @@ public:
     GameObject(double x_pos, double y_pos, double x_vel, double y_vel);
 
     virtual void update() = 0;
-    virtual void draw(GraphicsHandler *graphics) = 0;
+    virtual void draw(GraphicsHandler& graphics) = 0;
     virtual const Hitbox& hitbox() const = 0;
     virtual void notify_collision(GameObject* collided_object) = 0;
 
@@ -28,9 +28,9 @@ protected:
     double y_pos_;
     double x_vel_;
     double y_vel_;
-    unsigned int id_;
 
 private:
     static unsigned int id_counter_;
+    const unsigned int id_;
 };
 

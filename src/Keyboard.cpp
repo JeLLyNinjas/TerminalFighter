@@ -1,12 +1,6 @@
 #include "Keyboard.h"
 
-void Keyboard::notify_key(std::string key) {
-    for(KeyboardListener *listener : listeners) {
-        listener->handle_key_press(key);
-    }
-}
-
-void Keyboard::notify_events(SDL_Event e) {
+void Keyboard::notify_events(const SDL_Event& e) {
     switch (e.type) {
     case SDL_KEYDOWN:
         switch (e.key.keysym.sym) {
@@ -150,6 +144,8 @@ void Keyboard::notify_events(SDL_Event e) {
     }
 }
 
-
-
-
+void Keyboard::notify_key(const std::string& key) {
+    for(KeyboardListener *listener : listeners) {
+        listener->handle_key_press(key);
+    }
+}

@@ -4,5 +4,6 @@
 
 class EventsListener {
 public:
-    virtual void notify_events(SDL_Event e) = 0;
+    virtual ~I_EventsListener() {}
+    virtual void notify_events(const SDL_Event& e) = 0;
 };

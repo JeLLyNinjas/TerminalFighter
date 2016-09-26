@@ -4,10 +4,8 @@
 
 #include <SDL2/SDL.h>
 
-#include "GameObject.h"
 #include "KeyboardListener.h"
 #include "Observable.h"
-#include "GraphicsHandler.h"
 #include "EventsListener.h"
 
 
@@ -34,8 +32,8 @@ public:
     /* Keyboard will have an empty draw */
 private:
 
-    void notify_events(SDL_Event e);
-    void notify_key(std::string key);
+    void notify_events(const SDL_Event& e);
+    void notify_key(const std::string& key);
 
 };
 

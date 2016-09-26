@@ -14,12 +14,12 @@ void BasicEnemy::update() {
 
 }
 
-void BasicEnemy::draw(GraphicsHandler *graphics) {
+void BasicEnemy::draw(GraphicsHandler& graphics) {
     if(texture_ == NULL) {
         printf("BasicEnemy graphics were null! Setting BasicEnemy graphic...\n");
-        set_texture(graphics->load_image("assets/ships/BasicEnemy.png"));
+        set_texture(graphics.load_image("assets/ships/BasicEnemy.png"));
     }
-    graphics->draw(texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE);
+    graphics.draw(texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE);
 }
 
 void BasicEnemy::set_texture(SDL_Texture* texture) {

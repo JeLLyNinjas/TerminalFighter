@@ -2,9 +2,10 @@
 
 #include "GraphicsHandler.h"
 
-Universe::Universe(SDL_Renderer *renderer) {
-    graphics_handler_ = new GraphicsHandler(renderer);
-    graphics_handler_->init();
+Universe::Universe(SDL_Renderer& renderer) 
+: graphics_handler_(renderer)
+{
+    graphics_handler_.init();
 }
 
 void Universe::get_events() {
@@ -27,7 +28,7 @@ void Universe::draw_all() {
 }
 
 void Universe::draw_to_screen() {
-    graphics_handler_->update_screen();
+    graphics_handler_.update_screen();
 }
 
 void Universe::remove_deleted_objects() {

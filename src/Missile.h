@@ -9,7 +9,7 @@ public:
     Missile(double x_pos, double y_pos, double x_vel, double y_vel);
 
     void update();
-    void draw(GraphicsHandler *graphics);
+    void draw(GraphicsHandler& graphics);
     const Hitbox& hitbox() const;
     void notify_collision(GameObject* collided_object);
 

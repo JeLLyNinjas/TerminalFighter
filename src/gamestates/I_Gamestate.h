@@ -14,7 +14,7 @@ enum GameStateName {
 
 class I_GameState {
 public:
+    virtual ~I_GameState() {}
     virtual gamestates::GameStateName run() = 0;
     virtual gamestates::GameStateName name() const = 0;
-    virtual ~I_GameState() {}
 };

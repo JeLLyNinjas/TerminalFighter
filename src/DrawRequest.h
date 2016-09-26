@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL.h>
 
+#include "I_DrawRequest.h"
+
 enum GraphicPriority {
     OVERLAY,
     UI,
@@ -11,22 +13,12 @@ enum GraphicPriority {
     BACKGROUND
 };
 
-class DrawRequest {
-
+class DrawRequest : public I_DrawRequest {
 public:
     explicit DrawRequest(SDL_Texture *texture,
-                         SDL_Rect texture_rect)
-        :texture_(texture)
-        ,texture_rect_(texture_rect)
-    {}
-
-    SDL_Texture* texture() const {
-        return texture_;
-    }
-
-    const SDL_Rect& texture_rect() const {
-        return texture_rect_;
-    }
+                         SDL_Rect texture_rect);
+    SDL_Texture* texture() const;
+    const SDL_Rect& texture_rect() const;
 
 private:
     SDL_Texture* texture_;

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <unistd.h>
+#include <memory>
 
 #ifndef INT64_C
 #define INT64_C(c) (c ## LL)
@@ -104,18 +105,15 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    I_GameState* test_state = new TestState(main_renderer);
-    I_GameState* menu_state = new MenuState(main_renderer);
+    std::unique_ptr<I_GameState> test_state(new TestState(*main_renderer));
+    std::unique_ptr<I_GameState> menu_state(new MenuState(*main_renderer));
     std::vector<I_GameState*> gamestates;
-    gamestates.push_back(test_state);
-    gamestates.push_back(menu_state);
+    gamestates.push_back(test_state.get());
+    gamestates.push_back(menu_state.get());
 
     GameStateHandler gs_handler = GameStateHandler(gamestates);
     gs_handler.start(gamestates::MAIN_MENU);
     close();
-
-    delete test_state;
-    delete menu_state;
-
+    
     return 0;
 }

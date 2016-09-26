@@ -14,17 +14,17 @@ class SDL_Renderer;
 
 class TestState : public I_GameState, public KeyboardListener, public EventsListener {
 public:
-    TestState(SDL_Renderer* renderer);
+    TestState(SDL_Renderer& renderer);
     gamestates::GameStateName run();
     gamestates::GameStateName name() const;
 
     /* listeners */
-    void handle_key_press(std::string keypress);
-    void notify_events(SDL_Event e);
+    void handle_key_press(const std::string& keypress);
+    void notify_events(const SDL_Event& e);
 
 private:
     void display_debug_frames_(Delay *delayer);
     bool exit_;
 
-    SDL_Renderer* renderer_;
+    SDL_Renderer& renderer_;
 };

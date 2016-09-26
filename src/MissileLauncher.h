@@ -1,10 +1,8 @@
 #pragma once
 #include <string>
 
-#include "GameObject.h"
-#include "Missile.h"
-#include "Observable.h"
 #include "GameConstants.h"
+#include "I_GameObjectMediator.h"
 
 class I_GameObjectMediator;
 

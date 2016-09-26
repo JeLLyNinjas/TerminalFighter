@@ -3,13 +3,12 @@
 #include <vector>
 
 #include "I_Universe.h"
-
-class GraphicsHandler;
+#include "GraphicsHandler.h"
 
 class Universe : public I_Universe {
 
 public:
-    Universe(SDL_Renderer *renderer);
+    Universe(SDL_Renderer& renderer);
     void get_events();
     void update_all();
     void draw_all();
@@ -22,5 +21,5 @@ private:
 
     std::vector<std::unique_ptr<GameObject> > all_game_objects_;
     std::vector<std::unique_ptr<I_Updatable> > game_services_;
-    GraphicsHandler *graphics_handler_;
+    GraphicsHandler graphics_handler_;
 };

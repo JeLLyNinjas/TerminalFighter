@@ -23,6 +23,11 @@ void CollisionDetector::add_game_object(Team::Team team, GameObject& game_object
     non_projectiles_.push_back(&game_object);
 }
 
+void CollisionDetector::check_collisions()
+{
+
+}
+
 void CollisionDetector::update()
 {
 

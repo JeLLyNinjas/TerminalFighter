@@ -9,8 +9,7 @@
 class Events : public I_Updatable, public Observable<EventsListener> {
 
 public:
-    Events() {}
-
+    Events();
     void update();
 
 private:

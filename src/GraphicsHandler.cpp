@@ -11,7 +11,7 @@ const std::vector<GraphicPriority> DRAW_ORDER = {
 };
 }
 
-GraphicsHandler::GraphicsHandler(SDL_Renderer *renderer)
+GraphicsHandler::GraphicsHandler(SDL_Renderer& renderer)
     : renderer_(renderer)
     , draw_queue_({
     {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },
@@ -38,14 +38,14 @@ void GraphicsHandler::draw(SDL_Texture *texture, int x_pos, int y_pos, GraphicPr
 void GraphicsHandler::update_screen() {
     for(auto priority: DRAW_ORDER) {
         for(auto const& draw_request: draw_queue_[priority]) {
-            SDL_RenderCopy(renderer_, draw_request.texture(), NULL, &draw_request.texture_rect());
+            SDL_RenderCopy(&renderer_, draw_request.texture(), NULL, &draw_request.texture_rect());
         }
         draw_queue_.at(priority) = std::vector<DrawRequest>();
     }
 
-    SDL_RenderPresent(renderer_);
-    SDL_SetRenderDrawColor( renderer_, 0x00, 0x00, 0x00, 0x00 ); //clears the screen to the color black
-    SDL_RenderClear(renderer_);
+    SDL_RenderPresent(&renderer_);
+    SDL_SetRenderDrawColor(&renderer_, 0x00, 0x00, 0x00, 0x00 ); //clears the screen to the color black
+    SDL_RenderClear(&renderer_);
 }
 
 //TODO make this function load from a list of objects defined in a text file (.INI file maybe?) depending on each game state enum.
@@ -57,7 +57,7 @@ void GraphicsHandler::init() {
 
 SDL_Texture *GraphicsHandler::internal_load_image(std::string path) {
     SDL_Surface *image_surface = IMG_Load(path.c_str());
-    SDL_Texture *image_texture = SDL_CreateTextureFromSurface(renderer_, image_surface);
+    SDL_Texture *image_texture = SDL_CreateTextureFromSurface(&renderer_, image_surface);
     SDL_FreeSurface(image_surface);
     return image_texture;
 }

@@ -6,11 +6,11 @@
 
 #include <SDL_ttf.h>
 
-
 using namespace std::chrono;
-typedef std::chrono::microseconds us;
-class Delay {
 
+typedef std::chrono::microseconds us;
+
+class Delay {
 public:
     Delay(bool debug_mode);
     void delay_with_fps(double fps);

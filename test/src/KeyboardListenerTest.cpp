@@ -3,11 +3,10 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "game_constants.h"
-#include "missile_launcher.h"
-#include "mocks/mock_keyboard_listener.h"
-#include "keyboard.h"
-#include "events.h"
+#include "MissileLauncher.h"
+#include "mocks/MockKeyboardListener.h"
+#include "Keyboard.h"
+#include "Events.h"
 
 
 using ::testing::_;

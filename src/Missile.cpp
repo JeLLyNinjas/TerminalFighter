@@ -27,7 +27,7 @@ const Hitbox& Missile::hitbox() const {
     return hitbox_;
 }
 
-void Missile::notify_collision(GameObject* collided_object)
+void Missile::notify_collision(GameObject& collided_object)
 {
 
 }

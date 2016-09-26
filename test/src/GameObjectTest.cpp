@@ -1,8 +1,9 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "game_object.h"
-#include "mocks/mock_gameobject.h"
+#include "GameObject.h"
+#include "mocks/MockGameObject.h"
+#include "Hitbox.h"
 
 class GameObjectTest : public ::testing::Test {
 protected:

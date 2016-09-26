@@ -3,8 +3,8 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "gamestate_handler.h"
-#include "mocks/mock_gamestate.h"
+#include "GamestateHandler.h"
+#include "mocks/MockGameState.h"
 
 using ::testing::_;
 using ::testing::InSequence;

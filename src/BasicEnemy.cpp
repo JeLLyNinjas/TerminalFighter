@@ -31,7 +31,7 @@ const Hitbox& BasicEnemy::hitbox() const
     return hitbox_;
 }
 
-void BasicEnemy::notify_collision(GameObject* collided_object)
+void BasicEnemy::notify_collision(GameObject& collided_object)
 {
 
 }

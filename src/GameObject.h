@@ -4,6 +4,7 @@
 #include "I_Updatable.h"
 #include "DestroyedListener.h"
 #include "Observable.h"
+#include "GraphicsHandler.h"
 
 class GraphicsHandler;
 class Hitbox;
@@ -18,7 +19,7 @@ public:
     virtual void update() = 0;
     virtual void draw(GraphicsHandler& graphics) = 0;
     virtual const Hitbox& hitbox() const = 0;
-    virtual void notify_collision(GameObject* collided_object) = 0;
+    virtual void notify_collision(GameObject& collided_object) = 0;
 
     void notify_destroyed();
     double x_pos() const;

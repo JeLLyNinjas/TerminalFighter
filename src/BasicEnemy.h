@@ -12,7 +12,7 @@ public:
     void update();
     void draw(GraphicsHandler& graphics);
     const Hitbox& hitbox() const;
-    void notify_collision(GameObject* collided_object);
+    void notify_collision(GameObject& collided_object);
 
     static void set_texture(SDL_Texture* texture);
 

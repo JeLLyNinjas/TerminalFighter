@@ -1,4 +1,5 @@
-Testing in Terminal Fighter is done with googletest and googlemock, the header files are included in this project.
+Testing in Terminal Fighter is done with googletest and googlemock, the header files `gmock` and `gtest` must be added to your include path.
+A good location is in `/usr/local/include`.
 You must compile the library that has the definitions yourself. 
 Meaning you need a `libgmock.a` archive file in this directory in order to compile the tests. 
 

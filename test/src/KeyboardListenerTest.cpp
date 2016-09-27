@@ -15,10 +15,10 @@ using ::testing::InSequence;
 
 class KeyboardListenerTest : public ::testing::TestWithParam<std::tuple<std::string , int>> {
 public:
-    MockKeyboardListener *mock_keyboard_listener_;
-    Keyboard *keyboard_;
-    Events *events_;
-    SDL_Event *sdl_event_;
+    MockKeyboardListener* mock_keyboard_listener_;
+    Keyboard* keyboard_;
+    Events* events_;
+    SDL_Event* sdl_event_;
 
     virtual void SetUp() {
         mock_keyboard_listener_ = new MockKeyboardListener();
@@ -26,7 +26,6 @@ public:
         events_ = new Events();
         sdl_event_ = new SDL_Event();
         sdl_event_->type = SDL_KEYDOWN;
-
         keyboard_->add_listener(mock_keyboard_listener_);
         events_->add_listener(keyboard_);
     }
@@ -42,7 +41,7 @@ public:
 
 INSTANTIATE_TEST_CASE_P(testKeys,
                         KeyboardListenerTest,
-                        ::testing::Values(std::make_tuple("a",SDLK_a),
+                        ::testing::Values(std::make_tuple("a", SDLK_a),
                                 std::make_tuple("b", SDLK_b),
                                 std::make_tuple("c", SDLK_c),
                                 std::make_tuple("d", SDLK_d),
@@ -89,10 +88,8 @@ INSTANTIATE_TEST_CASE_P(testKeys,
                                 std::make_tuple("\n", SDLK_RETURN)
                                          ));
 
-TEST_P(KeyboardListenerTest, testAllKeys)
-{
+TEST_P(KeyboardListenerTest, testAllKeys) {
     EXPECT_CALL(*mock_keyboard_listener_, handle_key_press(std::get<0>(GetParam())));
-
     sdl_event_->key.keysym.sym = std::get<1>(GetParam());
     SDL_PushEvent(sdl_event_);
     events_->update();

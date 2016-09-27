@@ -6,8 +6,7 @@
 #include "Events.h"
 #include "DestroyedListener.h"
 
-class I_Universe : public DestroyedListener
-{
+class I_Universe : public DestroyedListener {
 public:
     virtual ~I_Universe() {}
     virtual void get_events() = 0;

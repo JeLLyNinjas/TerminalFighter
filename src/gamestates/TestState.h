@@ -23,7 +23,7 @@ public:
     void notify_events(const SDL_Event& e);
 
 private:
-    void display_debug_frames_(Delay *delayer);
+    void display_debug_frames_(Delay* delayer);
     bool exit_;
 
     SDL_Renderer& renderer_;

@@ -1,10 +1,10 @@
 #include "DrawRequest.h"
 
-DrawRequest::DrawRequest(SDL_Texture *texture,
+DrawRequest::DrawRequest(SDL_Texture* texture,
                          SDL_Rect texture_rect)
     : texture_(texture)
-    , texture_rect_(texture_rect)
-{}
+    , texture_rect_(texture_rect) {
+}
 
 SDL_Texture* DrawRequest::texture() const {
     return texture_;

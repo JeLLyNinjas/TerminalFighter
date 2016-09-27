@@ -17,3 +17,5 @@ dist
 TerminalFighter
 run-tests
 *.a
+
+*.sublime*

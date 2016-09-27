@@ -3,19 +3,18 @@
 #include "GraphicsHandler.h"
 
 Universe::Universe(SDL_Renderer& renderer)
-    : graphics_handler_(renderer)
-{
+    : graphics_handler_(renderer) {
     graphics_handler_.init();
 }
 
 void Universe::get_events() {
-
 }
 
 void Universe::update_all() {
     for (auto& game_service : game_services_) {
         game_service->update();
     }
+
     for (auto& game_object : all_game_objects_) {
         game_object->update();
     }
@@ -38,6 +37,7 @@ void Universe::object_destroyed(int id) {
             return;
         }
     }
+
     SDL_assert(true && "Object to be deleted not found in Universe object vector"); // object to be destroyed not found
 }
 

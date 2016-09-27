@@ -14,7 +14,7 @@ class Delay {
 public:
     Delay(bool debug_mode);
     void delay_with_fps(double fps);
-    SDL_Surface *grab_frame_rate();
+    SDL_Surface* grab_frame_rate();
 
 private:
     void start_timer();
@@ -24,5 +24,5 @@ private:
     microseconds time_duration_;
     bool started_, debug_mode_;
     double lowest_fps;
-    TTF_Font *default_delay_font_;
+    TTF_Font* default_delay_font_;
 };

@@ -4,10 +4,10 @@
 template <class T>
 class Observable {
 public:
-    void add_listener(T *listener) {
+    void add_listener(T* listener) {
         listeners_.push_back(listener);
     }
 
 protected:
-    std::vector<T *> listeners_;
+    std::vector<T*> listeners_;
 };

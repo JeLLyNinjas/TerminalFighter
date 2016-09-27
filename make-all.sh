@@ -1,8 +1,10 @@
+#!/bin/bash -e
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-if astyle *.h *.cpp -r --dry-run | grep Formatted; then
+if astyle *.h *.cpp -r --dry-run --options=astylerc | grep Formatted; then
     printf "\n${RED}|*******| STYLE CHECK FAILED |*******|${NC}\n\n"
     exit 1
 else

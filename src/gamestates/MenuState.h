@@ -17,6 +17,6 @@ public:
     gamestates::GameStateName name() const;
 
 private:
-    void display_debug_frames(Delay *delayer);
+    void display_debug_frames(Delay* delayer);
     SDL_Renderer& renderer_;
 };

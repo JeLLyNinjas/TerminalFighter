@@ -4,8 +4,8 @@
 
 MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator)
     : team_(team)
-    , game_object_mediator_(game_object_mediator)
-{ }
+    , game_object_mediator_(game_object_mediator) {
+}
 
 Team::Team MissileLauncher::team() const {
     return team_;

@@ -1,17 +1,18 @@
 #include "Events.h"
 
-Events::Events()
-{}
+Events::Events() {
+}
 
 void Events::update() {
     SDL_Event event;
-    while(SDL_PollEvent(&event)) {
+
+    while (SDL_PollEvent(&event)) {
         notify_event(event);
     }
 }
 
 void Events::notify_event(SDL_Event e) {
-    for(EventsListener *listener : listeners_) {
+    for (EventsListener* listener : listeners_) {
         listener->notify_events(e);
     }
 }

@@ -13,7 +13,7 @@ enum GraphicPriority {
 
 class DrawRequest {
 public:
-    explicit DrawRequest(SDL_Texture *texture,
+    explicit DrawRequest(SDL_Texture* texture,
                          SDL_Rect texture_rect);
     SDL_Texture* texture() const;
     const SDL_Rect& texture_rect() const;

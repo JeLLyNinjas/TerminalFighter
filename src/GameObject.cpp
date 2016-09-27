@@ -5,8 +5,7 @@ unsigned int GameObject::id_counter_ = 0;
 GameObject::GameObject()
     : x_pos_(0)
     , y_pos_(0)
-    , id_(id_counter_++)
-{
+    , id_(id_counter_++) {
     x_pos_ = 0;
     y_pos_ = 0;
 }
@@ -16,14 +15,14 @@ GameObject::GameObject(double x_pos, double y_pos, double x_vel, double y_vel)
     , y_pos_(y_pos)
     , x_vel_(x_vel)
     , y_vel_(y_vel)
-    , id_(id_counter_++)
-{ }
+    , id_(id_counter_++) {
+}
 
-GameObject::~GameObject()
-{}
+GameObject::~GameObject() {
+}
 
 void GameObject::notify_destroyed() {
-    for(DestroyedListener* listener: listeners_) {
+    for (DestroyedListener* listener : listeners_) {
         listener->object_destroyed(id_);
     }
 }
@@ -36,13 +35,11 @@ double GameObject::y_pos() const {
     return y_pos_;
 }
 
-double GameObject::x_vel() const
-{
+double GameObject::x_vel() const {
     return x_vel_;
 }
 
-double GameObject::y_vel() const
-{
+double GameObject::y_vel() const {
     return y_vel_;
 }
 

@@ -14,7 +14,14 @@ install:
     - ar -rv libgmock.a gtest-all.o gmock-all.o
     - cp libgmock.a ../test/
     - cd ..
+    - wget 'https://sourceforge.net/projects/astyle/files/latest/download'
+    - tar -zxvf download
+    - cd astyle/build/gcc
+    - make release
+    - sudo make install
+    - cd ../../../
 
-script: sudo ./make-all
+script: 
+    - sudo ./make-all
 
 language: cpp

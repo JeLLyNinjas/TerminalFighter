@@ -13,7 +13,7 @@ const std::vector<GraphicPriority> DRAW_ORDER = {
 
 GraphicsHandler::GraphicsHandler(SDL_Renderer& renderer)
     : renderer_(renderer)
-    , draw_queue_({
+    , draw_queue_( {
     {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },
     {GraphicPriority::UI, std::vector<DrawRequest>() },
     {GraphicPriority::FRONT, std::vector<DrawRequest>() },

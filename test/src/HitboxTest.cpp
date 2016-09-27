@@ -4,9 +4,9 @@
 #include "Hitbox.h"
 
 class HitboxTest : public ::testing::Test {
-    protected:
-        virtual void SetUp() { }
-        virtual void TearDown() { }
+protected:
+    virtual void SetUp() { }
+    virtual void TearDown() { }
 };
 
 TEST (HitboxTest, simple_hitbox_overlapping_true) {

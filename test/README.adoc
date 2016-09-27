@@ -21,3 +21,17 @@ To create a `libgmock.a` file follow these instructions in an arbitrary dir.
 	`ar -rv libgmock.a gtest-all.o gmock-all.o`
 
 Congratulations! You now have a `libgmock.a` archive file, now include it in the `TerminalFighter/test/` directory and you should be good to go, run `make` in the test directory to check if you can compile the tests.
+
+== Astyle
+
+Linting is done with astyle. 
+
+To install the latest version:
+
+```bash
+wget 'https://sourceforge.net/projects/astyle/files/latest/download'
+tar -zxvf download
+cd astyle/build/gcc
+make release
+sudo make install
+```

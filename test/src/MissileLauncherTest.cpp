@@ -42,9 +42,9 @@ TEST_F(MissileLauncherTest, multiple_missiles) {
 
 TEST_F(MissileLauncherTest, correct_params_passed) {
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::FRIENDLY, AllOf(Property(&Missile::x_pos, 11.0),
-                                           Property(&Missile::y_pos, 12.0),
-                                           Property(&Missile::x_vel, 13.0),
-                                           Property(&Missile::y_vel, 14.0))));
+                Property(&Missile::y_pos, 12.0),
+                Property(&Missile::x_vel, 13.0),
+                Property(&Missile::y_vel, 14.0))));
     launcher_->create_missile(11, 12, 13, 14);
 }
 
@@ -52,13 +52,13 @@ TEST_F(MissileLauncherTest, correct_missiles_passed) {
     InSequence dummy;
 
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::FRIENDLY, AllOf(Property(&Missile::x_pos, 10.0),
-                                           Property(&Missile::y_pos, 10.0),
-                                           Property(&Missile::x_vel, 10.0),
-                                           Property(&Missile::y_vel, 10.0))));
+                Property(&Missile::y_pos, 10.0),
+                Property(&Missile::x_vel, 10.0),
+                Property(&Missile::y_vel, 10.0))));
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::FRIENDLY, AllOf(Property(&Missile::x_pos, 20.0),
-                                           Property(&Missile::y_pos, 20.0),
-                                           Property(&Missile::x_vel, 20.0),
-                                           Property(&Missile::y_vel, 20.0))));
+                Property(&Missile::y_pos, 20.0),
+                Property(&Missile::x_vel, 20.0),
+                Property(&Missile::y_vel, 20.0))));
 
     launcher_->create_missile(10, 10, 10, 10);
     launcher_->create_missile(20, 20, 20, 20);

@@ -85,3 +85,5 @@
 # Stack<int,List<int>> stack1;
 
 --mode=c
+
+--lineend=linux

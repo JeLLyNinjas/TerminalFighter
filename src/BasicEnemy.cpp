@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "BasicEnemy.h"
-#include "GraphicsHandler.h"
+#include "I_GraphicsHandler.h"
 
 SDL_Texture* BasicEnemy::texture_ = NULL;
 
@@ -14,7 +14,7 @@ void BasicEnemy::update() {
     hitbox_.set_pos(x_pos_, y_pos_);
 }
 
-void BasicEnemy::draw(GraphicsHandler& graphics) {
+void BasicEnemy::draw(I_GraphicsHandler& graphics) {
     if (texture_ == NULL) {
         printf("BasicEnemy graphics were null! Setting BasicEnemy graphic...\n");
         set_texture(graphics.load_image("assets/ships/BasicEnemy.png"));

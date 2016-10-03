@@ -2,9 +2,8 @@
 
 #include "GraphicsHandler.h"
 
-Universe::Universe(SDL_Renderer& renderer)
-    : graphics_handler_(renderer) {
-    graphics_handler_.init();
+Universe::Universe(I_GraphicsHandler& graphics_handler)
+    : graphics_handler_(graphics_handler) {
 }
 
 void Universe::get_events() {

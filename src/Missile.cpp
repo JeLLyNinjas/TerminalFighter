@@ -16,7 +16,7 @@ void Missile::update() {
     hitbox_.set_pos(x_pos_, y_pos_);
 }
 
-void Missile::draw(GraphicsHandler& graphics) {
+void Missile::draw(I_GraphicsHandler& graphics) {
     if (missile_texture_ == NULL) {
         printf("Missile graphics were null! Setting missile graphic...\n");
         set_texture(graphics.load_image("assets/projectiles/missile.png"));

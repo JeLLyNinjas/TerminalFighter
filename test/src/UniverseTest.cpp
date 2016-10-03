@@ -9,7 +9,7 @@
 #include "mocks/MockUpdatable.h"
 
 using ::testing::_;
-using ::testing::InSequence;
+using ::testing::Mock;
 
 class UniverseTest : public ::testing::Test {
 protected:
@@ -60,24 +60,26 @@ TEST_F(UniverseTest, draw_to_Screen) {
 }
 
 TEST_F(UniverseTest, update_on_destroyed) {
-    InSequence s;
     MockGameObject& obj1 = this->add_game_object();
+    EXPECT_CALL(obj1, update());
+    EXPECT_CALL(obj1, Die());
     universe_.object_destroyed(obj1.id());
     MockGameObject& obj2 = this->add_game_object();
-    EXPECT_CALL(obj1, update());
     EXPECT_CALL(obj2, update());
-    EXPECT_CALL(obj1, Die());
-    EXPECT_CALL(obj2, update());
+    EXPECT_CALL(obj2, Die());
+    universe_.object_destroyed(obj2.id());
     universe_.object_destroyed(obj1.id());
     universe_.update_all();
-    universe_.update_all();
+    EXPECT_TRUE(Mock::VerifyAndClear(&obj1));
+    EXPECT_TRUE(Mock::VerifyAndClear(&obj2));
 }
 
 TEST_F(UniverseTest, destroyed_twice) {
-    MockGameObject& obj1 = this->add_game_object();
-    EXPECT_CALL(obj1, update());
-    EXPECT_CALL(obj1, Die()); // Expect only once, failed test results in segfault
-    universe_.object_destroyed(obj1.id());
-    universe_.object_destroyed(obj1.id());
+    MockGameObject& obj = this->add_game_object();
+    EXPECT_CALL(obj, update());
+    EXPECT_CALL(obj, Die()); // Expect only once
+    universe_.object_destroyed(obj.id());
+    universe_.object_destroyed(obj.id());
     universe_.update_all();
+    EXPECT_TRUE(Mock::VerifyAndClear(&obj));
 }

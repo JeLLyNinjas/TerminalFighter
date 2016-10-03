@@ -14,13 +14,6 @@ protected:
     }
 };
 
-TEST(GameObjectTest, id_start_0) {
-    GameObject* gameobject = new MockGameObject();
-    unsigned int expected = 0;
-    unsigned int actual = gameobject->id();
-    EXPECT_EQ(expected, actual);
-}
-
 TEST(GameObjectTest, incrementing_id) {
     const int NUM = 10;
     GameObject* gameobjects[NUM];

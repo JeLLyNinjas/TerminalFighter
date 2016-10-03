@@ -16,6 +16,9 @@ void CollisionDetector::add_game_object(Team::Team team, GameObject& game_object
     non_projectiles_.push_back(&game_object);
 }
 
+
+// Do not check collisions between projectiles and projectiles
+// TODO check collisions based on teams
 void CollisionDetector::check_collisions() {
     for (auto a : projectiles_) {
         for (auto b : non_projectiles_) {
@@ -34,7 +37,6 @@ void CollisionDetector::check_collisions() {
 
             if (collided && a->id() != b->id()) {
                 a->notify_collision(*b);
-                b->notify_collision(*a);
             }
         }
     }

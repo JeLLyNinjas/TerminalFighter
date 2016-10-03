@@ -17,16 +17,31 @@ void CollisionDetector::add_game_object(Team::Team team, GameObject& game_object
 }
 
 void CollisionDetector::check_collisions() {
-    for (auto projectile : projectiles_) {
-        projectile->hitbox();
+    for (auto a : projectiles_) {
+        for (auto b : non_projectiles_) {
+            bool collided = a->hitbox().is_overlapping(b->hitbox());
+
+            if (collided) {
+                a->notify_collision(*b);
+                b->notify_collision(*a);
+            }
+        }
     }
 
-    for (auto& non_projectile : non_projectiles_) {
-        non_projectile->hitbox();
+    for (auto& a : non_projectiles_) {
+        for (auto& b : non_projectiles_) {
+            bool collided = a->hitbox().is_overlapping(b->hitbox());
+
+            if (collided && a->id() != b->id()) {
+                a->notify_collision(*b);
+                b->notify_collision(*a);
+            }
+        }
     }
 }
 
 void CollisionDetector::update() {
+    check_collisions();
 }
 
 void CollisionDetector::object_destroyed(int id) {

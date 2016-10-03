@@ -13,6 +13,7 @@ Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel)
 void Missile::update() {
     x_pos_ += x_vel_;
     y_pos_ += y_vel_;
+    hitbox_.set_pos(x_pos_, y_pos_);
 }
 
 void Missile::draw(GraphicsHandler& graphics) {
@@ -24,7 +25,7 @@ void Missile::draw(GraphicsHandler& graphics) {
     graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE);
 }
 
-const Hitbox& Missile::hitbox() const {
+const I_Hitbox& Missile::hitbox() const {
     return hitbox_;
 }
 

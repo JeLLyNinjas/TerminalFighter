@@ -12,6 +12,6 @@ public:
 
     MOCK_METHOD0(update, void());
     MOCK_METHOD1(draw, void(GraphicsHandler& graphics));
-    MOCK_CONST_METHOD0(hitbox, const Hitbox & ());
+    MOCK_CONST_METHOD0(hitbox, const I_Hitbox & ());
     MOCK_METHOD1(notify_collision, void(GameObject&));
 };

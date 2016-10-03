@@ -11,6 +11,7 @@ BasicEnemy::BasicEnemy(double x_pos, double y_pos, double x_vel, double y_vel)
 }
 
 void BasicEnemy::update() {
+    hitbox_.set_pos(x_pos_, y_pos_);
 }
 
 void BasicEnemy::draw(GraphicsHandler& graphics) {
@@ -26,9 +27,10 @@ void BasicEnemy::set_texture(SDL_Texture* texture) {
     texture_ = texture;
 }
 
-const Hitbox& BasicEnemy::hitbox() const {
+const I_Hitbox& BasicEnemy::hitbox() const {
     return hitbox_;
 }
 
 void BasicEnemy::notify_collision(GameObject& collided_object) {
+    notify_destroyed();
 }

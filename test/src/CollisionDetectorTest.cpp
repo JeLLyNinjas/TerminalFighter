@@ -90,7 +90,7 @@ TEST_F(CollisionDetectorTest, projectile_gameobject_no_collision) {
     detector.check_collisions();
 }
 
-TEST_F(CollisionDetectorTest, projectile_projectile_no_collision) {
+TEST_F(CollisionDetectorTest, projectile_projectile) {
     CollisionDetector detector;
     MockGameObject proj_1;
     MockHitbox proj_1_hitbox;
@@ -107,4 +107,36 @@ TEST_F(CollisionDetectorTest, projectile_projectile_no_collision) {
     detector.check_collisions();
 }
 
-// TODO test for no collisions when same team
+TEST_F(CollisionDetectorTest, gameobject_gameobject_same_team) {
+    CollisionDetector detector;
+    MockGameObject gameobj_1;
+    MockHitbox hitbox_1;
+    MockGameObject gameobj_2;
+    MockHitbox hitbox_2;
+    ON_CALL(gameobj_1, hitbox()).WillByDefault(ReturnRef(hitbox_1));
+    ON_CALL(hitbox_1, is_overlapping(Ref(hitbox_2))).WillByDefault(Return(true));
+    ON_CALL(gameobj_2, hitbox()).WillByDefault(ReturnRef(hitbox_2));
+    ON_CALL(hitbox_2, is_overlapping(Ref(hitbox_1))).WillByDefault(Return(true));
+    EXPECT_CALL(gameobj_1, notify_collision(Ref(gameobj_2))).Times(0);
+    EXPECT_CALL(gameobj_2, notify_collision(Ref(gameobj_1))).Times(0);
+    detector.add_game_object(Team::FRIENDLY, gameobj_1);
+    detector.add_game_object(Team::FRIENDLY, gameobj_2);
+    detector.check_collisions();
+}
+
+TEST_F(CollisionDetectorTest, projectile_gameobject_same_team) {
+    CollisionDetector detector;
+    MockGameObject projectile;
+    MockHitbox proj_hitbox;
+    MockGameObject gameobj;
+    MockHitbox gameobj_hitbox;
+    ON_CALL(projectile, hitbox()).WillByDefault(ReturnRef(proj_hitbox));
+    ON_CALL(proj_hitbox, is_overlapping(Ref(gameobj_hitbox))).WillByDefault(Return(true));
+    ON_CALL(gameobj, hitbox()).WillByDefault(ReturnRef(gameobj_hitbox));
+    ON_CALL(gameobj_hitbox, is_overlapping(Ref(proj_hitbox))).WillByDefault(Return(true));
+    EXPECT_CALL(projectile, notify_collision(Ref(gameobj))).Times(0);
+    EXPECT_CALL(gameobj, notify_collision(Ref(projectile))).Times(0);
+    detector.add_projectile(Team::FRIENDLY, projectile);
+    detector.add_game_object(Team::FRIENDLY, gameobj);
+    detector.check_collisions();
+}

@@ -10,21 +10,24 @@ CollisionDetector::~CollisionDetector() {
 
 void CollisionDetector::add_projectile(Team::Team team, GameObject& projectile) {
     projectiles_.push_back(&projectile);
+    affiliation_[projectile.id()] = team;
 }
 
 void CollisionDetector::add_game_object(Team::Team team, GameObject& game_object) {
     non_projectiles_.push_back(&game_object);
+    affiliation_[game_object.id()] = team;
 }
-
 
 // Do not check collisions between projectiles and projectiles
 // TODO check collisions based on teams
 void CollisionDetector::check_collisions() {
     for (auto a : projectiles_) {
         for (auto b : non_projectiles_) {
-            bool collided = a->hitbox().is_overlapping(b->hitbox());
+            if (affiliation_[a->id()] == affiliation_[b->id()]) {
+                continue;
+            }
 
-            if (collided) {
+            if (a->hitbox().is_overlapping(b->hitbox())) {
                 a->notify_collision(*b);
                 b->notify_collision(*a);
             }
@@ -33,9 +36,11 @@ void CollisionDetector::check_collisions() {
 
     for (auto& a : non_projectiles_) {
         for (auto& b : non_projectiles_) {
-            bool collided = a->hitbox().is_overlapping(b->hitbox());
+            if (affiliation_[a->id()] == affiliation_[b->id()]) {
+                continue;
+            }
 
-            if (collided && a->id() != b->id()) {
+            if (a->hitbox().is_overlapping(b->hitbox()) && a->id() != b->id()) {
                 a->notify_collision(*b);
             }
         }

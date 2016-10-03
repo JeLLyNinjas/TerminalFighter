@@ -4,9 +4,8 @@
 #include "I_Updatable.h"
 #include "DestroyedListener.h"
 #include "Observable.h"
-#include "GraphicsHandler.h"
 
-class GraphicsHandler;
+class I_GraphicsHandler;
 class I_Hitbox;
 
 class GameObject : public I_Updatable, public Observable<DestroyedListener> {
@@ -17,7 +16,7 @@ public:
     virtual ~GameObject();
 
     virtual void update() = 0;
-    virtual void draw(GraphicsHandler& graphics) = 0;
+    virtual void draw(I_GraphicsHandler& graphics) = 0;
     virtual const I_Hitbox& hitbox() const = 0;
     virtual void notify_collision(GameObject& collided_object) = 0;
 

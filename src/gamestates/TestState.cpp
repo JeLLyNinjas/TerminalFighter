@@ -6,6 +6,7 @@
 #include "Universe.h"
 #include "CollisionDetector.h"
 #include "BasicEnemy.h"
+#include "GraphicsHandler.h"
 
 TestState::TestState(SDL_Renderer& renderer)
     : renderer_(renderer)
@@ -14,9 +15,11 @@ TestState::TestState(SDL_Renderer& renderer)
 
 gamestates::GameStateName TestState::run() {
     Keyboard keyboard = Keyboard();
+    GraphicsHandler graphics_handler(renderer_);
+    graphics_handler.init();
     std::unique_ptr<Events> events(new Events());
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
-    Universe universe = Universe(renderer_);
+    Universe universe = Universe(graphics_handler);
     GameObjectMediator game_object_mediator(universe, *collision_detector);
     keyboard.add_listener(this);
     events->add_listener(this);

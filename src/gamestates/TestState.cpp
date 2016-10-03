@@ -3,6 +3,7 @@
 #include "GameObjectMediator.h"
 #include "Universe.h"
 #include "CollisionDetector.h"
+#include "BasicEnemy.h"
 
 TestState::TestState(SDL_Renderer& renderer)
     : renderer_(renderer)
@@ -23,6 +24,11 @@ gamestates::GameStateName TestState::run() {
     //Render red filled quad
     int x = 0;
     Delay delayer(false);
+
+    for (int i = 0; i < SCREEN_WIDTH - 100; i += 100) {
+        std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(i, 100, 0, 0));
+        game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
+    }
 
     for (;;) {
         if (x > SCREEN_WIDTH - 1) {

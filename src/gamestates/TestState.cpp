@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "TestState.h"
 
 #include "GameObjectMediator.h"
@@ -23,21 +25,17 @@ gamestates::GameStateName TestState::run() {
     universe.add_game_service(std::move(collision_detector));
     MissileLauncher test_launcher = MissileLauncher(Team::FRIENDLY, game_object_mediator);
     //Render red filled quad
-    int x = 0;
     Delay delayer(false);
 
-    for (int i = 0; i < SCREEN_WIDTH - 100; i += 100) {
-        std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(i, 100, 0, 0));
-        game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
-    }
+    // for (int i = 0; i < SCREEN_WIDTH - 100; i += 100) {
+    //     std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(i, 100, 0, 0));
+    //     game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
+    // }
 
     for (;;) {
-        if (x > SCREEN_WIDTH - 1) {
-            x = 0;
-        }
-
-        x += 10;
-        test_launcher.create_missile(x, SCREEN_WIDTH / 2, 0, -2.2);
+        test_launcher.create_missile(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, rand() % 4, rand() % 4);
+        std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0));
+        game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
 
         if (exit_) {
             return gamestates::EXIT;

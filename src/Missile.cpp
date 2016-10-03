@@ -30,6 +30,7 @@ const I_Hitbox& Missile::hitbox() const {
 }
 
 void Missile::notify_collision(GameObject& collided_object) {
+    notify_destroyed();
 }
 
 void Missile::set_texture(SDL_Texture* texture) {

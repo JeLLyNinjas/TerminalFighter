@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include <SDL2/SDL.h>
+
 #include "BasicEnemy.h"
 #include "I_GraphicsHandler.h"
 
@@ -7,7 +9,7 @@ SDL_Texture* BasicEnemy::texture_ = NULL;
 
 BasicEnemy::BasicEnemy(double x_pos, double y_pos, double x_vel, double y_vel)
     : GameObject(x_pos, y_pos, x_vel, y_vel)
-    , hitbox_(Hitbox(x_pos_, y_pos_, 100, 100)) {
+    , hitbox_(Hitbox(x_pos_, y_pos_, 90, 50)) {
 }
 
 void BasicEnemy::update() {

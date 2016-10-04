@@ -1,10 +1,9 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-
 #include "GameObject.h"
 #include "Hitbox.h"
 
+class SDL_Texture;
 class I_Hitbox;
 class I_GraphicsHandler;
 

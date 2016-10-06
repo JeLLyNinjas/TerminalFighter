@@ -7,6 +7,7 @@
 #include "CollisionDetector.h"
 #include "BasicEnemy.h"
 #include "GraphicsHandler.h"
+#include "MainCharacter.h"
 
 TestState::TestState(SDL_Renderer& renderer)
     : renderer_(renderer)
@@ -29,16 +30,15 @@ gamestates::GameStateName TestState::run() {
     MissileLauncher test_launcher = MissileLauncher(Team::FRIENDLY, game_object_mediator);
     //Render red filled quad
     Delay delayer(false);
-
-    // for (int i = 0; i < SCREEN_WIDTH - 100; i += 100) {
-    //     std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(i, 100, 0, 0));
-    //     game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
-    // }
+    std::unique_ptr<MainCharacter> main_character(new MainCharacter(SCREEN_WIDTH / 2 , SCREEN_HEIGHT - 100));
+    game_object_mediator.add_game_object(Team::FRIENDLY, std::move(main_character));
 
     for (;;) {
-        test_launcher.create_missile(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, rand() % 4, rand() % 4);
-        std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0));
-        game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
+        if (rand() % 5 == 0) {
+            test_launcher.create_missile(SCREEN_WIDTH / 2 , SCREEN_HEIGHT - 100, rand() % 4 - 2, rand() % 4 * -1);
+            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0));
+            game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
+        }
 
         if (exit_) {
             return gamestates::EXIT;

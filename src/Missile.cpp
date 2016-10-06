@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include <SDL2/SDL.h>
+
 #include "Missile.h"
 #include "GraphicsHandler.h"
 

@@ -55,6 +55,7 @@ void GraphicsHandler::update_screen() {
 void GraphicsHandler::init() {
     game_graphics_["assets/projectiles/missile.png"] = internal_load_image("assets/projectiles/missile.png");
     game_graphics_["assets/ships/BasicEnemy.png"] = internal_load_image("assets/ships/BasicEnemy.png");
+    game_graphics_["assets/ships/Arman.png"] = internal_load_image("assets/ships/Arman.png");
 }
 
 SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {

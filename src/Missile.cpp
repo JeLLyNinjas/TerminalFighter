@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include <SDL2/SDL.h>
+
 #include "Missile.h"
 #include "GraphicsHandler.h"
 
@@ -13,9 +15,10 @@ Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel)
 void Missile::update() {
     x_pos_ += x_vel_;
     y_pos_ += y_vel_;
+    hitbox_.set_pos(x_pos_, y_pos_);
 }
 
-void Missile::draw(GraphicsHandler& graphics) {
+void Missile::draw(I_GraphicsHandler& graphics) {
     if (missile_texture_ == NULL) {
         printf("Missile graphics were null! Setting missile graphic...\n");
         set_texture(graphics.load_image("assets/projectiles/missile.png"));
@@ -24,11 +27,12 @@ void Missile::draw(GraphicsHandler& graphics) {
     graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE);
 }
 
-const Hitbox& Missile::hitbox() const {
+const I_Hitbox& Missile::hitbox() const {
     return hitbox_;
 }
 
 void Missile::notify_collision(GameObject& collided_object) {
+    notify_destroyed();
 }
 
 void Missile::set_texture(SDL_Texture* texture) {

@@ -2,9 +2,8 @@
 
 #include "GraphicsHandler.h"
 
-Universe::Universe(SDL_Renderer& renderer)
-    : graphics_handler_(renderer) {
-    graphics_handler_.init();
+Universe::Universe(I_GraphicsHandler& graphics_handler)
+    : graphics_handler_(graphics_handler) {
 }
 
 void Universe::get_events() {
@@ -16,13 +15,20 @@ void Universe::update_all() {
     }
 
     for (auto& game_object : all_game_objects_) {
-        game_object->update();
+        game_object.second->update();
     }
+
+    for (auto id : id_to_delete_) {
+        int success = all_game_objects_.erase(id); // erase returns number of objects erased
+        SDL_assert(success && "Object to be deleted not found in Universe object vector"); // object to be destroyed not found
+    }
+
+    id_to_delete_.clear();
 }
 
 void Universe::draw_all() {
     for (auto& game_object : all_game_objects_) {
-        game_object->draw(graphics_handler_);
+        game_object.second->draw(graphics_handler_);
     }
 }
 
@@ -31,14 +37,7 @@ void Universe::draw_to_screen() {
 }
 
 void Universe::object_destroyed(int id) {
-    for (int i = 0; i < all_game_objects_.size(); i++) {
-        if (all_game_objects_[i]->id() == id) {
-            all_game_objects_.erase(all_game_objects_.begin() + i);
-            return;
-        }
-    }
-
-    SDL_assert(true && "Object to be deleted not found in Universe object vector"); // object to be destroyed not found
+    id_to_delete_.insert(id);
 }
 
 void Universe::add_game_service(std::unique_ptr<I_Updatable> game_service) {
@@ -46,7 +45,7 @@ void Universe::add_game_service(std::unique_ptr<I_Updatable> game_service) {
 }
 
 void Universe::add_game_object(std::unique_ptr<GameObject> game_object) {
-    all_game_objects_.push_back(std::move(game_object));
+    all_game_objects_[game_object->id()] = std::move(game_object);
 }
 
 void Universe::remove_deleted_objects() {

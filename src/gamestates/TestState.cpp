@@ -1,8 +1,13 @@
+#include <stdlib.h>
+
 #include "TestState.h"
 
 #include "GameObjectMediator.h"
 #include "Universe.h"
 #include "CollisionDetector.h"
+#include "BasicEnemy.h"
+#include "GraphicsHandler.h"
+#include "MainCharacter.h"
 
 TestState::TestState(SDL_Renderer& renderer)
     : renderer_(renderer)
@@ -11,26 +16,29 @@ TestState::TestState(SDL_Renderer& renderer)
 
 gamestates::GameStateName TestState::run() {
     Keyboard keyboard = Keyboard();
+    GraphicsHandler graphics_handler(renderer_);
+    graphics_handler.init();
     std::unique_ptr<Events> events(new Events());
-    Universe universe = Universe(renderer_);
-    CollisionDetector collision_detector = CollisionDetector();
-    GameObjectMediator game_object_mediator(universe, collision_detector);
+    std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
+    Universe universe = Universe(graphics_handler);
+    GameObjectMediator game_object_mediator(universe, *collision_detector);
     keyboard.add_listener(this);
     events->add_listener(this);
     events->add_listener(&keyboard);
     universe.add_game_service(std::move(events));
+    universe.add_game_service(std::move(collision_detector));
     MissileLauncher test_launcher = MissileLauncher(Team::FRIENDLY, game_object_mediator);
     //Render red filled quad
-    int x = 0;
     Delay delayer(false);
+    std::unique_ptr<MainCharacter> main_character(new MainCharacter(SCREEN_WIDTH / 2 , SCREEN_HEIGHT - 100));
+    game_object_mediator.add_game_object(Team::FRIENDLY, std::move(main_character));
 
     for (;;) {
-        if (x > SCREEN_WIDTH - 1) {
-            x = 0;
+        if (rand() % 5 == 0) {
+            test_launcher.create_missile(SCREEN_WIDTH / 2 , SCREEN_HEIGHT - 100, rand() % 4 - 2, rand() % 4 * -1);
+            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0));
+            game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
         }
-
-        x += 10;
-        test_launcher.create_missile(x, SCREEN_WIDTH / 2, 0, -2.2);
 
         if (exit_) {
             return gamestates::EXIT;

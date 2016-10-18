@@ -7,9 +7,9 @@ class I_Hitbox;
 class I_GraphicsHandler;
 class SDL_Texture;
 
-class Missile : public GameObject {
+class MainCharacter : public GameObject {
 public:
-    Missile(double x_pos, double y_pos, double x_vel, double y_vel);
+    MainCharacter(double x_pos, double y_pos);
 
     void update();
     void draw(I_GraphicsHandler& graphics);
@@ -18,7 +18,9 @@ public:
 
     static void set_texture(SDL_Texture* texture);
 
-private:
-    static SDL_Texture* missile_texture_;
+protected:
     Hitbox hitbox_;
+
+private:
+    static SDL_Texture* texture_;
 };

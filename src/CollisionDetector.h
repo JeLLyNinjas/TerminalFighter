@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <map>
 
 #include "I_CollisionDetector.h"
 
@@ -19,4 +20,5 @@ public:
 private:
     std::vector<GameObject*> non_projectiles_;
     std::vector<GameObject*> projectiles_;
+    std::map<int, Team::Team> affiliation_;
 };

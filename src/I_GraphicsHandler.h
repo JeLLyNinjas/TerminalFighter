@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include "DrawRequest.h"
 
 class I_GraphicsHandler {

@@ -2,12 +2,12 @@
 #include <SDL2/SDL.h>
 
 #include "I_Gamestate.h"
-#include "Delay.h"
+#include "MissileLauncher.h"
 #include "GameConstants.h"
 #include "KeyboardListener.h"
 #include "Keyboard.h"
-#include "MissileLauncher.h"
 #include "Events.h"
+#include "Delay.h"
 
 class Delay;
 class SDL_Renderer;

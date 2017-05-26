@@ -1,0 +1,36 @@
+include_directories(${TERMINALFIGHTER_SOURCE_DIR}/src)
+link_directories(${TERMINALFIGHTER_BINARY_DIR}/src)
+
+add_library(BasicEnemy BasicEnemy.cpp)
+add_library(CollisionDetector CollisionDetector.cpp)
+add_library(Delay Delay.cpp)
+add_library(DrawRequest DrawRequest.cpp)
+add_library(Events Events.cpp)
+add_library(GameObject GameObject.cpp)
+add_library(GameObjectMediator GameObjectMediator.cpp)
+add_library(GraphicsHandler GraphicsHandler.cpp)
+add_library(Hitbox Hitbox.cpp)
+add_library(Keyboard Keyboard.cpp)
+add_library(MainCharacter MainCharacter.cpp)
+add_library(Missile Missile.cpp)
+add_library(MissileLauncher MissileLauncher.cpp)
+add_library(Universe Universe.cpp)
+
+target_link_libraries(BasicEnemy Hitbox)
+target_link_libraries(CollisionDetector Hitbox)
+target_link_libraries(GraphicsHandler DrawRequest ${SDL2IMAGE_LIBRARIES})
+target_link_libraries(MainCharacter ${SDL2_LIBRARIES})
+target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler)
+target_link_libraries(MissileLauncher Missile)
+target_link_libraries(MissileLauncher GameObjectMediator)
+target_link_libraries(Universe GraphicsHandler GameObject)
+
+add_library(GamestateHandler GamestateHandler.cpp)
+add_library(MenuState MenuState.cpp)
+add_library(TestState TestState.cpp)
+
+target_link_libraries(TestState GameObjectMediator Universe CollisionDetector BasicEnemy GraphicsHandler MainCharacter MissileLauncher
+  Events Delay Keyboard)
+
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES} TestState MenuState GamestateHandler)

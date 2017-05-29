@@ -13,7 +13,7 @@ using ::testing::_;
 using ::testing::Property;
 using ::testing::InSequence;
 
-class KeyboardListenerTest : public ::testing::TestWithParam<std::tuple<std::string , int>> {
+class KeyboardListenerTest : public ::testing::TestWithParam<std::tuple<std::string, int>> {
 public:
     MockKeyboardListener* mock_keyboard_listener_;
     Keyboard* keyboard_;

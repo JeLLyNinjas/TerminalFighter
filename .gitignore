@@ -21,3 +21,6 @@ run-tests
 *.sublime*
 build/
 .clang_complete
+GPATH
+GRTAGS
+GTAGS

@@ -18,6 +18,7 @@ add_library(Universe Universe.cpp)
 
 target_link_libraries(BasicEnemy Hitbox)
 target_link_libraries(CollisionDetector Hitbox)
+target_link_libraries(Delay ${SDL2_LIBRARIES})
 target_link_libraries(GraphicsHandler DrawRequest ${SDL2IMAGE_LIBRARIES})
 target_link_libraries(MainCharacter ${SDL2_LIBRARIES})
 target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler)
@@ -30,7 +31,7 @@ add_library(MenuState MenuState.cpp)
 add_library(TestState TestState.cpp)
 
 target_link_libraries(TestState GameObjectMediator Universe CollisionDetector BasicEnemy GraphicsHandler MainCharacter MissileLauncher
-  Events Delay Keyboard)
+    Events Delay Keyboard)
 
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES} TestState MenuState GamestateHandler)

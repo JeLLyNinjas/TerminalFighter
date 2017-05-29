@@ -11,13 +11,17 @@ else
     printf "\n${GREEN}|*******| STYLE CHECK SUCCESSFUL |*******|${NC}\n\n"    
 fi
 
-make
+mkdir -p build
+cd build
+cmake ..
+make -j8
 if [ $? -eq 0 ]; then
 	printf "\n${GREEN}|*******| SOURCE COMPILATION SUCCESSFUL |*******|${NC}\n\n"
 else
 	printf "\n${RED}|*******| SOURCE COMPILATION FAILED |*******|${NC}\n\n"
 	exit 1
 fi
+cd ..
 
 make -C ./test
 if [ $? -eq 0 ]; then

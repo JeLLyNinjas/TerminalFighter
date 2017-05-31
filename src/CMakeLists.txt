@@ -1,6 +1,3 @@
-include_directories(${TERMINALFIGHTER_SOURCE_DIR}/src)
-link_directories(${TERMINALFIGHTER_BINARY_DIR}/src)
-
 add_library(BasicEnemy BasicEnemy.cpp)
 add_library(CollisionDetector CollisionDetector.cpp)
 add_library(Delay Delay.cpp)
@@ -26,12 +23,8 @@ target_link_libraries(MissileLauncher Missile)
 target_link_libraries(MissileLauncher GameObjectMediator)
 target_link_libraries(Universe GraphicsHandler GameObject)
 
-add_library(GamestateHandler GamestateHandler.cpp)
-add_library(MenuState MenuState.cpp)
-add_library(TestState TestState.cpp)
-
-target_link_libraries(TestState GameObjectMediator Universe CollisionDetector BasicEnemy GraphicsHandler MainCharacter MissileLauncher
-    Events Delay Keyboard)
 
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES} TestState MenuState GamestateHandler)
+
+add_subdirectory(gamestates)

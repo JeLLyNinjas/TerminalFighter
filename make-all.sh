@@ -8,7 +8,7 @@ if astyle *.h *.cpp -r --dry-run --options=astylerc | grep Formatted; then
     printf "\n${RED}|*******| STYLE CHECK FAILED |*******|${NC}\n\n"
     exit 1
 else
-    printf "\n${GREEN}|*******| STYLE CHECK SUCCESSFUL |*******|${NC}\n\n"    
+    printf "\n${GREEN}|*******| STYLE CHECK SUCCESSFUL |*******|${NC}\n\n"
 fi
 
 mkdir -p build
@@ -16,19 +16,20 @@ cd build
 cmake ..
 make -j8
 if [ $? -eq 0 ]; then
-	printf "\n${GREEN}|*******| SOURCE COMPILATION SUCCESSFUL |*******|${NC}\n\n"
+    printf "\n${GREEN}|*******| SOURCE COMPILATION SUCCESSFUL |*******|${NC}\n\n"
 else
-	printf "\n${RED}|*******| SOURCE COMPILATION FAILED |*******|${NC}\n\n"
-	exit 1
+    printf "\n${RED}|*******| SOURCE COMPILATION FAILED |*******|${NC}\n\n"
+    exit 1
 fi
+cp src/TerminalFighter ../
 cd ..
 
 make -C ./test
 if [ $? -eq 0 ]; then
-	printf "\n${GREEN}|*******| TEST COMPILATION SUCCESSFUL |*******|${NC}\n\n"
+    printf "\n${GREEN}|*******| TEST COMPILATION SUCCESSFUL |*******|${NC}\n\n"
 else
-	printf "\n${RED}|*******| TEST COMPILATION FAILED |*******|${NC}\n\n"
-	exit 1
+    printf "\n${RED}|*******| TEST COMPILATION FAILED |*******|${NC}\n\n"
+    exit 1
 fi
 
 ./test/run-tests

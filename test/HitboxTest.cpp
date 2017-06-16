@@ -1,4 +1,4 @@
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 #include <SDL2/SDL.h>
 
 #include "../src/Hitbox.h"

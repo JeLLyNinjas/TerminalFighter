@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <tuple>
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include "../src/MissileLauncher.h"
 #include "mocks/MockKeyboardListener.h"

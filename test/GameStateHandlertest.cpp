@@ -1,7 +1,7 @@
 #include <map>
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include "../src/gamestates/GamestateHandler.h"
 #include "mocks/MockGameState.h"

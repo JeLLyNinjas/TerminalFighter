@@ -24,12 +24,12 @@ fi
 cp src/TerminalFighter ../
 cd ..
 
-make -C ./test
-if [ $? -eq 0 ]; then
-    printf "\n${GREEN}|*******| TEST COMPILATION SUCCESSFUL |*******|${NC}\n\n"
-else
-    printf "\n${RED}|*******| TEST COMPILATION FAILED |*******|${NC}\n\n"
-    exit 1
-fi
+#make -C ./test
+#if [ $? -eq 0 ]; then
+#printf "\n${GREEN}|*******| TEST COMPILATION SUCCESSFUL |*******|${NC}\n\n"
+#else
+#printf "\n${RED}|*******| TEST COMPILATION FAILED |*******|${NC}\n\n"
+#exit 1
+#fi
 
-./test/run-tests
+#./test/run-tests

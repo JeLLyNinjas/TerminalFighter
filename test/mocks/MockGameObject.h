@@ -2,11 +2,12 @@
 
 #include "gmock/gmock.h"
 
-#include "GameObject.h"
-#include "I_GraphicsHandler.h"
-#include "I_Hitbox.h"
+#include "../../src/GameObject.h"
+#include "../../src/I_GraphicsHandler.h"
+#include "../../src/I_Hitbox.h"
 
-class MockGameObject : public GameObject {
+class MockGameObject : public GameObject
+{
 public:
     MockGameObject() {}
 
@@ -15,7 +16,8 @@ public:
     MOCK_CONST_METHOD0(hitbox, const I_Hitbox & ());
     MOCK_METHOD1(notify_collision, void(GameObject&));
     MOCK_METHOD0(Die, void());
-    virtual ~MockGameObject() {
+    virtual ~MockGameObject()
+    {
         Die();
     }
 };

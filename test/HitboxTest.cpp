@@ -1,15 +1,17 @@
 #include "gtest/gtest.h"
 #include <SDL2/SDL.h>
 
-#include "Hitbox.h"
+#include "../src/Hitbox.h"
 
-class HitboxTest : public ::testing::Test {
+class HitboxTest : public ::testing::Test
+{
 protected:
     virtual void SetUp() { }
     virtual void TearDown() { }
 };
 
-TEST (HitboxTest, simple_hitbox_overlapping_true) {
+TEST (HitboxTest, simple_hitbox_overlapping_true)
+{
     Hitbox hitbox1 = Hitbox(0, 0, 100, 100);
     Hitbox hitbox2 = Hitbox(50, 50, 100, 100);
     bool expected = true;
@@ -17,7 +19,8 @@ TEST (HitboxTest, simple_hitbox_overlapping_true) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST (HitboxTest, simple_hitbox_overlapping_false) {
+TEST (HitboxTest, simple_hitbox_overlapping_false)
+{
     Hitbox hitbox1 = Hitbox(0, 0, 100, 100);
     Hitbox hitbox2 = Hitbox(101, 0, 100, 100);
     bool expected = false;
@@ -25,7 +28,8 @@ TEST (HitboxTest, simple_hitbox_overlapping_false) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST(HitboxTest, circle_circle_overlapping_false) {
+TEST(HitboxTest, circle_circle_overlapping_false)
+{
     Hitbox hitbox1 = Hitbox(10, 10, 2);
     Hitbox hitbox2 = Hitbox(40, 40, 2);
     bool expected = false;
@@ -33,7 +37,8 @@ TEST(HitboxTest, circle_circle_overlapping_false) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST(HitboxTest, circle_circle_overlapping_true) {
+TEST(HitboxTest, circle_circle_overlapping_true)
+{
     Hitbox hitbox1 = Hitbox(10, 10, 10);
     Hitbox hitbox2 = Hitbox(20, 20, 15);
     bool expected = true;
@@ -41,7 +46,8 @@ TEST(HitboxTest, circle_circle_overlapping_true) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST(HitboxTest, circle_rect_overlapping_true) {
+TEST(HitboxTest, circle_rect_overlapping_true)
+{
     Hitbox hitbox1 = Hitbox(10, 10, 10);
     Hitbox hitbox2 = Hitbox(10, 0, 20, 20);
     bool expected = true;
@@ -49,7 +55,8 @@ TEST(HitboxTest, circle_rect_overlapping_true) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST(HitboxTest, circle_rect_overlapping_false) {
+TEST(HitboxTest, circle_rect_overlapping_false)
+{
     Hitbox hitbox1 = Hitbox(10, 10, 10);
     Hitbox hitbox2 = Hitbox(40, 40, 20, 20);
     bool expected = false;
@@ -57,7 +64,8 @@ TEST(HitboxTest, circle_rect_overlapping_false) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST (HitboxTest, hitbox_overlapping_enclosed) {
+TEST (HitboxTest, hitbox_overlapping_enclosed)
+{
     Hitbox hitbox1 = Hitbox(0, 0, 100, 100);
     Hitbox hitbox2 = Hitbox(1, 1, 50, 50);
     bool expected = true;
@@ -65,7 +73,8 @@ TEST (HitboxTest, hitbox_overlapping_enclosed) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST(HitboxTest, circle_circle_enclosed) {
+TEST(HitboxTest, circle_circle_enclosed)
+{
     Hitbox hitbox1 = Hitbox(10, 10, 10);
     Hitbox hitbox2 = Hitbox(10, 10, 5);
     bool expected = true;
@@ -73,7 +82,8 @@ TEST(HitboxTest, circle_circle_enclosed) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST(HitboxTest, circle_rect_enclosed) {
+TEST(HitboxTest, circle_rect_enclosed)
+{
     Hitbox hitbox1 = Hitbox(20, 20, 20);
     Hitbox hitbox2 = Hitbox(15, 15, 5);
     bool expected = true;
@@ -81,7 +91,8 @@ TEST(HitboxTest, circle_rect_enclosed) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST (HitboxTest, SDL_rect_constructor) {
+TEST (HitboxTest, SDL_rect_constructor)
+{
     SDL_Rect rect1 = {0, 5, 100, 110};
     Hitbox hitbox1 = Hitbox(rect1);
     EXPECT_EQ(hitbox1.hitbox().x, 0);
@@ -90,7 +101,8 @@ TEST (HitboxTest, SDL_rect_constructor) {
     EXPECT_EQ(hitbox1.hitbox().h, 110);
 }
 
-TEST (HitboxTest, rect_member_constructor) {
+TEST (HitboxTest, rect_member_constructor)
+{
     Hitbox hitbox1 = Hitbox(0, 5, 100, 110);
     EXPECT_EQ(hitbox1.hitbox().x, 0);
     EXPECT_EQ(hitbox1.hitbox().y, 5);
@@ -98,14 +110,16 @@ TEST (HitboxTest, rect_member_constructor) {
     EXPECT_EQ(hitbox1.hitbox().h, 110);
 }
 
-TEST (HitboxTest, circle_member_constructor) {
+TEST (HitboxTest, circle_member_constructor)
+{
     Hitbox hitbox1 = Hitbox(20, 30, 5);
     EXPECT_EQ(hitbox1.hitbox_circle().x, 20);
     EXPECT_EQ(hitbox1.hitbox_circle().y, 30);
     EXPECT_EQ(hitbox1.hitbox_circle().r, 5);
 }
 
-TEST (HitboxTest, Circle_circle_construtor) {
+TEST (HitboxTest, Circle_circle_construtor)
+{
     Circle circle1 = {20, 30, 5};
     Hitbox hitbox1 = Hitbox(circle1);
     EXPECT_EQ(hitbox1.hitbox_circle().x, 20);
@@ -113,7 +127,8 @@ TEST (HitboxTest, Circle_circle_construtor) {
     EXPECT_EQ(hitbox1.hitbox_circle().r, 5);
 }
 
-TEST (HitboxTest, circle_circle_touching_true) {
+TEST (HitboxTest, circle_circle_touching_true)
+{
     Hitbox hitbox1 = Hitbox(10, 10, 10);
     Hitbox hitbox2 = Hitbox(20, 20, 10);
     bool expected = true;
@@ -121,7 +136,8 @@ TEST (HitboxTest, circle_circle_touching_true) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST(HitboxTest, circle_rect_touching) {
+TEST(HitboxTest, circle_rect_touching)
+{
     Hitbox hitbox1 = Hitbox(10, 10, 10);
     Hitbox hitbox2 = Hitbox(20, 0, 10, 20);
     bool expected = true;
@@ -129,7 +145,8 @@ TEST(HitboxTest, circle_rect_touching) {
     EXPECT_EQ(expected, actual);
 }
 
-TEST(HitboxTest, circle_rect_corner) {
+TEST(HitboxTest, circle_rect_corner)
+{
     Hitbox hitbox1 = Hitbox(0, 0, 10, 10);
     Hitbox hitbox2 = Hitbox(14, 13, 5);
     bool expected = true;

@@ -2,9 +2,10 @@
 
 #include "gmock/gmock.h"
 
-#include "I_Hitbox.h"
+#include "../../src/I_Hitbox.h"
 
-class MockHitbox : public I_Hitbox {
+class MockHitbox : public I_Hitbox
+{
 public:
     MockHitbox() {}
 
@@ -14,4 +15,3 @@ public:
     MOCK_CONST_METHOD0(hitbox_circle, const Circle & ());
     MOCK_CONST_METHOD0(hitbox_type, const Shape::Shape & ());
 };
-

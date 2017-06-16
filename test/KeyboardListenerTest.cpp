@@ -13,16 +13,14 @@ using ::testing::_;
 using ::testing::Property;
 using ::testing::InSequence;
 
-class KeyboardListenerTest : public ::testing::TestWithParam<std::tuple<std::string, int>>
-{
+class KeyboardListenerTest : public ::testing::TestWithParam<std::tuple<std::string, int>> {
 public:
     MockKeyboardListener* mock_keyboard_listener_;
     Keyboard* keyboard_;
     Events* events_;
     SDL_Event* sdl_event_;
 
-    virtual void SetUp()
-    {
+    virtual void SetUp() {
         mock_keyboard_listener_ = new MockKeyboardListener();
         keyboard_ = new Keyboard();
         events_ = new Events();
@@ -32,8 +30,7 @@ public:
         events_->add_listener(keyboard_);
     }
 
-    virtual void TearDown()
-    {
+    virtual void TearDown() {
         delete mock_keyboard_listener_;
         delete keyboard_;
         delete events_;
@@ -91,8 +88,7 @@ INSTANTIATE_TEST_CASE_P(testKeys,
                                 std::make_tuple("\n", SDLK_RETURN)
                                          ));
 
-TEST_P(KeyboardListenerTest, testAllKeys)
-{
+TEST_P(KeyboardListenerTest, testAllKeys) {
     EXPECT_CALL(*mock_keyboard_listener_, handle_key_press(std::get<0>(GetParam())));
     sdl_event_->key.keysym.sym = std::get<1>(GetParam());
     SDL_PushEvent(sdl_event_);

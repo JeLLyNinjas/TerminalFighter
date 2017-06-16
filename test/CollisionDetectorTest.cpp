@@ -13,20 +13,16 @@ using ::testing::ReturnRef;
 using ::testing::Return;
 using ::testing::Ref;
 
-class CollisionDetectorTest : public ::testing::Test
-{
+class CollisionDetectorTest : public ::testing::Test {
 protected:
-    virtual void SetUp()
-    {
+    virtual void SetUp() {
     }
 
-    virtual void TearDown()
-    {
+    virtual void TearDown() {
     }
 };
 
-TEST_F(CollisionDetectorTest, gameobject_gameobject_collision)
-{
+TEST_F(CollisionDetectorTest, gameobject_gameobject_collision) {
     CollisionDetector detector;
     MockGameObject gameobj_1;
     MockHitbox hitbox_1;
@@ -43,8 +39,7 @@ TEST_F(CollisionDetectorTest, gameobject_gameobject_collision)
     detector.check_collisions();
 }
 
-TEST_F(CollisionDetectorTest, gameobject_gameobject_no_collision)
-{
+TEST_F(CollisionDetectorTest, gameobject_gameobject_no_collision) {
     CollisionDetector detector;
     MockGameObject gameobj_1;
     MockHitbox hitbox_1;
@@ -61,8 +56,7 @@ TEST_F(CollisionDetectorTest, gameobject_gameobject_no_collision)
     detector.check_collisions();
 }
 
-TEST_F(CollisionDetectorTest, projectile_gameobject_collision)
-{
+TEST_F(CollisionDetectorTest, projectile_gameobject_collision) {
     CollisionDetector detector;
     MockGameObject projectile;
     MockHitbox proj_hitbox;
@@ -79,8 +73,7 @@ TEST_F(CollisionDetectorTest, projectile_gameobject_collision)
     detector.check_collisions();
 }
 
-TEST_F(CollisionDetectorTest, projectile_gameobject_no_collision)
-{
+TEST_F(CollisionDetectorTest, projectile_gameobject_no_collision) {
     CollisionDetector detector;
     MockGameObject projectile;
     MockHitbox proj_hitbox;
@@ -97,8 +90,7 @@ TEST_F(CollisionDetectorTest, projectile_gameobject_no_collision)
     detector.check_collisions();
 }
 
-TEST_F(CollisionDetectorTest, projectile_projectile)
-{
+TEST_F(CollisionDetectorTest, projectile_projectile) {
     CollisionDetector detector;
     MockGameObject proj_1;
     MockHitbox proj_1_hitbox;
@@ -115,8 +107,7 @@ TEST_F(CollisionDetectorTest, projectile_projectile)
     detector.check_collisions();
 }
 
-TEST_F(CollisionDetectorTest, gameobject_gameobject_same_team)
-{
+TEST_F(CollisionDetectorTest, gameobject_gameobject_same_team) {
     CollisionDetector detector;
     MockGameObject gameobj_1;
     MockHitbox hitbox_1;
@@ -133,8 +124,7 @@ TEST_F(CollisionDetectorTest, gameobject_gameobject_same_team)
     detector.check_collisions();
 }
 
-TEST_F(CollisionDetectorTest, projectile_gameobject_same_team)
-{
+TEST_F(CollisionDetectorTest, projectile_gameobject_same_team) {
     CollisionDetector detector;
     MockGameObject projectile;
     MockHitbox proj_hitbox;

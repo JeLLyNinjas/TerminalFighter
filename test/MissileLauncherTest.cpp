@@ -12,30 +12,26 @@ using ::testing::_;
 using ::testing::Property;
 using ::testing::InSequence;
 
-class MissileLauncherTest : public ::testing::Test
-{
+class MissileLauncherTest : public ::testing::Test {
 protected:
     std::unique_ptr<MissileLauncher> launcher_;
     MockGameObjectMediator mediator_;
 
-    virtual void SetUp()
-    {
+    virtual void SetUp() {
         launcher_ = std::unique_ptr<MissileLauncher>(new MissileLauncher(Team::FRIENDLY, mediator_));
     }
 
     virtual void TearDown() {}
 };
 
-TEST_F(MissileLauncherTest, team_set)
-{
+TEST_F(MissileLauncherTest, team_set) {
     MissileLauncher friendly_launcher = MissileLauncher(Team::FRIENDLY, mediator_);
     EXPECT_EQ(friendly_launcher.team(), Team::FRIENDLY);
     MissileLauncher enemy_launcher = MissileLauncher(Team::ENEMY, mediator_);
     EXPECT_EQ(enemy_launcher.team(), Team::ENEMY);
 }
 
-TEST_F(MissileLauncherTest, multiple_missiles)
-{
+TEST_F(MissileLauncherTest, multiple_missiles) {
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::FRIENDLY, _))
     .Times(3);
     launcher_->create_missile(0, 0, 0, 0);
@@ -43,8 +39,7 @@ TEST_F(MissileLauncherTest, multiple_missiles)
     launcher_->create_missile(0, 0, 0, 0);
 }
 
-TEST_F(MissileLauncherTest, correct_params_passed)
-{
+TEST_F(MissileLauncherTest, correct_params_passed) {
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::FRIENDLY, AllOf(Property(&Missile::x_pos, 11.0),
                 Property(&Missile::y_pos, 12.0),
                 Property(&Missile::x_vel, 13.0),
@@ -52,8 +47,7 @@ TEST_F(MissileLauncherTest, correct_params_passed)
     launcher_->create_missile(11, 12, 13, 14);
 }
 
-TEST_F(MissileLauncherTest, correct_missiles_passed)
-{
+TEST_F(MissileLauncherTest, correct_missiles_passed) {
     InSequence dummy;
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::FRIENDLY, AllOf(Property(&Missile::x_pos, 10.0),
                 Property(&Missile::y_pos, 10.0),
@@ -67,8 +61,7 @@ TEST_F(MissileLauncherTest, correct_missiles_passed)
     launcher_->create_missile(20, 20, 20, 20);
 }
 
-TEST_F(MissileLauncherTest, check_missiles_correct_team)
-{
+TEST_F(MissileLauncherTest, check_missiles_correct_team) {
     InSequence dummy;
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::FRIENDLY, _));
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::ENEMY, _));

@@ -10,20 +10,16 @@ using ::testing::_;
 using ::testing::InSequence;
 using ::testing::Return;
 
-class GraphicsHandlerTest : public ::testing::Test
-{
+class GraphicsHandlerTest : public ::testing::Test {
 protected:
-    virtual void SetUp()
-    {
+    virtual void SetUp() {
     }
 
-    virtual void TearDown()
-    {
+    virtual void TearDown() {
     }
 };
 
-TEST(GameStateHandlerTest, runs_gamestate)
-{
+TEST(GameStateHandlerTest, runs_gamestate) {
     MockGameState* mock_mainmenu = new MockGameState();
     EXPECT_CALL(*mock_mainmenu, name())
     .WillRepeatedly(Return(gamestates::MAIN_MENU));
@@ -36,8 +32,7 @@ TEST(GameStateHandlerTest, runs_gamestate)
     delete mock_mainmenu;
 }
 
-TEST(GameStateHandlerTest, runs_next_gamestate)
-{
+TEST(GameStateHandlerTest, runs_next_gamestate) {
     MockGameState* mock_opening = new MockGameState();
     EXPECT_CALL(*mock_opening, name())
     .WillRepeatedly(Return(gamestates::OPENING_CUTSCENE));

@@ -22,14 +22,5 @@ else
     exit 1
 fi
 cp src/TerminalFighter ../
+./test/runTests
 cd ..
-
-#make -C ./test
-#if [ $? -eq 0 ]; then
-#printf "\n${GREEN}|*******| TEST COMPILATION SUCCESSFUL |*******|${NC}\n\n"
-#else
-#printf "\n${RED}|*******| TEST COMPILATION FAILED |*******|${NC}\n\n"
-#exit 1
-#fi
-
-#./test/run-tests

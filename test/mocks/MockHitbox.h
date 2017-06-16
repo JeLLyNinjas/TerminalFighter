@@ -4,8 +4,7 @@
 
 #include "../../src/I_Hitbox.h"
 
-class MockHitbox : public I_Hitbox
-{
+class MockHitbox : public I_Hitbox {
 public:
     MockHitbox() {}
 

@@ -11,27 +11,22 @@
 using ::testing::_;
 using ::testing::Mock;
 
-class UniverseTest : public ::testing::Test
-{
+class UniverseTest : public ::testing::Test {
 protected:
     Universe universe_;
     MockGraphicsHandler graphics_;
 
     UniverseTest()
-        : universe_(graphics_)
-    {
+        : universe_(graphics_) {
     }
 
-    virtual void SetUp()
-    {
+    virtual void SetUp() {
     }
 
-    virtual void TearDown()
-    {
+    virtual void TearDown() {
     }
 
-    virtual MockGameObject& add_game_object()
-    {
+    virtual MockGameObject& add_game_object() {
         MockGameObject* gameobject = new MockGameObject();
         std::unique_ptr<GameObject> game_object_ptr(gameobject);
         universe_.add_game_object(std::move(game_object_ptr));
@@ -39,8 +34,7 @@ protected:
     }
 };
 
-TEST_F(UniverseTest, game_service_update)
-{
+TEST_F(UniverseTest, game_service_update) {
     MockUpdatable* service = new MockUpdatable();
     std::unique_ptr<I_Updatable> service_ptr(service);
     EXPECT_CALL(*service, update());
@@ -48,28 +42,24 @@ TEST_F(UniverseTest, game_service_update)
     universe_.update_all();
 }
 
-TEST_F(UniverseTest, game_object_update)
-{
+TEST_F(UniverseTest, game_object_update) {
     MockGameObject& obj = this->add_game_object();
     EXPECT_CALL(obj, update());
     universe_.update_all();
 }
 
-TEST_F(UniverseTest, draw_all)
-{
+TEST_F(UniverseTest, draw_all) {
     MockGameObject& obj = this->add_game_object();
     EXPECT_CALL(obj, draw(_));
     universe_.draw_all();
 }
 
-TEST_F(UniverseTest, draw_to_Screen)
-{
+TEST_F(UniverseTest, draw_to_Screen) {
     EXPECT_CALL(graphics_, update_screen());
     universe_.draw_to_screen();
 }
 
-TEST_F(UniverseTest, update_on_destroyed)
-{
+TEST_F(UniverseTest, update_on_destroyed) {
     MockGameObject& obj1 = this->add_game_object();
     EXPECT_CALL(obj1, update());
     EXPECT_CALL(obj1, Die());
@@ -84,8 +74,7 @@ TEST_F(UniverseTest, update_on_destroyed)
     EXPECT_TRUE(Mock::VerifyAndClear(&obj2));
 }
 
-TEST_F(UniverseTest, destroyed_twice)
-{
+TEST_F(UniverseTest, destroyed_twice) {
     MockGameObject& obj = this->add_game_object();
     EXPECT_CALL(obj, update());
     EXPECT_CALL(obj, Die()); // Expect only once

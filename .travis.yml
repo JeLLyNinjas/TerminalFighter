@@ -5,6 +5,7 @@ before_install:
 install:
     - sudo apt-get install -qq g++-4.8
     - export CXX="g++-4.8"
+    - sudo cp `which g++-4.8` `which g++`
     - sudo bash ./installer/installer.sh
     - git clone https://github.com/google/googletest.git
     - cd googletest

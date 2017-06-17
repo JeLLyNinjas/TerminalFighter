@@ -25,6 +25,7 @@ target_link_libraries(Universe GraphicsHandler GameObject)
 
 
 add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES} TestState MenuState GamestateHandler)
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}
+  ${SDL2_TTF_LIBRARIES} TestState MenuState GamestateHandler)
 
 add_subdirectory(gamestates)

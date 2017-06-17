@@ -59,5 +59,7 @@ target_link_libraries(KeyboardListenerTest libgtest libgmock ${SDL2_LIBRARIES} M
 target_link_libraries(UniverseTest libgtest libgmock ${SDL2_LIBRARIES} Universe)
 
 add_executable(runTests TestAll.cpp)
-target_link_libraries(runTests libgtest libgmock ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES} pthread GameObjectTest HitboxTest MissileLauncherTest CollisionDetectorTest GameStateHandlertest KeyboardListenerTest UniverseTest)
+target_link_libraries(runTests libgtest libgmock ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES}
+  pthread GameObjectTest HitboxTest MissileLauncherTest CollisionDetectorTest GameStateHandlertest
+  KeyboardListenerTest UniverseTest)
 

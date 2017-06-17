@@ -1,14 +1,14 @@
 #pragma once
 #include <SDL2/SDL.h>
 
-#include <src/gamestates/I_Gamestate.h>
+#include "src/gamestates/I_Gamestate.h"
 
-#include <src/MissileLauncher.h>
-#include <src/GameConstants.h>
-#include <src/KeyboardListener.h>
-#include <src/Keyboard.h>
-#include <src/Events.h>
-#include <src/Delay.h>
+#include "src/MissileLauncher.h"
+#include "src/GameConstants.h"
+#include "src/KeyboardListener.h"
+#include "src/Keyboard.h"
+#include "src/Events.h"
+#include "src/Delay.h"
 
 class Delay;
 class SDL_Renderer;

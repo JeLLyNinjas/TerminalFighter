@@ -1,7 +1,5 @@
 #pragma once
 
-/* #include <SDL.h> */
-
 namespace gamestates {
     enum GameStateName {
         MAIN_MENU,

@@ -1,9 +1,9 @@
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <SDL.h>
 
-#include "Universe.h"
+#include "../src/Universe.h"
 #include "mocks/MockGraphicsHandler.h"
 #include "mocks/MockGameObject.h"
 #include "mocks/MockUpdatable.h"

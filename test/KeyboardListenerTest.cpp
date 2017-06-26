@@ -1,19 +1,19 @@
 #include <SDL2/SDL.h>
 #include <tuple>
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-#include "MissileLauncher.h"
+#include "../src/MissileLauncher.h"
 #include "mocks/MockKeyboardListener.h"
-#include "Keyboard.h"
-#include "Events.h"
+#include "../src/Keyboard.h"
+#include "../src/Events.h"
 
 
 using ::testing::_;
 using ::testing::Property;
 using ::testing::InSequence;
 
-class KeyboardListenerTest : public ::testing::TestWithParam<std::tuple<std::string , int>> {
+class KeyboardListenerTest : public ::testing::TestWithParam<std::tuple<std::string, int>> {
 public:
     MockKeyboardListener* mock_keyboard_listener_;
     Keyboard* keyboard_;
@@ -94,5 +94,4 @@ TEST_P(KeyboardListenerTest, testAllKeys) {
     SDL_PushEvent(sdl_event_);
     events_->update();
 }
-
 

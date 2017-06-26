@@ -1,11 +1,11 @@
 #include <memory>
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-#include "GameConstants.h"
-#include "MissileLauncher.h"
-#include "Missile.h"
+#include "../src/GameConstants.h"
+#include "../src/MissileLauncher.h"
+#include "../src/Missile.h"
 #include "mocks/MockGameObjectMediator.h"
 
 using ::testing::_;

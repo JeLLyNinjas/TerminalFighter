@@ -15,7 +15,12 @@ tags
 build
 dist
 TerminalFighter
+TerminalFighterBackup
 run-tests
 *.a
-
 *.sublime*
+build/
+.clang_complete
+GPATH
+GRTAGS
+GTAGS

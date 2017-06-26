@@ -17,11 +17,12 @@ extern "C" {
 
 using namespace std;
 
-#include "I_Gamestate.h"
-#include "TestState.h"
-#include "MenuState.h"
+#include "src/gamestates/I_Gamestate.h"
+#include "src/gamestates/TestState.h"
+#include "src/gamestates/MenuState.h"
+#include "src/gamestates/GamestateHandler.h"
+
 #include "GameConstants.h"
-#include "GamestateHandler.h"
 
 SDL_Renderer* main_renderer = NULL;
 SDL_Window* window = NULL;

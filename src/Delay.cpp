@@ -48,5 +48,3 @@ SDL_Surface* Delay::grab_frame_rate() {
 
     return TTF_RenderText_Blended(default_delay_font_, std::to_string(1 / ((double)time_duration_.count() / 1000000)).c_str(), frame_rate_color);
 }
-
-

@@ -1,10 +1,10 @@
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <SDL.h>
 
-#include "GameConstants.h"
-#include "CollisionDetector.h"
+#include "../src/GameConstants.h"
+#include "../src/CollisionDetector.h"
 #include "mocks/MockGameObject.h"
 #include "mocks/MockHitbox.h"
 

@@ -1,0 +1,24 @@
+= Terminal Fighter
+
+== How to Build Manually
+
+. Navigate to the root directory of the project and create a directory called 'build' and cd into it.
++
+`mkdir build && cd build`
++
+. Create the makefile
++
+`cmake ..`
++
+. Create the Terminal Fighter Executable
+`Make -j8`
++
+. Copy the executable to the correct location
+`cp src/TerminalFighter ../`
+
+== How to Build Using `build-all.sh`
+
+. Run `build-all.sh` script
++
+`./build-all.sh`
+

@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #include <SDL_ttf.h>
+#include <SDL2/SDL.h>
 
 using namespace std::chrono;
 

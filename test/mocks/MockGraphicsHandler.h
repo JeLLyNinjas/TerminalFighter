@@ -2,7 +2,7 @@
 
 #include "gmock/gmock.h"
 
-#include "I_GraphicsHandler.h"
+#include "../../src/I_GraphicsHandler.h"
 
 class MockGraphicsHandler : public I_GraphicsHandler {
 public:

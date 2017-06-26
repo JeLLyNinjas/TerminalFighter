@@ -1,9 +1,9 @@
 #include <map>
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-#include "GamestateHandler.h"
+#include "../src/gamestates/GamestateHandler.h"
 #include "mocks/MockGameState.h"
 
 using ::testing::_;
@@ -54,4 +54,3 @@ TEST(GameStateHandlerTest, runs_next_gamestate) {
     delete mock_opening;
     delete mock_mainmenu;
 }
-

@@ -22,3 +22,4 @@ private:
     SDL_Texture* texture_;
     SDL_Rect texture_rect_;
 };
+

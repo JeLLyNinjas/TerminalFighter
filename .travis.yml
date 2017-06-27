@@ -7,28 +7,15 @@ install:
     - export CXX="g++-4.8"
     - sudo cp `which g++-4.8` `which g++`
     - sudo bash ./installer/installer.sh
-    - git clone https://github.com/google/googletest.git
-    - cd googletest
-    - sudo cp -r googletest/include/gtest /usr/local/include
-    - sudo cp -r googlemock/include/gmock /usr/local/include
-    - g++ -isystem googletest/include/ -Igoogletest -isystem googlemock/include/ -Igooglemock -pthread -c googlemock/src/gmock-all.cc
-    - g++ -isystem googletest/include/ -Igoogletest -isystem googlemock/include/ -Igooglemock -pthread -c googletest/src/gtest-all.cc
-    - ar -rv libgmock.a gtest-all.o gmock-all.o
-    - cp libgmock.a ../test/
-    - cd ..
-    - rm -rf googletest
     - wget 'https://sourceforge.net/projects/astyle/files/astyle/astyle%203.0/astyle_3.0_linux.tar.gz/download'
     - tar -xzvf download
-    - cd astyle/build/gcc
-    - make release
-    - sudo make install
-    - cd ../../../
+    - (cd astyle/build/gcc && make release && sudo make install)
     - rm astyle -r
+
 before_script:
     - chmod +x build-all.sh
 
-
 script:
-    - sudo ./build-all.sh
+    - ./build-all.sh
 
 language: cpp

@@ -2,12 +2,12 @@
 
 #include "TestState.h"
 
-#include "src/GameObjectMediator.h"
-#include "src/Universe.h"
-#include "src/CollisionDetector.h"
-#include "src/BasicEnemy.h"
-#include "src/GraphicsHandler.h"
-#include "src/MainCharacter.h"
+#include "../GameObjectMediator.h"
+#include "../Universe.h"
+#include "../CollisionDetector.h"
+#include "../BasicEnemy.h"
+#include "../GraphicsHandler.h"
+#include "../MainCharacter.h"
 
 TestState::TestState(SDL_Renderer& renderer)
     : renderer_(renderer)

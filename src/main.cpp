@@ -17,10 +17,10 @@ extern "C" {
 
 using namespace std;
 
-#include "src/gamestates/I_Gamestate.h"
-#include "src/gamestates/TestState.h"
-#include "src/gamestates/MenuState.h"
-#include "src/gamestates/GamestateHandler.h"
+#include "gamestates/I_Gamestate.h"
+#include "gamestates/TestState.h"
+#include "gamestates/MenuState.h"
+#include "gamestates/GamestateHandler.h"
 
 #include "GameConstants.h"
 

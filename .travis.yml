@@ -6,7 +6,7 @@ install:
     - sudo apt-get install -qq g++-4.8
     - export CXX="g++-4.8"
     - sudo cp `which g++-4.8` `which g++`
-    - sudo bash ./installer/installer.sh
+    - sudo bash ./installer.sh
     - wget 'https://sourceforge.net/projects/astyle/files/astyle/astyle%203.0/astyle_3.0_linux.tar.gz/download'
     - tar -xzvf download
     - (cd astyle/build/gcc && make release && sudo make install)

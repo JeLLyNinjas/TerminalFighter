@@ -15,7 +15,7 @@ Terminal::Terminal(double x_pos, double y_pos, double width, double height)
 void Terminal::draw(I_GraphicsHandler& graphics) {
     if (terminal_texture_ == NULL) {
         printf("Terminal graphics were null! Setting terminal graphic...\n");
-        set_texture(graphics.load_image("assets/projectiles/futureui1.png"));
+        set_texture(graphics.load_image("assets/terminal/futureui1.png"));
     }
 
     graphics.draw(terminal_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::UI);

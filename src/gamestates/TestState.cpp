@@ -16,7 +16,7 @@ TestState::TestState(SDL_Renderer& renderer)
 }
 
 gamestates::GameStateName TestState::run() {
-    Terminal terminal = Terminal(10, 10, 100, 100);
+    std::unique_ptr<Terminal> terminal(new Terminal(10, 10, 100, 100));
     Keyboard keyboard = Keyboard();
     GraphicsHandler graphics_handler(renderer_);
     graphics_handler.init();
@@ -27,9 +27,10 @@ gamestates::GameStateName TestState::run() {
     keyboard.add_listener(this);
     events->add_listener(this);
     events->add_listener(&keyboard);
-    keyboard.add_listener(&terminal);
+    keyboard.add_listener(&(*terminal));
     universe.add_game_service(std::move(events));
     universe.add_game_service(std::move(collision_detector));
+    universe.add_game_object(std::move(terminal));
     MissileLauncher test_launcher = MissileLauncher(Team::FRIENDLY, game_object_mediator);
     //Render red filled quad
     Delay delayer(false);

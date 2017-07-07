@@ -10,6 +10,8 @@ SDL_Texture* Terminal::terminal_texture_ = NULL;
 Terminal::Terminal(double x_pos, double y_pos, double width, double height)
     : GameObject(x_pos, y_pos, 0.0, 0.0)
     , hitbox_(Hitbox(x_pos, y_pos, width, height)) {
+    player_text_ = "lah";
+    default_font_ = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 84);
 }
 
 void Terminal::draw(I_GraphicsHandler& graphics) {
@@ -18,7 +20,10 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image("assets/terminal/futureui1.png"));
     }
 
+    SDL_Color white = {255, 255, 255};
+    SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, std::to_string(12300).c_str(), white);
     graphics.draw(terminal_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::UI);
+    graphics.draw(UIText, (int)x_pos(), (int)y_pos(), GraphicPriority::UI);
 }
 
 const I_Hitbox& Terminal::hitbox() const {
@@ -36,5 +41,5 @@ void Terminal::set_texture(SDL_Texture* texture) {
 }
 
 void Terminal::handle_key_press(const std::string& keypress) {
-    printf("Hello!@\n");
+    printf(player_text_.c_str());
 }

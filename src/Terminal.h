@@ -5,6 +5,9 @@
 #include "KeyboardListener.h"
 #include "Keyboard.h"
 
+#include <SDL_ttf.h>
+#include <string>
+
 class Terminal : public GameObject, public KeyboardListener {
 public:
     //x_pos and y_pos define top left portion of terminal
@@ -22,5 +25,7 @@ public:
     static void set_texture(SDL_Texture* texture);
 private:
     static SDL_Texture* terminal_texture_;
+    std::string player_text_;
+    TTF_Font* default_font_;
     Hitbox hitbox_;
 };

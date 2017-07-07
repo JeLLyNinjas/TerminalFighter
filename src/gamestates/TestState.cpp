@@ -16,7 +16,7 @@ TestState::TestState(SDL_Renderer& renderer)
 }
 
 gamestates::GameStateName TestState::run() {
-    std::unique_ptr<Terminal> terminal(new Terminal(10, 10, 100, 100));
+    std::unique_ptr<Terminal> terminal(new Terminal((SCREEN_WIDTH / 2) - 400, SCREEN_HEIGHT - 150, 100, 30));
     Keyboard keyboard = Keyboard();
     GraphicsHandler graphics_handler(renderer_);
     graphics_handler.init();

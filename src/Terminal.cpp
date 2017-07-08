@@ -32,7 +32,7 @@ const I_Hitbox& Terminal::hitbox() const {
 }
 
 void Terminal::update() {
-    //do nothing
+    //do nothing - TODO: maybe add cool effects one day
 }
 void Terminal::notify_collision(GameObject& collided_object) {
     //do nothing
@@ -50,5 +50,14 @@ void Terminal::handle_key_press(const std::string& keypress) {
         if (player_text_.length() != 0) {
             player_text_.resize(player_text_.length() - 1);
         }
+    } else if (keypress.compare("ENTER") == 0) {
+        notify_input(player_text_);
+        player_text_.resize(0);
+    }
+}
+
+void Terminal::notify_input(const std::string& input) {
+    for (TerminalListener* listener : Observable<TerminalListener>::listeners_) {
+        listener->handle_input(input);
     }
 }

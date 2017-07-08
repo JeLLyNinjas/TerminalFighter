@@ -85,7 +85,7 @@ INSTANTIATE_TEST_CASE_P(testKeys,
                                 std::make_tuple(" ", SDLK_SPACE),
                                 std::make_tuple("BKSPACE", SDLK_BACKSPACE),
                                 std::make_tuple("/", SDLK_SLASH),
-                                std::make_tuple("\n", SDLK_RETURN)
+                                std::make_tuple("ENTER", SDLK_RETURN)
                                          ));
 
 TEST_P(KeyboardListenerTest, testAllKeys) {

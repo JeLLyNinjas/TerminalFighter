@@ -4,11 +4,13 @@
 #include "Hitbox.h"
 #include "KeyboardListener.h"
 #include "Keyboard.h"
+#include "Observable.h"
+#include "TerminalListener.h"
 
 #include <SDL_ttf.h>
 #include <string>
 
-class Terminal : public GameObject, public KeyboardListener {
+class Terminal : public GameObject, public KeyboardListener, public Observable<TerminalListener> {
 public:
     //x_pos and y_pos define top left portion of terminal
     Terminal(double x_pos, double y_pos, double width, double height);
@@ -22,8 +24,10 @@ public:
     //KeyboardListener
     void handle_key_press(const std::string& keypress);
 
-    static void set_texture(SDL_Texture* texture);
 private:
+    void notify_input(const std::string& input);
+    static void set_texture(SDL_Texture* texture);
+
     static SDL_Texture* terminal_texture_;
     std::string player_text_;
     TTF_Font* default_font_;

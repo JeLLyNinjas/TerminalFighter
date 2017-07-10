@@ -6,6 +6,7 @@
 #include "KeyboardListenerTest.cpp"
 #include "MissileLauncherTest.cpp"
 #include "UniverseTest.cpp"
+#include "TerminalListenerTest.cpp"
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);

@@ -23,7 +23,7 @@ target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler)
 target_link_libraries(MissileLauncher Missile)
 target_link_libraries(MissileLauncher GameObjectMediator)
 target_link_libraries(Universe GraphicsHandler GameObject)
-target_link_libraries(Terminal GameObject Hitbox)
+target_link_libraries(Terminal ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES} GameObject Hitbox GraphicsHandler)
 
 
 add_executable(${PROJECT_NAME} main.cpp)

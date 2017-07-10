@@ -43,8 +43,6 @@ void Terminal::set_texture(SDL_Texture* texture) {
 }
 
 void Terminal::handle_key_press(const std::string& keypress) {
-    printf(player_text_.c_str());
-
     if (keypress.length() == 1) {
         player_text_ = player_text_ + keypress;
     } else if (keypress.compare("BKSPACE") == 0) {

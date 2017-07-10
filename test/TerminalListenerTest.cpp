@@ -1,5 +1,4 @@
 #include <SDL2/SDL.h>
-#include <tuple>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
@@ -19,7 +18,6 @@ public:
     Terminal* terminal_;
 
     virtual void SetUp() {
-        // mock_terminal_listener_ = new MockTerminalListener();
         terminal_ = new Terminal((100 / 2) - 400, 100 - 150, 100, 30);
         terminal_->Observable<TerminalListener>::add_listener(&mock_terminal_listener_);
     }

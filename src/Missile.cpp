@@ -12,6 +12,9 @@ Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel)
     , hitbox_(Hitbox(x_pos, y_pos, 10, 50)) {
 }
 
+Missile::~Missile() {
+    std::printf("Missile Died \n");
+}
 void Missile::update() {
     x_pos_ += x_vel_;
     y_pos_ += y_vel_;

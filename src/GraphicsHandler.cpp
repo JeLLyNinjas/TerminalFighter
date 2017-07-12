@@ -35,6 +35,12 @@ void GraphicsHandler::draw(SDL_Texture* texture, int x_pos, int y_pos, GraphicPr
     this->draw(texture, texture_rect, priority);
 }
 
+void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos, GraphicPriority priority) {
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(&renderer_, surface);
+    this->draw(texture, x_pos, y_pos, priority);
+}
+
+
 void GraphicsHandler::update_screen() {
     for (auto priority : DRAW_ORDER) {
         for (auto const& draw_request : draw_queue_[priority]) {
@@ -56,6 +62,7 @@ void GraphicsHandler::init() {
     game_graphics_["assets/projectiles/missile.png"] = internal_load_image("assets/projectiles/missile.png");
     game_graphics_["assets/ships/BasicEnemy.png"] = internal_load_image("assets/ships/BasicEnemy.png");
     game_graphics_["assets/ships/Arman.png"] = internal_load_image("assets/ships/Arman.png");
+    game_graphics_["assets/terminal/futureui1.png"] = internal_load_image("assets/terminal/futureui1.png");
 }
 
 SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {

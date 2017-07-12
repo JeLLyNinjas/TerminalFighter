@@ -13,9 +13,9 @@ install:
     - rm astyle -r
 
 before_script:
-    - chmod +x build-all.sh
+    - chmod +x make-all.sh
 
 script:
-    - ./build-all.sh
+    - ./make-all.sh
 
 language: cpp

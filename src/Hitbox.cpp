@@ -48,7 +48,7 @@ bool Hitbox::is_overlapping(const I_Hitbox& other_hitbox) const {
         // CHECKS COLLISION BETWEEN RECT AND CIRCLE
         is_overlapping = check_overlap(other_hitbox.hitbox_circle(), this->hitbox_);
     }
-    
+
     return is_overlapping;
 }
 

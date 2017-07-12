@@ -8,7 +8,7 @@
 
 class I_GameObjectMediator;
 
-class MissileLauncher : public GameObject, public KeyboardListener {
+class MissileLauncher : public GameObject {
 public:
     MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator);
     Team::Team team() const;

@@ -16,25 +16,25 @@ TestState::TestState(SDL_Renderer& renderer)
 }
 
 gamestates::GameStateName TestState::run() {
-    Keyboard keyboard = Keyboard();
+    // Initialize engine critical components
     GraphicsHandler graphics_handler(renderer_);
-    graphics_handler.init();
+    Universe universe(graphics_handler);
     std::unique_ptr<Events> events(new Events());
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
-    Universe universe = Universe(graphics_handler);
     GameObjectMediator game_object_mediator(universe, *collision_detector);
+    Keyboard keyboard;
 
+    // Setup engine critical components
+    graphics_handler.init();
     keyboard.add_listener(this);
     events->add_listener(this);
     events->add_listener(&keyboard);
     universe.add_game_service(std::move(events));
     universe.add_game_service(std::move(collision_detector));
 
-    std::unique_ptr<MissileLauncher> test_launcher(new MissileLauncher(Team::FRIENDLY, game_object_mediator));
-    keyboard.add_listener(&(*test_launcher));
-    universe.add_game_object(std::move(test_launcher));
-
-    std::unique_ptr<MainCharacter> main_character(new MainCharacter(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100));
+    // Create game pieces
+    std::unique_ptr<MainCharacter> main_character(new MainCharacter(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, game_object_mediator));
+    keyboard.add_listener(&(*main_character));
     game_object_mediator.add_game_object(Team::FRIENDLY, std::move(main_character));
 
     Delay delayer(false);

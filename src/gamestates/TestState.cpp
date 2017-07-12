@@ -11,12 +11,11 @@
 #include "../Terminal.h"
 
 TestState::TestState(SDL_Renderer& renderer)
-    : renderer_(renderer)
-    , exit_(false) {
+    : exit_(false)
+    , renderer_(renderer) {
 }
 
 gamestates::GameStateName TestState::run() {
-    std::unique_ptr<Terminal> terminal(new Terminal((SCREEN_WIDTH / 2) - 400, SCREEN_HEIGHT - 150, 100, 30));
     Keyboard keyboard = Keyboard();
     GraphicsHandler graphics_handler(renderer_);
     graphics_handler.init();
@@ -24,22 +23,24 @@ gamestates::GameStateName TestState::run() {
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
     Universe universe = Universe(graphics_handler);
     GameObjectMediator game_object_mediator(universe, *collision_detector);
+
     keyboard.add_listener(this);
     events->add_listener(this);
     events->add_listener(&keyboard);
-    keyboard.add_listener(&(*terminal));
     universe.add_game_service(std::move(events));
     universe.add_game_service(std::move(collision_detector));
-    universe.add_game_object(std::move(terminal));
-    MissileLauncher test_launcher = MissileLauncher(Team::FRIENDLY, game_object_mediator);
-    //Render red filled quad
-    Delay delayer(false);
+
+    std::unique_ptr<MissileLauncher> test_launcher(new MissileLauncher(Team::FRIENDLY, game_object_mediator));
+    keyboard.add_listener(&(*test_launcher));
+    universe.add_game_object(std::move(test_launcher));
+
     std::unique_ptr<MainCharacter> main_character(new MainCharacter(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100));
     game_object_mediator.add_game_object(Team::FRIENDLY, std::move(main_character));
 
+    Delay delayer(false);
+
     for (;;) {
         if (rand() % 5 == 0) {
-            test_launcher.create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, rand() % 4 - 2, rand() % 4 * -1);
             std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0));
             game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
         }

@@ -2,6 +2,10 @@
 
 #include "GameObject.h"
 
+
+#include <string>
+#include <map>
+
 class TargetingSystem : public GameObject {
 
 public:
@@ -17,4 +21,5 @@ private:
 	int word_length_lb_;
 	int word_length_ub_;
 	std::string color_hex_;
+	std::map<int, std::string> targets_;
 };

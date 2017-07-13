@@ -8,10 +8,11 @@ class I_Hitbox;
 class I_GraphicsHandler;
 class SDL_Texture;
 
-class MainCharacter : public GameObject, public KeyboardListener {
+class MainCharacter : public GameObject {
 public:
-    MainCharacter(double x_pos, double y_pos, I_GameObjectMediator& game_object_mediator);
+    MainCharacter(double x_pos, double y_pos);
     static void set_texture(SDL_Texture* texture);
+    void add_weapon(std::unique_ptr<GameObject> weapon);
 
     // GameObject
     void update();
@@ -19,13 +20,10 @@ public:
     const I_Hitbox& hitbox() const;
     void notify_collision(GameObject& collided_object);
 
-    // KeyboardListener
-    void handle_key_press(const std::string& keypress);
-
 protected:
     Hitbox hitbox_;
 
 private:
     static SDL_Texture* texture_;
-    MissileLauncher launcher_;
+    std::vector<std::unique_ptr<GameObject>> weapons_;
 };

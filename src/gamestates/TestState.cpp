@@ -32,9 +32,18 @@ gamestates::GameStateName TestState::run() {
     universe.add_game_service(std::move(events));
     universe.add_game_service(std::move(collision_detector));
 
+
     // Create game pieces
-    std::unique_ptr<MainCharacter> main_character(new MainCharacter(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, game_object_mediator));
-    keyboard.add_listener(&(*main_character));
+
+    // Setup MainCharacter
+    std::unique_ptr<MainCharacter> main_character(
+        new MainCharacter(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100));
+    std::unique_ptr<MissileLauncher> launcher(
+        new MissileLauncher(Team::FRIENDLY, game_object_mediator));
+    keyboard.add_listener(&(*launcher));
+    main_character->add_weapon(std::move(launcher));
+
+    // Add game pieces to game
     game_object_mediator.add_game_object(Team::FRIENDLY, std::move(main_character));
 
     Delay delayer(false);

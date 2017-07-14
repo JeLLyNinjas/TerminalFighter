@@ -37,7 +37,7 @@ void Keyboard::notify_events(const SDL_Event& e) {
                     break;
 
                 case SDLK_RETURN:
-                    notify_key("\n");
+                    notify_key("ENTER");
                     break;
 
                 case SDLK_0:

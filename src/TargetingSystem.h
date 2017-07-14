@@ -7,6 +7,7 @@
 #include <map>
 #include <vector>
 #include <fstream>
+#include <cstdlib>
 
 class TargetingSystem : public GameObject {
 
@@ -21,7 +22,7 @@ public:
 
 private:
 
-    void setup_dictionary(std::string relative_path);
+    void setup_local_dict(std::string relative_path);
     std::string grab_word(int lb, int ub);
 
 

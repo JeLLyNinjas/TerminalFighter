@@ -5,6 +5,8 @@
 
 #include <string>
 #include <map>
+#include <vector>
+#include <fstream>
 
 class TargetingSystem : public GameObject {
 
@@ -18,8 +20,15 @@ public:
     virtual void notify_collision(GameObject& collided_object);
 
 private:
-	int word_length_lb_;
-	int word_length_ub_;
-	std::string color_hex_;
-	std::map<int, std::string> targets_;
+
+    void setup_dictionary(std::string relative_path);
+    std::string grab_word(int lb, int ub);
+
+
+    std::vector<std::vector<std::string>> local_dict_;
+
+    int word_length_lb_;
+    int word_length_ub_;
+    std::string color_hex_;
+    std::map<int, std::string> targets_;
 };

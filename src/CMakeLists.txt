@@ -13,6 +13,7 @@ add_library(Missile Missile.cpp)
 add_library(MissileLauncher MissileLauncher.cpp)
 add_library(Universe Universe.cpp)
 add_library(Terminal Terminal.cpp)
+add_library(TargetingSystem TargetingSystem.cpp)
 
 target_link_libraries(BasicEnemy Hitbox)
 target_link_libraries(CollisionDetector Hitbox)
@@ -24,6 +25,7 @@ target_link_libraries(MissileLauncher Missile)
 target_link_libraries(MissileLauncher GameObjectMediator)
 target_link_libraries(Universe GraphicsHandler GameObject)
 target_link_libraries(Terminal ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES} GameObject Hitbox GraphicsHandler)
+target_link_libraries(TargetingSystem GameObject)
 
 
 add_executable(${PROJECT_NAME} main.cpp)

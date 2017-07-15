@@ -8,6 +8,7 @@
 #include <vector>
 #include <fstream>
 #include <cstdlib>
+#include <ctime>
 
 class TargetingSystem : public GameObject {
 
@@ -22,6 +23,7 @@ public:
 
 private:
 
+    void debug_vector();
     void setup_local_dict(std::string relative_path);
     std::string grab_word(int lb, int ub);
 

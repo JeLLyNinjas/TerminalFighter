@@ -4,7 +4,7 @@
 #include <SDL_ttf.h>
 
 #include "Terminal.h"
-#include "GraphicsHandler.h"
+#include "Engine/I_GraphicsHandler.h"
 
 SDL_Texture* Terminal::terminal_texture_ = NULL;
 

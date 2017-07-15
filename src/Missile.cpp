@@ -2,8 +2,9 @@
 
 #include <SDL2/SDL.h>
 
+#include "Engine/I_GraphicsHandler.h"
+
 #include "Missile.h"
-#include "GraphicsHandler.h"
 
 SDL_Texture* Missile::missile_texture_ = NULL;
 

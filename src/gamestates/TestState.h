@@ -3,12 +3,12 @@
 
 #include "I_Gamestate.h"
 
+#include "../Engine/KeyboardListener.h"
+#include "../Engine/Keyboard.h"
+#include "../Engine/Events.h"
+#include "../Engine/Delay.h"
+
 #include "../MissileLauncher.h"
-#include "../GameConstants.h"
-#include "../KeyboardListener.h"
-#include "../Keyboard.h"
-#include "../Events.h"
-#include "../Delay.h"
 
 class Delay;
 class SDL_Renderer;

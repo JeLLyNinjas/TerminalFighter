@@ -4,8 +4,7 @@
 
 #include "I_Gamestate.h"
 
-#include "../Delay.h"
-#include "../GameConstants.h"
+#include "../Engine/Delay.h"
 
 class Delay;
 class SDL_Renderer;

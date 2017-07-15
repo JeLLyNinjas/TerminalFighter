@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "GameConstants.h"
+#include "Team.h"
 #include "GameObject.h"
 
 class I_GameObjectMediator {

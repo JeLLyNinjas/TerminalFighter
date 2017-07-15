@@ -1,6 +1,7 @@
 #include "gmock/gmock.h"
 
-#include "../../src/I_GameObjectMediator.h"
+#include "../../src/Engine/I_GameObjectMediator.h"
+#include "../../src/Engine/Team.h"
 
 class MockGameObjectMediator : public I_GameObjectMediator {
 public:

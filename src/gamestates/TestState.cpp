@@ -2,12 +2,14 @@
 
 #include "TestState.h"
 
-#include "../GameObjectMediator.h"
-#include "../Universe.h"
-#include "../CollisionDetector.h"
-#include "../BasicEnemy.h"
-#include "../GraphicsHandler.h"
+#include "../Engine/Team.h"
+#include "../Engine/GameObjectMediator.h"
+#include "../Engine/Universe.h"
+#include "../Engine/CollisionDetector.h"
+#include "../Engine/GraphicsHandler.h"
+
 #include "../MainCharacter.h"
+#include "../BasicEnemy.h"
 #include "../Terminal.h"
 
 TestState::TestState(SDL_Renderer& renderer)

@@ -1,14 +1,16 @@
 #pragma once
 
-#include "GameObject.h"
-#include "Hitbox.h"
-#include "KeyboardListener.h"
-#include "Keyboard.h"
-#include "Observable.h"
-#include "TerminalListener.h"
-
 #include <SDL_ttf.h>
 #include <string>
+
+#include "Engine/GameObject.h"
+#include "Engine/Hitbox.h"
+#include "Engine/KeyboardListener.h"
+#include "Engine/Keyboard.h"
+#include "Engine/Observable.h"
+
+#include "TerminalListener.h"
+
 
 class Terminal : public GameObject, public Observable<TerminalListener> {
 public:
@@ -27,7 +29,7 @@ private:
     static void set_texture(SDL_Texture* texture);
 
     static SDL_Texture* terminal_texture_;
+    Hitbox hitbox_;
     std::string player_text_;
     TTF_Font* default_font_;
-    Hitbox hitbox_;
 };

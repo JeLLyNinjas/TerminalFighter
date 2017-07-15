@@ -1,10 +1,13 @@
 #pragma once
+
 #include <string>
 
+#include "Engine/Team.h"
+#include "Engine/Hitbox.h"
+#include "Engine/I_GameObjectMediator.h"
+
 #include "GameConstants.h"
-#include "I_GameObjectMediator.h"
 #include "Terminal.h"
-#include "Hitbox.h"
 
 class I_GameObjectMediator;
 

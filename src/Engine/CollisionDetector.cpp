@@ -1,4 +1,4 @@
-#include "GameConstants.h"
+#include "Team.h"
 #include "CollisionDetector.h"
 #include "Hitbox.h"
 

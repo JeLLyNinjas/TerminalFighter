@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "../src/GameConstants.h"
+#include "../src/Engine/Team.h"
 #include "../src/MissileLauncher.h"
 #include "../src/Missile.h"
 #include "mocks/MockGameObjectMediator.h"

@@ -2,8 +2,9 @@
 
 #include <SDL2/SDL.h>
 
+#include "Engine/I_GraphicsHandler.h"
+
 #include "BasicEnemy.h"
-#include "I_GraphicsHandler.h"
 
 SDL_Texture* BasicEnemy::texture_ = NULL;
 

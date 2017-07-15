@@ -1,9 +1,9 @@
-#include <stdio.h>
-
 #include <SDL2/SDL.h>
 
+#include "Engine/I_GraphicsHandler.h"
+
 #include "MainCharacter.h"
-#include "I_GraphicsHandler.h"
+#include "MissileLauncher.h"
 
 SDL_Texture* MainCharacter::texture_ = NULL;
 

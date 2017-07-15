@@ -1,7 +1,7 @@
 #pragma once
 
-#include "GameObject.h"
-#include "Hitbox.h"
+#include "Engine/GameObject.h"
+#include "Engine/Hitbox.h"
 
 class SDL_Texture;
 class I_Hitbox;

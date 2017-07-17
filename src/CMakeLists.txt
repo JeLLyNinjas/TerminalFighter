@@ -3,6 +3,8 @@ add_library(MainCharacter MainCharacter.cpp)
 add_library(Missile Missile.cpp)
 add_library(MissileLauncher MissileLauncher.cpp)
 add_library(Terminal Terminal.cpp)
+add_library(MenuState MenuState.cpp)
+add_library(TestState TestState.cpp)
 
 add_library(CollisionDetector Engine/CollisionDetector.cpp)
 add_library(Delay Engine/Delay.cpp)
@@ -14,6 +16,7 @@ add_library(GraphicsHandler Engine/GraphicsHandler.cpp)
 add_library(Hitbox Engine/Hitbox.cpp)
 add_library(Keyboard Engine/Keyboard.cpp)
 add_library(Universe Engine/Universe.cpp)
+add_library(GamestateHandler Engine/GamestateHandler.cpp)
 
 target_link_libraries(BasicEnemy Hitbox)
 target_link_libraries(CollisionDetector Hitbox)
@@ -25,10 +28,9 @@ target_link_libraries(MissileLauncher Missile)
 target_link_libraries(MissileLauncher GameObjectMediator)
 target_link_libraries(Universe GraphicsHandler GameObject)
 target_link_libraries(Terminal ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES} GameObject Hitbox GraphicsHandler)
-
+target_link_libraries(TestState GameObjectMediator Universe CollisionDetector BasicEnemy
+    GraphicsHandler MainCharacter MissileLauncher Events Delay Keyboard Terminal)
 
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES} TestState MenuState GamestateHandler)
-
-add_subdirectory(gamestates)

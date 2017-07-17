@@ -2,15 +2,15 @@
 
 #include "TestState.h"
 
-#include "../Engine/Team.h"
-#include "../Engine/GameObjectMediator.h"
-#include "../Engine/Universe.h"
-#include "../Engine/CollisionDetector.h"
-#include "../Engine/GraphicsHandler.h"
+#include "Engine/Team.h"
+#include "Engine/GameObjectMediator.h"
+#include "Engine/Universe.h"
+#include "Engine/CollisionDetector.h"
+#include "Engine/GraphicsHandler.h"
 
-#include "../MainCharacter.h"
-#include "../BasicEnemy.h"
-#include "../Terminal.h"
+#include "MainCharacter.h"
+#include "BasicEnemy.h"
+#include "Terminal.h"
 
 TestState::TestState(SDL_Renderer& renderer)
     : exit_(false)

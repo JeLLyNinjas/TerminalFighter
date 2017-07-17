@@ -17,11 +17,11 @@ extern "C" {
 
 using namespace std;
 
-#include "gamestates/I_Gamestate.h"
-#include "gamestates/TestState.h"
-#include "gamestates/MenuState.h"
-#include "gamestates/GamestateHandler.h"
+#include "Engine/I_Gamestate.h"
+#include "Engine/GamestateHandler.h"
 
+#include "TestState.h"
+#include "MenuState.h"
 #include "GameConstants.h"
 
 SDL_Renderer* main_renderer = NULL;

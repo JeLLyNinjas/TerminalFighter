@@ -2,9 +2,9 @@
 
 #include <SDL2/SDL.h>
 
-#include "I_Gamestate.h"
 
-#include "../Engine/Delay.h"
+#include "Engine/I_Gamestate.h"
+#include "Engine/Delay.h"
 
 class Delay;
 class SDL_Renderer;

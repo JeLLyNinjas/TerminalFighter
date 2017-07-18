@@ -6,15 +6,12 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <fstream>
-#include <cstdlib>
-#include <ctime>
 
 class TargetingSystem : public GameObject {
 
 public:
 
-    TargetingSystem(int word_length_lb, int word_length_ub, std::string color_hex);
+    TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex);
 
     void update();
     virtual void draw(I_GraphicsHandler& graphics);
@@ -23,15 +20,15 @@ public:
 
 private:
 
-    void debug_vector();
+    void print_vector();
     void setup_local_dict(std::string relative_path);
-    std::string grab_word(int lb, int ub);
+    std::string grab_word(int lower_bound, int upper_bound);
 
 
     std::vector<std::vector<std::string>> local_dict_;
 
-    int word_length_lb_;
-    int word_length_ub_;
+    int word_length_lower_bound_;
+    int word_length_upper_bound_;
     std::string color_hex_;
     std::map<int, std::string> targets_;
 };

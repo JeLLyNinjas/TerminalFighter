@@ -1,16 +1,19 @@
 #include "TargetingSystem.h"
 
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
 
-TargetingSystem::TargetingSystem(int word_length_lb, int word_length_ub, std::string color_hex)
-    : word_length_lb_(word_length_lb)
-    , word_length_ub_(word_length_ub)
+TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex)
+    : word_length_lower_bound_(word_length_lower_bound)
+    , word_length_upper_bound_(word_length_upper_bound)
     , color_hex_(color_hex) {
-    setup_local_dict("placeholder");
+    setup_local_dict("assets/dictionary.txt");
 }
 
 void TargetingSystem::setup_local_dict(std::string relative_path) {
 
-    std::ifstream infile("assets/dictionary.txt");
+    std::ifstream infile(relative_path);
 
     //local_dict_ is 2D vector. 1st dimension is used to split words on length
     //where index represents word length, 2nd dimension holds the words
@@ -23,19 +26,17 @@ void TargetingSystem::setup_local_dict(std::string relative_path) {
     }
 
     infile.close();
-
-    std::printf("%s\n", grab_word(1, 7).c_str());
 }
 
-/*if lb is same or greater than ub, than lb will be used and ub will be ignored*/
-std::string TargetingSystem::grab_word(int lb, int ub) {
+/*if lower_bound is same or greater than upper_bound, than lower_bound will be used and upper_bound will be ignored*/
+std::string TargetingSystem::grab_word(int lower_bound, int upper_bound) {
     srand(time(NULL)); //this actually makes rand() be random
     int random_word_length;
 
-    if ((ub - lb) < 1) {
-        random_word_length = ub;
+    if ((upper_bound - lower_bound) < 1) {
+        random_word_length = upper_bound;
     } else {
-        random_word_length = lb + (rand() % (ub - lb));
+        random_word_length = lower_bound + (rand() % (upper_bound - lower_bound));
     }
 
     return local_dict_[random_word_length].at(rand() % local_dict_[random_word_length].size());
@@ -58,7 +59,7 @@ void TargetingSystem::notify_collision(GameObject& collided_object) {
 }
 
 
-void TargetingSystem::debug_vector() {
+void TargetingSystem::print_vector() {
     for (int i = 0; i < local_dict_.size(); i++) {
         printf("%s %d\n", "Word of size:", i);
 

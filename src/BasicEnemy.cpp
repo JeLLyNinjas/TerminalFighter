@@ -7,8 +7,8 @@
 
 SDL_Texture* BasicEnemy::texture_ = NULL;
 
-BasicEnemy::BasicEnemy(double x_pos, double y_pos, double x_vel, double y_vel)
-    : GameObject(x_pos, y_pos, x_vel, y_vel)
+BasicEnemy::BasicEnemy(double x_pos, double y_pos, double x_vel, double y_vel, int health)
+    : GameObject(x_pos, y_pos, x_vel, y_vel, health)
     , hitbox_(Hitbox(x_pos_, y_pos_, 90, 50)) {
 }
 
@@ -34,5 +34,13 @@ const I_Hitbox& BasicEnemy::hitbox() const {
 }
 
 void BasicEnemy::notify_collision(GameObject& collided_object) {
-    notify_destroyed();
+    collided_object.take_damage(5);
+}
+
+void BasicEnemy::take_damage(int damage) {
+    health_ -= damage;
+
+    if (health_ <= 0) {
+        notify_destroyed();
+    }
 }

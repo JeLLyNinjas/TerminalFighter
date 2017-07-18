@@ -38,7 +38,7 @@ gamestates::GameStateName TestState::run() {
 
     // Setup MainCharacter
     std::unique_ptr<MainCharacter> main_character(
-        new MainCharacter(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100));
+        new MainCharacter(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, 100));
     std::unique_ptr<MissileLauncher> launcher(
         new MissileLauncher(Team::FRIENDLY, game_object_mediator));
     keyboard.add_listener(&(*launcher));
@@ -51,7 +51,7 @@ gamestates::GameStateName TestState::run() {
 
     for (;;) {
         if (rand() % 5 == 0) {
-            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0));
+            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0, 10));
             game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
         }
 

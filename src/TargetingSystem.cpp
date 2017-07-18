@@ -7,6 +7,7 @@
 TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex)
     : word_length_lower_bound_(word_length_lower_bound)
     , word_length_upper_bound_(word_length_upper_bound)
+    , hitbox_(Hitbox(0, 0, 1920, 1080)) //hardcoded numbers, TODO, don't have these hardcoded
     , color_hex_(color_hex) {
     setup_local_dict("assets/dictionary.txt");
 }
@@ -43,19 +44,19 @@ std::string TargetingSystem::grab_word(int lower_bound, int upper_bound) {
 }
 
 void TargetingSystem::update() {
-
+    //no update
 }
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
-
+    //no draw
 }
 
 const I_Hitbox& TargetingSystem::hitbox() const {
-
+    return hitbox_;
 }
 
 void TargetingSystem::notify_collision(GameObject& collided_object) {
-
+    printf("Collision with objectID:%d\n", collided_object.id());
 }
 
 

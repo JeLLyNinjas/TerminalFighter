@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Hitbox.h"
 
 
 #include <string>
@@ -31,4 +32,5 @@ private:
     int word_length_upper_bound_;
     std::string color_hex_;
     std::map<int, std::string> targets_;
+    Hitbox hitbox_;
 };

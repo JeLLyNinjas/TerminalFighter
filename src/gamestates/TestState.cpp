@@ -34,7 +34,6 @@ gamestates::GameStateName TestState::run() {
     universe.add_game_service(std::move(events));
     universe.add_game_service(std::move(collision_detector));
 
-
     // Create game pieces
 
     // Setup MainCharacter

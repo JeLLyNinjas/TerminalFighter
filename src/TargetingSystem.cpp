@@ -60,10 +60,8 @@ void TargetingSystem::notify_collision(GameObject& collided_object) {
 }
 
 
-void TargetingSystem::print_vector() {
+void TargetingSystem::print_dict() {
     for (int i = 0; i < local_dict_.size(); i++) {
-        printf("%s %d\n", "Word of size:", i);
-
         for (int j = 0; j < local_dict_[i].size(); j++) {
             printf("%s\n", local_dict_[i].at(j).c_str());
         }

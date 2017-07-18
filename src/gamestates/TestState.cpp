@@ -9,6 +9,7 @@
 #include "../GraphicsHandler.h"
 #include "../MainCharacter.h"
 #include "../Terminal.h"
+#include "../TargetingSystem.h"
 
 TestState::TestState(SDL_Renderer& renderer)
     : exit_(false)
@@ -23,6 +24,7 @@ gamestates::GameStateName TestState::run() {
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
     GameObjectMediator game_object_mediator(universe, *collision_detector);
     Keyboard keyboard;
+    TargetingSystem* target_system = new TargetingSystem(3, 5, "FFFF");
 
     // Setup engine critical components
     graphics_handler.init();

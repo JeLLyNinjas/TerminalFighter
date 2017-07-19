@@ -56,7 +56,13 @@ const I_Hitbox& TargetingSystem::hitbox() const {
 }
 
 void TargetingSystem::notify_collision(GameObject& collided_object) {
-    printf("Collision with objectID:%d\n", collided_object.id());
+    //printf("Collision with objectID:%d\n", collided_object.id());
+    if (targets_.find(&collided_object) != targets_.end()) {
+
+    } else {
+        printf("Target %d was not found\n", collided_object.id());
+        targets_[&collided_object] = {grab_word(word_length_lower_bound_, word_length_upper_bound_), "1"};
+    }
 }
 
 

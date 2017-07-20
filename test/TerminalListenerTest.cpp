@@ -1,12 +1,13 @@
-#include <SDL2/SDL.h>
+#include <string>
+
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <SDL2/SDL.h>
+#include <SDL_ttf.h>
 
 #include "mocks/MockTerminalListener.h"
-#include "../src/Terminal.h"
+#include "../src/TerminalFighter/Terminal/Terminal.h"
 
-#include <SDL_ttf.h>
-#include <string>
 
 using ::testing::_;
 using ::testing::Property;

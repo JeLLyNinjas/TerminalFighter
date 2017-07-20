@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 
-#include "../src/Engine/Universe.h"
+#include "Universe/Universe.h"
 #include "mocks/MockGraphicsHandler.h"
 #include "mocks/MockGameObject.h"
 #include "mocks/MockUpdatable.h"

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "GamestateHandler.h"
+#include "GameStateHandler.h"
 
 GameStateHandler::GameStateHandler(std::vector<I_GameState*>& gamestates) {
     gamestates_ = std::map<gamestates::GameStateName, I_GameState*>();

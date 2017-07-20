@@ -3,8 +3,8 @@
 
 #include <SDL.h>
 
-#include "../src/Engine/Team.h"
-#include "../src/Engine/CollisionDetector.h"
+#include "../src/Engine/Team/Team.h"
+#include "../src/Engine/CollisionDetector/CollisionDetector.h"
 #include "mocks/MockGameObject.h"
 #include "mocks/MockHitbox.h"
 

@@ -1,6 +1,6 @@
 #include "Universe.h"
 
-#include "GraphicsHandler.h"
+#include "GraphicsHandler/GraphicsHandler.h"
 
 Universe::Universe(I_GraphicsHandler& graphics_handler)
     : graphics_handler_(graphics_handler) {

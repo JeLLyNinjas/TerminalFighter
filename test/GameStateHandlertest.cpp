@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "../src/Engine/GamestateHandler.h"
+#include "../src/Engine/GameStateHandler/GameStateHandler.h"
 #include "mocks/MockGameState.h"
 
 using ::testing::_;

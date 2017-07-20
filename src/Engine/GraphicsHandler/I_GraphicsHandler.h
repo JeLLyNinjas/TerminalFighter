@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "DrawRequest.h"
+#include "DrawRequest/DrawRequest.h"
 
 class I_GraphicsHandler {
 public:

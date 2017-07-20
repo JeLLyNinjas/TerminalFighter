@@ -1,7 +1,7 @@
 #include "GameObjectMediator.h"
 
-#include "I_CollisionDetector.h"
-#include "I_Universe.h"
+#include "CollisionDetector/I_CollisionDetector.h"
+#include "Universe/I_Universe.h"
 
 GameObjectMediator::GameObjectMediator(I_Universe& universe, I_CollisionDetector& collision_detector)
     : universe_(universe)

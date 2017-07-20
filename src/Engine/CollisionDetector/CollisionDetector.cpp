@@ -1,6 +1,6 @@
-#include "Team.h"
 #include "CollisionDetector.h"
-#include "Hitbox.h"
+#include "Team/Team.h"
+#include "Hitbox/Hitbox.h"
 
 CollisionDetector::CollisionDetector() {
 }

@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "Team.h"
-#include "GameObject.h"
+#include "Team/Team.h"
+#include "GameObject/GameObject.h"
 
 class I_GameObjectMediator {
 public:

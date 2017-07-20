@@ -3,8 +3,8 @@
 #include <SDL2/SDL.h>
 
 #include "EventsListener.h"
-#include "I_Updatable.h"
-#include "Observable.h"
+#include "GameObject/I_Updatable.h"
+#include "Observable/Observable.h"
 
 class Events : public I_Updatable, public Observable<EventsListener> {
 

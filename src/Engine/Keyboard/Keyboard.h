@@ -5,8 +5,8 @@
 #include <SDL2/SDL.h>
 
 #include "KeyboardListener.h"
-#include "Observable.h"
-#include "EventsListener.h"
+#include "Observable/Observable.h"
+#include "Events/EventsListener.h"
 
 
 /* Keyboard

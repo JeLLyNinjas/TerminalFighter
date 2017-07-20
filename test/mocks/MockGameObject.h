@@ -2,9 +2,9 @@
 
 #include "gmock/gmock.h"
 
-#include "../../src/Engine/GameObject.h"
-#include "../../src/Engine/I_GraphicsHandler.h"
-#include "../../src/Engine/I_Hitbox.h"
+#include "../../src/Engine/GameObject/GameObject.h"
+#include "../../src/Engine/GraphicsHandler/I_GraphicsHandler.h"
+#include "../../src/Engine/Hitbox/I_Hitbox.h"
 
 class MockGameObject : public GameObject {
 public:

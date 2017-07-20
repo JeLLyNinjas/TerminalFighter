@@ -2,8 +2,8 @@
 #include <SDL2/SDL.h>
 
 #include "I_Updatable.h"
-#include "DestroyedListener.h"
-#include "Observable.h"
+#include "CollisionDetector/DestroyedListener.h"
+#include "Observable/Observable.h"
 
 class I_GraphicsHandler;
 class I_Hitbox;

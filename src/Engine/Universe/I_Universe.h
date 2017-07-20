@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "GameObject.h"
-#include "Events.h"
-#include "DestroyedListener.h"
+#include "GameObject/GameObject.h"
+#include "Events/Events.h"
+#include "CollisionDetector/DestroyedListener.h"
 
 class I_Universe : public DestroyedListener {
 public:

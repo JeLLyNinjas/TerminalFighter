@@ -1,6 +1,6 @@
 #include "gmock/gmock.h"
 
-#include "../../src/Engine/I_Gamestate.h"
+#include "../../src/Engine/GameState/I_GameState.h"
 
 class MockGameState : public I_GameState {
 public:

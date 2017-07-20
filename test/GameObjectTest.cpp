@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "../src/Engine/GameObject.h"
-#include "../src/Engine/Hitbox.h"
+#include "../src/Engine/GameObject/GameObject.h"
+#include "../src/Engine/Hitbox/Hitbox.h"
 #include "mocks/MockGameObject.h"
 
 class GameObjectTest : public ::testing::Test {

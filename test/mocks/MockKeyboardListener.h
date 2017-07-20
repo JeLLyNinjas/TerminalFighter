@@ -1,6 +1,6 @@
 #include "gmock/gmock.h"
 
-#include "../../src/Engine/KeyboardListener.h"
+#include "Keyboard/KeyboardListener.h"
 
 class MockKeyboardListener : public KeyboardListener {
 public:

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "GameObject.h"
-#include "I_Updatable.h"
+#include "GameObject/GameObject.h"
+#include "GameObject/I_Updatable.h"
 #include "DestroyedListener.h"
-#include "Team.h"
+#include "Team/Team.h"
 
 class GameObject;
 

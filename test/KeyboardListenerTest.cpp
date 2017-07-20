@@ -3,9 +3,9 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "../src/Engine/Keyboard.h"
-#include "../src/Engine/Events.h"
-#include "../src/MissileLauncher.h"
+#include "Keyboard/Keyboard.h"
+#include "Events/Events.h"
+#include "MissileLauncher/MissileLauncher.h"
 #include "mocks/MockKeyboardListener.h"
 
 

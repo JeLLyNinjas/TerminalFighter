@@ -2,7 +2,7 @@
 
 #include "gmock/gmock.h"
 
-#include "../../src/I_Hitbox.h"
+#include "../../src/Engine/Hitbox/I_Hitbox.h"
 
 class MockHitbox : public I_Hitbox {
 public:

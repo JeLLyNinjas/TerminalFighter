@@ -40,6 +40,9 @@ set_target_properties(libgmock PROPERTIES
 include_directories("${source_dir}/googletest/include"
     "${source_dir}/googlemock/include")
 
+include_directories("../src/Engine/")
+include_directories("../src/TerminalFighter/")
+
 #from http://www.kaizou.org/2014/11/gtest-cmake/
 
 add_library(GameObjectTest GameObjectTest.cpp)
@@ -55,7 +58,7 @@ target_link_libraries(GameObjectTest libgtest libgmock GameObject Hitbox)
 target_link_libraries(HitboxTest libgtest libgmock Hitbox)
 target_link_libraries(MissileLauncherTest libgtest libgmock MissileLauncher Missile)
 target_link_libraries(CollisionDetectorTest libgtest libgmock CollisionDetector)
-target_link_libraries(GameStateHandlertest libgtest libgmock GamestateHandler)
+target_link_libraries(GameStateHandlertest libgtest libgmock GameStateHandler)
 target_link_libraries(KeyboardListenerTest libgtest libgmock ${SDL2_LIBRARIES} MissileLauncher Keyboard Events)
 target_link_libraries(UniverseTest libgtest libgmock ${SDL2_LIBRARIES} Universe)
 target_link_libraries(TerminalListenerTest libgtest libgmock ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES} Terminal)

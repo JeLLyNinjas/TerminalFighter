@@ -3,9 +3,9 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "../src/GameConstants.h"
-#include "../src/MissileLauncher.h"
-#include "../src/Missile.h"
+#include "Team/Team.h"
+#include "MissileLauncher/MissileLauncher.h"
+#include "Missile/Missile.h"
 #include "mocks/MockGameObjectMediator.h"
 
 using ::testing::_;

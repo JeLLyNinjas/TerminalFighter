@@ -30,21 +30,27 @@ void TargetingSystem::setup_local_dict(std::string relative_path) {
 }
 
 /*if lower_bound is same or greater than upper_bound, than lower_bound will be used and upper_bound will be ignored*/
-std::string TargetingSystem::grab_word(int lower_bound, int upper_bound) {
+std::string TargetingSystem::grab_word() {
     srand(time(NULL)); //this actually makes rand() be random
     int random_word_length;
 
-    if ((upper_bound - lower_bound) < 1) {
-        random_word_length = upper_bound;
+    if ((word_length_upper_bound_ - word_length_lower_bound_) < 1) {
+        random_word_length = word_length_upper_bound_;
     } else {
-        random_word_length = lower_bound + (rand() % (upper_bound - lower_bound));
+        random_word_length = word_length_lower_bound_ +
+                             (rand() % (word_length_upper_bound_ - word_length_lower_bound_));
     }
 
     return local_dict_[random_word_length].at(rand() % local_dict_[random_word_length].size());
 }
 
 void TargetingSystem::update() {
-    //no update
+    /*
+    for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
+        it->second->alive_ = false;
+    }
+    */
+
 }
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
@@ -58,26 +64,13 @@ const I_Hitbox& TargetingSystem::hitbox() const {
 void TargetingSystem::notify_collision(GameObject& collided_object) {
     //printf("Collision with objectID:%d\n", collided_object.id());
     if (targets_.find(collided_object.id()) != targets_.end()) {
-
-        printf("Target is found?\n", collided_object.id());
-
-    } else {
-        printf("Target waht %d was not found\n", collided_object.id());
-        printf("Word is %s \n", "waht");
-        //targets_[collided_object.id()] = lol;
-        //GameObjectStringPair lol = GameObjectStringPair("wut", &collided_object);
-        //printf("Word is %s \n", lol.assigned_word_.c_str());
-    }
-
-
-    /*
-    if (targets_.find(&collided_object) != targets_.end()) {
-
+        targets_.find(collided_object.id())->second->alive_ = true;
     } else {
         printf("Target %d was not found\n", collided_object.id());
-        targets_[&collided_object] = {grab_word(word_length_lower_bound_, word_length_upper_bound_), "1"};
+        targets_[collided_object.id()] =
+            new GameObjectStringPair(grab_word(), &collided_object, true);
     }
-    */
+
 }
 
 

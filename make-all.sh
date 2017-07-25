@@ -23,6 +23,6 @@ else
     printf "\n${RED}|*******| SOURCE COMPILATION FAILED |*******|${NC}\n\n"
     exit 1
 fi
-# cp src/TerminalFighter ../
+cp src/TerminalFighter/TerminalFighter ../
 ./test/runTests
 cd ..

@@ -1,6 +1,6 @@
 #include "gmock/gmock.h"
 
-#include "../../src/TerminalListener.h"
+#include "Terminal/TerminalListener.h"
 
 class MockTerminalListener : public TerminalListener {
 public:

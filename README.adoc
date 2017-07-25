@@ -11,14 +11,14 @@
 `cmake ..`
 +
 . Create the Terminal Fighter Executable
-`Make -j8`
+`make -j8`
 +
 . Copy the executable to the correct location
 `cp src/TerminalFighter ../`
 
-== How to Build Using `build-all.sh`
+== How to Build Using `make-all.sh`
 
-. Run `build-all.sh` script
+. Run `make-all.sh` script
 +
-`./build-all.sh`
+`./make-all.sh`
 

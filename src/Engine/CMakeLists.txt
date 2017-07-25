@@ -1,0 +1,17 @@
+include_directories(${CMAKE_SOURCE_DIR}/src/Engine/)
+
+add_library(CollisionDetector CollisionDetector/CollisionDetector.cpp)
+add_library(Delay Delay/Delay.cpp)
+add_library(DrawRequest DrawRequest/DrawRequest.cpp)
+add_library(Events Events/Events.cpp)
+add_library(GameObject GameObject/GameObject.cpp)
+add_library(GameObjectMediator GameObjectMediator/GameObjectMediator.cpp)
+add_library(GraphicsHandler GraphicsHandler/GraphicsHandler.cpp)
+add_library(Hitbox Hitbox/Hitbox.cpp)
+add_library(Keyboard Keyboard/Keyboard.cpp)
+add_library(Universe Universe/Universe.cpp)
+add_library(GameStateHandler GameStateHandler/GameStateHandler.cpp)
+
+target_link_libraries(CollisionDetector Hitbox)
+target_link_libraries(Delay ${SDL2_LIBRARIES})
+target_link_libraries(GraphicsHandler DrawRequest ${SDL2IMAGE_LIBRARIES})

@@ -2,7 +2,7 @@
 
 #include "gmock/gmock.h"
 
-#include "../../src/I_Updatable.h"
+#include "../../src/Engine/GameObject/I_Updatable.h"
 
 class MockUpdatable : public I_Updatable {
 public:

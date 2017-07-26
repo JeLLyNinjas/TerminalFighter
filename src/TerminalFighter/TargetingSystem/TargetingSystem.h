@@ -8,14 +8,17 @@
 #include "Hitbox/Hitbox.h"
 
 struct GameObjectStringPair {
-    GameObjectStringPair(std::string word, GameObject* game_object, bool alive)
+    GameObjectStringPair(std::string word, double x, double y, bool alive)
         : assigned_word_(word)
-        , game_object_(game_object)
+        , x_(x)
+        , y_(y)
         , alive_(alive)
     {}
 
     std::string assigned_word_;
-    GameObject* game_object_;
+    //GameObject* game_object_;
+    double x_;
+    double y_;
     bool alive_;
 };
 

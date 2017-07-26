@@ -2,7 +2,10 @@
 #include <cstdlib>
 #include <ctime>
 
+#include <SDL_ttf.h>
+
 #include "TargetingSystem.h"
+#include "GraphicsHandler/I_GraphicsHandler.h"
 
 TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex)
     : word_length_lower_bound_(word_length_lower_bound)
@@ -10,6 +13,7 @@ TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_up
     , hitbox_(Hitbox(0, 0, 1920, 1080)) //hardcoded numbers, TODO, don't have these hardcoded
     , color_hex_(color_hex) {
     setup_local_dict("assets/dictionary.txt");
+    srand(time(NULL)); //TODO this should be called at a higher level, maybe Universe //this actually makes rand() be random
 }
 
 void TargetingSystem::setup_local_dict(std::string relative_path) {
@@ -31,7 +35,6 @@ void TargetingSystem::setup_local_dict(std::string relative_path) {
 
 /*if lower_bound is same or greater than upper_bound, than lower_bound will be used and upper_bound will be ignored*/
 std::string TargetingSystem::grab_word() {
-    srand(time(NULL)); //this actually makes rand() be random
     int random_word_length;
 
     if ((word_length_upper_bound_ - word_length_lower_bound_) < 1) {
@@ -45,16 +48,24 @@ std::string TargetingSystem::grab_word() {
 }
 
 void TargetingSystem::update() {
-    /*
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
-        it->second->alive_ = false;
+        if (it->second->alive_ == true) {
+            it->second->alive_ = false;
+        } else {
+            targets_.erase(it);
+        }
     }
-    */
-
 }
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
-    //no draw
+    SDL_Color white = {255, 255, 255};
+    TTF_Font* default_font_ = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 84);
+
+    for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
+        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), white);
+        graphics.draw(UIText, (int)it->second->x_, (int)it->second->y_, GraphicPriority::UI);
+        SDL_FreeSurface(UIText);
+    }
 }
 
 const I_Hitbox& TargetingSystem::hitbox() const {
@@ -66,9 +77,10 @@ void TargetingSystem::notify_collision(GameObject& collided_object) {
     if (targets_.find(collided_object.id()) != targets_.end()) {
         targets_.find(collided_object.id())->second->alive_ = true;
     } else {
-        printf("Target %d was not found\n", collided_object.id());
+        printf("Target %d was not found. has x: %lf and y: %lf\n", collided_object.id(), collided_object.x_pos(),
+               collided_object.y_pos());
         targets_[collided_object.id()] =
-            new GameObjectStringPair(grab_word(), &collided_object, true);
+            new GameObjectStringPair(grab_word(), collided_object.x_pos(), collided_object.y_pos(), true);
     }
 
 }

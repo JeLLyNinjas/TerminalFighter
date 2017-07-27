@@ -48,5 +48,8 @@ private:
     std::string color_hex_;
     Hitbox hitbox_;
 
+    TTF_Font* default_font_;
+    SDL_Color white_;
+
 };
 

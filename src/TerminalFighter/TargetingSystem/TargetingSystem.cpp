@@ -14,6 +14,8 @@ TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_up
     , color_hex_(color_hex) {
     setup_local_dict("assets/dictionary.txt");
     srand(time(NULL)); //TODO this should be called at a higher level, maybe Universe //this actually makes rand() be random
+    default_font_ = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 24);
+    white_ = {255, 255, 255};
 }
 
 void TargetingSystem::setup_local_dict(std::string relative_path) {
@@ -48,21 +50,28 @@ std::string TargetingSystem::grab_word() {
 }
 
 void TargetingSystem::update() {
-    for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
+    printf("Checking for heartbeats...\n");
+
+    int x;
+    std::map<int, GameObjectStringPair*>::iterator it;
+
+    for (it = targets_.begin(), x = 0; x < targets_.size(); ++it, x++) {
+        printf("checking target id: %d...", it->first);
+
         if (it->second->alive_ == true) {
+            printf("status: alive\n");
             it->second->alive_ = false;
         } else {
+            printf("status: deleted\n");
             targets_.erase(it);
         }
     }
 }
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
-    SDL_Color white = {255, 255, 255};
-    TTF_Font* default_font_ = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 84);
 
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
-        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), white);
+        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), white_);
         graphics.draw(UIText, (int)it->second->x_, (int)it->second->y_, GraphicPriority::UI);
         SDL_FreeSurface(UIText);
     }
@@ -73,7 +82,8 @@ const I_Hitbox& TargetingSystem::hitbox() const {
 }
 
 void TargetingSystem::notify_collision(GameObject& collided_object) {
-    //printf("Collision with objectID:%d\n", collided_object.id());
+    printf("collision with objectid:%d\n", collided_object.id());
+
     if (targets_.find(collided_object.id()) != targets_.end()) {
         targets_.find(collided_object.id())->second->alive_ = true;
     } else {

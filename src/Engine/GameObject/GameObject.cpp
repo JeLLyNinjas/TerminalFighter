@@ -21,6 +21,7 @@ GameObject::GameObject(double x_pos, double y_pos, double x_vel, double y_vel, i
 }
 
 GameObject::~GameObject() {
+    printf("GameObject with id: %d died\n", id_);
 }
 
 void GameObject::notify_destroyed() {

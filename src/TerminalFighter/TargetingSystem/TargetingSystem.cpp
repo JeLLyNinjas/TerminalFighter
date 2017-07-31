@@ -53,23 +53,25 @@ void TargetingSystem::update() {
     printf("Checking for heartbeats...\n");
 
     int x;
-    std::map<int, GameObjectStringPair*>::iterator it;
+    std::map<int, GameObjectStringPair*>::iterator it = targets_.begin();
 
-    for (it = targets_.begin(), x = 0; x < targets_.size(); ++it, x++) {
+    while (it != targets_.end()) {
         printf("checking target id: %d...", it->first);
 
         if (it->second->alive_ == true) {
             printf("status: alive\n");
             it->second->alive_ = false;
+            it++;
         } else {
             printf("status: deleted\n");
-            targets_.erase(it);
+            std::map<int, GameObjectStringPair*>::iterator to_delete = it;
+            it++;
+            targets_.erase(to_delete);
         }
     }
 }
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
-
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
         SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), white_);
         graphics.draw(UIText, (int)it->second->x_, (int)it->second->y_, GraphicPriority::UI);

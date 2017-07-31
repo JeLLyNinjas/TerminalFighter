@@ -6,11 +6,12 @@
 
 #include "TargetingSystem.h"
 #include "GraphicsHandler/I_GraphicsHandler.h"
+#include "GameConstants/GameConstants.h"
 
 TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex)
     : word_length_lower_bound_(word_length_lower_bound)
     , word_length_upper_bound_(word_length_upper_bound)
-    , hitbox_(Hitbox(0, 0, 1920, 1080)) //hardcoded numbers, TODO, don't have these hardcoded
+    , hitbox_(Hitbox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
     , color_hex_(color_hex) {
     setup_local_dict("assets/dictionary.txt");
     srand(time(NULL)); //TODO this should be called at a higher level, maybe Universe //this actually makes rand() be random
@@ -95,6 +96,10 @@ void TargetingSystem::notify_collision(GameObject& collided_object) {
             new GameObjectStringPair(grab_word(), collided_object.x_pos(), collided_object.y_pos(), true);
     }
 
+}
+
+void TargetingSystem::take_damage(int damage) {
+    //do nothing;
 }
 
 

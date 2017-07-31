@@ -31,6 +31,7 @@ public:
     virtual void draw(I_GraphicsHandler& graphics);
     virtual const I_Hitbox& hitbox() const;
     virtual void notify_collision(GameObject& collided_object);
+    void take_damage(int damage);
 
 private:
     void setup_local_dict(std::string relative_path);

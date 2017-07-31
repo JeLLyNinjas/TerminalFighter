@@ -37,11 +37,3 @@ const I_Hitbox& BasicEnemy::hitbox() const {
 void BasicEnemy::notify_collision(GameObject& collided_object) {
     collided_object.take_damage(5);
 }
-
-void BasicEnemy::take_damage(int damage) {
-    health_ -= damage;
-
-    if (health_ <= 0) {
-        notify_destroyed();
-    }
-}

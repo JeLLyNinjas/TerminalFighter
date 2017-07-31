@@ -49,3 +49,8 @@ const I_Hitbox& MainCharacter::hitbox() const {
 
 void MainCharacter::notify_collision(GameObject& collided_object) {
 }
+
+void MainCharacter::take_damage(int damage) {
+    health_ -= damage;
+    //will not notify_destroy yet while we testing
+}

@@ -6,7 +6,7 @@ GameObject::GameObject()
     : x_pos_(0)
     , y_pos_(0)
     , id_(id_counter_++)
-    , health_(0) {
+    , health_(1) {
     x_pos_ = 0;
     y_pos_ = 0;
 }
@@ -32,6 +32,10 @@ void GameObject::notify_destroyed() {
 
 void GameObject::take_damage(int damage) {
     health_ -= damage;
+
+    if (health_ <= 0) {
+        notify_destroyed();
+    }
 }
 
 double GameObject::x_pos() const {

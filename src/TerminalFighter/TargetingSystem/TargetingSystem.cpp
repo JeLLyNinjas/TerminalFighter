@@ -6,6 +6,7 @@
 
 #include "TargetingSystem.h"
 #include "GraphicsHandler/I_GraphicsHandler.h"
+#include "GameConstants/GameConstants.h"
 
 namespace {
     SDL_Color WHITE = {255, 255, 255};
@@ -98,6 +99,10 @@ void TargetingSystem::notify_collision(GameObject& collided_object) {
             new GameObjectStringPair(grab_word(), collided_object.x_pos(), collided_object.y_pos(), true);
     }
 
+}
+
+void TargetingSystem::take_damage(int damage) {
+    //do nothing;
 }
 
 

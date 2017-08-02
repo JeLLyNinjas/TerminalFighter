@@ -5,8 +5,8 @@ unsigned int GameObject::id_counter_ = 0;
 GameObject::GameObject()
     : x_pos_(0)
     , y_pos_(0)
-    , id_(id_counter_++)
-    , health_(0) {
+    , health_(1)
+    , id_(id_counter_++) {
     x_pos_ = 0;
     y_pos_ = 0;
 }
@@ -16,8 +16,8 @@ GameObject::GameObject(double x_pos, double y_pos, double x_vel, double y_vel, i
     , y_pos_(y_pos)
     , x_vel_(x_vel)
     , y_vel_(y_vel)
-    , id_(id_counter_++)
-    , health_(health) {
+    , health_(health)
+    , id_(id_counter_++) {
 }
 
 GameObject::~GameObject() {
@@ -32,6 +32,10 @@ void GameObject::notify_destroyed() {
 
 void GameObject::take_damage(int damage) {
     health_ -= damage;
+
+    if (health_ <= 0) {
+        notify_destroyed();
+    }
 }
 
 double GameObject::x_pos() const {

@@ -21,6 +21,7 @@ public:
     void draw(I_GraphicsHandler& graphics);
     const I_Hitbox& hitbox() const;
     void notify_collision(GameObject& collided_object);
+    void take_damage(int damage);
 
 protected:
     Hitbox hitbox_;

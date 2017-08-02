@@ -15,7 +15,6 @@ public:
     void draw(I_GraphicsHandler& graphics);
     const I_Hitbox& hitbox() const;
     void notify_collision(GameObject& collided_object);
-    void take_damage(int damage);
 
     static void set_texture(SDL_Texture* texture);
 

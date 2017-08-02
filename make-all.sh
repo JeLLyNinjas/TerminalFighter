@@ -17,6 +17,7 @@ mkdir -p build
 cd build
 cmake ..
 make -j8
+# make -j8 VERBOSE=1
 if [ $? -eq 0 ]; then
     printf "\n${GREEN}|*******| SOURCE COMPILATION SUCCESSFUL |*******|${NC}\n\n"
 else

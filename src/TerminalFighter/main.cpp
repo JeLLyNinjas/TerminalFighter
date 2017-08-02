@@ -14,6 +14,7 @@ extern "C" {
 }
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
+#include <glog/logging.h>
 
 using namespace std;
 
@@ -103,6 +104,9 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
+    google::InitGoogleLogging(argv[0]);
+    LOG(INFO) << "Logging Intialized";
+
     if (!init_SDL()) {
         fprintf(stderr, "Could not initialize SDL!\n");
         return -1;

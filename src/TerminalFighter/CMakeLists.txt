@@ -20,5 +20,5 @@ target_link_libraries(TestState GameObjectMediator Universe CollisionDetector Ba
     GraphicsHandler MainCharacter MissileLauncher Events Delay Keyboard Terminal TargetingSystem)
 
 add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}
+target_link_libraries(${PROJECT_NAME} glog::glog ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES} TestState MenuState GameStateHandler)

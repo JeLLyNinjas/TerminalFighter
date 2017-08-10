@@ -1,12 +1,14 @@
 #pragma once
 
 #include <string>
+#include <stdlib.h>
 
 #include "Team/Team.h"
 #include "GameObjectMediator/I_GameObjectMediator.h"
 
 #include "GameConstants/GameConstants.h"
 #include "Terminal/Terminal.h"
+#include "TargetingSystem/TargetingSystem.h"
 
 class I_GameObjectMediator;
 
@@ -27,5 +29,6 @@ private:
     Team::Team team_;
     I_GameObjectMediator& game_object_mediator_;
     Terminal terminal_;
+    std::unique_ptr<TargetingSystem> targeting_system_;
     Hitbox hitbox_;
 };

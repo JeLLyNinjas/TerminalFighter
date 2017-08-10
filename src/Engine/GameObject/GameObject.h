@@ -12,13 +12,14 @@ class GameObject : public I_Updatable, public Observable<DestroyedListener> {
 
 public:
     GameObject();
-    GameObject(double x_pos, double y_pos, double x_vel, double y_vel);
+    GameObject(double x_pos, double y_pos, double x_vel, double y_vel, int health);
     virtual ~GameObject();
 
     virtual void update() = 0;
     virtual void draw(I_GraphicsHandler& graphics) = 0;
     virtual const I_Hitbox& hitbox() const = 0;
     virtual void notify_collision(GameObject& collided_object) = 0;
+    virtual void take_damage(int damage);
 
     void notify_destroyed();
     double x_pos() const;
@@ -32,6 +33,7 @@ protected:
     double y_pos_;
     double x_vel_;
     double y_vel_;
+    int health_;
 
 private:
     static unsigned int id_counter_;

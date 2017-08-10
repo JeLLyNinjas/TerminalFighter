@@ -7,7 +7,9 @@ MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_obj
     : team_(team)
     , game_object_mediator_(game_object_mediator)
     , terminal_((SCREEN_WIDTH / 2) - 400, SCREEN_HEIGHT - 150, 100, 30)
+    , targeting_system_(new TargetingSystem(3, 5, "FFF"))
     , hitbox_(0, 0, 0, 0) {
+    game_object_mediator.add_game_object(team_, std::move(targeting_system_));
 }
 
 Team::Team MissileLauncher::team() const {
@@ -15,7 +17,7 @@ Team::Team MissileLauncher::team() const {
 }
 
 void MissileLauncher::create_missile(double x_pos, double y_pos, double x_vel, double y_vel) {
-    std::unique_ptr<Missile> missile(new Missile(x_pos, y_pos, x_vel, y_vel));
+    std::unique_ptr<Missile> missile(new Missile(x_pos, y_pos, x_vel, y_vel, 5));
     game_object_mediator_.add_projectile(team_, std::move(missile));
 }
 

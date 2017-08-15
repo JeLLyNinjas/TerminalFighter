@@ -5,6 +5,7 @@ addons:
     packages:
       - cmake
       - cmake-data
+      - libssl1.0.0
 
 before_install:
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
@@ -20,8 +21,6 @@ install:
     - (cd astyle/build/gcc && make release && sudo make install)
     - rm astyle -r
     - git clone https://github.com/google/glog.git
-    - mkdir glog/build
-    - (cd glog/build && cmake ..)
 
 before_script:
     - chmod +x make-all.sh

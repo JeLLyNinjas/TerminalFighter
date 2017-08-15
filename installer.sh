@@ -80,4 +80,4 @@ cd build
 cmake ..
 make -j4
 make install -j4
-cd ..
+cd ../..

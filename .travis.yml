@@ -19,6 +19,9 @@ install:
     - tar -xzvf download
     - (cd astyle/build/gcc && make release && sudo make install)
     - rm astyle -r
+    - git clone https://github.com/google/glog.git
+    - mkdir glog/build
+    - (cd glog/build && cmake ..)
 
 before_script:
     - chmod +x make-all.sh

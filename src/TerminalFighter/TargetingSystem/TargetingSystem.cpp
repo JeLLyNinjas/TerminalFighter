@@ -2,13 +2,25 @@
 #include <cstdlib>
 #include <ctime>
 
+#include <SDL_ttf.h>
+
 #include "TargetingSystem.h"
+#include "GraphicsHandler/I_GraphicsHandler.h"
+#include "GameConstants/GameConstants.h"
+
+namespace {
+    SDL_Color WHITE = {255, 255, 255};
+    int FONT_SIZE = 24;
+}
 
 TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex)
-    : word_length_lower_bound_(word_length_lower_bound)
+    : hitbox_(Hitbox(0, 0, 1920, 1080)) //hardcoded numbers, TODO, don't have these hardcoded
+    , word_length_lower_bound_(word_length_lower_bound)
     , word_length_upper_bound_(word_length_upper_bound)
-    , color_hex_(color_hex) {
+    , color_hex_(color_hex)
+    , default_font_(TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", FONT_SIZE)) {
     setup_local_dict("assets/dictionary.txt");
+    srand(time(NULL)); //TODO this should be called at a higher level, maybe Universe //this actually makes rand() be random
 }
 
 void TargetingSystem::setup_local_dict(std::string relative_path) {
@@ -29,39 +41,74 @@ void TargetingSystem::setup_local_dict(std::string relative_path) {
 }
 
 /*if lower_bound is same or greater than upper_bound, than lower_bound will be used and upper_bound will be ignored*/
-std::string TargetingSystem::grab_word(int lower_bound, int upper_bound) {
-    srand(time(NULL)); //this actually makes rand() be random
+std::string TargetingSystem::grab_word() {
     int random_word_length;
 
-    if ((upper_bound - lower_bound) < 1) {
-        random_word_length = upper_bound;
+    if ((word_length_upper_bound_ - word_length_lower_bound_) < 1) {
+        random_word_length = word_length_upper_bound_;
     } else {
-        random_word_length = lower_bound + (rand() % (upper_bound - lower_bound));
+        random_word_length = word_length_lower_bound_ +
+                             (rand() % (word_length_upper_bound_ - word_length_lower_bound_));
     }
 
     return local_dict_[random_word_length].at(rand() % local_dict_[random_word_length].size());
 }
 
 void TargetingSystem::update() {
+    printf("Checking for heartbeats...\n");
 
+    std::map<int, GameObjectStringPair*>::iterator it = targets_.begin();
+
+    while (it != targets_.end()) {
+        printf("checking target id: %d...", it->first);
+
+        if (it->second->alive_ == true) {
+            printf("status: alive\n");
+            it->second->alive_ = false;
+            it++;
+        } else {
+            printf("status: deleted\n");
+            std::map<int, GameObjectStringPair*>::iterator to_delete = it;
+            it++;
+            targets_.erase(to_delete);
+        }
+    }
 }
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
-
+    for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
+        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), WHITE);
+        graphics.draw(UIText, (int)it->second->x_, (int)it->second->y_, GraphicPriority::UI);
+        SDL_FreeSurface(UIText);
+    }
 }
 
 const I_Hitbox& TargetingSystem::hitbox() const {
-
+    return hitbox_;
 }
 
 void TargetingSystem::notify_collision(GameObject& collided_object) {
+    printf("collision with objectid:%d\n", collided_object.id());
 
+    if (targets_.find(collided_object.id()) != targets_.end()) {
+        targets_.find(collided_object.id())->second->alive_ = true;
+    } else {
+        printf("Target %d was not found. has x: %lf and y: %lf\n", collided_object.id(), collided_object.x_pos(),
+               collided_object.y_pos());
+        targets_[collided_object.id()] =
+            new GameObjectStringPair(grab_word(), collided_object.x_pos(), collided_object.y_pos(), true);
+    }
+
+}
+
+void TargetingSystem::take_damage(int damage) {
+    //do nothing;
 }
 
 
 void TargetingSystem::print_dict() {
-    for (int i = 0; i < local_dict_.size(); i++) {
-        for (int j = 0; j < local_dict_[i].size(); j++) {
+    for (unsigned int i = 0; i < local_dict_.size(); i++) {
+        for (unsigned int j = 0; j < local_dict_[i].size(); j++) {
             printf("%s\n", local_dict_[i].at(j).c_str());
         }
     }

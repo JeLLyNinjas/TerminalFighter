@@ -5,25 +5,36 @@ unsigned int GameObject::id_counter_ = 0;
 GameObject::GameObject()
     : x_pos_(0)
     , y_pos_(0)
+    , health_(1)
     , id_(id_counter_++) {
     x_pos_ = 0;
     y_pos_ = 0;
 }
 
-GameObject::GameObject(double x_pos, double y_pos, double x_vel, double y_vel)
+GameObject::GameObject(double x_pos, double y_pos, double x_vel, double y_vel, int health)
     : x_pos_(x_pos)
     , y_pos_(y_pos)
     , x_vel_(x_vel)
     , y_vel_(y_vel)
+    , health_(health)
     , id_(id_counter_++) {
 }
 
 GameObject::~GameObject() {
+    printf("GameObject with id: %d died\n", id_);
 }
 
 void GameObject::notify_destroyed() {
     for (DestroyedListener* listener : listeners_) {
         listener->object_destroyed(id_);
+    }
+}
+
+void GameObject::take_damage(int damage) {
+    health_ -= damage;
+
+    if (health_ <= 0) {
+        notify_destroyed();
     }
 }
 

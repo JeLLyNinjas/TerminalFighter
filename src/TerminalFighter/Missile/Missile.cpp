@@ -8,14 +8,15 @@
 
 SDL_Texture* Missile::missile_texture_ = NULL;
 
-Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel)
-    : GameObject(x_pos, y_pos, x_vel, y_vel)
+Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel, int health)
+    : GameObject(x_pos, y_pos, x_vel, y_vel, health)
     , hitbox_(Hitbox(x_pos, y_pos, 10, 50)) {
 }
 
 Missile::~Missile() {
     std::printf("Missile Died \n");
 }
+
 void Missile::update() {
     x_pos_ += x_vel_;
     y_pos_ += y_vel_;
@@ -36,6 +37,7 @@ const I_Hitbox& Missile::hitbox() const {
 }
 
 void Missile::notify_collision(GameObject& collided_object) {
+    collided_object.take_damage(5); //some made up numbers. Maybe these should be part of an INI file that we can easily edit later
     notify_destroyed();
 }
 

@@ -9,7 +9,7 @@
 SDL_Texture* Terminal::terminal_texture_ = NULL;
 
 Terminal::Terminal(double x_pos, double y_pos, double width, double height)
-    : GameObject(x_pos, y_pos, 0.0, 0.0)
+    : GameObject(x_pos, y_pos, 0.0, 0.0, 0)
     , hitbox_(Hitbox(x_pos, y_pos, width, height))
     , player_text_("")
     , default_font_ (TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 84)) {

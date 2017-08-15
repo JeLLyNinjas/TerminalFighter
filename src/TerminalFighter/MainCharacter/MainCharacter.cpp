@@ -7,8 +7,8 @@
 
 SDL_Texture* MainCharacter::texture_ = NULL;
 
-MainCharacter::MainCharacter(double x_pos, double y_pos)
-    : GameObject(x_pos, y_pos, 0, 0)
+MainCharacter::MainCharacter(double x_pos, double y_pos, int health)
+    : GameObject(x_pos, y_pos, 0, 0, health)
     , hitbox_(Hitbox(x_pos_, y_pos_, 100, 100))
     , weapons_() {
 }
@@ -48,4 +48,9 @@ const I_Hitbox& MainCharacter::hitbox() const {
 }
 
 void MainCharacter::notify_collision(GameObject& collided_object) {
+}
+
+void MainCharacter::take_damage(int damage) {
+    health_ -= damage;
+    //will not notify_destroy yet while we testing
 }

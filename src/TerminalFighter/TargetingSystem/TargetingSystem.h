@@ -42,6 +42,8 @@ private:
     //for debug
     void print_dict();
 
+    Hitbox hitbox_;
+
     std::vector<std::vector<std::string>> local_dict_;
     //std::map<int, GameObjectStringPair> targets_; //vector will hold two strings, "Name"|"Heartbeat"
     std::map<int, GameObjectStringPair*> targets_; //vector will hold two strings, "Name"|"Heartbeat"
@@ -49,10 +51,7 @@ private:
     int word_length_lower_bound_;
     int word_length_upper_bound_;
     std::string color_hex_;
-    Hitbox hitbox_;
 
     TTF_Font* default_font_;
-    SDL_Color white_;
-
 };
 

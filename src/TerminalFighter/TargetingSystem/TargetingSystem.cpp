@@ -8,15 +8,19 @@
 #include "GraphicsHandler/I_GraphicsHandler.h"
 #include "GameConstants/GameConstants.h"
 
+namespace {
+    SDL_Color WHITE = {255, 255, 255};
+    int FONT_SIZE = 24;
+}
+
 TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex)
-    : word_length_lower_bound_(word_length_lower_bound)
+    : hitbox_(Hitbox(0, 0, 1920, 1080)) //hardcoded numbers, TODO, don't have these hardcoded
+    , word_length_lower_bound_(word_length_lower_bound)
     , word_length_upper_bound_(word_length_upper_bound)
-    , hitbox_(Hitbox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
-    , color_hex_(color_hex) {
+    , color_hex_(color_hex)
+    , default_font_(TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", FONT_SIZE)) {
     setup_local_dict("assets/dictionary.txt");
     srand(time(NULL)); //TODO this should be called at a higher level, maybe Universe //this actually makes rand() be random
-    default_font_ = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 24);
-    white_ = {255, 255, 255};
 }
 
 void TargetingSystem::setup_local_dict(std::string relative_path) {
@@ -53,7 +57,6 @@ std::string TargetingSystem::grab_word() {
 void TargetingSystem::update() {
     printf("Checking for heartbeats...\n");
 
-    int x;
     std::map<int, GameObjectStringPair*>::iterator it = targets_.begin();
 
     while (it != targets_.end()) {
@@ -74,7 +77,7 @@ void TargetingSystem::update() {
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
-        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), white_);
+        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), WHITE);
         graphics.draw(UIText, (int)it->second->game_object_.x_pos(), (int)it->second->game_object_.y_pos(), GraphicPriority::UI);
         SDL_FreeSurface(UIText);
     }
@@ -103,8 +106,8 @@ void TargetingSystem::take_damage(int damage) {
 
 
 void TargetingSystem::print_dict() {
-    for (int i = 0; i < local_dict_.size(); i++) {
-        for (int j = 0; j < local_dict_[i].size(); j++) {
+    for (unsigned int i = 0; i < local_dict_.size(); i++) {
+        for (unsigned int j = 0; j < local_dict_[i].size(); j++) {
             printf("%s\n", local_dict_[i].at(j).c_str());
         }
     }

@@ -104,8 +104,9 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
+    FLAGS_log_dir = "/tmp/TerminalFighter";
     google::InitGoogleLogging(argv[0]);
-    LOG(INFO) << "Logging Intialized";
+    LOG(INFO) << "Logging Intialized INFO";
 
     if (!init_SDL()) {
         fprintf(stderr, "Could not initialize SDL!\n");

@@ -1,3 +1,5 @@
+#include <glog/logging.h>
+
 #include "GraphicsHandler.h"
 
 namespace {
@@ -74,8 +76,7 @@ SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {
 
 SDL_Texture* GraphicsHandler::load_image(std::string path) {
     if (game_graphics_.find(path) == game_graphics_.end() ) {
-        printf("Fatal error, could not find the sprite %s! Exiting program\n", path.c_str());
-        exit(1);
+        LOG(FATAL) << "Fatal error, could not find the sprite " << path.c_str() << "! Exiting...";
     }
 
     return game_graphics_.find(path)->second;

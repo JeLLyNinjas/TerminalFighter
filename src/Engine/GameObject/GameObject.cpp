@@ -1,3 +1,5 @@
+#include <glog/logging.h>
+
 #include "GameObject.h"
 
 unsigned int GameObject::id_counter_ = 0;
@@ -21,7 +23,7 @@ GameObject::GameObject(double x_pos, double y_pos, double x_vel, double y_vel, i
 }
 
 GameObject::~GameObject() {
-    printf("GameObject with id: %d died\n", id_);
+    LOG(INFO) << "GameObject with id: " << id_ << " died";
 }
 
 void GameObject::notify_destroyed() {

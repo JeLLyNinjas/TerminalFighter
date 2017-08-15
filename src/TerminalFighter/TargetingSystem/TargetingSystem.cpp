@@ -75,7 +75,7 @@ void TargetingSystem::update() {
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
         SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), white_);
-        graphics.draw(UIText, (int)it->second->x_, (int)it->second->y_, GraphicPriority::UI);
+        graphics.draw(UIText, (int)it->second->game_object_.x_pos(), (int)it->second->game_object_.y_pos(), GraphicPriority::UI);
         SDL_FreeSurface(UIText);
     }
 }
@@ -90,10 +90,9 @@ void TargetingSystem::notify_collision(GameObject& collided_object) {
     if (targets_.find(collided_object.id()) != targets_.end()) {
         targets_.find(collided_object.id())->second->alive_ = true;
     } else {
-        printf("Target %d was not found. has x: %lf and y: %lf\n", collided_object.id(), collided_object.x_pos(),
-               collided_object.y_pos());
+        //printf("Target %d was not found. has x: %lf and y: %lf\n", collided_object.id(), collided_object);
         targets_[collided_object.id()] =
-            new GameObjectStringPair(grab_word(), collided_object.x_pos(), collided_object.y_pos(), true);
+            new GameObjectStringPair(grab_word(), collided_object, true);
     }
 
 }
@@ -107,6 +106,14 @@ void TargetingSystem::print_dict() {
     for (int i = 0; i < local_dict_.size(); i++) {
         for (int j = 0; j < local_dict_[i].size(); j++) {
             printf("%s\n", local_dict_[i].at(j).c_str());
+        }
+    }
+}
+
+GameObject& TargetingSystem::get_object(std::string word) {
+    for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
+        if (it->second->assigned_word_.compare(word) == 0) {
+            return it->second->game_object_;
         }
     }
 }

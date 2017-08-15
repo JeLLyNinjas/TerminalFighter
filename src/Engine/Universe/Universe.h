@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 
+#include "GameObject/GameObject.h"
 #include "I_Universe.h"
 
 class I_GraphicsHandler;

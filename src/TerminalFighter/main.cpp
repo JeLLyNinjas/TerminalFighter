@@ -54,8 +54,6 @@ bool init_SDL() {
         }
     }
 
-    LOG(INFO) << "Driver: " <<  SDL_GetCurrentVideoDriver();
-
     //Initializes SDL
     if (SDL_Init(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) < 0) {
         LOG(ERROR) << "SDL could not initialize! SDL Error: " << SDL_GetError();

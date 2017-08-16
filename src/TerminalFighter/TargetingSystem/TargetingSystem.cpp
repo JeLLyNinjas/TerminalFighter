@@ -119,4 +119,5 @@ GameObject& TargetingSystem::get_object(std::string word) {
             return it->second->game_object_;
         }
     }
+	//TODO fix warning by making it return a default reference somehow?
 }

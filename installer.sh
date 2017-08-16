@@ -22,6 +22,7 @@ function finish {
     rm -rf $DIR/SDL2_ttf-2.0.12  || true
     rm -rf $DIR/SDL2-2.0.3 || true
     rm -rf $DIR/SDL2_mixer-2.0.0 || true
+    rm -rf $DIR/glog || true
 }
 
 trap finish EXIT
@@ -30,7 +31,7 @@ trap finish EXIT
 wget https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
 tar -xzvf SDL2-2.0.3.tar.gz
 cd SDL2-2.0.3
-./configure 
+./configure
 make -j4
 make install -j4
 cd ..
@@ -70,3 +71,13 @@ cd ../..
 make -j4
 make install -j4
 cd ..
+
+# glog
+git clone https://github.com/google/glog.git
+cd glog
+mkdir build
+cd build
+cmake ..
+make -j4
+make install -j4
+cd ../..

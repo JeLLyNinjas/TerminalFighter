@@ -13,12 +13,12 @@ add_library(TestState TestState/TestState.cpp)
 
 target_link_libraries(BasicEnemy Hitbox)
 target_link_libraries(MainCharacter ${SDL2_LIBRARIES})
-target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler)
+target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler glog::glog)
 target_link_libraries(MissileLauncher Missile GameObjectMediator TargetingSystem)
 target_link_libraries(Terminal ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES} GameObject Hitbox GraphicsHandler)
 target_link_libraries(TestState GameObjectMediator Universe CollisionDetector BasicEnemy
     GraphicsHandler MainCharacter MissileLauncher Events Delay Keyboard Terminal TargetingSystem)
 
 add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}
+target_link_libraries(${PROJECT_NAME} glog::glog ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES} TestState MenuState GameStateHandler)

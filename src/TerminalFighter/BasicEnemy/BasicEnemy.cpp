@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include <glog/logging.h>
 #include <SDL2/SDL.h>
 
 #include "GraphicsHandler/I_GraphicsHandler.h"
@@ -19,7 +18,7 @@ void BasicEnemy::update() {
 
 void BasicEnemy::draw(I_GraphicsHandler& graphics) {
     if (texture_ == NULL) {
-        printf("BasicEnemy graphics were null! Setting BasicEnemy graphic...\n");
+        LOG(WARNING) << "BasicEnemy graphics were null! Setting BasicEnemy graphic...";
         set_texture(graphics.load_image("assets/ships/BasicEnemy.png"));
     }
 

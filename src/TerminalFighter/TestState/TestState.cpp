@@ -1,5 +1,7 @@
 #include <stdlib.h>
 
+#include <glog/logging.h>
+
 #include "TestState.h"
 
 #include "Team/Team.h"
@@ -95,13 +97,13 @@ void TestState::handle_key_press(const std::string& keypress) {
         exit_ = true;
     }
 
-    printf("Key returned was: %s\n", keypress.c_str());
+    LOG(INFO) << "Key returned was: " << keypress.c_str();
 }
 
 void TestState::notify_events(const SDL_Event& e) {
     switch (e.type) {
         case SDL_QUIT:
-            printf("SDL_QUIT was called!\n");
+            LOG(INFO) << "SDL_QUIT was called!";
             exit_ = true;
             break;
     }

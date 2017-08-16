@@ -1,6 +1,4 @@
 #include <map>
-#include <iostream>
-#include <stdio.h>
 #include <unistd.h>
 #include <memory>
 
@@ -14,8 +12,7 @@ extern "C" {
 }
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
-
-using namespace std;
+#include <glog/logging.h>
 
 #include "GameState/I_GameState.h"
 #include "GameStateHandler/GameStateHandler.h"
@@ -33,35 +30,33 @@ void processEvents();
 void close();
 bool init_SDL() {
     int numdrivers = SDL_GetNumRenderDrivers ();
-    cout << "Render driver count: " << numdrivers << endl;
+    LOG(INFO) << "Render driver count: " << numdrivers;
 
     for (int i = 0; i < numdrivers; i++) {
         SDL_RendererInfo drinfo;
         SDL_GetRenderDriverInfo (0, &drinfo);
-        cout << "Driver name (" << i << "): " << drinfo.name << endl;
+        LOG(INFO) << "Driver name (" << i << "): " << drinfo.name;
 
         if (drinfo.flags & SDL_RENDERER_SOFTWARE) {
-            cout << " the main_renderer is a software fallback" << endl;
+            LOG(INFO) << "The main_renderer is a software fallback";
         }
 
         if (drinfo.flags & SDL_RENDERER_ACCELERATED) {
-            cout << " the main_renderer uses hardware acceleration" << endl;
+            LOG(INFO) << "The main_renderer uses hardware acceleration";
         }
 
         if (drinfo.flags & SDL_RENDERER_PRESENTVSYNC) {
-            cout << " present is synchronized with the refresh rate" << endl;
+            LOG(INFO) << "Tresent is synchronized with the refresh rate";
         }
 
         if (drinfo.flags & SDL_RENDERER_TARGETTEXTURE) {
-            cout << " the main_renderer supports rendering to texture" << endl;
+            LOG(INFO) << "The main_renderer supports rendering to texture";
         }
     }
 
-    printf("Driver: %s\n", SDL_GetCurrentVideoDriver());
-
     //Initializes SDL
     if (SDL_Init(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) < 0) {
-        printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+        LOG(ERROR) << "SDL could not initialize! SDL Error: " << SDL_GetError();
         return false;
     }
 
@@ -69,21 +64,21 @@ bool init_SDL() {
     window = SDL_CreateWindow("Video Application", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     if (window == NULL) {
-        printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
+        LOG(ERROR) << "Window could not be created! SDL Error: " << SDL_GetError();
         return false;
     }
 
-    printf("Driver: %s\n", SDL_GetCurrentVideoDriver());
+    LOG(INFO) << "Driver: " <<  SDL_GetCurrentVideoDriver();
     //Creates the main_renderer.
     main_renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     if (main_renderer == NULL) {
-        printf("Renderer could not be created. SDL_Error: %s \n", SDL_GetError());
-        printf("Creating a software main_renderer instead\n");
+        LOG(WARNING) << "Renderer could not be created. SDL_Error: " << SDL_GetError();
+        LOG(WARNING) << "Creating a software main_renderer instead";
         main_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
 
         if (main_renderer == NULL) {
-            printf("Renderer could not be created. SDL_Error: %s \n", SDL_GetError());
+            LOG(ERROR) << "Renderer could not be created. SDL_Error: " << SDL_GetError();
             return false;
             //SDL_SetRenderDrawColor(main_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         }
@@ -103,14 +98,19 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
+#ifdef __linux__
+    system("mkdir /tmp/TerminalFighter/");
+    FLAGS_log_dir = "/tmp/TerminalFighter";
+#endif
+    google::InitGoogleLogging(argv[0]);
+    LOG(INFO) << "Logging Intialized INFO";
+
     if (!init_SDL()) {
-        fprintf(stderr, "Could not initialize SDL!\n");
-        return -1;
+        LOG(FATAL) << "Could not initialize SDL!";
     }
 
     if (TTF_Init() != 0) {
-        fprintf(stderr, "TTF Init failed! %s\n", TTF_GetError());
-        return -1;
+        LOG(FATAL) << "TTF Init failed! " << TTF_GetError();
     }
 
     std::unique_ptr<I_GameState> test_state(new TestState(*main_renderer));

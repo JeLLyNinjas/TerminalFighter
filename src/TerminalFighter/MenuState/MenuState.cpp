@@ -1,3 +1,5 @@
+#include <glog/logging.h>
+
 #include "MenuState.h"
 
 MenuState::MenuState(SDL_Renderer& renderer)
@@ -15,14 +17,14 @@ gamestates::GameStateName MenuState::run() {
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
-                    printf("SDL_QUIT was called\n");
+                    LOG(INFO) << "SDL_QUIT was called";
                     return gamestates::EXIT;
                     break;
 
                 case SDL_KEYDOWN:
                     switch (event.key.keysym.sym) {
                         case SDLK_RETURN:
-                            printf("Enter was Pressed!\n");
+                            LOG(INFO) << "Enter was Pressed!";
                             return gamestates::TEST;
                             break;
                     }

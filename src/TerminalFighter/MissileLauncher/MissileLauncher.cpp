@@ -10,6 +10,7 @@ MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_obj
     , targeting_system_(new TargetingSystem(3, 5, "FFF"))
     , hitbox_(0, 0, 0, 0) {
     game_object_mediator.add_game_object(team_, std::move(targeting_system_));
+    terminal_.Observable<TerminalListener>::add_listener(this);
 }
 
 Team::Team MissileLauncher::team() const {
@@ -29,7 +30,7 @@ void MissileLauncher::handle_key_press(const std::string& keypress) {
 
 void MissileLauncher::update() {
     if (rand() % 5 == 0) {
-        create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, rand() % 4 - 2, rand() % 4 * -1);
+        //create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, rand() % 4 - 2, rand() % 4 * -1);
     }
 
     terminal_.update();
@@ -47,3 +48,10 @@ void MissileLauncher::notify_collision(GameObject& collided_object) {
     // nothing to do, not a physical object
 }
 
+void MissileLauncher::handle_input(const std::string& input) {
+    printf("GOT SOME WORD?\n");
+    GameObject& enemy = targeting_system_->get_object(input);
+    printf("GOT SOME ENEMY?\n");
+    create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100,
+                   enemy.x_pos() - (SCREEN_WIDTH / 2), enemy.y_pos() - (SCREEN_HEIGHT / 2));
+}

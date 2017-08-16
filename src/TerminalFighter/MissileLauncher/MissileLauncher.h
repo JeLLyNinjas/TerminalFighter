@@ -9,10 +9,11 @@
 #include "GameConstants/GameConstants.h"
 #include "Terminal/Terminal.h"
 #include "TargetingSystem/TargetingSystem.h"
+#include "Terminal/TerminalListener.h"
 
 class I_GameObjectMediator;
 
-class MissileLauncher : public GameObject, public KeyboardListener {
+class MissileLauncher : public GameObject, public KeyboardListener, public TerminalListener {
 public:
     MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator);
     Team::Team team() const;
@@ -24,6 +25,7 @@ public:
     void draw(I_GraphicsHandler& graphics);
     const I_Hitbox& hitbox() const;
     void notify_collision(GameObject& collided_object);
+    void handle_input(const std::string& input);
 
 private:
     Team::Team team_;

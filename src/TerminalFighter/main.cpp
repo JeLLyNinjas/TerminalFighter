@@ -100,7 +100,10 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
+#ifdef __linux__
+    system("mkdir /tmp/TerminalFighter/");
     FLAGS_log_dir = "/tmp/TerminalFighter";
+#endif
     google::InitGoogleLogging(argv[0]);
     LOG(INFO) << "Logging Intialized INFO";
 

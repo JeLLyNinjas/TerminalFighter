@@ -7,10 +7,12 @@ MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_obj
     : team_(team)
     , game_object_mediator_(game_object_mediator)
     , terminal_((SCREEN_WIDTH / 2) - 400, SCREEN_HEIGHT - 150, 100, 30)
-    , targeting_system_(new TargetingSystem(3, 5, "FFF"))
+      //, targeting_system_(new TargetingSystem(3, 5, "FFF"))
     , hitbox_(0, 0, 0, 0) {
+    std::unique_ptr<TargetingSystem> temp_targeting_system_ (new TargetingSystem(3, 5, "FFF"));
+    targeting_system_ = temp_targeting_system_.get();
     terminal_.Observable<TerminalListener>::add_listener(this);
-    game_object_mediator.add_game_object(team_, targeting_system_.unique_ptr);
+    game_object_mediator.add_game_object(team_, std::move(temp_targeting_system_));
 }
 
 Team::Team MissileLauncher::team() const {
@@ -53,6 +55,6 @@ void MissileLauncher::handle_input(const std::string& input) {
     //GameObject& enemy = targeting_system_->get_object(input);
     GameObject& enemy = targeting_system_->get_object(input);
     printf("GOT SOME ENEMY?\n");
-    //create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100,
-    //enemy.x_pos() - (SCREEN_WIDTH / 2), enemy.y_pos() - (SCREEN_HEIGHT / 2));
+    create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10,
+                   (enemy.x_pos() - (SCREEN_WIDTH / 2)) / 100, (enemy.y_pos() - (SCREEN_HEIGHT / 2)) / 100);
 }

@@ -31,6 +31,6 @@ private:
     Team::Team team_;
     I_GameObjectMediator& game_object_mediator_;
     Terminal terminal_;
-    std::unique_ptr<TargetingSystem> targeting_system_;
+    TargetingSystem* targeting_system_;
     Hitbox hitbox_;
 };

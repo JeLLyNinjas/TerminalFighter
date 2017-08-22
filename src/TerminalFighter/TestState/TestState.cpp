@@ -51,8 +51,8 @@ gamestates::GameStateName TestState::run() {
     Delay delayer(false);
 
     for (;;) {
-        if (rand() % 5 == 0) {
-            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0, 10));
+        if (rand() % 45 == 0) {
+            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0, 5));
             game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
         }
 

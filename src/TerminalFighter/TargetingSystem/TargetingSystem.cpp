@@ -113,7 +113,7 @@ void TargetingSystem::print_dict() {
     }
 }
 
-GameObject& TargetingSystem::get_object(std::string word) {
+GameObject* TargetingSystem::get_object(std::string word) {
     printf("Trying to find word:%s\n", word.c_str());
 
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
@@ -121,10 +121,10 @@ GameObject& TargetingSystem::get_object(std::string word) {
 
         if (it->second->assigned_word_.compare(word) == 0) {
             printf("Found Word!?\n", word.c_str());
-            return it->second->game_object_;
+            return &it->second->game_object_;
         }
     }
 
     printf("didn't find?!?\n");
-    //TODO fix warning by making it return a default reference somehow?
+    return NULL;
 }

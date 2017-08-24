@@ -13,7 +13,7 @@
 
 class I_GameObjectMediator;
 
-class MissileLauncher : public GameObject, public KeyboardListener, public TerminalListener {
+class MissileLauncher : public GameObject, public KeyboardListener, public TerminalListener { /*public DestroyedListener*/
 public:
     MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator);
     Team::Team team() const;
@@ -26,6 +26,7 @@ public:
     const I_Hitbox& hitbox() const;
     void notify_collision(GameObject& collided_object);
     void handle_input(const std::string& input);
+    //virtual void object_destroyed(int id);
 
 private:
     Team::Team team_;

@@ -55,21 +55,22 @@ std::string TargetingSystem::grab_word() {
 }
 
 void TargetingSystem::update() {
-    printf("Checking for heartbeats...\n");
+    //printf("Checking for heartbeats...\n");
 
     std::map<int, GameObjectStringPair*>::iterator it = targets_.begin();
 
     while (it != targets_.end()) {
-        printf("checking target id: %d...", it->first);
+        //printf("checking target id: %d...", it->first);
 
         if (it->second->alive_ == true) {
-            printf("status: alive\n");
+            //printf("status: alive\n");
             it->second->alive_ = false;
             it++;
         } else {
-            printf("status: deleted\n");
+            //printf("status: deleted\n");
             std::map<int, GameObjectStringPair*>::iterator to_delete = it;
             it++;
+            delete (to_delete->second);
             targets_.erase(to_delete);
         }
     }
@@ -88,7 +89,7 @@ const I_Hitbox& TargetingSystem::hitbox() const {
 }
 
 void TargetingSystem::notify_collision(GameObject& collided_object) {
-    printf("collision with objectid:%d\n", collided_object.id());
+    //printf("collision with objectid:%d\n", collided_object.id());
 
     if (targets_.find(collided_object.id()) != targets_.end()) {
         targets_.find(collided_object.id())->second->alive_ = true;
@@ -114,17 +115,16 @@ void TargetingSystem::print_dict() {
 }
 
 GameObject* TargetingSystem::get_object(std::string word) {
-    printf("Trying to find word:%s\n", word.c_str());
+    //printf("Trying to find word:%s\n", word.c_str());
 
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
-        printf("in loop: Trying to find word:%s\n", word.c_str());
+        //printf("in loop: Trying to find word:%s\n", word.c_str());
 
         if (it->second->assigned_word_.compare(word) == 0) {
-            printf("Found Word!?\n", word.c_str());
+            //printf("Found Word!?\n", word.c_str());
             return &it->second->game_object_;
         }
     }
 
-    printf("didn't find?!?\n");
     return NULL;
 }

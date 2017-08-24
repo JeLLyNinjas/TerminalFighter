@@ -20,6 +20,7 @@ void Universe::update_all() {
 
     for (auto id : id_to_delete_) {
         int success = all_game_objects_.erase(id); // erase returns number of objects erased
+        printf("Universe Deleted %d objects\n", success);
         SDL_assert(success && "Object to be deleted not found in Universe object vector"); // object to be destroyed not found
     }
 

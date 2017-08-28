@@ -1,3 +1,5 @@
+#include <glog/logging.h>
+
 #include "Delay.h"
 
 Delay::Delay(bool debug_mode) {
@@ -22,8 +24,8 @@ void Delay::delay_with_fps(double fps) {
         }
 
         if (debug_mode_) {
-            printf("Time between loops: %d\n", (int)time_duration_.count());
-            printf("Time needed between loops: %lf\n", time_to_achieve_fps);
+            LOG(INFO) << "Time between loops: " << (int)time_duration_.count();
+            LOG(INFO) << "Time needed between loops: " << time_to_achieve_fps;
         }
 
         start_timer();
@@ -43,7 +45,7 @@ SDL_Surface* Delay::grab_frame_rate() {
 
     if (lowest_fps > 1 / ((double)time_duration_.count() / 1000000) && 10 < 1 / ((double)time_duration_.count() / 1000000)) {
         lowest_fps = 1 / ((double)time_duration_.count() / 1000000);
-        printf("lowest fps is now %lf\n", lowest_fps);
+        LOG(INFO) << "lowest fps is now " << lowest_fps;
     }
 
     return TTF_RenderText_Blended(default_delay_font_, std::to_string(1 / ((double)time_duration_.count() / 1000000)).c_str(), frame_rate_color);

@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include <glog/logging.h>
 #include <SDL2/SDL.h>
 #include <SDL_ttf.h>
 
@@ -17,14 +16,14 @@ Terminal::Terminal(double x_pos, double y_pos, double width, double height)
 
 void Terminal::draw(I_GraphicsHandler& graphics) {
     if (terminal_texture_ == NULL) {
-        printf("Terminal graphics were null! Setting terminal graphic...\n");
+        LOG(WARNING) << "Terminal graphics were null! Setting terminal graphic...";
         set_texture(graphics.load_image("assets/terminal/futureui1.png"));
     }
 
     SDL_Color white = {255, 255, 255};
     SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, player_text_.c_str(), white);
-    graphics.draw(terminal_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::UI);
-    graphics.draw(UIText, (int)x_pos() + 30, (int)y_pos() + 30, GraphicPriority::UI);
+    graphics.draw(terminal_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::UI, true);
+    graphics.draw(UIText, (int)x_pos() + 30, (int)y_pos() + 30, GraphicPriority::UI, false);
     SDL_FreeSurface(UIText);
 }
 

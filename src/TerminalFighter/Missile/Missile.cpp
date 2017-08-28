@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include <glog/logging.h>
 #include <SDL2/SDL.h>
 
 #include "../Engine/GraphicsHandler/I_GraphicsHandler.h"
@@ -14,7 +13,7 @@ Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel, int hea
 }
 
 Missile::~Missile() {
-    std::printf("Missile Died \n");
+    LOG(INFO) << "Missile Died";
 }
 
 void Missile::update() {
@@ -25,11 +24,11 @@ void Missile::update() {
 
 void Missile::draw(I_GraphicsHandler& graphics) {
     if (missile_texture_ == NULL) {
-        printf("Missile graphics were null! Setting missile graphic...\n");
+        LOG(WARNING) << "Missile graphics were null! Setting missile graphic...";
         set_texture(graphics.load_image("assets/projectiles/missile.png"));
     }
 
-    graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE);
+    graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true);
 }
 
 const I_Hitbox& Missile::hitbox() const {

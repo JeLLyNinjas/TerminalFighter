@@ -1,5 +1,7 @@
 #include <stdlib.h>
 
+#include <glog/logging.h>
+
 #include "TestState.h"
 
 #include "Team/Team.h"
@@ -84,6 +86,7 @@ void TestState::display_debug_frames_(Delay* delayer) {
     Message_rect.w = 200; // controls the width of the rect
     Message_rect.h = 70; // controls the height of the rect
     SDL_RenderCopy(&renderer_, frame_rate_texture, NULL, &Message_rect);
+    SDL_DestroyTexture(frame_rate_texture);
     SDL_FreeSurface(frame_rate_surface);
 }
 
@@ -94,13 +97,13 @@ void TestState::handle_key_press(const std::string& keypress) {
         exit_ = true;
     }
 
-    printf("Key returned was: %s\n", keypress.c_str());
+    LOG(INFO) << "Key returned was: " << keypress.c_str();
 }
 
 void TestState::notify_events(const SDL_Event& e) {
     switch (e.type) {
         case SDL_QUIT:
-            printf("SDL_QUIT was called!\n");
+            LOG(INFO) << "SDL_QUIT was called!";
             exit_ = true;
             break;
     }

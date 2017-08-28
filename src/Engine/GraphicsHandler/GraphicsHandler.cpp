@@ -1,3 +1,5 @@
+#include <glog/logging.h>
+
 #include "GraphicsHandler.h"
 
 namespace {
@@ -23,21 +25,22 @@ GraphicsHandler::GraphicsHandler(SDL_Renderer& renderer)
 }) {
 }
 
-void GraphicsHandler::draw(SDL_Texture* texture, SDL_Rect texture_rect, GraphicPriority priority) {
-    draw_queue_.at(priority).push_back(DrawRequest(texture, texture_rect));
+void GraphicsHandler::draw(SDL_Texture* texture, SDL_Rect texture_rect, GraphicPriority priority, bool is_flyweight) {
+    draw_queue_.at(priority).push_back(DrawRequest(texture, texture_rect, is_flyweight));
 }
 
-void GraphicsHandler::draw(SDL_Texture* texture, int x_pos, int y_pos, GraphicPriority priority) {
+void GraphicsHandler::draw(SDL_Texture* texture, int x_pos, int y_pos, GraphicPriority priority, bool is_flyweight) {
     SDL_Rect texture_rect;
     SDL_QueryTexture(texture, NULL, NULL, &texture_rect.w, &texture_rect.h);
     texture_rect.x = x_pos;
     texture_rect.y = y_pos;
-    this->draw(texture, texture_rect, priority);
+    this->draw(texture, texture_rect, priority, is_flyweight);
 }
 
-void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos, GraphicPriority priority) {
+void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos, GraphicPriority priority, bool is_flyweight) {
+    //These textures are not being freed...
     SDL_Texture* texture = SDL_CreateTextureFromSurface(&renderer_, surface);
-    this->draw(texture, x_pos, y_pos, priority);
+    this->draw(texture, x_pos, y_pos, priority, is_flyweight);
 }
 
 
@@ -45,6 +48,10 @@ void GraphicsHandler::update_screen() {
     for (auto priority : DRAW_ORDER) {
         for (auto const& draw_request : draw_queue_[priority]) {
             SDL_RenderCopy(&renderer_, draw_request.texture(), NULL, &draw_request.texture_rect());
+
+            if (!draw_request.is_flyweight()) {
+                SDL_DestroyTexture(draw_request.texture());
+            }
         }
 
         draw_queue_.at(priority) = std::vector<DrawRequest>();
@@ -74,8 +81,7 @@ SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {
 
 SDL_Texture* GraphicsHandler::load_image(std::string path) {
     if (game_graphics_.find(path) == game_graphics_.end() ) {
-        printf("Fatal error, could not find the sprite %s! Exiting program\n", path.c_str());
-        exit(1);
+        LOG(FATAL) << "Fatal error, could not find the sprite " << path.c_str() << "! Exiting...";
     }
 
     return game_graphics_.find(path)->second;

@@ -1,7 +1,5 @@
 #pragma once
 #include <chrono>
-#include <iostream>
-#include <stdio.h>
 #include <unistd.h>
 
 #include <SDL_ttf.h>

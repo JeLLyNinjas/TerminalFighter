@@ -1,3 +1,5 @@
+#include <glog/logging.h>
+
 #include <SDL2/SDL.h>
 
 #include "GraphicsHandler/I_GraphicsHandler.h"
@@ -31,7 +33,7 @@ void MainCharacter::update() {
 
 void MainCharacter::draw(I_GraphicsHandler& graphics) {
     if (texture_ == NULL) {
-        printf("MainCharacter graphics were null! Setting MainCharacter graphic...\n");
+        LOG(WARNING) << "MainCharacter graphics were null! Setting MainCharacter graphic...";
         set_texture(graphics.load_image("assets/ships/Arman.png"));
     }
 
@@ -39,7 +41,7 @@ void MainCharacter::draw(I_GraphicsHandler& graphics) {
         weapon->draw(graphics);
     }
 
-    graphics.draw(texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE);
+    graphics.draw(texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true);
 }
 
 

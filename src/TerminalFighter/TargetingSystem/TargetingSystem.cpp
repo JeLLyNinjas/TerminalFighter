@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 
+#include <glog/logging.h>
 #include <SDL_ttf.h>
 
 #include "TargetingSystem.h"
@@ -55,19 +56,19 @@ std::string TargetingSystem::grab_word() {
 }
 
 void TargetingSystem::update() {
-    //printf("Checking for heartbeats...\n");
+    //LOG(INFO) << "Checking for heartbeats...";
 
     std::map<int, GameObjectStringPair*>::iterator it = targets_.begin();
 
     while (it != targets_.end()) {
-        //printf("checking target id: %d...", it->first);
+        LOG(INFO) << "checking target id: " << it->first;
 
         if (it->second->alive_ == true) {
-            //printf("status: alive\n");
+            //LOG(INFO) << "status: alive";
             it->second->alive_ = false;
             it++;
         } else {
-            //printf("status: deleted\n");
+            //LOG(INFO) << "status: deleted";
             std::map<int, GameObjectStringPair*>::iterator to_delete = it;
             it++;
             delete (to_delete->second);
@@ -79,7 +80,7 @@ void TargetingSystem::update() {
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
         SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), WHITE);
-        graphics.draw(UIText, (int)it->second->game_object_.x_pos(), (int)it->second->game_object_.y_pos(), GraphicPriority::UI);
+        graphics.draw(UIText, (int)it->second->game_object_.x_pos(), (int)it->second->game_object_.y_pos(), GraphicPriority::UI, false);
         SDL_FreeSurface(UIText);
     }
 }
@@ -89,12 +90,14 @@ const I_Hitbox& TargetingSystem::hitbox() const {
 }
 
 void TargetingSystem::notify_collision(GameObject& collided_object) {
-    //printf("collision with objectid:%d\n", collided_object.id());
+    //LOG(INFO) << "collision with objectid: " << collided_object.id();
 
     if (targets_.find(collided_object.id()) != targets_.end()) {
         targets_.find(collided_object.id())->second->alive_ = true;
     } else {
-        //printf("Target %d was not found. has x: %lf and y: %lf\n", collided_object.id(), collided_object);
+        //LOG(INFO) << "Target " << collided_object.id()
+        //<< " was not found. has x: " << collided_object.x_pos()
+        //<< " and y: " << collided_object.y_pos();
         targets_[collided_object.id()] =
             new GameObjectStringPair(grab_word(), collided_object, true);
     }
@@ -109,7 +112,7 @@ void TargetingSystem::take_damage(int damage) {
 void TargetingSystem::print_dict() {
     for (unsigned int i = 0; i < local_dict_.size(); i++) {
         for (unsigned int j = 0; j < local_dict_[i].size(); j++) {
-            printf("%s\n", local_dict_[i].at(j).c_str());
+            LOG(INFO) << local_dict_[i].at(j).c_str();
         }
     }
 }

@@ -14,9 +14,9 @@ class GraphicsHandler : public I_GraphicsHandler {
 public:
     GraphicsHandler(SDL_Renderer& renderer);
     void init();
-    void draw(SDL_Texture* texture, SDL_Rect texture_rect, GraphicPriority priority);
-    void draw(SDL_Texture* texture, int x_pos, int y_pos, GraphicPriority priority);
-    void draw(SDL_Surface* surface, int x_pos, int y_pos, GraphicPriority priority);
+    void draw(SDL_Texture* texture, SDL_Rect texture_rect, GraphicPriority priority, bool is_flyweight);
+    void draw(SDL_Texture* texture, int x_pos, int y_pos, GraphicPriority priority, bool is_flyweight);
+    void draw(SDL_Surface* surface, int x_pos, int y_pos, GraphicPriority priority, bool is_flyweight);
     SDL_Texture* load_image(std::string path); /*will return textures that were loaded on init()*/
     void update_screen();
 

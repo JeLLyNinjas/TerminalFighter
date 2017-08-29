@@ -11,6 +11,7 @@ add_library(Hitbox Hitbox/Hitbox.cpp)
 add_library(Keyboard Keyboard/Keyboard.cpp)
 add_library(Universe Universe/Universe.cpp)
 add_library(GameStateHandler GameStateHandler/GameStateHandler.cpp)
+add_library(Util Util/Util.cpp)
 
 target_link_libraries(CollisionDetector Hitbox)
 target_link_libraries(Delay ${SDL2_LIBRARIES})

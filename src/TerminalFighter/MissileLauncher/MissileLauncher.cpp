@@ -2,6 +2,7 @@
 
 #include "MissileLauncher.h"
 #include "Missile/Missile.h"
+#include "Util/Util.h"
 
 MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator)
     : team_(team)
@@ -63,11 +64,9 @@ void MissileLauncher::handle_input(const std::string& input) {
     double y_vel = enemy->y_pos() - (SCREEN_HEIGHT - 10);
 
     float magnitude = x_vel * x_vel + y_vel * y_vel;
-    float magnitude_half = 0.5 * magnitude;
-    int i = *(int*)&magnitude;
-    i = 0x5f3759df - (i >> 1);
-    magnitude = *(float*)&i;
-    magnitude = 8 * magnitude * (1.5f - magnitude_half * magnitude * magnitude);
+
+
+    magnitude = 4 * util::inverse_sqrt(magnitude);
     printf("magnitude: %lf\n", magnitude);
 
 

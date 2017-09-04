@@ -8,7 +8,6 @@ MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_obj
     : team_(team)
     , game_object_mediator_(game_object_mediator)
     , terminal_((SCREEN_WIDTH / 2) - 400, SCREEN_HEIGHT - 150, 100, 30)
-      //, targeting_system_(new TargetingSystem(3, 5, "FFF"))
     , hitbox_(0, 0, 0, 0) {
     std::unique_ptr<TargetingSystem> temp_targeting_system_ (new TargetingSystem(3, 5, "FFF"));
     targeting_system_ = temp_targeting_system_.get();
@@ -32,10 +31,6 @@ void MissileLauncher::handle_key_press(const std::string& keypress) {
 // GameObject
 
 void MissileLauncher::update() {
-    if (rand() % 5 == 0) {
-        //create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, rand() % 4 - 2, rand() % 4 * -1);
-    }
-
     terminal_.update();
 }
 
@@ -53,13 +48,11 @@ void MissileLauncher::notify_collision(GameObject& collided_object) {
 
 void MissileLauncher::handle_input(const std::string& input) {
     GameObject* enemy = targeting_system_->get_object(input);
-    //enemy->add_listener(this);
 
     if (enemy == NULL) {
         return;
     }
 
-    //TODO, make a math or utility class
     double x_vel = enemy->x_pos() - (SCREEN_WIDTH / 2);
     double y_vel = enemy->y_pos() - (SCREEN_HEIGHT - 10);
 
@@ -72,5 +65,4 @@ void MissileLauncher::handle_input(const std::string& input) {
 
     create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10,
                    magnitude * x_vel, magnitude * y_vel);
-    //delete enemy;
 }

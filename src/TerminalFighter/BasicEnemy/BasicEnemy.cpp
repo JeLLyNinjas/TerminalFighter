@@ -12,6 +12,9 @@ BasicEnemy::BasicEnemy(double x_pos, double y_pos, double x_vel, double y_vel, i
     , hitbox_(Hitbox(x_pos_, y_pos_, 90, 50)) {
 }
 
+BasicEnemy::~BasicEnemy() {
+}
+
 void BasicEnemy::update() {
     hitbox_.set_pos(x_pos_, y_pos_);
 }

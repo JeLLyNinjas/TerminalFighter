@@ -90,14 +90,10 @@ const I_Hitbox& TargetingSystem::hitbox() const {
 }
 
 void TargetingSystem::notify_collision(GameObject& collided_object) {
-    //LOG(INFO) << "collision with objectid: " << collided_object.id();
 
     if (targets_.find(collided_object.id()) != targets_.end()) {
         targets_.find(collided_object.id())->second->alive_ = true;
     } else {
-        //LOG(INFO) << "Target " << collided_object.id()
-        //<< " was not found. has x: " << collided_object.x_pos()
-        //<< " and y: " << collided_object.y_pos();
         targets_[collided_object.id()] =
             new GameObjectStringPair(grab_word(), collided_object, true);
     }
@@ -118,13 +114,8 @@ void TargetingSystem::print_dict() {
 }
 
 GameObject* TargetingSystem::get_object(std::string word) {
-    //printf("Trying to find word:%s\n", word.c_str());
-
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
-        //printf("in loop: Trying to find word:%s\n", word.c_str());
-
         if (it->second->assigned_word_.compare(word) == 0) {
-            //printf("Found Word!?\n", word.c_str());
             return &it->second->game_object_;
         }
     }

@@ -4,6 +4,7 @@
 #include "../Engine/GraphicsHandler/I_GraphicsHandler.h"
 
 #include "Missile.h"
+#include "Util/Util.h"
 
 SDL_Texture* Missile::missile_texture_ = NULL;
 
@@ -28,7 +29,8 @@ void Missile::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image("assets/projectiles/missile.png"));
     }
 
-    graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true, 0, NULL);
+    graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true,
+                  util::angle_from_vertical_vector_to(x_pos_, y_pos_, x_pos_ + x_vel_, y_pos_ + y_vel_), NULL);
 }
 
 const I_Hitbox& Missile::hitbox() const {

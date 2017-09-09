@@ -49,8 +49,8 @@ void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos, GraphicPr
 void GraphicsHandler::update_screen() {
     for (auto priority : DRAW_ORDER) {
         for (auto const& draw_request : draw_queue_[priority]) {
-            //Make this SDL_RenderCopyEx for angles
-            SDL_RenderCopy(&renderer_, draw_request.texture(), NULL, &draw_request.texture_rect());
+            SDL_RenderCopyEx(&renderer_, draw_request.texture(), NULL, &draw_request.texture_rect(),
+                             draw_request.angle(), draw_request.rotation_point(), SDL_FLIP_NONE);
 
             if (!draw_request.is_flyweight()) {
                 SDL_DestroyTexture(draw_request.texture());

@@ -28,7 +28,7 @@ void Missile::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image("assets/projectiles/missile.png"));
     }
 
-    graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true);
+    graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true, 0, NULL);
 }
 
 const I_Hitbox& Missile::hitbox() const {

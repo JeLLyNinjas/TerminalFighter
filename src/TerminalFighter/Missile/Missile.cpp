@@ -30,7 +30,7 @@ void Missile::draw(I_GraphicsHandler& graphics) {
     }
 
     graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true,
-                  util::angle_from_vertical_vector_to(x_pos_, y_pos_, x_pos_ + x_vel_, y_pos_ + y_vel_), NULL);
+                  util::angle(0, 0, x_vel_, y_vel_), NULL);
 }
 
 const I_Hitbox& Missile::hitbox() const {

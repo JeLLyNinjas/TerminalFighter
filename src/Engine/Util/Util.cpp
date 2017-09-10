@@ -12,12 +12,16 @@ float util::inverse_sqrt(float magnitude) {
     return magnitude * (1.5f - magnitude_half * magnitude * magnitude);
 }
 
-double util::angle_from_vertical_vector_to(double from_x, double from_y, double to_x, double to_y) {
+// Angle counterclockwise from vertical in degrees
+double util::angle(double from_x, double from_y, double to_x, double to_y) {
     double delta_x = to_x - from_x;
-    double delta_y = from_y - to_y;
+    double delta_y = to_y - from_y;
 
     double theta_radians = atan2(delta_y, delta_x);
-    printf("from (%lf, %lf), to (%lf, %lf)\n", from_x, from_y, to_x, to_y);
-    printf("delta_x: %lf delta_y: %lf, angle: %lf, angle_rad: %lf\n", delta_x, delta_y, theta_radians * 180 / PI, theta_radians);
-    return theta_radians * 180 / PI;
+    
+    // Convert to degrees
+    // Add by 90 to set angle from vertical (12 o'clock)
+    // As opposed to the normal angle in standard trig (3 o'clock)
+    double normal_angle = (theta_radians * 180 / PI) + 90;
+    return normal_angle;
 }

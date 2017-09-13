@@ -25,7 +25,7 @@ void BasicEnemy::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image("assets/ships/BasicEnemy.png"));
     }
 
-    graphics.draw(texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true, 0, NULL);
+    graphics.draw(texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true);
 }
 
 void BasicEnemy::set_texture(SDL_Texture* texture) {

@@ -25,13 +25,22 @@ GraphicsHandler::GraphicsHandler(SDL_Renderer& renderer)
 }) {
 }
 
-void GraphicsHandler::draw(SDL_Texture* texture, SDL_Rect texture_rect, GraphicPriority priority,
-                           bool is_flyweight, double angle_clockwise, SDL_Point* rotation_point) {
+void GraphicsHandler::draw(SDL_Texture* texture,
+                           SDL_Rect texture_rect,
+                           GraphicPriority priority,
+                           bool is_flyweight,
+                           double angle_clockwise,
+                           SDL_Point* rotation_point) {
     draw_queue_.at(priority).push_back(DrawRequest(texture, texture_rect, is_flyweight, angle_clockwise, rotation_point));
 }
 
-void GraphicsHandler::draw(SDL_Texture* texture, int x_pos, int y_pos, GraphicPriority priority,
-                           bool is_flyweight, double angle_clockwise, SDL_Point* rotation_point) {
+void GraphicsHandler::draw(SDL_Texture* texture,
+                           int x_pos,
+                           int y_pos,
+                           GraphicPriority priority,
+                           bool is_flyweight,
+                           double angle_clockwise,
+                           SDL_Point* rotation_point) {
     SDL_Rect texture_rect;
     SDL_QueryTexture(texture, NULL, NULL, &texture_rect.w, &texture_rect.h);
     texture_rect.x = x_pos;
@@ -39,8 +48,13 @@ void GraphicsHandler::draw(SDL_Texture* texture, int x_pos, int y_pos, GraphicPr
     this->draw(texture, texture_rect, priority, is_flyweight, angle_clockwise, rotation_point);
 }
 
-void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos, GraphicPriority priority,
-                           bool is_flyweight, double angle_clockwise, SDL_Point* rotation_point) {
+void GraphicsHandler::draw(SDL_Surface* surface,
+                           int x_pos,
+                           int y_pos,
+                           GraphicPriority priority,
+                           bool is_flyweight,
+                           double angle_clockwise,
+                           SDL_Point* rotation_point) {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(&renderer_, surface);
     this->draw(texture, x_pos, y_pos, priority, is_flyweight, angle_clockwise, rotation_point);
 }
@@ -52,7 +66,7 @@ void GraphicsHandler::update_screen() {
             SDL_RenderCopyEx(&renderer_, draw_request.texture(), NULL, &draw_request.texture_rect(),
                              draw_request.angle(), draw_request.rotation_point(), SDL_FLIP_NONE);
 
-            if (!draw_request.is_flyweight()) {
+            if (!draw_request.cleanup()) {
                 SDL_DestroyTexture(draw_request.texture());
             }
         }

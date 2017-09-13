@@ -55,14 +55,8 @@ void MissileLauncher::handle_input(const std::string& input) {
 
     double x_vel = enemy->x_pos() - (SCREEN_WIDTH / 2);
     double y_vel = enemy->y_pos() - (SCREEN_HEIGHT - 10);
-
     float magnitude = x_vel * x_vel + y_vel * y_vel;
-
-
     magnitude = 4 * util::inverse_sqrt(magnitude);
-    printf("magnitude: %lf\n", magnitude);
-
-
     create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10,
                    magnitude * x_vel, magnitude * y_vel);
 }

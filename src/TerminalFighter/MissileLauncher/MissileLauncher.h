@@ -13,7 +13,7 @@
 
 class I_GameObjectMediator;
 
-class MissileLauncher : public GameObject, public KeyboardListener, public TerminalListener { /*public DestroyedListener*/
+class MissileLauncher : public GameObject, public KeyboardListener, public TerminalListener {
 public:
     MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator);
     Team::Team team() const;

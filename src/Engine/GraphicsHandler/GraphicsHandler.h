@@ -23,6 +23,9 @@ public:
     void draw(SDL_Surface* surface, int x_pos, int y_pos,
               GraphicPriority priority, bool is_flyweight, double angle_clockwise, SDL_Point* rotation_point);
 
+    void draw(SDL_Surface* surface, int x_pos, int y_pos,
+              GraphicPriority priority, bool is_flyweight);
+
     SDL_Texture* load_image(std::string path); /*will return textures that were loaded on init()*/
     void update_screen();
 

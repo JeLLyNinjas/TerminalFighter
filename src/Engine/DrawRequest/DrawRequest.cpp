@@ -2,12 +2,12 @@
 
 DrawRequest::DrawRequest(SDL_Texture* texture,
                          SDL_Rect texture_rect,
-                         bool is_flyweight,
+                         bool cleanup,
                          double angle_clockwise_from_vertical,
                          SDL_Point* rotation_point)
     : texture_(texture)
     , texture_rect_(texture_rect)
-    , is_flyweight_(is_flyweight)
+    , cleanup_(cleanup)
     , angle_clockwise_from_vertical_(angle_clockwise_from_vertical)
     , rotation_point_(rotation_point) {
 }
@@ -20,8 +20,8 @@ const SDL_Rect& DrawRequest::texture_rect() const {
     return texture_rect_;
 }
 
-const bool DrawRequest::is_flyweight() const {
-    return is_flyweight_;
+const bool DrawRequest::cleanup() const {
+    return cleanup_;
 }
 
 const double DrawRequest::angle() const {

@@ -28,7 +28,6 @@ gamestates::GameStateName TestState::run() {
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
     GameObjectMediator game_object_mediator(universe, *collision_detector);
     Keyboard keyboard;
-    TargetingSystem* target_system = new TargetingSystem(3, 5, "FFFF");
 
     // Setup engine critical components
     graphics_handler.init();
@@ -54,8 +53,8 @@ gamestates::GameStateName TestState::run() {
     Delay delayer(false);
 
     for (;;) {
-        if (rand() % 5 == 0) {
-            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0, 10));
+        if (rand() % 45 == 0) {
+            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0, 5));
             game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
         }
 
@@ -87,6 +86,7 @@ void TestState::display_debug_frames_(Delay* delayer) {
     Message_rect.w = 200; // controls the width of the rect
     Message_rect.h = 70; // controls the height of the rect
     SDL_RenderCopy(&renderer_, frame_rate_texture, NULL, &Message_rect);
+    SDL_DestroyTexture(frame_rate_texture);
     SDL_FreeSurface(frame_rate_surface);
 }
 

@@ -2,14 +2,17 @@
 
 #include "MissileLauncher.h"
 #include "Missile/Missile.h"
+#include "Util/Util.h"
 
 MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator)
     : team_(team)
     , game_object_mediator_(game_object_mediator)
     , terminal_((SCREEN_WIDTH / 2) - 400, SCREEN_HEIGHT - 150, 100, 30)
-    , targeting_system_(new TargetingSystem(3, 5, "FFF"))
     , hitbox_(0, 0, 0, 0) {
-    game_object_mediator.add_game_object(team_, std::move(targeting_system_));
+    std::unique_ptr<TargetingSystem> temp_targeting_system_ (new TargetingSystem(3, 5, "FFF"));
+    targeting_system_ = temp_targeting_system_.get();
+    terminal_.Observable<TerminalListener>::add_listener(this);
+    game_object_mediator.add_game_object(team_, std::move(temp_targeting_system_));
 }
 
 Team::Team MissileLauncher::team() const {
@@ -28,10 +31,6 @@ void MissileLauncher::handle_key_press(const std::string& keypress) {
 // GameObject
 
 void MissileLauncher::update() {
-    if (rand() % 5 == 0) {
-        create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, rand() % 4 - 2, rand() % 4 * -1);
-    }
-
     terminal_.update();
 }
 
@@ -47,3 +46,17 @@ void MissileLauncher::notify_collision(GameObject& collided_object) {
     // nothing to do, not a physical object
 }
 
+void MissileLauncher::handle_input(const std::string& input) {
+    GameObject* enemy = targeting_system_->get_object(input);
+
+    if (enemy == NULL) {
+        return;
+    }
+
+    double x_vel = enemy->x_pos() - (SCREEN_WIDTH / 2);
+    double y_vel = enemy->y_pos() - (SCREEN_HEIGHT - 10);
+    float magnitude = x_vel * x_vel + y_vel * y_vel;
+    magnitude = 4 * util::inverse_sqrt(magnitude);
+    create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10,
+                   magnitude * x_vel, magnitude * y_vel);
+}

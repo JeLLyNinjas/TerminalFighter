@@ -56,7 +56,7 @@ std::string TargetingSystem::grab_word() {
 }
 
 void TargetingSystem::update() {
-    LOG(INFO) << "Checking for heartbeats...";
+    //LOG(INFO) << "Checking for heartbeats...";
 
     std::map<int, GameObjectStringPair*>::iterator it = targets_.begin();
 
@@ -64,13 +64,14 @@ void TargetingSystem::update() {
         LOG(INFO) << "checking target id: " << it->first;
 
         if (it->second->alive_ == true) {
-            LOG(INFO) << "status: alive";
+            //LOG(INFO) << "status: alive";
             it->second->alive_ = false;
             it++;
         } else {
-            LOG(INFO) << "status: deleted";
+            //LOG(INFO) << "status: deleted";
             std::map<int, GameObjectStringPair*>::iterator to_delete = it;
             it++;
+            delete (to_delete->second);
             targets_.erase(to_delete);
         }
     }
@@ -79,7 +80,8 @@ void TargetingSystem::update() {
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
         SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), WHITE);
-        graphics.draw(UIText, (int)it->second->x_, (int)it->second->y_, GraphicPriority::UI);
+        graphics.draw(UIText, (int)it->second->game_object_.x_pos(), (int)it->second->game_object_.y_pos(),
+                      GraphicPriority::UI, false);
         SDL_FreeSurface(UIText);
     }
 }
@@ -89,16 +91,12 @@ const I_Hitbox& TargetingSystem::hitbox() const {
 }
 
 void TargetingSystem::notify_collision(GameObject& collided_object) {
-    LOG(INFO) << "collision with objectid: " << collided_object.id();
 
     if (targets_.find(collided_object.id()) != targets_.end()) {
         targets_.find(collided_object.id())->second->alive_ = true;
     } else {
-        LOG(INFO) << "Target " << collided_object.id()
-                  << " was not found. has x: " << collided_object.x_pos()
-                  << " and y: " << collided_object.y_pos();
         targets_[collided_object.id()] =
-            new GameObjectStringPair(grab_word(), collided_object.x_pos(), collided_object.y_pos(), true);
+            new GameObjectStringPair(grab_word(), collided_object, true);
     }
 
 }
@@ -114,4 +112,14 @@ void TargetingSystem::print_dict() {
             LOG(INFO) << local_dict_[i].at(j).c_str();
         }
     }
+}
+
+GameObject* TargetingSystem::get_object(std::string word) {
+    for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
+        if (it->second->assigned_word_.compare(word) == 0) {
+            return &it->second->game_object_;
+        }
+    }
+
+    return NULL;
 }

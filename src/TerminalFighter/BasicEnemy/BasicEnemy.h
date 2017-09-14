@@ -10,6 +10,7 @@ class I_GraphicsHandler;
 class BasicEnemy : public GameObject {
 public:
     BasicEnemy(double x_pos, double y_pos, double x_vel, double y_vel, int health);
+    ~BasicEnemy();
 
     void update();
     void draw(I_GraphicsHandler& graphics);

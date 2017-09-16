@@ -12,6 +12,7 @@ extern "C" {
 }
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
+#include <SDL_mixer.h>
 #include <glog/logging.h>
 
 #include "GameState/I_GameState.h"
@@ -52,6 +53,11 @@ bool init_SDL() {
         if (drinfo.flags & SDL_RENDERER_TARGETTEXTURE) {
             LOG(INFO) << "The main_renderer supports rendering to texture";
         }
+    }
+
+    if ( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) {
+        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+        return false;
     }
 
     //Initializes SDL

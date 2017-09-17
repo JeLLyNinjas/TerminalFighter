@@ -11,7 +11,7 @@ class I_GraphicsHandler;
 class Universe : public I_Universe {
 
 public:
-    Universe(I_GraphicsHandler& graphics_handler);
+    Universe(I_GraphicsHandler& graphics_handler, I_AudioHandler& audio_handler);
     void get_events();
     void update_all();
     void draw_all();
@@ -27,4 +27,5 @@ private:
     std::set<int> id_to_delete_;
     std::vector<std::unique_ptr<I_Updatable>> game_services_;
     I_GraphicsHandler& graphics_handler_;
+    I_AudioHandler& audio_handler_;
 };

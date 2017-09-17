@@ -26,7 +26,7 @@ void Missile::update() {
 void Missile::draw(I_GraphicsHandler& graphics) {
     if (missile_texture_ == NULL) {
         LOG(WARNING) << "Missile graphics were null! Setting missile graphic...";
-        set_texture(graphics.load_image("assets/projectiles/missile.png"));
+        set_texture(graphics.load_image("assets/images/projectiles/missile.png"));
     }
 
     graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true,

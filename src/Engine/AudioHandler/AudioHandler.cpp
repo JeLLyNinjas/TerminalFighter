@@ -6,6 +6,10 @@
 
 #include "AudioHandler.h"
 
+
+AudioHandler::AudioHandler() {
+
+}
 AudioHandler::~AudioHandler() {
     //TODO make sure this thing cleans things up
     //for (std::map<std::string, Mix_Chunk*>::iterator it = sound_effects_.begin(); it != sound_effects_.end(); ++it) {
@@ -25,7 +29,7 @@ Mix_Music* AudioHandler:: load_music(std::string path) {
 
     return ret;
 }
-Mix_Chunk* AudioHandler:: load_chunk(std::string path, bool flyweight) {
+Mix_Chunk* AudioHandler:: load_chunk(std::string path) {
     Mix_Chunk* ret = Mix_LoadWAV(path.c_str());
 
     if ( ret == NULL ) {
@@ -33,9 +37,7 @@ Mix_Chunk* AudioHandler:: load_chunk(std::string path, bool flyweight) {
                    "Error: " << Mix_GetError() << " Exiting...";
     }
 
-    if (flyweight) {
-        sound_effects_[path.c_str()] = ret;
-    }
+    sound_effects_[path.c_str()] = ret;
 
     return ret;
 }

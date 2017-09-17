@@ -17,7 +17,7 @@ target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler glog::glog)
 target_link_libraries(MissileLauncher Missile GameObjectMediator TargetingSystem Util)
 target_link_libraries(Terminal ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES} GameObject Hitbox GraphicsHandler)
 target_link_libraries(TestState GameObjectMediator Universe CollisionDetector BasicEnemy
-    GraphicsHandler MainCharacter MissileLauncher Events Delay Keyboard Terminal TargetingSystem)
+    GraphicsHandler MainCharacter MissileLauncher Events Delay Keyboard Terminal TargetingSystem AudioHandler)
 
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} glog::glog ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}

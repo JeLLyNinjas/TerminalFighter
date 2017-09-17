@@ -38,6 +38,10 @@ void MissileLauncher::draw(I_GraphicsHandler& graphics) {
     terminal_.draw(graphics);
 }
 
+void MissileLauncher::play(I_AudioHandler& audio) {
+    audio.play_chunk(audio.load_chunk("assets/sounds/NFF-laser-gun-03.wav"));
+}
+
 const I_Hitbox& MissileLauncher::hitbox() const {
     return hitbox_;
 }

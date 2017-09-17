@@ -9,6 +9,7 @@
 #include "Universe/Universe.h"
 #include "CollisionDetector/CollisionDetector.h"
 #include "GraphicsHandler/GraphicsHandler.h"
+#include "AudioHandler/AudioHandler.h"
 
 #include "MainCharacter/MainCharacter.h"
 #include "BasicEnemy/BasicEnemy.h"
@@ -23,7 +24,8 @@ TestState::TestState(SDL_Renderer& renderer)
 gamestates::GameStateName TestState::run() {
     // Initialize engine critical components
     GraphicsHandler graphics_handler(renderer_);
-    Universe universe(graphics_handler);
+    AudioHandler audio_handler = AudioHandler();
+    Universe universe(graphics_handler, audio_handler);
     std::unique_ptr<Events> events(new Events());
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
     GameObjectMediator game_object_mediator(universe, *collision_detector);

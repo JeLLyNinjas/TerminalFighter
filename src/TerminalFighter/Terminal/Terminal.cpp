@@ -17,7 +17,7 @@ Terminal::Terminal(double x_pos, double y_pos, double width, double height)
 void Terminal::draw(I_GraphicsHandler& graphics) {
     if (terminal_texture_ == NULL) {
         LOG(WARNING) << "Terminal graphics were null! Setting terminal graphic...";
-        set_texture(graphics.load_image("assets/terminal/futureui1.png"));
+        set_texture(graphics.load_image("assets/images/terminal/futureui1.png"));
     }
 
     SDL_Color white = {255, 255, 255};

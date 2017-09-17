@@ -34,7 +34,7 @@ void MainCharacter::update() {
 void MainCharacter::draw(I_GraphicsHandler& graphics) {
     if (texture_ == NULL) {
         LOG(WARNING) << "MainCharacter graphics were null! Setting MainCharacter graphic...";
-        set_texture(graphics.load_image("assets/ships/Arman.png"));
+        set_texture(graphics.load_image("assets/images/ships/Arman.png"));
     }
 
     for (auto& weapon : weapons_) {

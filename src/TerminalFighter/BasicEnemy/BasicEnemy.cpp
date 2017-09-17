@@ -22,7 +22,7 @@ void BasicEnemy::update() {
 void BasicEnemy::draw(I_GraphicsHandler& graphics) {
     if (texture_ == NULL) {
         LOG(WARNING) << "BasicEnemy graphics were null! Setting BasicEnemy graphic...";
-        set_texture(graphics.load_image("assets/ships/BasicEnemy.png"));
+        set_texture(graphics.load_image("assets/images/ships/BasicEnemy.png"));
     }
 
     graphics.draw(texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true);

@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include <string>
 
 #include "I_Updatable.h"
 #include "CollisionDetector/DestroyedListener.h"
@@ -7,7 +8,6 @@
 #include "AudioHandler/AudioHandler.h"
 
 class I_GraphicsHandler;
-class I_AudioHandler;
 class I_Hitbox;
 
 
@@ -20,13 +20,12 @@ public:
 
     virtual void update() = 0;
     virtual void draw(I_GraphicsHandler& graphics) = 0;
-    virtual void play(I_AudioHandler& graphics) {
-        return;
-    }
     virtual const I_Hitbox& hitbox() const = 0;
     virtual void notify_collision(GameObject& collided_object) = 0;
+
     virtual void take_damage(int damage);
 
+    std::string get_sound();
     void notify_destroyed();
     double x_pos() const;
     double y_pos() const;
@@ -35,11 +34,13 @@ public:
     int id() const;
 
 protected:
+    void play(std::string path);
     double x_pos_;
     double y_pos_;
     double x_vel_;
     double y_vel_;
     int health_;
+    std::string sound_chunk_;
 
 private:
     static unsigned int id_counter_;

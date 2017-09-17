@@ -83,10 +83,10 @@ void GraphicsHandler::update_screen() {
 //Right now, this function should just load all of our assets. Maybe later when we need to conserve more space, load only things we need
 //defined by .INI
 void GraphicsHandler::init() {
-    game_graphics_["assets/projectiles/missile.png"] = internal_load_image("assets/projectiles/missile.png");
-    game_graphics_["assets/ships/BasicEnemy.png"] = internal_load_image("assets/ships/BasicEnemy.png");
-    game_graphics_["assets/ships/Arman.png"] = internal_load_image("assets/ships/Arman.png");
-    game_graphics_["assets/terminal/futureui1.png"] = internal_load_image("assets/terminal/futureui1.png");
+    game_graphics_["assets/images/projectiles/missile.png"] = internal_load_image("assets/images/projectiles/missile.png");
+    game_graphics_["assets/images/ships/BasicEnemy.png"] = internal_load_image("assets/images/ships/BasicEnemy.png");
+    game_graphics_["assets/images/ships/Arman.png"] = internal_load_image("assets/images/ships/Arman.png");
+    game_graphics_["assets/images/terminal/futureui1.png"] = internal_load_image("assets/images/terminal/futureui1.png");
 }
 
 SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {

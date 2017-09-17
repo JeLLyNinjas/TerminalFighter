@@ -11,7 +11,7 @@ add_library(TargetingSystem TargetingSystem/TargetingSystem.cpp)
 add_library(MenuState MenuState/MenuState.cpp)
 add_library(TestState TestState/TestState.cpp)
 
-target_link_libraries(BasicEnemy Hitbox)
+target_link_libraries(BasicEnemy Hitbox GameObject)
 target_link_libraries(MainCharacter ${SDL2_LIBRARIES})
 target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler glog::glog)
 target_link_libraries(MissileLauncher Missile GameObjectMediator TargetingSystem Util)

@@ -1,8 +1,10 @@
 #pragma once
-#include "I_AudioHandler.h"
+
 #include <map>
 
-class AudioHandler public I_AudioHandler {
+#include "I_AudioHandler.h"
+
+class AudioHandler : public I_AudioHandler {
 public:
     ~AudioHandler();
     void init();

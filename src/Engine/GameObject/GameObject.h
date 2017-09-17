@@ -4,6 +4,7 @@
 #include "I_Updatable.h"
 #include "CollisionDetector/DestroyedListener.h"
 #include "Observable/Observable.h"
+#include "AudioHandler/AudioHandler.h"
 
 class I_GraphicsHandler;
 class I_AudioHandler;
@@ -19,7 +20,9 @@ public:
 
     virtual void update() = 0;
     virtual void draw(I_GraphicsHandler& graphics) = 0;
-    virtual void play(I_AudioHandler& graphics) = 0;
+    virtual void play(I_AudioHandler& graphics) {
+        return;
+    }
     virtual const I_Hitbox& hitbox() const = 0;
     virtual void notify_collision(GameObject& collided_object) = 0;
     virtual void take_damage(int damage);

@@ -23,7 +23,6 @@ public:
     // GameObject
     void update();
     void draw(I_GraphicsHandler& graphics);
-    void play(I_AudioHandler& audio);
     const I_Hitbox& hitbox() const;
     void notify_collision(GameObject& collided_object);
     void handle_input(const std::string& input);

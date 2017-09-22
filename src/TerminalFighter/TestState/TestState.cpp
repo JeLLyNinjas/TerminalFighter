@@ -24,11 +24,11 @@ TestState::TestState(SDL_Renderer& renderer)
 gamestates::GameStateName TestState::run() {
     // Initialize engine critical components
     GraphicsHandler graphics_handler(renderer_);
-    AudioHandler audio_handler = AudioHandler();
-    Universe universe(graphics_handler, audio_handler);
+    Universe universe(graphics_handler);
     std::unique_ptr<Events> events(new Events());
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
-    GameObjectMediator game_object_mediator(universe, *collision_detector);
+    std::unique_ptr<I_AudioHandler> audio_handler(new AudioHandler());
+    GameObjectMediator game_object_mediator(universe, *collision_detector, *audio_handler);
     Keyboard keyboard;
 
     // Setup engine critical components

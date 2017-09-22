@@ -2,9 +2,8 @@
 
 #include "GraphicsHandler/GraphicsHandler.h"
 
-Universe::Universe(I_GraphicsHandler& graphics_handler, I_AudioHandler& audio_handler)
-    : graphics_handler_(graphics_handler)
-    , audio_handler_(audio_handler) {
+Universe::Universe(I_GraphicsHandler& graphics_handler)
+    : graphics_handler_(graphics_handler) {
 }
 
 void Universe::get_events() {
@@ -13,11 +12,6 @@ void Universe::get_events() {
 void Universe::update_all() {
     for (auto& game_service : game_services_) {
         game_service->update();
-    }
-
-    for (auto& game_object : all_game_objects_) {
-        game_object.second->update();
-        audio_handler_.play_chunk(audio_handler_.load_chunk(game_object.second->get_sound()));
     }
 
     for (auto id : id_to_delete_) {

@@ -15,10 +15,9 @@ class UniverseTest : public ::testing::Test {
 protected:
     Universe universe_;
     MockGraphicsHandler graphics_;
-    AudioHandler audio_handler_;
 
     UniverseTest()
-        : universe_(graphics_, audio_handler_) {
+        : universe_(graphics_) {
     }
 
     virtual void SetUp() {

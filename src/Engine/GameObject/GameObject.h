@@ -34,13 +34,11 @@ public:
     int id() const;
 
 protected:
-    void play(std::string path);
     double x_pos_;
     double y_pos_;
     double x_vel_;
     double y_vel_;
     int health_;
-    std::string sound_chunk_;
 
 private:
     static unsigned int id_counter_;

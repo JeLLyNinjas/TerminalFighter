@@ -40,14 +40,6 @@ void GameObject::take_damage(int damage) {
     }
 }
 
-void GameObject::play(std::string path) {
-    sound_chunk_ = path;
-}
-
-std::string GameObject::get_sound() {
-    return sound_chunk_;
-}
-
 double GameObject::x_pos() const {
     return x_pos_;
 }

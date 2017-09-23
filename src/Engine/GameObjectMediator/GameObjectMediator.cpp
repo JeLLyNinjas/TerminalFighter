@@ -1,3 +1,5 @@
+#include <glog/logging.h>
+
 #include "GameObjectMediator.h"
 
 #include "CollisionDetector/I_CollisionDetector.h"
@@ -25,5 +27,11 @@ void GameObjectMediator::add_projectile(Team::Team team, std::unique_ptr<GameObj
 }
 
 void GameObjectMediator::play_sound(std::string path) {
+    Mix_Chunk* sound = audio_.load_chunk(path);
 
+    if (sound == NULL) {
+        LOG(ERROR) << "Could not play sound " << path;
+    }
+
+    audio_.play_chunk(sound);
 }

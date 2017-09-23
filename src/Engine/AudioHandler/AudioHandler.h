@@ -15,7 +15,5 @@ public:
     void play_chunk(Mix_Chunk* chunk);
 
 private:
-    SDL_Texture* internal_load_image(std::string path);
-
     std::map <std::string, Mix_Chunk*> sound_effects_;
 };

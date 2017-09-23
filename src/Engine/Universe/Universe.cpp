@@ -14,6 +14,10 @@ void Universe::update_all() {
         game_service->update();
     }
 
+    for (auto& game_object : all_game_objects_) {
+        game_object.second->update();
+    }
+
     for (auto id : id_to_delete_) {
         int success = all_game_objects_.erase(id); // erase returns number of objects erased
         SDL_assert(success && "Object to be deleted not found in Universe object vector"); // object to be destroyed not found

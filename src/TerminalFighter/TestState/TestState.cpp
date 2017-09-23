@@ -9,6 +9,7 @@
 #include "Universe/Universe.h"
 #include "CollisionDetector/CollisionDetector.h"
 #include "GraphicsHandler/GraphicsHandler.h"
+#include "Settings/Settings.h"
 
 #include "MainCharacter/MainCharacter.h"
 #include "BasicEnemy/BasicEnemy.h"
@@ -21,6 +22,9 @@ TestState::TestState(SDL_Renderer& renderer)
 }
 
 gamestates::GameStateName TestState::run() {
+    Settings settings;
+    settings.parseDocument("test.yml");
+
     // Initialize engine critical components
     GraphicsHandler graphics_handler(renderer_);
     Universe universe(graphics_handler);

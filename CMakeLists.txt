@@ -10,6 +10,7 @@ PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 
 find_package(SDL2_ttf REQUIRED)
 find_package(glog 0.3.5 REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIR})
 

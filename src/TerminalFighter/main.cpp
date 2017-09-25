@@ -98,7 +98,7 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
     system("mkdir /tmp/TerminalFighter/");
     FLAGS_log_dir = "/tmp/TerminalFighter";
 #endif

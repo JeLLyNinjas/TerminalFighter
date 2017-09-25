@@ -61,7 +61,21 @@ bool init_SDL() {
     }
 
     //Creates the SDL Window
-    window = SDL_CreateWindow("Video Application", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+#ifdef __APPLE__
+    window = SDL_CreateWindow("Video Application",
+                              SDL_WINDOWPOS_UNDEFINED,
+                              SDL_WINDOWPOS_UNDEFINED,
+                              SCREEN_WIDTH / 2,
+                              SCREEN_HEIGHT / 2,
+                              SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
+#else
+    window = SDL_CreateWindow("Video Application",
+                              SDL_WINDOWPOS_UNDEFINED,
+                              SDL_WINDOWPOS_UNDEFINED,
+                              SCREEN_WIDTH,
+                              SCREEN_HEIGHT,
+                              SDL_WINDOW_SHOWN);
+#endif
 
     if (window == NULL) {
         LOG(ERROR) << "Window could not be created! SDL Error: " << SDL_GetError();

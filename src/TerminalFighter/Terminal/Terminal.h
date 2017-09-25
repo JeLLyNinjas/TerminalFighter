@@ -16,6 +16,7 @@ class Terminal : public GameObject, public Observable<TerminalListener> {
 public:
     //x_pos and y_pos define top left portion of terminal
     Terminal(double x_pos, double y_pos, double width, double height);
+    ~Terminal();
     void handle_key_press(const std::string& keypress);
 
     //GameObject

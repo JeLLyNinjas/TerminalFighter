@@ -27,7 +27,7 @@ class TargetingSystem : public GameObject {
 
 public:
     TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex);
-
+    ~TargetingSystem();
     void update();
     virtual void draw(I_GraphicsHandler& graphics);
     virtual const I_Hitbox& hitbox() const;

@@ -9,6 +9,8 @@ Delay::Delay(bool debug_mode) {
 
     if (default_delay_font_ == NULL) {
         LOG(ERROR) << "Failed to load default_delay_font_ 'fonts/Ubuntu-B.ttf'";
+    } else {
+        LOG(INFO) << "Successfully loaded default_delay_font_ 'fonts/Ubuntu-B.ttf'";
     }
 
     lowest_fps = 1000000; //arbitrary large number

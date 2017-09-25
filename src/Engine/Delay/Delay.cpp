@@ -5,7 +5,7 @@
 Delay::Delay(bool debug_mode) {
     started_ = false;
     debug_mode_ = debug_mode;
-    default_delay_font_ = TTF_OpenFont("fonts/Ubuntu-B.ttf", 84);
+    default_delay_font_ = TTF_OpenFont("assets/fonts/Ubuntu-B.ttf", 84);
 
     if (default_delay_font_ == NULL) {
         LOG(ERROR) << "Failed to load default_delay_font_ 'fonts/Ubuntu-B.ttf'";

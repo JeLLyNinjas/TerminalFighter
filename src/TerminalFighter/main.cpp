@@ -12,7 +12,7 @@ extern "C" {
 }
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 #include <glog/logging.h>
 
 #include "GameState/I_GameState.h"

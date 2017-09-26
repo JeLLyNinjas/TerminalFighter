@@ -43,7 +43,15 @@ Mix_Chunk* AudioHandler:: load_chunk(std::string path) {
 }
 void AudioHandler::play_music(Mix_Music* music) {
     //TODO
+    //// Mix_Music *music; // I assume this has been loaded already
+    if (Mix_PlayMusic(music, -1) == -1) {
+        printf("Mix_PlayMusic: %s\n", Mix_GetError());
+        // well, there's no music, but most games don't break without music...
+    }
 }
 void AudioHandler::play_chunk(Mix_Chunk* chunk) {
-    Mix_PlayChannel(-1, chunk, 0);
+    if (Mix_PlayChannel(1, chunk, 0) == -1) {
+        LOG(ERROR) << "Mix_PlayChannel: " << Mix_GetError();
+        printf("What\n");
+    }
 }

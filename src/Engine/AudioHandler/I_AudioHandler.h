@@ -1,6 +1,8 @@
 #pragma once
 
-#include <SDL_mixer.h>
+#include <string>
+
+#include <SDL2/SDL_mixer.h>
 
 class I_AudioHandler {
 public:

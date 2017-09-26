@@ -12,6 +12,7 @@ using ::testing::_;
 using ::testing::ReturnRef;
 using ::testing::Return;
 using ::testing::Ref;
+using ::testing::NiceMock;
 
 class CollisionDetectorTest : public ::testing::Test {
 protected:
@@ -24,10 +25,10 @@ protected:
 
 TEST_F(CollisionDetectorTest, gameobject_gameobject_collision) {
     CollisionDetector detector;
-    MockGameObject gameobj_1;
-    MockHitbox hitbox_1;
-    MockGameObject gameobj_2;
-    MockHitbox hitbox_2;
+    NiceMock<MockGameObject> gameobj_1;
+    NiceMock<MockHitbox> hitbox_1;
+    NiceMock<MockGameObject> gameobj_2;
+    NiceMock<MockHitbox> hitbox_2;
     ON_CALL(gameobj_1, hitbox()).WillByDefault(ReturnRef(hitbox_1));
     ON_CALL(hitbox_1, is_overlapping(Ref(hitbox_2))).WillByDefault(Return(true));
     ON_CALL(gameobj_2, hitbox()).WillByDefault(ReturnRef(hitbox_2));
@@ -41,10 +42,10 @@ TEST_F(CollisionDetectorTest, gameobject_gameobject_collision) {
 
 TEST_F(CollisionDetectorTest, gameobject_gameobject_no_collision) {
     CollisionDetector detector;
-    MockGameObject gameobj_1;
-    MockHitbox hitbox_1;
-    MockGameObject gameobj_2;
-    MockHitbox hitbox_2;
+    NiceMock<MockGameObject> gameobj_1;
+    NiceMock<MockHitbox> hitbox_1;
+    NiceMock<MockGameObject> gameobj_2;
+    NiceMock<MockHitbox> hitbox_2;
     ON_CALL(gameobj_1, hitbox()).WillByDefault(ReturnRef(hitbox_1));
     ON_CALL(hitbox_1, is_overlapping(Ref(hitbox_2))).WillByDefault(Return(false));
     ON_CALL(gameobj_2, hitbox()).WillByDefault(ReturnRef(hitbox_2));
@@ -58,10 +59,10 @@ TEST_F(CollisionDetectorTest, gameobject_gameobject_no_collision) {
 
 TEST_F(CollisionDetectorTest, projectile_gameobject_collision) {
     CollisionDetector detector;
-    MockGameObject projectile;
-    MockHitbox proj_hitbox;
-    MockGameObject gameobj;
-    MockHitbox gameobj_hitbox;
+    NiceMock<MockGameObject> projectile;
+    NiceMock<MockHitbox> proj_hitbox;
+    NiceMock<MockGameObject> gameobj;
+    NiceMock<MockHitbox> gameobj_hitbox;
     ON_CALL(projectile, hitbox()).WillByDefault(ReturnRef(proj_hitbox));
     ON_CALL(proj_hitbox, is_overlapping(Ref(gameobj_hitbox))).WillByDefault(Return(true));
     ON_CALL(gameobj, hitbox()).WillByDefault(ReturnRef(gameobj_hitbox));
@@ -75,10 +76,10 @@ TEST_F(CollisionDetectorTest, projectile_gameobject_collision) {
 
 TEST_F(CollisionDetectorTest, projectile_gameobject_no_collision) {
     CollisionDetector detector;
-    MockGameObject projectile;
-    MockHitbox proj_hitbox;
-    MockGameObject gameobj;
-    MockHitbox gameobj_hitbox;
+    NiceMock<MockGameObject> projectile;
+    NiceMock<MockHitbox> proj_hitbox;
+    NiceMock<MockGameObject> gameobj;
+    NiceMock<MockHitbox> gameobj_hitbox;
     ON_CALL(projectile, hitbox()).WillByDefault(ReturnRef(proj_hitbox));
     ON_CALL(proj_hitbox, is_overlapping(Ref(gameobj_hitbox))).WillByDefault(Return(false));
     ON_CALL(gameobj, hitbox()).WillByDefault(ReturnRef(gameobj_hitbox));
@@ -92,10 +93,10 @@ TEST_F(CollisionDetectorTest, projectile_gameobject_no_collision) {
 
 TEST_F(CollisionDetectorTest, projectile_projectile) {
     CollisionDetector detector;
-    MockGameObject proj_1;
-    MockHitbox proj_1_hitbox;
-    MockGameObject proj_2;
-    MockHitbox proj_2_hitbox;
+    NiceMock<MockGameObject> proj_1;
+    NiceMock<MockHitbox> proj_1_hitbox;
+    NiceMock<MockGameObject> proj_2;
+    NiceMock<MockHitbox> proj_2_hitbox;
     ON_CALL(proj_1, hitbox()).WillByDefault(ReturnRef(proj_1_hitbox));
     ON_CALL(proj_1_hitbox, is_overlapping(Ref(proj_2_hitbox))).WillByDefault(Return(true));
     ON_CALL(proj_2, hitbox()).WillByDefault(ReturnRef(proj_2_hitbox));
@@ -109,10 +110,10 @@ TEST_F(CollisionDetectorTest, projectile_projectile) {
 
 TEST_F(CollisionDetectorTest, gameobject_gameobject_same_team) {
     CollisionDetector detector;
-    MockGameObject gameobj_1;
-    MockHitbox hitbox_1;
-    MockGameObject gameobj_2;
-    MockHitbox hitbox_2;
+    NiceMock<MockGameObject> gameobj_1;
+    NiceMock<MockHitbox> hitbox_1;
+    NiceMock<MockGameObject> gameobj_2;
+    NiceMock<MockHitbox> hitbox_2;
     ON_CALL(gameobj_1, hitbox()).WillByDefault(ReturnRef(hitbox_1));
     ON_CALL(hitbox_1, is_overlapping(Ref(hitbox_2))).WillByDefault(Return(true));
     ON_CALL(gameobj_2, hitbox()).WillByDefault(ReturnRef(hitbox_2));
@@ -126,10 +127,10 @@ TEST_F(CollisionDetectorTest, gameobject_gameobject_same_team) {
 
 TEST_F(CollisionDetectorTest, projectile_gameobject_same_team) {
     CollisionDetector detector;
-    MockGameObject projectile;
-    MockHitbox proj_hitbox;
-    MockGameObject gameobj;
-    MockHitbox gameobj_hitbox;
+    NiceMock<MockGameObject> projectile;
+    NiceMock<MockHitbox> proj_hitbox;
+    NiceMock<MockGameObject> gameobj;
+    NiceMock<MockHitbox> gameobj_hitbox;
     ON_CALL(projectile, hitbox()).WillByDefault(ReturnRef(proj_hitbox));
     ON_CALL(proj_hitbox, is_overlapping(Ref(gameobj_hitbox))).WillByDefault(Return(true));
     ON_CALL(gameobj, hitbox()).WillByDefault(ReturnRef(gameobj_hitbox));

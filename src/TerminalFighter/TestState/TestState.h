@@ -11,7 +11,7 @@
 #include "MissileLauncher/MissileLauncher.h"
 
 class Delay;
-class SDL_Renderer;
+struct SDL_Renderer;
 
 class TestState : public I_GameState, public KeyboardListener, public EventsListener {
 public:

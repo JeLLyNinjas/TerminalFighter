@@ -22,3 +22,7 @@
 +
 `./make-all.sh`
 
+= Running with High DPI
+
+There is minimal support for high_dpi screens, run TerminalFighter with the `high_dpi` argument.
+`./TerminalFighter high_dpi`

@@ -25,10 +25,13 @@ SDL_Renderer* main_renderer = NULL;
 SDL_Window* window = NULL;
 bool quit;
 
-bool init_SDL();
-void processEvents();
+void print_renderer_info();
+bool init_sdl();
+bool create_sdl_window(bool high_dpi);
+bool create_main_renderer();
 void close();
-bool init_SDL() {
+
+void print_renderer_info() {
     int numdrivers = SDL_GetNumRenderDrivers ();
     LOG(INFO) << "Render driver count: " << numdrivers;
 
@@ -53,29 +56,35 @@ bool init_SDL() {
             LOG(INFO) << "The main_renderer supports rendering to texture";
         }
     }
+}
 
+bool init_sdl() {
     //Initializes SDL
     if (SDL_Init(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) < 0) {
         LOG(ERROR) << "SDL could not initialize! SDL Error: " << SDL_GetError();
         return false;
     }
 
-    //Creates the SDL Window
-#ifdef __APPLE__
-    window = SDL_CreateWindow("Video Application",
+    return true;
+}
+
+bool create_sdl_window(bool high_dpi) {
+    int sdl_flags = SDL_WINDOW_SHOWN;
+    auto screen_width = SCREEN_WIDTH;
+    auto screen_height = SCREEN_HEIGHT;
+
+    if (high_dpi) {
+        sdl_flags |= SDL_WINDOW_ALLOW_HIGHDPI;
+        screen_width /= 2;
+        screen_height /= 2;
+    }
+
+    window = SDL_CreateWindow("TerminalFighter",
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED,
-                              SCREEN_WIDTH / 2,
-                              SCREEN_HEIGHT / 2,
-                              SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
-#else
-    window = SDL_CreateWindow("Video Application",
-                              SDL_WINDOWPOS_UNDEFINED,
-                              SDL_WINDOWPOS_UNDEFINED,
-                              SCREEN_WIDTH,
-                              SCREEN_HEIGHT,
-                              SDL_WINDOW_SHOWN);
-#endif
+                              screen_width,
+                              screen_height,
+                              sdl_flags);
 
     if (window == NULL) {
         LOG(ERROR) << "Window could not be created! SDL Error: " << SDL_GetError();
@@ -83,6 +92,10 @@ bool init_SDL() {
     }
 
     LOG(INFO) << "Driver: " <<  SDL_GetCurrentVideoDriver();
+    return true;
+}
+
+bool create_main_renderer() {
     //Creates the main_renderer.
     main_renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
@@ -108,19 +121,34 @@ void close() {
     window = NULL;
     main_renderer = NULL;
     SDL_Quit();
-    exit(0);
 }
 
 int main(int argc, char* argv[]) {
 #if defined(__linux__) || defined(__APPLE__)
-    system("mkdir /tmp/TerminalFighter/");
+    system("mkdir -p /tmp/TerminalFighter/");
     FLAGS_log_dir = "/tmp/TerminalFighter";
 #endif
     google::InitGoogleLogging(argv[0]);
     LOG(INFO) << "Logging Intialized INFO";
 
-    if (!init_SDL()) {
+    bool high_dpi = false;
+
+    if (argc > 1 && strcmp(argv[1], "high_dpi") == 0) {
+        high_dpi = true;
+    }
+
+    print_renderer_info();
+
+    if (!init_sdl()) {
         LOG(FATAL) << "Could not initialize SDL!";
+    }
+
+    if (!create_sdl_window(high_dpi)) {
+        LOG(FATAL) << "Could not create window!";
+    }
+
+    if (!create_main_renderer()) {
+        LOG(FATAL) << "Could not create main renderer";
     }
 
     if (TTF_Init() != 0) {

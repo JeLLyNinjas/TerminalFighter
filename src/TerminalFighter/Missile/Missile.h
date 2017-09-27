@@ -5,7 +5,7 @@
 
 class I_Hitbox;
 class I_GraphicsHandler;
-class SDL_Texture;
+struct SDL_Texture;
 
 class Missile : public GameObject {
 public:

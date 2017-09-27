@@ -7,7 +7,7 @@
 
 class I_Hitbox;
 class I_GraphicsHandler;
-class SDL_Texture;
+struct SDL_Texture;
 
 class MainCharacter : public GameObject {
 public:

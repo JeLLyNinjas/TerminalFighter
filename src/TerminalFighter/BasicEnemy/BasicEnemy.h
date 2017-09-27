@@ -3,7 +3,7 @@
 #include "GameObject/GameObject.h"
 #include "Hitbox/Hitbox.h"
 
-class SDL_Texture;
+struct SDL_Texture;
 class I_Hitbox;
 class I_GraphicsHandler;
 

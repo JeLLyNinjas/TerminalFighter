@@ -19,9 +19,20 @@ TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_up
     , word_length_lower_bound_(word_length_lower_bound)
     , word_length_upper_bound_(word_length_upper_bound)
     , color_hex_(color_hex)
-    , default_font_(TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", FONT_SIZE)) {
+    , default_font_(TTF_OpenFont("assets/fonts/Ubuntu-B.ttf", FONT_SIZE)) {
+    if (default_font_ == NULL) {
+        LOG(ERROR) << "Failed to load TargetingSystem font";
+    };
+
     setup_local_dict("assets/dictionary.txt");
+
     srand(time(NULL)); //TODO this should be called at a higher level, maybe Universe //this actually makes rand() be random
+}
+
+TargetingSystem::~TargetingSystem() {
+    if (default_font_ != NULL) {
+        TTF_CloseFont(default_font_);
+    }
 }
 
 void TargetingSystem::setup_local_dict(std::string relative_path) {

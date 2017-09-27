@@ -11,7 +11,16 @@ Terminal::Terminal(double x_pos, double y_pos, double width, double height)
     : GameObject(x_pos, y_pos, 0.0, 0.0, 0)
     , hitbox_(Hitbox(x_pos, y_pos, width, height))
     , player_text_("")
-    , default_font_ (TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 84)) {
+    , default_font_ (TTF_OpenFont("assets/fonts/Ubuntu-B.ttf", 84)) {
+    if (default_font_ == NULL) {
+        LOG(ERROR) << "Failed to load Terminal font";
+    };
+}
+
+Terminal::~Terminal() {
+    if (default_font_ != NULL) {
+        TTF_CloseFont(default_font_);
+    }
 }
 
 void Terminal::draw(I_GraphicsHandler& graphics) {

@@ -6,7 +6,7 @@
 #include "../Engine/Delay/Delay.h"
 
 class Delay;
-class SDL_Renderer;
+struct SDL_Renderer;
 
 class MenuState : public I_GameState {
 public:

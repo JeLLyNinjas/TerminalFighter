@@ -5,8 +5,21 @@
 Delay::Delay(bool debug_mode) {
     started_ = false;
     debug_mode_ = debug_mode;
-    default_delay_font_ = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 84);
+    default_delay_font_ = TTF_OpenFont("assets/fonts/Ubuntu-B.ttf", 84);
+
+    if (default_delay_font_ == NULL) {
+        LOG(ERROR) << "Failed to load default_delay_font_ 'fonts/Ubuntu-B.ttf'";
+    } else {
+        LOG(INFO) << "Successfully loaded default_delay_font_ 'fonts/Ubuntu-B.ttf'";
+    }
+
     lowest_fps = 1000000; //arbitrary large number
+}
+
+Delay::~Delay() {
+    if (default_delay_font_ != NULL) {
+        TTF_CloseFont(default_delay_font_);
+    }
 }
 
 void Delay::delay_with_fps(double fps) {

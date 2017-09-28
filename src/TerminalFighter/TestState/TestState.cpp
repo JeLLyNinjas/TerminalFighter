@@ -23,7 +23,7 @@ TestState::TestState(SDL_Renderer& renderer)
 
 gamestates::GameStateName TestState::run() {
     Settings settings;
-    settings.parseDocument("test.yml");
+    settings.loadSettings();
 
     // Initialize engine critical components
     GraphicsHandler graphics_handler(renderer_);

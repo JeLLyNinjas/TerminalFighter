@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include <glog/logging.h>
+#include <iostream>
 
 #include "TestState.h"
 
@@ -71,7 +72,7 @@ gamestates::GameStateName TestState::run() {
 
     // Dict paths
     std::string default_dict =
-        settings_.asset_paths()["dicts"]["dictionary.txt"].as<std::string>();
+        settings_.asset_paths()["dicts"]["default"].as<std::string>();
 
     // Construction
     std::unique_ptr<MainCharacter> main_character(

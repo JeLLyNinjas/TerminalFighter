@@ -157,8 +157,10 @@ int main(int argc, char* argv[]) {
         LOG(FATAL) << "TTF Init failed! " << TTF_GetError();
     }
 
-    std::unique_ptr<I_GameState> test_state(new TestState(*main_renderer));
-    std::unique_ptr<I_GameState> menu_state(new MenuState(*main_renderer));
+    std::unique_ptr<I_GameState> test_state(
+        new TestState(*main_renderer, settings));
+    std::unique_ptr<I_GameState> menu_state(
+        new MenuState(*main_renderer, settings));
     std::vector<I_GameState*> gamestates;
     gamestates.push_back(test_state.get());
     gamestates.push_back(menu_state.get());

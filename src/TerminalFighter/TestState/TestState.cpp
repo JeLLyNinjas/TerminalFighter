@@ -16,16 +16,15 @@
 #include "Terminal/Terminal.h"
 #include "TargetingSystem/TargetingSystem.h"
 
-TestState::TestState(SDL_Renderer& renderer)
+TestState::TestState(SDL_Renderer& renderer, const I_Settings& settings)
     : exit_(false)
-    , renderer_(renderer) {
+    , renderer_(renderer)
+    , settings_(settings) {
 }
 
 gamestates::GameStateName TestState::run() {
-    Settings settings; // TODO PASS IT INig
-    settings.reload_settings();
-    int screen_width = settings.video_settings()["window"]["width"].as<int>();
-    int screen_height = settings.video_settings()["window"]["height"].as<int>();
+    int screen_width = settings_.video_settings()["window"]["width"].as<int>();
+    int screen_height = settings_.video_settings()["window"]["height"].as<int>();
 
     // Initialize engine critical components
     GraphicsHandler graphics_handler(renderer_);
@@ -49,15 +48,19 @@ gamestates::GameStateName TestState::run() {
     double main_character_x = screen_width / 2;
     double main_character_y = screen_height - 100;
 
+    // Font paths
+    std::string default_font_path =
+        settings_.asset_paths()["fonts"]["default"].as<std::string>();
+
     // Graphic paths
     std::string main_character_graphic =
-        settings.asset_paths()["graphics"]["main_character"].as<std::string>();
+        settings_.asset_paths()["graphics"]["main_character"].as<std::string>();
     std::string missile_graphic =
-        settings.asset_paths()["graphics"]["missile"].as<std::string>();
+        settings_.asset_paths()["graphics"]["missile"].as<std::string>();
     std::string terminal_graphic =
-        settings.asset_paths()["graphics"]["terminal"].as<std::string>();
+        settings_.asset_paths()["graphics"]["terminal"].as<std::string>();
     std::string basic_enemy_graphic =
-        settings.asset_paths()["graphics"]["basic_enemy"].as<std::string>();
+        settings_.asset_paths()["graphics"]["basic_enemy"].as<std::string>();
 
     // Construction
     std::unique_ptr<MainCharacter> main_character(
@@ -78,7 +81,7 @@ gamestates::GameStateName TestState::run() {
     // Add game pieces to game
     game_object_mediator.add_game_object(Team::FRIENDLY, std::move(main_character));
 
-    Delay delayer(false);
+    Delay delayer(false, default_font_path);
 
     for (;;) {
         if (rand() % 45 == 0) {

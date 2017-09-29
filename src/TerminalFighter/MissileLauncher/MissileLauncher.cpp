@@ -4,8 +4,12 @@
 #include "Missile/Missile.h"
 #include "Util/Util.h"
 
-MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator)
-    : team_(team)
+MissileLauncher::MissileLauncher(
+    Team::Team team,
+    I_GameObjectMediator& game_object_mediator,
+    double x_pos, double y_pos)
+    : GameObject(x_pos, y_pos, 0, 0, 1)
+    , team_(team)
     , game_object_mediator_(game_object_mediator)
     , terminal_((this->x_pos()) - 400, this->y_pos() - 150, 100, 30)
     , hitbox_(0, 0, 0, 0) {

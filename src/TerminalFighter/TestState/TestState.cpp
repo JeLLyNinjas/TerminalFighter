@@ -22,7 +22,7 @@ TestState::TestState(SDL_Renderer& renderer)
 }
 
 gamestates::GameStateName TestState::run() {
-    Settings settings; // TODO PASS IT IN
+    Settings settings; // TODO PASS IT INig
     settings.reload_settings();
     int screen_width = settings.video_settings()["window"]["width"].as<int>();
     int screen_height = settings.video_settings()["window"]["height"].as<int>();
@@ -46,12 +46,19 @@ gamestates::GameStateName TestState::run() {
     // Create game pieces
 
     // Setup MainCharacter
+    double main_character_x = screen_width / 2;
+    double main_character_y = screen_height - 100;
+
     std::unique_ptr<MainCharacter> main_character(
-        new MainCharacter(screen_width / 2,
-                          screen_height - 100,
+        new MainCharacter(main_character_x,
+                          main_character_y,
                           100));
     std::unique_ptr<MissileLauncher> launcher(
-        new MissileLauncher(Team::FRIENDLY, game_object_mediator));
+        new MissileLauncher(
+            Team::FRIENDLY,
+            game_object_mediator,
+            main_character_x,
+            main_character_y));
     keyboard.add_listener(&(*launcher));
     main_character->add_weapon(std::move(launcher));
 

@@ -14,7 +14,10 @@ class I_GameObjectMediator;
 
 class MissileLauncher : public GameObject, public KeyboardListener, public TerminalListener {
 public:
-    MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator);
+    MissileLauncher(
+        Team::Team team,
+        I_GameObjectMediator& game_object_mediator,
+        double x_pos, double y_pos);
     Team::Team team() const;
     void create_missile(double x_vel, double y_vel, double x_pos, double y_pos);
     void handle_key_press(const std::string& keypress);

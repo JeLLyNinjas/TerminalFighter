@@ -100,7 +100,11 @@ gamestates::GameStateName TestState::run() {
     for (;;) {
         if (rand() % 45 == 0) {
             std::unique_ptr<BasicEnemy> enemy(
-                new BasicEnemy(rand() % screen_width, rand() % screen_height, 0, 0, 5));
+                new BasicEnemy(
+                    rand() % screen_width, rand() % screen_height,
+                    0, 0,
+                    5,
+                    basic_enemy_graphic));
             game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
         }
 

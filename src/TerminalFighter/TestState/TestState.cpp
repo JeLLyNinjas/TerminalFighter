@@ -49,14 +49,27 @@ gamestates::GameStateName TestState::run() {
     double main_character_x = screen_width / 2;
     double main_character_y = screen_height - 100;
 
+    // Graphic paths
+    std::string main_character_graphic =
+        settings.asset_paths()["graphics"]["main_character"].as<std::string>();
+    std::string missile_graphic =
+        settings.asset_paths()["graphics"]["missile"].as<std::string>();
+    std::string terminal_graphic =
+        settings.asset_paths()["graphics"]["terminal"].as<std::string>();
+    std::string basic_enemy_graphic =
+        settings.asset_paths()["graphics"]["basic_enemy"].as<std::string>();
+
+    // Construction
     std::unique_ptr<MainCharacter> main_character(
         new MainCharacter(main_character_x,
                           main_character_y,
-                          100));
+                          100, main_character_graphic));
     std::unique_ptr<MissileLauncher> launcher(
         new MissileLauncher(
             Team::FRIENDLY,
             game_object_mediator,
+            missile_graphic,
+            terminal_graphic,
             main_character_x,
             main_character_y));
     keyboard.add_listener(&(*launcher));

@@ -11,7 +11,11 @@ struct SDL_Texture;
 
 class MainCharacter : public GameObject {
 public:
-    MainCharacter(double x_pos, double y_pos, int health);
+    MainCharacter(
+        double x_pos,
+        double y_pos,
+        int health,
+        std::string graphic_path);
     static void set_texture(SDL_Texture* texture);
     void add_weapon(std::unique_ptr<GameObject> weapon);
 
@@ -27,5 +31,6 @@ protected:
 
 private:
     static SDL_Texture* texture_;
+    std::string texture_path_;
     std::vector<std::unique_ptr<GameObject>> weapons_;
 };

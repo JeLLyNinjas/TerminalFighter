@@ -27,7 +27,8 @@ Team::Team MissileLauncher::team() const {
 }
 
 void MissileLauncher::create_missile(double x_pos, double y_pos, double x_vel, double y_vel) {
-    std::unique_ptr<Missile> missile(new Missile(x_pos, y_pos, x_vel, y_vel, 5));
+    std::unique_ptr<Missile> missile(
+        new Missile(x_pos, y_pos, x_vel, y_vel, 5, missile_graphic_path_));
     game_object_mediator_.add_projectile(team_, std::move(missile));
 }
 

@@ -73,6 +73,7 @@ gamestates::GameStateName TestState::run() {
             game_object_mediator,
             missile_graphic,
             terminal_graphic,
+            default_font_path,
             main_character_x,
             main_character_y));
     keyboard.add_listener(&(*launcher));

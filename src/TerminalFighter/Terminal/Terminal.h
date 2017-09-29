@@ -18,7 +18,8 @@ public:
     Terminal(
         double x_pos, double y_pos,
         double width, double height,
-        std::string graphic_path);
+        std::string graphic_path,
+        std::string font_path);
     ~Terminal();
     void handle_key_press(const std::string& keypress);
 

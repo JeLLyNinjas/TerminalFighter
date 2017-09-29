@@ -69,6 +69,10 @@ gamestates::GameStateName TestState::run() {
     std::string basic_enemy_graphic =
         settings_.asset_paths()["graphics"]["basic_enemy"].as<std::string>();
 
+    // Dict paths
+    std::string default_dict =
+        settings_.asset_paths()["dicts"]["dictionary.txt"].as<std::string>();
+
     // Construction
     std::unique_ptr<MainCharacter> main_character(
         new MainCharacter(main_character_x,
@@ -81,6 +85,8 @@ gamestates::GameStateName TestState::run() {
             missile_graphic,
             terminal_graphic,
             default_font_path,
+            default_font_path,
+            default_dict,
             main_character_x,
             main_character_y));
     keyboard.add_listener(&(*launcher));

@@ -7,3 +7,6 @@ graphics:
   terminal: "assets/terminal/futureui1.png"
   main_character: "assets/ships/Arman.png"
   basic_enemy: "assets/ships/BasicEnemy.png"
+
+dicts:
+  default: "assets/dictionary.txt"

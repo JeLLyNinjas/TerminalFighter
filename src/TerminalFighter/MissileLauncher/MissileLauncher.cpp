@@ -10,6 +10,8 @@ MissileLauncher::MissileLauncher(
     std::string missile_graphic_path,
     std::string terminal_graphic_path,
     std::string terminal_font_path,
+    std::string targeting_system_font_path,
+    std::string targeting_system_dict_path,
     double x_pos, double y_pos)
     : GameObject(x_pos, y_pos, 0, 0, 1)
     , team_(team)
@@ -20,7 +22,12 @@ MissileLauncher::MissileLauncher(
           100, 30,
           terminal_graphic_path, terminal_font_path)
     , hitbox_(0, 0, 0, 0) {
-    std::unique_ptr<TargetingSystem> temp_targeting_system_ (new TargetingSystem(3, 5, "FFF"));
+    std::unique_ptr<TargetingSystem> temp_targeting_system_(
+        new TargetingSystem(
+            3, 5,
+            targeting_system_dict_path,
+            targeting_system_font_path,
+            "FFF"));
     targeting_system_ = temp_targeting_system_.get();
     terminal_.Observable<TerminalListener>::add_listener(this);
     game_object_mediator.add_game_object(team_, std::move(temp_targeting_system_));

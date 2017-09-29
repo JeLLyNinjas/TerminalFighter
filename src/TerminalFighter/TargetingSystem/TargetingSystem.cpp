@@ -11,19 +11,25 @@
 namespace {
     SDL_Color WHITE = {255, 255, 255};
     int FONT_SIZE = 24;
+    int MAX_WORD_LENGTH = 30;
 }
 
-TargetingSystem::TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex)
+TargetingSystem::TargetingSystem(
+    int word_length_lower_bound,
+    int word_length_upper_bound,
+    std::string dict_path,
+    std::string font_path,
+    std::string color_hex)
     : hitbox_(Hitbox(0, 0, 1920, 1080)) //hardcoded numbers, TODO, don't have these hardcoded
     , word_length_lower_bound_(word_length_lower_bound)
     , word_length_upper_bound_(word_length_upper_bound)
     , color_hex_(color_hex)
-    , default_font_(TTF_OpenFont("assets/fonts/Ubuntu-B.ttf", FONT_SIZE)) {
+    , default_font_(TTF_OpenFont(font_path.c_str(), FONT_SIZE)) {
     if (default_font_ == NULL) {
-        LOG(ERROR) << "Failed to load TargetingSystem font";
+        LOG(ERROR) << "Failed to load TargetingSystem font: " << font_path;
     };
 
-    setup_local_dict("assets/dictionary.txt");
+    setup_local_dict(dict_path);
 
     srand(time(NULL)); //TODO this should be called at a higher level, maybe Universe //this actually makes rand() be random
 }
@@ -34,21 +40,26 @@ TargetingSystem::~TargetingSystem() {
     }
 }
 
-void TargetingSystem::setup_local_dict(std::string relative_path) {
-
+bool TargetingSystem::setup_local_dict(std::string relative_path) {
     std::ifstream infile(relative_path);
+
+    if (!infile) {
+        LOG(ERROR) << "Failed to load dictionary: " << relative_path;
+        return false;
+    }
 
     //local_dict_ is 2D vector. 1st dimension is used to split words on length
     //where index represents word length, 2nd dimension holds the words
-    local_dict_.resize(30);
+    local_dict_.resize(MAX_WORD_LENGTH);
 
     for (std::string line; std::getline(infile, line); ) {
-        if (line.length() < 30) {
+        if (line.length() < MAX_WORD_LENGTH) {
             local_dict_[line.length()].push_back(line);
         }
     }
 
     infile.close();
+    return true;
 }
 
 /*if lower_bound is same or greater than upper_bound, than lower_bound will be used and upper_bound will be ignored*/

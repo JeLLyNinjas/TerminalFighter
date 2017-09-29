@@ -20,6 +20,8 @@ public:
         std::string missile_graphic_path,
         std::string terminal_graphic_path,
         std::string terminal_font_path,
+        std::string targeting_system_font_path,
+        std::string targeting_system_dict_path,
         double x_pos, double y_pos);
     Team::Team team() const;
     void create_missile(double x_vel, double y_vel, double x_pos, double y_pos);

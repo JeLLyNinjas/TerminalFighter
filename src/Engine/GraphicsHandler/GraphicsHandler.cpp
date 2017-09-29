@@ -83,10 +83,9 @@ void GraphicsHandler::update_screen() {
 }
 
 void GraphicsHandler::init(std::vector<std::string> paths) {
-    game_graphics_["assets/projectiles/missile.png"] = internal_load_image("assets/projectiles/missile.png");
-    game_graphics_["assets/ships/BasicEnemy.png"] = internal_load_image("assets/ships/BasicEnemy.png");
-    game_graphics_["assets/ships/Arman.png"] = internal_load_image("assets/ships/Arman.png");
-    game_graphics_["assets/terminal/futureui1.png"] = internal_load_image("assets/terminal/futureui1.png");
+    for (auto path : paths) {
+        game_graphics_[path] = internal_load_image(path);
+    }
 }
 
 SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {

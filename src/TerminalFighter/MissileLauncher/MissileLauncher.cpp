@@ -7,7 +7,7 @@
 MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator)
     : team_(team)
     , game_object_mediator_(game_object_mediator)
-    , terminal_((SCREEN_WIDTH / 2) - 400, SCREEN_HEIGHT - 150, 100, 30)
+    , terminal_((this->x_pos()) - 400, this->y_pos() - 150, 100, 30)
     , hitbox_(0, 0, 0, 0) {
     std::unique_ptr<TargetingSystem> temp_targeting_system_ (new TargetingSystem(3, 5, "FFF"));
     targeting_system_ = temp_targeting_system_.get();
@@ -53,10 +53,10 @@ void MissileLauncher::handle_input(const std::string& input) {
         return;
     }
 
-    double x_vel = enemy->x_pos() - (SCREEN_WIDTH / 2);
-    double y_vel = enemy->y_pos() - (SCREEN_HEIGHT - 10);
+    double x_vel = enemy->x_pos() - this->x_pos();
+    double y_vel = enemy->y_pos() - this->y_pos();
     float magnitude = x_vel * x_vel + y_vel * y_vel;
     magnitude = 4 * util::inverse_sqrt(magnitude);
-    create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10,
+    create_missile(this->x_pos(), this->y_pos(),
                    magnitude * x_vel, magnitude * y_vel);
 }

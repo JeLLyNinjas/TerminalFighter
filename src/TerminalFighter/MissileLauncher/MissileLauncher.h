@@ -6,7 +6,6 @@
 #include "Team/Team.h"
 #include "GameObjectMediator/I_GameObjectMediator.h"
 
-#include "GameConstants/GameConstants.h"
 #include "Terminal/Terminal.h"
 #include "TargetingSystem/TargetingSystem.h"
 #include "Terminal/TerminalListener.h"

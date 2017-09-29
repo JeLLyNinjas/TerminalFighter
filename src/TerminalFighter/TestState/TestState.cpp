@@ -22,8 +22,10 @@ TestState::TestState(SDL_Renderer& renderer)
 }
 
 gamestates::GameStateName TestState::run() {
-    Settings settings;
-    settings.loadSettings();
+    Settings settings; // TODO PASS IT IN
+    settings.reload_settings();
+    int screen_width = settings.video_settings()["window"]["width"].as<int>();
+    int screen_height = settings.video_settings()["window"]["height"].as<int>();
 
     // Initialize engine critical components
     GraphicsHandler graphics_handler(renderer_);
@@ -45,7 +47,9 @@ gamestates::GameStateName TestState::run() {
 
     // Setup MainCharacter
     std::unique_ptr<MainCharacter> main_character(
-        new MainCharacter(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, 100));
+        new MainCharacter(screen_width / 2,
+                          screen_height - 100,
+                          100));
     std::unique_ptr<MissileLauncher> launcher(
         new MissileLauncher(Team::FRIENDLY, game_object_mediator));
     keyboard.add_listener(&(*launcher));
@@ -58,7 +62,8 @@ gamestates::GameStateName TestState::run() {
 
     for (;;) {
         if (rand() % 45 == 0) {
-            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0, 5));
+            std::unique_ptr<BasicEnemy> enemy(
+                new BasicEnemy(rand() % screen_width, rand() % screen_height, 0, 0, 5));
             game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
         }
 

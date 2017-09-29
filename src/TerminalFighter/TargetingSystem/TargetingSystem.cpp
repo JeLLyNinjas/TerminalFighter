@@ -7,7 +7,6 @@
 
 #include "TargetingSystem.h"
 #include "GraphicsHandler/I_GraphicsHandler.h"
-#include "GameConstants/GameConstants.h"
 
 namespace {
     SDL_Color WHITE = {255, 255, 255};

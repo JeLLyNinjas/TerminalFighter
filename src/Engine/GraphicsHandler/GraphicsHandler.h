@@ -1,8 +1,6 @@
 #pragma once
 
-#include <vector>
 #include <map>
-#include <string>
 
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
@@ -12,8 +10,8 @@
 class GraphicsHandler : public I_GraphicsHandler {
 
 public:
-    GraphicsHandler(SDL_Renderer& renderer);
-    void init();
+    GraphicsHandler(SDL_Renderer& renderer, std::vector<std::string> graphic_paths);
+    void init(std::vector<std::string> graphic_paths);
     void draw(SDL_Texture* texture, SDL_Rect texture_rect,
               GraphicPriority priority, bool cleanup, double angle_clockwise, SDL_Point* rotation_point);
 

@@ -8,7 +8,7 @@ class MockGraphicsHandler : public I_GraphicsHandler {
 public:
     MockGraphicsHandler() {}
 
-    MOCK_METHOD0(init, void());
+    MOCK_METHOD1(init, void(std::vector<std::string>));
     MOCK_METHOD6(draw, void(SDL_Texture*, SDL_Rect, GraphicPriority, bool, double, SDL_Point*));
     MOCK_METHOD7(draw, void(SDL_Texture*, int, int, GraphicPriority, bool, double, SDL_Point*));
     MOCK_METHOD7(draw, void(SDL_Surface*, int, int, GraphicPriority, bool, double, SDL_Point*));

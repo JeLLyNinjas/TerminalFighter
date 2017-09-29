@@ -26,8 +26,15 @@ gamestates::GameStateName TestState::run() {
     int screen_width = settings_.video_settings()["window"]["width"].as<int>();
     int screen_height = settings_.video_settings()["window"]["height"].as<int>();
 
+    std::vector<std::string> graphic_paths;
+    auto graphics_node = settings_.asset_paths()["graphics"];
+
+    for (YAML::const_iterator it = graphics_node.begin(); it != graphics_node.end(); ++it) {
+        graphic_paths.push_back(it->second.as<std::string>());
+    }
+
     // Initialize engine critical components
-    GraphicsHandler graphics_handler(renderer_);
+    GraphicsHandler graphics_handler(renderer_, graphic_paths);
     Universe universe(graphics_handler);
     std::unique_ptr<Events> events(new Events());
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
@@ -35,7 +42,7 @@ gamestates::GameStateName TestState::run() {
     Keyboard keyboard;
 
     // Setup engine critical components
-    graphics_handler.init();
+    graphics_handler.init(graphic_paths);
     keyboard.add_listener(this);
     events->add_listener(this);
     events->add_listener(&keyboard);

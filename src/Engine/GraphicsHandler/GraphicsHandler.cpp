@@ -13,7 +13,9 @@ namespace {
     };
 }
 
-GraphicsHandler::GraphicsHandler(SDL_Renderer& renderer)
+GraphicsHandler::GraphicsHandler(
+    SDL_Renderer& renderer,
+    std::vector<std::string> graphic_paths)
     : renderer_(renderer)
     , draw_queue_( {
     {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },
@@ -23,6 +25,7 @@ GraphicsHandler::GraphicsHandler(SDL_Renderer& renderer)
     {GraphicPriority::BACK, std::vector<DrawRequest>() },
     {GraphicPriority::BACKGROUND, std::vector<DrawRequest>() }
 }) {
+    init(graphic_paths);
 }
 
 void GraphicsHandler::draw(SDL_Texture* texture, SDL_Rect texture_rect,
@@ -79,10 +82,7 @@ void GraphicsHandler::update_screen() {
     SDL_RenderClear(&renderer_);
 }
 
-//TODO make this function load from a list of objects defined in a text file (.INI file maybe?) depending on each game state enum.
-//Right now, this function should just load all of our assets. Maybe later when we need to conserve more space, load only things we need
-//defined by .INI
-void GraphicsHandler::init() {
+void GraphicsHandler::init(std::vector<std::string> paths) {
     game_graphics_["assets/projectiles/missile.png"] = internal_load_image("assets/projectiles/missile.png");
     game_graphics_["assets/ships/BasicEnemy.png"] = internal_load_image("assets/ships/BasicEnemy.png");
     game_graphics_["assets/ships/Arman.png"] = internal_load_image("assets/ships/Arman.png");

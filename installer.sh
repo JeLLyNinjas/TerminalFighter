@@ -38,6 +38,7 @@ function finish {
     rm -rf $DIR/SDL2-2.0.3 || true
     rm -rf $DIR/SDL2_mixer-2.0.0 || true
     rm -rf $DIR/glog || true
+    rm -rf $DIR/yaml-cpp || true
 }
 
 trap finish EXIT

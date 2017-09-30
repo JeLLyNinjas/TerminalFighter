@@ -12,7 +12,7 @@ extern "C" {
 }
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
+//#include <SDL2/SDL_mixer.h>
 #include <glog/logging.h>
 
 #include "GameState/I_GameState.h"
@@ -108,6 +108,20 @@ int main(int argc, char* argv[]) {
     system("mkdir /tmp/TerminalFighter/");
     FLAGS_log_dir = "/tmp/TerminalFighter";
 #endif
+
+    SDL_version compile_version;
+    const SDL_version* link_version = Mix_Linked_Version();
+    SDL_MIXER_VERSION(&compile_version);
+    printf("compiled with SDL_mixer version: %d.%d.%d\n",
+           compile_version.major,
+           compile_version.minor,
+           compile_version.patch);
+    printf("running with SDL_mixer version: %d.%d.%d\n",
+           link_version->major,
+           link_version->minor,
+           link_version->patch);
+
+
     google::InitGoogleLogging(argv[0]);
     LOG(INFO) << "Logging Intialized INFO";
 

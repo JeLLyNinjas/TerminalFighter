@@ -28,9 +28,9 @@ gamestates::GameStateName TestState::run() {
     int screen_height = settings_.video_settings()["window"]["height"].as<int>();
 
     std::vector<std::string> graphic_paths;
-    auto graphics_node = settings_.asset_paths()["graphics"];
+    YAML::Node graphics_node = settings_.asset_paths()["graphics"];
 
-    for (YAML::const_iterator it = graphics_node.begin(); it != graphics_node.end(); ++it) {
+    for (auto it = graphics_node.begin(); it != graphics_node.end(); ++it) {
         graphic_paths.push_back(it->second.as<std::string>());
     }
 

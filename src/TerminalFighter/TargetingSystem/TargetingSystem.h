@@ -10,23 +10,24 @@
 struct GameObjectStringPair {
     GameObjectStringPair(std::string word, GameObject& game_object, bool alive)
         : assigned_word_(word)
-          //, x_(x)
-          //, y_(y)
         , game_object_(game_object)
         , alive_(alive)
     {}
 
     std::string assigned_word_;
     GameObject& game_object_;
-    //double x_;
-    //double y_;
     bool alive_;
 };
 
 class TargetingSystem : public GameObject {
 
 public:
-    TargetingSystem(int word_length_lower_bound, int word_length_upper_bound, std::string color_hex);
+    TargetingSystem(
+        int word_length_lower_bound,
+        int word_length_upper_bound,
+        std::string dict_path,
+        std::string font_path,
+        std::string color_hex);
     ~TargetingSystem();
     void update();
     virtual void draw(I_GraphicsHandler& graphics);
@@ -36,7 +37,7 @@ public:
     GameObject* get_object(std::string word);
 
 private:
-    void setup_local_dict(std::string relative_path);
+    bool setup_local_dict(std::string relative_path);
     std::string grab_word();
 
     //for debug

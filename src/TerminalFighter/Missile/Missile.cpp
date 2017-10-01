@@ -8,9 +8,13 @@
 
 SDL_Texture* Missile::missile_texture_ = NULL;
 
-Missile::Missile(double x_pos, double y_pos, double x_vel, double y_vel, int health)
+Missile::Missile(
+    double x_pos, double y_pos,
+    double x_vel, double y_vel,
+    int health, std::string graphic_path)
     : GameObject(x_pos, y_pos, x_vel, y_vel, health)
-    , hitbox_(Hitbox(x_pos, y_pos, 10, 50)) {
+    , hitbox_(Hitbox(x_pos, y_pos, 10, 50))
+    , texture_path_(graphic_path) {
 }
 
 Missile::~Missile() {
@@ -26,7 +30,7 @@ void Missile::update() {
 void Missile::draw(I_GraphicsHandler& graphics) {
     if (missile_texture_ == NULL) {
         LOG(WARNING) << "Missile graphics were null! Setting missile graphic...";
-        set_texture(graphics.load_image("assets/projectiles/missile.png"));
+        set_texture(graphics.load_image(texture_path_));
     }
 
     graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true,

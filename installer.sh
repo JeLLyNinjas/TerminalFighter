@@ -38,6 +38,7 @@ function finish {
     rm -rf $DIR/SDL2-2.0.3 || true
     rm -rf $DIR/SDL2_mixer-2.0.0 || true
     rm -rf $DIR/glog || true
+    rm -rf $DIR/yaml-cpp || true
 }
 
 trap finish EXIT
@@ -56,7 +57,7 @@ cd SDL2-2.0.3
 ./configure
 make -j4
 make install -j4
-cd ..
+cd $DIR
 
 
 #SDL2_ttf
@@ -78,7 +79,7 @@ cd SDL2_ttf-2.0.12
 ./configure
 make -j4
 make install -j4
-cd ..
+cd $DIR
 
 #SDL2_image
 wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz
@@ -87,7 +88,7 @@ cd SDL2_image-2.0.0
 ./configure
 make -j4
 make install -j4
-cd ..
+cd $DIR
 
 #SDL2_mixer
 wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.tar.gz
@@ -99,11 +100,11 @@ cd external/smpeg2-2.0.0
 ./configure
 make -j4
 make install -j4
-cd ../..
+cd ../../
 ./configure
 make -j4
 make install -j4
-cd ..
+cd $DIR
 
 # glog
 git clone https://github.com/google/glog.git
@@ -113,4 +114,18 @@ cd build
 cmake ..
 make -j4
 make install -j4
-cd ../..
+cd $DIR
+
+# yaml-cpp
+git clone https://github.com/jbeder/yaml-cpp.git
+cd yaml-cpp
+mkdir build
+cd build
+cmake ..
+make -j4
+make install -j4
+cd $DIR
+
+
+
+

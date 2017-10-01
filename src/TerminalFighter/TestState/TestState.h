@@ -9,13 +9,14 @@
 #include "Delay/Delay.h"
 
 #include "MissileLauncher/MissileLauncher.h"
+#include "Settings/I_Settings.h"
 
 class Delay;
 struct SDL_Renderer;
 
 class TestState : public I_GameState, public KeyboardListener, public EventsListener {
 public:
-    TestState(SDL_Renderer& renderer);
+    TestState(SDL_Renderer& renderer, const I_Settings& settings);
     gamestates::GameStateName run();
     gamestates::GameStateName name() const;
 
@@ -28,4 +29,5 @@ private:
     bool exit_;
 
     SDL_Renderer& renderer_;
+    const I_Settings& settings_;
 };

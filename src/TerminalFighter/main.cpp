@@ -19,7 +19,7 @@ extern "C" {
 
 #include "TestState/TestState.h"
 #include "MenuState/MenuState.h"
-#include "GameConstants/GameConstants.h"
+#include "Settings/Settings.h"
 
 SDL_Renderer* main_renderer = NULL;
 SDL_Window* window = NULL;
@@ -68,10 +68,8 @@ bool init_sdl() {
     return true;
 }
 
-bool create_sdl_window(bool high_dpi) {
+bool create_sdl_window(bool high_dpi, int screen_width, int screen_height) {
     int sdl_flags = SDL_WINDOW_SHOWN;
-    auto screen_width = SCREEN_WIDTH;
-    auto screen_height = SCREEN_HEIGHT;
 
     if (high_dpi) {
         sdl_flags |= SDL_WINDOW_ALLOW_HIGHDPI;
@@ -124,6 +122,12 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
+    Settings settings;
+
+    if (!settings.reload_settings()) {
+        LOG(FATAL) << "Failed to initialize settings";
+    }
+
 #if defined(__linux__) || defined(__APPLE__)
     system("mkdir -p /tmp/TerminalFighter/");
     FLAGS_log_dir = "/tmp/TerminalFighter";
@@ -131,11 +135,9 @@ int main(int argc, char* argv[]) {
     google::InitGoogleLogging(argv[0]);
     LOG(INFO) << "Logging Intialized INFO";
 
-    bool high_dpi = false;
-
-    if (argc > 1 && strcmp(argv[1], "high_dpi") == 0) {
-        high_dpi = true;
-    }
+    bool high_dpi = settings.video_settings()["high_dpi"].as<bool>();
+    int screen_width = settings.video_settings()["window"]["width"].as<int>();
+    int screen_height = settings.video_settings()["window"]["height"].as<int>();
 
     print_renderer_info();
 
@@ -143,7 +145,7 @@ int main(int argc, char* argv[]) {
         LOG(FATAL) << "Could not initialize SDL!";
     }
 
-    if (!create_sdl_window(high_dpi)) {
+    if (!create_sdl_window(high_dpi, screen_width, screen_height)) {
         LOG(FATAL) << "Could not create window!";
     }
 
@@ -155,8 +157,10 @@ int main(int argc, char* argv[]) {
         LOG(FATAL) << "TTF Init failed! " << TTF_GetError();
     }
 
-    std::unique_ptr<I_GameState> test_state(new TestState(*main_renderer));
-    std::unique_ptr<I_GameState> menu_state(new MenuState(*main_renderer));
+    std::unique_ptr<I_GameState> test_state(
+        new TestState(*main_renderer, settings));
+    std::unique_ptr<I_GameState> menu_state(
+        new MenuState(*main_renderer, settings));
     std::vector<I_GameState*> gamestates;
     gamestates.push_back(test_state.get());
     gamestates.push_back(menu_state.get());

@@ -2,15 +2,15 @@
 
 #include "Delay.h"
 
-Delay::Delay(bool debug_mode) {
+Delay::Delay(bool debug_mode, std::string fps_font_path) {
     started_ = false;
     debug_mode_ = debug_mode;
-    default_delay_font_ = TTF_OpenFont("assets/fonts/Ubuntu-B.ttf", 84);
+    default_delay_font_ = TTF_OpenFont(fps_font_path.c_str(), 84);
 
     if (default_delay_font_ == NULL) {
-        LOG(ERROR) << "Failed to load default_delay_font_ 'fonts/Ubuntu-B.ttf'";
+        LOG(ERROR) << "Failed to load default_delay_font_ " << fps_font_path;
     } else {
-        LOG(INFO) << "Successfully loaded default_delay_font_ 'fonts/Ubuntu-B.ttf'";
+        LOG(INFO) << "Successfully loaded default_delay_font_ " << fps_font_path;
     }
 
     lowest_fps = 1000000; //arbitrary large number

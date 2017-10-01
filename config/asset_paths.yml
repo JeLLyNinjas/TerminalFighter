@@ -1,0 +1,12 @@
+---
+fonts:
+  default: "assets/fonts/Ubuntu-B.ttf"
+
+graphics:
+  missile: "assets/projectiles/missile.png"
+  terminal: "assets/terminal/futureui1.png"
+  main_character: "assets/ships/Arman.png"
+  basic_enemy: "assets/ships/BasicEnemy.png"
+
+dicts:
+  default: "assets/dictionary.txt"

@@ -15,7 +15,12 @@
 class Terminal : public GameObject, public Observable<TerminalListener> {
 public:
     //x_pos and y_pos define top left portion of terminal
-    Terminal(double x_pos, double y_pos, double width, double height);
+    Terminal(
+        double x_pos, double y_pos,
+        double width, double height,
+        std::string graphic_path,
+        std::string font_path);
+    ~Terminal();
     void handle_key_press(const std::string& keypress);
 
     //GameObject
@@ -30,6 +35,7 @@ private:
 
     static SDL_Texture* terminal_texture_;
     Hitbox hitbox_;
+    std::string terminal_texture_path_;
     std::string player_text_;
     TTF_Font* default_font_;
 };

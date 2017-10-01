@@ -18,16 +18,16 @@ protected:
     MockGameObjectMediator mediator_;
 
     virtual void SetUp() {
-        launcher_ = std::unique_ptr<MissileLauncher>(new MissileLauncher(Team::FRIENDLY, mediator_));
+        launcher_ = std::unique_ptr<MissileLauncher>(new MissileLauncher(Team::FRIENDLY, mediator_, "", "", "", "", "", 0, 0));
     }
 
     virtual void TearDown() {}
 };
 
 TEST_F(MissileLauncherTest, team_set) {
-    MissileLauncher friendly_launcher = MissileLauncher(Team::FRIENDLY, mediator_);
+    MissileLauncher friendly_launcher = MissileLauncher(Team::FRIENDLY, mediator_, "", "", "", "", "", 0, 0);
     EXPECT_EQ(friendly_launcher.team(), Team::FRIENDLY);
-    MissileLauncher enemy_launcher = MissileLauncher(Team::ENEMY, mediator_);
+    MissileLauncher enemy_launcher = MissileLauncher(Team::ENEMY, mediator_, "", "", "", "", "", 0, 0);
     EXPECT_EQ(enemy_launcher.team(), Team::ENEMY);
 }
 
@@ -65,8 +65,8 @@ TEST_F(MissileLauncherTest, check_missiles_correct_team) {
     InSequence dummy;
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::FRIENDLY, _));
     EXPECT_CALL(mediator_, add_projectile_proxy(Team::ENEMY, _));
-    MissileLauncher friendly_launcher = MissileLauncher(Team::FRIENDLY, mediator_);
+    MissileLauncher friendly_launcher = MissileLauncher(Team::FRIENDLY, mediator_, "", "", "", "", "", 0, 0);
     friendly_launcher.create_missile(0, 0, 0, 0);
-    MissileLauncher enemy_launcher = MissileLauncher(Team::ENEMY, mediator_);
+    MissileLauncher enemy_launcher = MissileLauncher(Team::ENEMY, mediator_, "", "", "", "", "", 0, 0);
     enemy_launcher.create_missile(0, 0, 0, 0);
 }

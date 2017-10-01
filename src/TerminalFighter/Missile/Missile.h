@@ -5,11 +5,14 @@
 
 class I_Hitbox;
 class I_GraphicsHandler;
-class SDL_Texture;
+struct SDL_Texture;
 
 class Missile : public GameObject {
 public:
-    Missile(double x_pos, double y_pos, double x_vel, double y_vel, int health);
+    Missile(
+        double x_pos, double y_pos,
+        double x_vel, double y_vel,
+        int health, std::string graphic_path);
     ~Missile();
 
     void update();
@@ -22,4 +25,5 @@ public:
 private:
     static SDL_Texture* missile_texture_;
     Hitbox hitbox_;
+    std::string texture_path_;
 };

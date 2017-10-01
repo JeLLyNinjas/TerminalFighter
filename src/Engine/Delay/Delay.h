@@ -11,7 +11,8 @@ typedef std::chrono::microseconds us;
 
 class Delay {
 public:
-    Delay(bool debug_mode);
+    Delay(bool debug_mode, std::string fps_font_path);
+    ~Delay();
     void delay_with_fps(double fps);
     SDL_Surface* grab_frame_rate();
 

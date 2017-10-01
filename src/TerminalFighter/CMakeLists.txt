@@ -10,6 +10,7 @@ add_library(Terminal Terminal/Terminal.cpp)
 add_library(TargetingSystem TargetingSystem/TargetingSystem.cpp)
 add_library(MenuState MenuState/MenuState.cpp)
 add_library(TestState TestState/TestState.cpp)
+add_library(Settings Settings/Settings.cpp)
 
 target_link_libraries(BasicEnemy Hitbox GameObject)
 target_link_libraries(MainCharacter ${SDL2_LIBRARIES})
@@ -17,7 +18,8 @@ target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler glog::glog)
 target_link_libraries(MissileLauncher Missile GameObjectMediator TargetingSystem Util)
 target_link_libraries(Terminal ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES} GameObject Hitbox GraphicsHandler)
 target_link_libraries(TestState GameObjectMediator Universe CollisionDetector BasicEnemy
-    GraphicsHandler MainCharacter MissileLauncher Events Delay Keyboard Terminal TargetingSystem AudioHandler)
+GraphicsHandler MainCharacter MissileLauncher Events Delay Keyboard Terminal TargetingSystem AudioHandler Settings)
+target_link_libraries(Settings yaml-cpp)
 
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} glog::glog ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}

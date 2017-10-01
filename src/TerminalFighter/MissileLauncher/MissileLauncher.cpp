@@ -4,12 +4,30 @@
 #include "Missile/Missile.h"
 #include "Util/Util.h"
 
-MissileLauncher::MissileLauncher(Team::Team team, I_GameObjectMediator& game_object_mediator)
-    : team_(team)
+MissileLauncher::MissileLauncher(
+    Team::Team team,
+    I_GameObjectMediator& game_object_mediator,
+    std::string missile_graphic_path,
+    std::string terminal_graphic_path,
+    std::string terminal_font_path,
+    std::string targeting_system_font_path,
+    std::string targeting_system_dict_path,
+    double x_pos, double y_pos)
+    : GameObject(x_pos, y_pos, 0, 0, 1)
+    , team_(team)
     , game_object_mediator_(game_object_mediator)
-    , terminal_((SCREEN_WIDTH / 2) - 400, SCREEN_HEIGHT - 150, 100, 30)
+    , missile_graphic_path_(missile_graphic_path)
+    , terminal_(
+          (this->x_pos()) - 400, this->y_pos() - 150,
+          100, 30,
+          terminal_graphic_path, terminal_font_path)
     , hitbox_(0, 0, 0, 0) {
-    std::unique_ptr<TargetingSystem> temp_targeting_system_ (new TargetingSystem(3, 5, "FFF"));
+    std::unique_ptr<TargetingSystem> temp_targeting_system_(
+        new TargetingSystem(
+            3, 5,
+            targeting_system_dict_path,
+            targeting_system_font_path,
+            "FFF"));
     targeting_system_ = temp_targeting_system_.get();
     terminal_.Observable<TerminalListener>::add_listener(this);
     game_object_mediator.add_game_object(team_, std::move(temp_targeting_system_));
@@ -20,7 +38,8 @@ Team::Team MissileLauncher::team() const {
 }
 
 void MissileLauncher::create_missile(double x_pos, double y_pos, double x_vel, double y_vel) {
-    std::unique_ptr<Missile> missile(new Missile(x_pos, y_pos, x_vel, y_vel, 5));
+    std::unique_ptr<Missile> missile(
+        new Missile(x_pos, y_pos, x_vel, y_vel, 5, missile_graphic_path_));
     game_object_mediator_.add_projectile(team_, std::move(missile));
     game_object_mediator_.play_sound("assets/sounds/NFF-laser-gun-03.wav");
 }
@@ -54,10 +73,10 @@ void MissileLauncher::handle_input(const std::string& input) {
         return;
     }
 
-    double x_vel = enemy->x_pos() - (SCREEN_WIDTH / 2);
-    double y_vel = enemy->y_pos() - (SCREEN_HEIGHT - 10);
+    double x_vel = enemy->x_pos() - this->x_pos();
+    double y_vel = enemy->y_pos() - this->y_pos();
     float magnitude = x_vel * x_vel + y_vel * y_vel;
     magnitude = 4 * util::inverse_sqrt(magnitude);
-    create_missile(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10,
+    create_missile(this->x_pos(), this->y_pos(),
                    magnitude * x_vel, magnitude * y_vel);
 }

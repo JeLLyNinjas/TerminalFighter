@@ -7,9 +7,14 @@
 
 SDL_Texture* BasicEnemy::texture_ = NULL;
 
-BasicEnemy::BasicEnemy(double x_pos, double y_pos, double x_vel, double y_vel, int health)
+BasicEnemy::BasicEnemy(
+    double x_pos, double y_pos,
+    double x_vel, double y_vel,
+    int health,
+    std::string graphic_path)
     : GameObject(x_pos, y_pos, x_vel, y_vel, health)
-    , hitbox_(Hitbox(x_pos_, y_pos_, 90, 50)) {
+    , hitbox_(Hitbox(x_pos_, y_pos_, 90, 50))
+    , texture_path_(graphic_path) {
 }
 
 BasicEnemy::~BasicEnemy() {

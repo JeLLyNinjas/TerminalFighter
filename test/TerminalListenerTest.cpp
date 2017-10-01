@@ -19,7 +19,7 @@ public:
     Terminal* terminal_;
 
     virtual void SetUp() {
-        terminal_ = new Terminal((100 / 2) - 400, 100 - 150, 100, 30);
+        terminal_ = new Terminal((100 / 2) - 400, 100 - 150, 100, 30, "", "");
         terminal_->Observable<TerminalListener>::add_listener(&mock_terminal_listener_);
     }
     virtual void TearDown() {}

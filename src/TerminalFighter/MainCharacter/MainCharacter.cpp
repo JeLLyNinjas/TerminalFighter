@@ -9,9 +9,14 @@
 
 SDL_Texture* MainCharacter::texture_ = NULL;
 
-MainCharacter::MainCharacter(double x_pos, double y_pos, int health)
+MainCharacter::MainCharacter(
+    double x_pos,
+    double y_pos,
+    int health,
+    std::string graphic_path)
     : GameObject(x_pos, y_pos, 0, 0, health)
     , hitbox_(Hitbox(x_pos_, y_pos_, 100, 100))
+    , texture_path_(graphic_path)
     , weapons_() {
 }
 
@@ -34,7 +39,7 @@ void MainCharacter::update() {
 void MainCharacter::draw(I_GraphicsHandler& graphics) {
     if (texture_ == NULL) {
         LOG(WARNING) << "MainCharacter graphics were null! Setting MainCharacter graphic...";
-        set_texture(graphics.load_image("assets/images/ships/Arman.png"));
+        set_texture(graphics.load_image(texture_path_));
     }
 
     for (auto& weapon : weapons_) {

@@ -7,17 +7,31 @@
 
 SDL_Texture* Terminal::terminal_texture_ = NULL;
 
-Terminal::Terminal(double x_pos, double y_pos, double width, double height)
+Terminal::Terminal(
+    double x_pos, double y_pos,
+    double width, double height,
+    std::string graphic_path,
+    std::string font_path)
     : GameObject(x_pos, y_pos, 0.0, 0.0, 0)
     , hitbox_(Hitbox(x_pos, y_pos, width, height))
+    , terminal_texture_path_(graphic_path)
     , player_text_("")
-    , default_font_ (TTF_OpenFont("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 84)) {
+    , default_font_ (TTF_OpenFont(font_path.c_str(), 84)) {
+    if (default_font_ == NULL) {
+        LOG(ERROR) << "Failed to load Terminal font: " << font_path;
+    };
+}
+
+Terminal::~Terminal() {
+    if (default_font_ != NULL) {
+        TTF_CloseFont(default_font_);
+    }
 }
 
 void Terminal::draw(I_GraphicsHandler& graphics) {
     if (terminal_texture_ == NULL) {
         LOG(WARNING) << "Terminal graphics were null! Setting terminal graphic...";
-        set_texture(graphics.load_image("assets/images/terminal/futureui1.png"));
+        set_texture(graphics.load_image(terminal_texture_path_));
     }
 
     SDL_Color white = {255, 255, 255};

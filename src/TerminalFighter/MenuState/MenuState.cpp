@@ -2,14 +2,17 @@
 
 #include "MenuState.h"
 
-MenuState::MenuState(SDL_Renderer& renderer)
-    : renderer_(renderer) {
+MenuState::MenuState(SDL_Renderer& renderer, const I_Settings& settings)
+    : renderer_(renderer)
+    , settings_(settings) {
 }
 
 MenuState::~MenuState() {}
 
 gamestates::GameStateName MenuState::run() {
-    Delay delayer(false);
+    std::string default_font_path =
+        settings_.asset_paths()["fonts"]["default"].as<std::string>();
+    Delay delayer(false, default_font_path);
 
     for (;;) {
         SDL_Event event;

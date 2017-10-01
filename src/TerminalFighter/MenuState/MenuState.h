@@ -5,12 +5,14 @@
 #include "../Engine/GameState/I_GameState.h"
 #include "../Engine/Delay/Delay.h"
 
+#include "Settings/I_Settings.h"
+
 class Delay;
-class SDL_Renderer;
+struct SDL_Renderer;
 
 class MenuState : public I_GameState {
 public:
-    MenuState(SDL_Renderer& renderer);
+    MenuState(SDL_Renderer& renderer, const I_Settings& settings);
     ~MenuState();
     gamestates::GameStateName run();
     gamestates::GameStateName name() const;
@@ -18,4 +20,5 @@ public:
 private:
     void display_debug_frames(Delay* delayer);
     SDL_Renderer& renderer_;
+    const I_Settings& settings_;
 };

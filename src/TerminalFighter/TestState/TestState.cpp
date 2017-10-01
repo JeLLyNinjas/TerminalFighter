@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include <glog/logging.h>
+#include <iostream>
 
 #include "TestState.h"
 
@@ -10,20 +11,32 @@
 #include "CollisionDetector/CollisionDetector.h"
 #include "GraphicsHandler/GraphicsHandler.h"
 #include "AudioHandler/AudioHandler.h"
+#include "Settings/Settings.h"
 
 #include "MainCharacter/MainCharacter.h"
 #include "BasicEnemy/BasicEnemy.h"
 #include "Terminal/Terminal.h"
 #include "TargetingSystem/TargetingSystem.h"
 
-TestState::TestState(SDL_Renderer& renderer)
+TestState::TestState(SDL_Renderer& renderer, const I_Settings& settings)
     : exit_(false)
-    , renderer_(renderer) {
+    , renderer_(renderer)
+    , settings_(settings) {
 }
 
 gamestates::GameStateName TestState::run() {
+    int screen_width = settings_.video_settings()["window"]["width"].as<int>();
+    int screen_height = settings_.video_settings()["window"]["height"].as<int>();
+
+    std::vector<std::string> graphic_paths;
+    YAML::Node graphics_node = settings_.asset_paths()["graphics"];
+
+    for (auto it = graphics_node.begin(); it != graphics_node.end(); ++it) {
+        graphic_paths.push_back(it->second.as<std::string>());
+    }
+
     // Initialize engine critical components
-    GraphicsHandler graphics_handler(renderer_);
+    GraphicsHandler graphics_handler(renderer_, graphic_paths);
     Universe universe(graphics_handler);
     std::unique_ptr<Events> events(new Events());
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
@@ -32,7 +45,7 @@ gamestates::GameStateName TestState::run() {
     Keyboard keyboard;
 
     // Setup engine critical components
-    graphics_handler.init();
+    graphics_handler.init(graphic_paths);
     keyboard.add_listener(this);
     events->add_listener(this);
     events->add_listener(&keyboard);
@@ -42,21 +55,59 @@ gamestates::GameStateName TestState::run() {
     // Create game pieces
 
     // Setup MainCharacter
+    double main_character_x = screen_width / 2;
+    double main_character_y = screen_height - 100;
+
+    // Font paths
+    std::string default_font_path =
+        settings_.asset_paths()["fonts"]["default"].as<std::string>();
+
+    // Graphic paths
+    std::string main_character_graphic =
+        settings_.asset_paths()["graphics"]["main_character"].as<std::string>();
+    std::string missile_graphic =
+        settings_.asset_paths()["graphics"]["missile"].as<std::string>();
+    std::string terminal_graphic =
+        settings_.asset_paths()["graphics"]["terminal"].as<std::string>();
+    std::string basic_enemy_graphic =
+        settings_.asset_paths()["graphics"]["basic_enemy"].as<std::string>();
+
+    // Dict paths
+    std::string default_dict =
+        settings_.asset_paths()["dicts"]["default"].as<std::string>();
+
+    // Construction
     std::unique_ptr<MainCharacter> main_character(
-        new MainCharacter(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, 100));
+        new MainCharacter(main_character_x,
+                          main_character_y,
+                          100, main_character_graphic));
     std::unique_ptr<MissileLauncher> launcher(
-        new MissileLauncher(Team::FRIENDLY, game_object_mediator));
+        new MissileLauncher(
+            Team::FRIENDLY,
+            game_object_mediator,
+            missile_graphic,
+            terminal_graphic,
+            default_font_path,
+            default_font_path,
+            default_dict,
+            main_character_x,
+            main_character_y));
     keyboard.add_listener(&(*launcher));
     main_character->add_weapon(std::move(launcher));
 
     // Add game pieces to game
     game_object_mediator.add_game_object(Team::FRIENDLY, std::move(main_character));
 
-    Delay delayer(false);
+    Delay delayer(false, default_font_path);
 
     for (;;) {
         if (rand() % 45 == 0) {
-            std::unique_ptr<BasicEnemy> enemy(new BasicEnemy(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 0, 0, 5));
+            std::unique_ptr<BasicEnemy> enemy(
+                new BasicEnemy(
+                    rand() % screen_width, rand() % screen_height,
+                    0, 0,
+                    5,
+                    basic_enemy_graphic));
             game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
         }
 

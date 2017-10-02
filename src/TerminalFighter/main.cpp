@@ -142,20 +142,6 @@ int main(int argc, char* argv[]) {
     system("mkdir -p /tmp/TerminalFighter/");
     FLAGS_log_dir = "/tmp/TerminalFighter";
 #endif
-
-    SDL_version compile_version;
-    const SDL_version* link_version = Mix_Linked_Version();
-    SDL_MIXER_VERSION(&compile_version);
-    printf("compiled with SDL_mixer version: %d.%d.%d\n",
-           compile_version.major,
-           compile_version.minor,
-           compile_version.patch);
-    printf("running with SDL_mixer version: %d.%d.%d\n",
-           link_version->major,
-           link_version->minor,
-           link_version->patch);
-
-
     google::InitGoogleLogging(argv[0]);
     LOG(INFO) << "Logging Intialized INFO";
 
@@ -184,6 +170,18 @@ int main(int argc, char* argv[]) {
     if (TTF_Init() != 0) {
         LOG(FATAL) << "TTF Init failed! " << TTF_GetError();
     }
+
+    SDL_version compile_version;
+    const SDL_version* link_version = Mix_Linked_Version();
+    SDL_MIXER_VERSION(&compile_version);
+    LOG(INFO) << "compiled with SDL_mixer version:" <<
+              (int)compile_version.major << "." <<
+              (int)compile_version.minor << "." <<
+              (int)compile_version.patch;
+    LOG(INFO) << "running with SDL_mixer version:" <<
+              (int)link_version->major << "." <<
+              (int)link_version->minor << "." <<
+              (int)link_version->patch;
 
     std::unique_ptr<I_GameState> test_state(
         new TestState(*main_renderer, settings));

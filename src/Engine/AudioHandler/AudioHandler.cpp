@@ -11,10 +11,6 @@ AudioHandler::AudioHandler() {
 
 }
 AudioHandler::~AudioHandler() {
-    //TODO make sure this thing cleans things up
-    //for (std::map<std::string, Mix_Chunk*>::iterator it = sound_effects_.begin(); it != sound_effects_.end(); ++it) {
-    //Mix_FreeChunk(it->second);
-    //}
 }
 void AudioHandler::init() {
     //TODO only load really important things that need early access Like... Splash screen music or w/e
@@ -50,7 +46,7 @@ void AudioHandler::play_music(Mix_Music* music) {
     }
 }
 void AudioHandler::play_chunk(Mix_Chunk* chunk) {
-    if (Mix_PlayChannel(1, chunk, 0) == -1) {
+    if (Mix_PlayChannel(-1, chunk, 0) == -1) {
         LOG(ERROR) << "Mix_PlayChannel: " << Mix_GetError();
         printf("What\n");
     }

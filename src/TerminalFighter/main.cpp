@@ -21,6 +21,11 @@ extern "C" {
 #include "MenuState/MenuState.h"
 #include "Settings/Settings.h"
 
+namespace {
+    const std::string VIDEO_SETTINGS_FILE = "config/video_settings.yml";
+    const std::string ASSET_PATHS_FILE = "config/asset_paths.yml";
+}
+
 SDL_Renderer* main_renderer = NULL;
 SDL_Window* window = NULL;
 bool quit;
@@ -122,7 +127,9 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
-    Settings settings;
+    Settings settings(
+        VIDEO_SETTINGS_FILE,
+        ASSET_PATHS_FILE);
 
     if (!settings.reload_settings()) {
         LOG(FATAL) << "Failed to initialize settings";

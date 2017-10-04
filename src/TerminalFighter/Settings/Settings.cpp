@@ -3,12 +3,11 @@
 
 #include "Settings.h"
 
-namespace {
-    const std::string VIDEO_SETTINGS_FILE = "config/video_settings.yml";
-    const std::string ASSETS_PATHS_FILE = "config/asset_paths.yml";
-}
-
-Settings::Settings() {
+Settings::Settings(
+    std::string video_settings_file,
+    std::string asset_paths_file)
+    : video_settings_file_(video_settings_file)
+    , asset_paths_file_(asset_paths_file) {
 }
 
 // Used for initialization as well as forced reload of settings
@@ -17,18 +16,18 @@ bool Settings::reload_settings() {
     int errors = 0;
 
     try {
-        video_settings_ = YAML::LoadFile(VIDEO_SETTINGS_FILE);
-        LOG(INFO) << "Successfully loaded " << VIDEO_SETTINGS_FILE;
+        video_settings_ = YAML::LoadFile(video_settings_file_);
+        LOG(INFO) << "Successfully loaded " << video_settings_file_;
     } catch (YAML::BadFile) {
-        LOG(ERROR) << "Failed to load file: " << VIDEO_SETTINGS_FILE;
+        LOG(ERROR) << "Failed to load file: " << video_settings_file_;
         errors++;
     }
 
     try {
-        asset_paths_ = YAML::LoadFile(ASSETS_PATHS_FILE);
-        LOG(INFO) << "Successfully loaded " << ASSETS_PATHS_FILE;
+        asset_paths_ = YAML::LoadFile(asset_paths_file_);
+        LOG(INFO) << "Successfully loaded " << asset_paths_file_;
     } catch (YAML::BadFile) {
-        LOG(ERROR) << "Failed to load file: " << ASSETS_PATHS_FILE;
+        LOG(ERROR) << "Failed to load file: " << asset_paths_file_;
         errors++;
     }
 

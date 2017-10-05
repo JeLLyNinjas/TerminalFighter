@@ -6,13 +6,13 @@
 
 class Settings : public I_Settings {
 
-    struct Setting {
-        Setting(SettingsGroup group, std::string file)
-            : group_(group)
+    struct SettingsGroup {
+        SettingsGroup(SettingsSection section, std::string file)
+            : group_(section)
             , file_(file)
         {};
 
-        SettingsGroup group_;
+        SettingsSection group_;
         std::string file_;
         YAML::Node node_;
     };
@@ -23,15 +23,18 @@ public:
         std::string asset_paths_file);
     bool reload_all_settings();
     bool load_string(
-        SettingsGroup group,
+        SettingsSection section,
         std::vector<std::string> keys,
         std::string& value) const;
     const YAML::Node& video_settings() const;
     const YAML::Node& asset_paths() const;
 
 private:
-    int reload_setting(SettingsGroup group);
-    Setting* group_to_setting(SettingsGroup group);
-    Setting video_settings_;
-    Setting asset_paths_;
+    int reload_setting(SettingsSection section);
+    SettingsGroup* section_to_group(SettingsSection section);
+    const SettingsGroup* section_to_group(SettingsSection section) const;
+    YAML::Node load_node(SettingsSection section, std::vector<std::string> keys) const;
+    SettingsGroup video_settings_;
+    SettingsGroup asset_paths_;
 };
+

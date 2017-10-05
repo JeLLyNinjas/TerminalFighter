@@ -3,11 +3,22 @@
 
 #include "Settings.h"
 
+// Internal helper func
+std::string vec_to_str(std::vector<std::string> vec) {
+    std::string result = "{";
+
+    for (auto str : vec) {
+        result += str + ",";
+    }
+
+    return result += "}";
+}
+
 Settings::Settings(
     std::string video_settings_file,
     std::string asset_paths_file)
-    : video_settings_(SettingsGroup::VIDEO_SETTINGS, video_settings_file)
-    , asset_paths_(SettingsGroup::ASSET_PATHS, asset_paths_file) {
+    : video_settings_(SettingsSection::VIDEO_SETTINGS, video_settings_file)
+    , asset_paths_(SettingsSection::ASSET_PATHS, asset_paths_file) {
     if (!reload_all_settings()) {
         LOG(FATAL) << "Failed to initialize settings";
     }
@@ -18,48 +29,27 @@ bool Settings::reload_all_settings() {
     LOG(INFO) << "Reloading all settings";
     int errors = 0;
 
-    errors += reload_setting(SettingsGroup::VIDEO_SETTINGS);
-    errors += reload_setting(SettingsGroup::ASSET_PATHS);
+    errors += reload_setting(SettingsSection::VIDEO_SETTINGS);
+    errors += reload_setting(SettingsSection::ASSET_PATHS);
 
     return !errors;
 }
 
-int Settings::reload_setting(SettingsGroup group) {
-    Setting* setting = group_to_setting(group);
-
-    try {
-        setting->node_ = YAML::LoadFile(setting->file_);
-    } catch (YAML::BadFile) {
-        LOG(ERROR) << "Failed to load file: " << setting->file_;
-        return 1;
-    }
-
-    LOG(INFO) << "Successfully loaded " << setting->file_;
-    return 0;
-}
-
-Settings::Setting* Settings::group_to_setting(SettingsGroup group) {
-    switch (group) {
-        case SettingsGroup::VIDEO_SETTINGS:
-            return &video_settings_;
-            break;
-
-        case SettingsGroup::ASSET_PATHS:
-            return &asset_paths_;
-            break;
-    }
-
-    LOG(FATAL) << "Attempted to load unknown settings group";
-
-    // should never get here
-    return &video_settings_;
-}
-
 bool Settings::load_string(
-    SettingsGroup group,
+    SettingsSection section,
     std::vector<std::string> keys,
     std::string& value) const {
-    return false;
+    YAML::Node node = load_node(section, keys);
+
+    if (!node.IsScalar()) {
+        LOG(ERROR) << "SettingsGroup " << vec_to_str(keys)
+                   << " from section " << static_cast<char>(section)
+                   << " is not string";
+        return false;
+    }
+
+    value = node.as<std::string>();
+    return true;
 }
 
 const YAML::Node& Settings::video_settings() const {
@@ -69,3 +59,55 @@ const YAML::Node& Settings::video_settings() const {
 const YAML::Node& Settings::asset_paths() const {
     return asset_paths_.node_;
 }
+
+int Settings::reload_setting(SettingsSection section) {
+    SettingsGroup* setting = section_to_group(section);
+
+    try {
+        setting->node_ = YAML::LoadFile(setting->file_);
+    } catch (YAML::BadFile e) {
+        LOG(ERROR) << "Failed to load file: " << setting->file_ << ", " << e.msg;
+        return 1;
+    }
+
+    LOG(INFO) << "Successfully loaded " << setting->file_;
+    return 0;
+}
+
+Settings::SettingsGroup* Settings::section_to_group(SettingsSection section) {
+    return const_cast<Settings::SettingsGroup*>(static_cast<const Settings*>(this)->section_to_group(section));
+}
+
+const Settings::SettingsGroup* Settings::section_to_group(SettingsSection section) const {
+    switch (section) {
+        case SettingsSection::VIDEO_SETTINGS:
+            return &video_settings_;
+            break;
+
+        case SettingsSection::ASSET_PATHS:
+            return &asset_paths_;
+            break;
+    }
+
+    LOG(FATAL) << "Attempted to load unknown settings section" << static_cast<char>(section);
+
+    // should never get here
+    return &video_settings_;
+}
+
+YAML::Node Settings::load_node(SettingsSection section, std::vector<std::string> keys) const {
+    YAML::Node node = section_to_group(section)->node_;
+
+    for (auto key : keys) {
+        try {
+            node = node[key];
+        } catch (YAML::InvalidNode e) {
+            LOG(ERROR) << "Could not load setting " << vec_to_str(keys)
+                       << " from section " << static_cast<char>(section)
+                       << ", " << e.msg;
+        }
+    }
+
+    return node;
+}
+

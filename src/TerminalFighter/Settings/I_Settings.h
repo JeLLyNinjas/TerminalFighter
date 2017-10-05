@@ -2,16 +2,16 @@
 
 #include <yaml-cpp/yaml.h>
 
-enum class SettingsGroup {
-    VIDEO_SETTINGS,
-    ASSET_PATHS
+enum class SettingsSection : char {
+    VIDEO_SETTINGS = 'V',
+    ASSET_PATHS = 'A',
 };
 
 class I_Settings {
 public:
     virtual bool reload_all_settings() = 0;
     virtual bool load_string(
-        SettingsGroup group,
+        SettingsSection group,
         std::vector<std::string> keys,
         std::string& value) const = 0;
     virtual const YAML::Node& video_settings() const = 0;

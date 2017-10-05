@@ -183,6 +183,7 @@ bool Settings::load_str_map(
     return true;
 }
 
+/* PRIVATE FUNCTIONS */
 
 int Settings::reload_setting(SettingsSection section) {
     SettingsGroup* setting = section_to_group(section);
@@ -196,10 +197,6 @@ int Settings::reload_setting(SettingsSection section) {
 
     LOG(INFO) << "Successfully loaded " << setting->file_;
     return 0;
-}
-
-Settings::SettingsGroup* Settings::section_to_group(SettingsSection section) {
-    return const_cast<Settings::SettingsGroup*>(static_cast<const Settings*>(this)->section_to_group(section));
 }
 
 const Settings::SettingsGroup* Settings::section_to_group(SettingsSection section) const {
@@ -217,6 +214,10 @@ const Settings::SettingsGroup* Settings::section_to_group(SettingsSection sectio
 
     // should never get here
     return &video_settings_;
+}
+
+Settings::SettingsGroup* Settings::section_to_group(SettingsSection section) {
+    return const_cast<Settings::SettingsGroup*>(static_cast<const Settings*>(this)->section_to_group(section));
 }
 
 YAML::Node Settings::load_node(SettingsSection section, std::vector<std::string> keys) const {

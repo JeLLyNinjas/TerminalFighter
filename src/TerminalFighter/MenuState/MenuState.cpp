@@ -15,6 +15,7 @@ gamestates::GameStateName MenuState::run() {
     if (!settings_.load_str(SettingsSection::ASSET_PATHS, {"fonts", "default"}, default_font_path)) {
         LOG(FATAL) << "Failed to load default font in MenuState";
     }
+
     Delay delayer(false, default_font_path);
 
     for (;;) {

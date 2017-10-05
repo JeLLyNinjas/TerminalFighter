@@ -84,7 +84,6 @@ void GraphicsHandler::update_screen() {
 
 void GraphicsHandler::init(const std::vector<std::string>& graphic_paths) {
     for (auto path : graphic_paths) {
-        // First is name, second is path
         game_graphics_[path] = internal_load_image(path);
     }
 }

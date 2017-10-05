@@ -40,8 +40,7 @@ gamestates::GameStateName TestState::run() {
 
     std::vector<std::string> graphic_paths;
 
-    for (std::map<std::string, std::string>::iterator it = graphic_paths_map.begin();
-            it != graphic_paths_map.end(); ++it) {
+    for (auto it = graphic_paths_map.begin(); it != graphic_paths_map.end(); ++it) {
         graphic_paths.push_back(it->second);
     }
 

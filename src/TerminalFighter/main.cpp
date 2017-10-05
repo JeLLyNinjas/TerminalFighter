@@ -166,7 +166,6 @@ int main(int argc, char* argv[]) {
         LOG(FATAL) << "TTF Init failed! " << TTF_GetError();
     }
 
-
     std::unique_ptr<I_GameState> test_state(
         new TestState(*main_renderer, settings));
     std::unique_ptr<I_GameState> menu_state(

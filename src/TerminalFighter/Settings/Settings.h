@@ -16,6 +16,8 @@ class Settings : public I_Settings {
     };
 
 public:
+    // Constructor parametrizes paths to config files for testability
+    // In actual code, same files should be passed in everytime
     Settings(
         std::string video_settings_file,
         std::string asset_paths_file);
@@ -43,8 +45,8 @@ public:
 
 private:
     int reload_setting(SettingsSection section);
-    SettingsGroup* section_to_group(SettingsSection section);
     const SettingsGroup* section_to_group(SettingsSection section) const;
+    SettingsGroup* section_to_group(SettingsSection section);
     YAML::Node load_node(SettingsSection section, std::vector<std::string> keys) const;
     SettingsGroup video_settings_;
     SettingsGroup asset_paths_;

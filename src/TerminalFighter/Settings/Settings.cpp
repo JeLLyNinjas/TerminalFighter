@@ -39,6 +39,7 @@ bool Settings::load_string(
     SettingsSection section,
     std::vector<std::string> keys,
     std::string& value) const {
+
     YAML::Node node = load_node(section, keys);
 
     if (!node.IsScalar()) {
@@ -48,7 +49,61 @@ bool Settings::load_string(
         return false;
     }
 
-    value = node.as<std::string>();
+    try {
+        value = node.as<std::string>();
+    } catch (YAML::RepresentationException e) {
+        LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as string. " << e.msg;
+        return false;
+    }
+
+    return true;
+}
+
+bool Settings::load_number(
+    SettingsSection section,
+    std::vector<std::string> keys,
+    double& value) const {
+
+    YAML::Node node = load_node(section, keys);
+
+    if (!node.IsScalar()) {
+        LOG(ERROR) << "SettingsGroup " << vec_to_str(keys)
+                   << " from section " << static_cast<char>(section)
+                   << " is not number";
+        return false;
+    }
+
+    try {
+        value = node.as<double>();
+    } catch (YAML::RepresentationException e) {
+        LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as double. " << e.msg;
+        return false;
+    }
+
+    return true;
+}
+
+bool Settings::load_bool(
+    SettingsSection section,
+    std::vector<std::string> keys,
+    bool& value) const {
+
+    YAML::Node node = load_node(section, keys);
+
+    if (!node.IsScalar()) {
+        LOG(ERROR) << "SettingsGroup " << vec_to_str(keys)
+                   << " from section " << static_cast<char>(section)
+                   << " is not boolean";
+        return false;
+    }
+
+    try {
+        value = node.as<bool>();
+    } catch (YAML::RepresentationException e) {
+        LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as bool. " << e.msg;
+        return false;
+    }
+
     return true;
 }
 

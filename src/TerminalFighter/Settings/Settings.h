@@ -26,6 +26,14 @@ public:
         SettingsSection section,
         std::vector<std::string> keys,
         std::string& value) const;
+    bool load_number(
+        SettingsSection section,
+        std::vector<std::string> keys,
+        double& value) const;
+    bool load_bool(
+        SettingsSection section,
+        std::vector<std::string> keys,
+        bool& value) const;
     const YAML::Node& video_settings() const;
     const YAML::Node& asset_paths() const;
 

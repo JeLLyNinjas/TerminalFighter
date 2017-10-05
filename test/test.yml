@@ -1,3 +1,6 @@
 ---
 level:
   hello: "world!"
+  integer: 5
+  decimal: 0.25
+  fact: true

@@ -23,5 +23,5 @@ TEST(SettingsTest, reload_settings) {
         TEST_VIDEO_SETTINGS_FILE,
         TEST_ASSET_PATHS_FILE);
 
-    EXPECT_TRUE(settings.reload_settings());
+    EXPECT_TRUE(settings.reload_all_settings());
 }

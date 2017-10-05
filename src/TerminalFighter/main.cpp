@@ -131,10 +131,6 @@ int main(int argc, char* argv[]) {
         VIDEO_SETTINGS_FILE,
         ASSET_PATHS_FILE);
 
-    if (!settings.reload_settings()) {
-        LOG(FATAL) << "Failed to initialize settings";
-    }
-
 #if defined(__linux__) || defined(__APPLE__)
     system("mkdir -p /tmp/TerminalFighter/");
     FLAGS_log_dir = "/tmp/TerminalFighter";
@@ -163,6 +159,7 @@ int main(int argc, char* argv[]) {
     if (TTF_Init() != 0) {
         LOG(FATAL) << "TTF Init failed! " << TTF_GetError();
     }
+
 
     std::unique_ptr<I_GameState> test_state(
         new TestState(*main_renderer, settings));

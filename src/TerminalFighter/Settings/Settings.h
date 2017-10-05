@@ -40,8 +40,6 @@ public:
         SettingsSection section,
         std::vector<std::string> keys,
         std::map<std::string, std::string>& value) const;
-    const YAML::Node& video_settings() const;
-    const YAML::Node& asset_paths() const;
 
 private:
     int reload_setting(SettingsSection section);

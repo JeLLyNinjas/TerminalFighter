@@ -138,9 +138,15 @@ int main(int argc, char* argv[]) {
     google::InitGoogleLogging(argv[0]);
     LOG(INFO) << "Logging Intialized INFO";
 
-    bool high_dpi = settings.video_settings()["high_dpi"].as<bool>();
-    int screen_width = settings.video_settings()["window"]["width"].as<int>();
-    int screen_height = settings.video_settings()["window"]["height"].as<int>();
+    bool high_dpi = false;
+    int screen_width = 0;
+    int screen_height = 0;
+
+    if (!settings.load_bool(SettingsSection::VIDEO_SETTINGS, {"high_dpi"}, high_dpi) ||
+            settings.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "width"}, screen_width) ||
+            settings.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "height"}, screen_height)) {
+        LOG(FATAL) << "Failed to load video settings";
+    }
 
     print_renderer_info();
 

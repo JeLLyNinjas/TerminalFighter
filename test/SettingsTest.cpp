@@ -31,6 +31,19 @@ TEST(SettingsTest, reload_settings) {
     EXPECT_TRUE(settings.reload_all_settings());
 }
 
+TEST(SettingsTest, load_base) {
+    Settings settings(
+        TEST_CONFIG_FILE,
+        TEST_CONFIG_FILE);
+
+    std::string actual;
+
+    EXPECT_TRUE(settings.load_str(SettingsSection::VIDEO_SETTINGS, {"base"}, actual));
+
+    EXPECT_EQ("acid", actual);
+}
+
+
 TEST(SettingsTest, load_string) {
     Settings settings(
         TEST_CONFIG_FILE,

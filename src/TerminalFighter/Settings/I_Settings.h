@@ -33,6 +33,4 @@ public:
         SettingsSection section,
         std::vector<std::string> keys,
         std::map<std::string, std::string>& value) const = 0;
-    virtual const YAML::Node& video_settings() const = 0;
-    virtual const YAML::Node& asset_paths() const = 0;
 };

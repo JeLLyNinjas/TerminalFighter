@@ -61,22 +61,31 @@ gamestates::GameStateName TestState::run() {
     double main_character_y = screen_height - 100;
 
     // Font paths
-    std::string default_font_path =
-        settings_.asset_paths()["fonts"]["default"].as<std::string>();
+    std::string default_font_path;
+
+    if (!settings_.load_str(SettingsSection::ASSET_PATHS, {"fonts", "default"}, default_font_path)) {
+        LOG(FATAL) << "Failed to load fonts in TestState";
+    }
 
     // Graphic paths
-    std::string main_character_graphic =
-        settings_.asset_paths()["graphics"]["main_character"].as<std::string>();
-    std::string missile_graphic =
-        settings_.asset_paths()["graphics"]["missile"].as<std::string>();
-    std::string terminal_graphic =
-        settings_.asset_paths()["graphics"]["terminal"].as<std::string>();
-    std::string basic_enemy_graphic =
-        settings_.asset_paths()["graphics"]["basic_enemy"].as<std::string>();
+    std::string main_character_graphic;
+    std::string missile_graphic;
+    std::string terminal_graphic;
+    std::string basic_enemy_graphic;
+
+    if (!settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "main_character"}, main_character_graphic) ||
+            settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "missile"}, missile_graphic) ||
+            settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "terminal"}, terminal_graphic) ||
+            settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "basic_enemy"}, basic_enemy_graphic)) {
+        LOG(FATAL) << "Failed to load graphics in TestState";
+    }
 
     // Dict paths
-    std::string default_dict =
-        settings_.asset_paths()["dicts"]["default"].as<std::string>();
+    std::string default_dict;
+
+    if (!settings_.load_str(SettingsSection::ASSET_PATHS, {"dicts", "default"}, default_dict)) {
+        LOG(FATAL) << "Failed to load dictionaries in TestState";
+    }
 
     // Construction
     std::unique_ptr<MainCharacter> main_character(

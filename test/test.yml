@@ -1,4 +1,6 @@
 ---
+base: "acid"
+
 level:
   hello: "world!"
   integer: 5

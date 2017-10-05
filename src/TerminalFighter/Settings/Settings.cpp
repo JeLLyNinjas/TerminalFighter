@@ -50,6 +50,11 @@ bool Settings::load_str(
 
     try {
         value = node.as<std::string>();
+    } catch (YAML::InvalidNode e) {
+        LOG(ERROR) << "Could not load setting " << vec_to_str(keys)
+                   << " from section " << static_cast<char>(section)
+                   << ", " << e.msg;
+        return false;
     } catch (YAML::RepresentationException e) {
         LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as string. " << e.msg;
         return false;
@@ -74,6 +79,11 @@ bool Settings::load_int(
 
     try {
         value = node.as<int>();
+    } catch (YAML::InvalidNode e) {
+        LOG(ERROR) << "Could not load setting " << vec_to_str(keys)
+                   << " from section " << static_cast<char>(section)
+                   << ", " << e.msg;
+        return false;
     } catch (YAML::RepresentationException e) {
         LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as int. " << e.msg;
         return false;
@@ -98,6 +108,11 @@ bool Settings::load_double(
 
     try {
         value = node.as<double>();
+    } catch (YAML::InvalidNode e) {
+        LOG(ERROR) << "Could not load setting " << vec_to_str(keys)
+                   << " from section " << static_cast<char>(section)
+                   << ", " << e.msg;
+        return false;
     } catch (YAML::RepresentationException e) {
         LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as double. " << e.msg;
         return false;
@@ -122,20 +137,17 @@ bool Settings::load_bool(
 
     try {
         value = node.as<bool>();
+    } catch (YAML::InvalidNode e) {
+        LOG(ERROR) << "Could not load setting " << vec_to_str(keys)
+                   << " from section " << static_cast<char>(section)
+                   << ", " << e.msg;
+        return false;
     } catch (YAML::RepresentationException e) {
         LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as bool. " << e.msg;
         return false;
     }
 
     return true;
-}
-
-const YAML::Node& Settings::video_settings() const {
-    return video_settings_.node_;
-}
-
-const YAML::Node& Settings::asset_paths() const {
-    return asset_paths_.node_;
 }
 
 bool Settings::load_str_map(
@@ -157,6 +169,11 @@ bool Settings::load_str_map(
     for (YAML::const_iterator it = node.begin(); it != node.end(); ++it) {
         try {
             value[it->first.as<std::string>()] = it->second.as<std::string>();
+        } catch (YAML::InvalidNode e) {
+            LOG(ERROR) << "Could not load setting " << vec_to_str(keys)
+                       << " from section " << static_cast<char>(section)
+                       << ", " << e.msg;
+            return false;
         } catch (YAML::RepresentationException e) {
             LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as map<str,str>. " << e.msg;
             return false;
@@ -203,16 +220,10 @@ const Settings::SettingsGroup* Settings::section_to_group(SettingsSection sectio
 }
 
 YAML::Node Settings::load_node(SettingsSection section, std::vector<std::string> keys) const {
-    YAML::Node node = section_to_group(section)->node_;
+    YAML::Node node = YAML::Clone(section_to_group(section)->node_);
 
     for (auto key : keys) {
-        try {
-            node = node[key];
-        } catch (YAML::InvalidNode e) {
-            LOG(ERROR) << "Could not load setting " << vec_to_str(keys)
-                       << " from section " << static_cast<char>(section)
-                       << ", " << e.msg;
-        }
+        node = node[key];
     }
 
     return node;

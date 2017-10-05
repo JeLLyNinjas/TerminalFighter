@@ -32,10 +32,17 @@ gamestates::GameStateName TestState::run() {
         LOG(FATAL) << "Failed to load window dimensions in TestState";
     }
 
-    std::map<std::string, std::string> graphic_paths;
+    std::map<std::string, std::string> graphic_paths_map;
 
-    if (!settings_.load_str_map(SettingsSection::ASSET_PATHS, {"graphics"}, graphic_paths)) {
+    if (!settings_.load_str_map(SettingsSection::ASSET_PATHS, {"graphics"}, graphic_paths_map)) {
         LOG(FATAL) << "Failed to load graphic paths in TestState";
+    }
+
+    std::vector<std::string> graphic_paths;
+
+    for (std::map<std::string, std::string>::iterator it = graphic_paths_map.begin();
+            it != graphic_paths_map.end(); ++it) {
+        graphic_paths.push_back(it->second);
     }
 
     // Initialize engine critical components
@@ -74,9 +81,9 @@ gamestates::GameStateName TestState::run() {
     std::string basic_enemy_graphic;
 
     if (!settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "main_character"}, main_character_graphic) ||
-            settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "missile"}, missile_graphic) ||
-            settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "terminal"}, terminal_graphic) ||
-            settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "basic_enemy"}, basic_enemy_graphic)) {
+            !settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "missile"}, missile_graphic) ||
+            !settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "terminal"}, terminal_graphic) ||
+            !settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "basic_enemy"}, basic_enemy_graphic)) {
         LOG(FATAL) << "Failed to load graphics in TestState";
     }
 

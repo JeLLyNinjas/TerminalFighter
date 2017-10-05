@@ -143,8 +143,8 @@ int main(int argc, char* argv[]) {
     int screen_height = 0;
 
     if (!settings.load_bool(SettingsSection::VIDEO_SETTINGS, {"high_dpi"}, high_dpi) ||
-            settings.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "width"}, screen_width) ||
-            settings.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "height"}, screen_height)) {
+            !settings.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "width"}, screen_width) ||
+            !settings.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "height"}, screen_height)) {
         LOG(FATAL) << "Failed to load video settings";
     }
 

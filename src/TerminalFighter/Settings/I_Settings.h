@@ -10,11 +10,18 @@ enum class SettingsSection : char {
 class I_Settings {
 public:
     virtual bool reload_all_settings() = 0;
-    virtual bool load_string(
+
+    // If load functions return false
+    // value will be undefined
+    virtual bool load_str(
         SettingsSection group,
         std::vector<std::string> keys,
         std::string& value) const = 0;
-    virtual bool load_number(
+    virtual bool load_int(
+        SettingsSection section,
+        std::vector<std::string> keys,
+        int& value) const = 0;
+    virtual bool load_double(
         SettingsSection section,
         std::vector<std::string> keys,
         double& value) const = 0;
@@ -22,6 +29,10 @@ public:
         SettingsSection section,
         std::vector<std::string> keys,
         bool& value) const = 0;
+    virtual bool load_str_map(
+        SettingsSection section,
+        std::vector<std::string> keys,
+        std::map<std::string, std::string>& value) const = 0;
     virtual const YAML::Node& video_settings() const = 0;
     virtual const YAML::Node& asset_paths() const = 0;
 };

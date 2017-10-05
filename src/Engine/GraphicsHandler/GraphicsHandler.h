@@ -10,8 +10,8 @@
 class GraphicsHandler : public I_GraphicsHandler {
 
 public:
-    GraphicsHandler(SDL_Renderer& renderer, std::vector<std::string> graphic_paths);
-    void init(std::vector<std::string> graphic_paths);
+    GraphicsHandler(SDL_Renderer& renderer, std::map<std::string, std::string> graphic_paths);
+    void init(const std::map<std::string, std::string>& graphic_paths);
     void draw(SDL_Texture* texture, SDL_Rect texture_rect,
               GraphicPriority priority, bool cleanup, double angle_clockwise, SDL_Point* rotation_point);
 

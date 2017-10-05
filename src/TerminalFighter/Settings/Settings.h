@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 #include "I_Settings.h"
 
 class Settings : public I_Settings {
@@ -22,11 +20,15 @@ public:
         std::string video_settings_file,
         std::string asset_paths_file);
     bool reload_all_settings();
-    bool load_string(
+    bool load_str(
         SettingsSection section,
         std::vector<std::string> keys,
         std::string& value) const;
-    bool load_number(
+    bool load_int(
+        SettingsSection section,
+        std::vector<std::string> keys,
+        int& value) const;
+    bool load_double(
         SettingsSection section,
         std::vector<std::string> keys,
         double& value) const;
@@ -34,6 +36,10 @@ public:
         SettingsSection section,
         std::vector<std::string> keys,
         bool& value) const;
+    bool load_str_map(
+        SettingsSection section,
+        std::vector<std::string> keys,
+        std::map<std::string, std::string>& value) const;
     const YAML::Node& video_settings() const;
     const YAML::Node& asset_paths() const;
 

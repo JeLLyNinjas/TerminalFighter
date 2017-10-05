@@ -24,14 +24,18 @@ TestState::TestState(SDL_Renderer& renderer, const I_Settings& settings)
 }
 
 gamestates::GameStateName TestState::run() {
-    int screen_width = settings_.video_settings()["window"]["width"].as<int>();
-    int screen_height = settings_.video_settings()["window"]["height"].as<int>();
+    int screen_width = 0;
+    int screen_height = 0;
 
-    std::vector<std::string> graphic_paths;
-    YAML::Node graphics_node = settings_.asset_paths()["graphics"];
+    if (!settings_.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "width"}, screen_width) ||
+            !settings_.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "height"}, screen_height)) {
+        LOG(FATAL) << "Failed to load window dimensions in TestState";
+    }
 
-    for (auto it = graphics_node.begin(); it != graphics_node.end(); ++it) {
-        graphic_paths.push_back(it->second.as<std::string>());
+    std::map<std::string, std::string> graphic_paths;
+
+    if (!settings_.load_str_map(SettingsSection::ASSET_PATHS, {"graphics"}, graphic_paths)) {
+        LOG(FATAL) << "Failed to load graphic paths in TestState";
     }
 
     // Initialize engine critical components

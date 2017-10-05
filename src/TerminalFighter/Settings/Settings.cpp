@@ -1,4 +1,3 @@
-#include <yaml-cpp/yaml.h>
 #include <glog/logging.h>
 
 #include "Settings.h"
@@ -35,7 +34,7 @@ bool Settings::reload_all_settings() {
     return !errors;
 }
 
-bool Settings::load_string(
+bool Settings::load_str(
     SettingsSection section,
     std::vector<std::string> keys,
     std::string& value) const {
@@ -59,7 +58,31 @@ bool Settings::load_string(
     return true;
 }
 
-bool Settings::load_number(
+bool Settings::load_int(
+    SettingsSection section,
+    std::vector<std::string> keys,
+    int& value) const {
+
+    YAML::Node node = load_node(section, keys);
+
+    if (!node.IsScalar()) {
+        LOG(ERROR) << "SettingsGroup " << vec_to_str(keys)
+                   << " from section " << static_cast<char>(section)
+                   << " is not int";
+        return false;
+    }
+
+    try {
+        value = node.as<int>();
+    } catch (YAML::RepresentationException e) {
+        LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as int. " << e.msg;
+        return false;
+    }
+
+    return true;
+}
+
+bool Settings::load_double(
     SettingsSection section,
     std::vector<std::string> keys,
     double& value) const {
@@ -69,7 +92,7 @@ bool Settings::load_number(
     if (!node.IsScalar()) {
         LOG(ERROR) << "SettingsGroup " << vec_to_str(keys)
                    << " from section " << static_cast<char>(section)
-                   << " is not number";
+                   << " is not double";
         return false;
     }
 
@@ -114,6 +137,35 @@ const YAML::Node& Settings::video_settings() const {
 const YAML::Node& Settings::asset_paths() const {
     return asset_paths_.node_;
 }
+
+bool Settings::load_str_map(
+    SettingsSection section,
+    std::vector<std::string> keys,
+    std::map<std::string, std::string>& value) const {
+
+    YAML::Node node = load_node(section, keys);
+
+    if (!node.IsMap()) {
+        LOG(ERROR) << "SettingsGroup " << vec_to_str(keys)
+                   << " from section " << static_cast<char>(section)
+                   << " is not a map";
+        return false;
+    }
+
+    value.clear();
+
+    for (YAML::const_iterator it = node.begin(); it != node.end(); ++it) {
+        try {
+            value[it->first.as<std::string>()] = it->second.as<std::string>();
+        } catch (YAML::RepresentationException e) {
+            LOG(ERROR) << "Couldn't load " << vec_to_str(keys) << " as map<str,str>. " << e.msg;
+            return false;
+        }
+    }
+
+    return true;
+}
+
 
 int Settings::reload_setting(SettingsSection section) {
     SettingsGroup* setting = section_to_group(section);

@@ -15,7 +15,7 @@ namespace {
 
 GraphicsHandler::GraphicsHandler(
     SDL_Renderer& renderer,
-    std::vector<std::string> graphic_paths)
+    std::map<std::string, std::string> graphic_paths)
     : renderer_(renderer)
     , draw_queue_( {
     {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },
@@ -82,9 +82,10 @@ void GraphicsHandler::update_screen() {
     SDL_RenderClear(&renderer_);
 }
 
-void GraphicsHandler::init(std::vector<std::string> paths) {
-    for (auto path : paths) {
-        game_graphics_[path] = internal_load_image(path);
+void GraphicsHandler::init(const std::map<std::string, std::string>& graphics) {
+    for (auto graphic : graphics) {
+        // First is name, second is path
+        game_graphics_[graphic.first] = internal_load_image(graphic.second);
     }
 }
 

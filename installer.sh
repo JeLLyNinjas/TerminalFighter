@@ -95,9 +95,6 @@ wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.tar.gz
 tar xzvf SDL2_mixer-2.0.0.tar.gz
 cd SDL2_mixer-2.0.0
 
-#mixer1?
-sudo apt-get install libsdl-mixer1.2-dev
-
 #SMPEG
 cd external/smpeg2-2.0.0
 ./configure

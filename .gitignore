@@ -15,7 +15,7 @@ tags
 build
 dist
 TerminalFighter
-!TerminalFigher/
+!TerminalFighter/
 TerminalFighterBackup
 run-tests
 *.a

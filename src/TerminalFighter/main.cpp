@@ -12,7 +12,6 @@ extern "C" {
 }
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
-//#include <SDL2/SDL_mixer.h>
 #include <glog/logging.h>
 
 #include "GameState/I_GameState.h"
@@ -61,7 +60,7 @@ void print_renderer_info() {
 
 bool init_mixer() {
     if ( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) {
-        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+        LOG(ERROR) << "SDL_mixer could not initialize! SDL_mixer Error:" << Mix_GetError();
         return false;
     }
 
@@ -172,7 +171,7 @@ int main(int argc, char* argv[]) {
     }
 
     SDL_version compile_version;
-    const SDL_version* link_version = Mix_Linked_Version();
+    SDL_version const* link_version = Mix_Linked_Version();
     SDL_MIXER_VERSION(&compile_version);
     LOG(INFO) << "compiled with SDL_mixer version:" <<
               (int)compile_version.major << "." <<

@@ -72,6 +72,10 @@ gamestates::GameStateName TestState::run() {
     std::string basic_enemy_graphic =
         settings_.asset_paths()["graphics"]["basic_enemy"].as<std::string>();
 
+    // Audio Paths
+    std::string laser_gun_sound =
+        settings_.asset_paths()["audio"]["laser-gun-03"].as<std::string>();
+
     // Dict paths
     std::string default_dict =
         settings_.asset_paths()["dicts"]["default"].as<std::string>();
@@ -90,6 +94,7 @@ gamestates::GameStateName TestState::run() {
             default_font_path,
             default_font_path,
             default_dict,
+            laser_gun_sound,
             main_character_x,
             main_character_y));
     keyboard.add_listener(&(*launcher));

@@ -22,6 +22,7 @@ public:
         std::string terminal_font_path,
         std::string targeting_system_font_path,
         std::string targeting_system_dict_path,
+        std::string missile_sound_path,
         double x_pos, double y_pos);
     Team::Team team() const;
     void create_missile(double x_vel, double y_vel, double x_pos, double y_pos);
@@ -39,6 +40,7 @@ private:
     Team::Team team_;
     I_GameObjectMediator& game_object_mediator_;
     std::string missile_graphic_path_;
+    std::string missile_sound_path_;
     Terminal terminal_;
     TargetingSystem* targeting_system_;
     Hitbox hitbox_;

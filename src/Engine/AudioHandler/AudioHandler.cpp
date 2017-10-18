@@ -46,14 +46,14 @@ Mix_Chunk* AudioHandler:: load_chunk(std::string path) {
     return ret;
 
 }
-void AudioHandler::play_music(Mix_Music* music) {
+void AudioHandler::play_music(Mix_Music* music) const {
     LOG(FATAL) << "Function should not be used yet";
     //TODO just keeping code here
     //if (Mix_PlayMusic(music, -1) == -1) {
     //printf("Mix_PlayMusic: %s\n", Mix_GetError());
     //}
 }
-void AudioHandler::play_chunk(Mix_Chunk* chunk) {
+void AudioHandler::play_chunk(Mix_Chunk* chunk) const {
     if (Mix_PlayChannel(-1, chunk, 0) == -1) {
         LOG(ERROR) << "Mix_PlayChannel: " << Mix_GetError();
     }

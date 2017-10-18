@@ -10,6 +10,6 @@ public:
     virtual void init() = 0;
     virtual Mix_Music* load_music(std::string path) = 0;
     virtual Mix_Chunk* load_chunk(std::string path) = 0;
-    virtual void play_music(Mix_Music* music) = 0;
-    virtual void play_chunk(Mix_Chunk* chunk) = 0;
+    virtual void play_music(Mix_Music* music) const = 0;
+    virtual void play_chunk(Mix_Chunk* chunk) const = 0;
 };

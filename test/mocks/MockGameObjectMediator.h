@@ -18,5 +18,5 @@ public:
 
     MOCK_METHOD2(add_game_object_proxy, void(Team::Team, GameObject*));
     MOCK_METHOD2(add_projectile_proxy, void(Team::Team, GameObject*));
-    MOCK_METHOD1(play_sound, void(std::string));
+    MOCK_CONST_METHOD1(play_sound, void(std::string));
 };

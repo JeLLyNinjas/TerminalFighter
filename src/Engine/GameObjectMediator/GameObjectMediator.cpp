@@ -26,7 +26,7 @@ void GameObjectMediator::add_projectile(Team::Team team, std::unique_ptr<GameObj
     universe_.add_game_object(std::move(projectile));
 }
 
-void GameObjectMediator::play_sound(std::string path) {
+void GameObjectMediator::play_sound(std::string path) const {
     Mix_Chunk* sound = audio_.load_chunk(path);
 
     if (sound == NULL) {

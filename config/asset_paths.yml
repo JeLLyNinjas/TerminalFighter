@@ -10,3 +10,7 @@ graphics:
 
 dicts:
   default: "assets/dictionary.txt"
+
+audio:
+  laser-gun-03: "assets/sounds/NFF-laser-gun-03.wav"
+

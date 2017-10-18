@@ -1,6 +1,6 @@
 ---
 window:
-  height: 1000
-  width: 1800
+  height: 1080
+  width: 1920
 
-high_dpi: true
+high_dpi: false

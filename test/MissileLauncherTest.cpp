@@ -19,7 +19,7 @@ protected:
 
     virtual void SetUp() {
         launcher_ = std::unique_ptr<MissileLauncher>(
-                new MissileLauncher(Team::FRIENDLY, mediator_, "", "", "", "", "", "", 0, 0));
+                        new MissileLauncher(Team::FRIENDLY, mediator_, "", "", "", "", "", "", 0, 0));
     }
 
     virtual void TearDown() {}

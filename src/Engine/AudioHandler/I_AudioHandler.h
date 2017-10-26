@@ -4,6 +4,11 @@
 
 #include <SDL2/SDL_mixer.h>
 
+enum class Channel : int {
+    ANY_CHANNEL = -1,
+    CHANNEL_1 = 1
+};
+
 class I_AudioHandler {
 public:
     virtual ~I_AudioHandler() {}

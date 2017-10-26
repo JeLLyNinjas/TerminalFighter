@@ -36,8 +36,8 @@ Mix_Chunk* AudioHandler:: load_chunk(std::string path) {
         ret = Mix_LoadWAV(path.c_str());
 
         if ( ret == NULL ) {
-            LOG(FATAL) << "Fatal error, could not load chunk: " << path.c_str() <<
-                       "Error: " << Mix_GetError() << " Exiting...";
+            LOG(FATAL) << "Fatal error, could not load chunk: " << path.c_str()
+                       << "Error: " << Mix_GetError() << " Exiting...";
         }
 
         sound_effects_[path.c_str()] = ret;
@@ -54,7 +54,7 @@ void AudioHandler::play_music(Mix_Music* music) const {
     //}
 }
 void AudioHandler::play_chunk(Mix_Chunk* chunk) const {
-    if (Mix_PlayChannel(-1, chunk, 0) == -1) {
+    if (Mix_PlayChannel(static_cast<int>(Channel::ANY_CHANNEL), chunk, 0) == -1) {
         LOG(ERROR) << "Mix_PlayChannel: " << Mix_GetError();
     }
 }

@@ -23,7 +23,7 @@ GameObject::GameObject(double x_pos, double y_pos, double x_vel, double y_vel, i
 }
 
 GameObject::~GameObject() {
-    //LOG(INFO) << "GameObject with id: " << id_ << " died";
+    DLOG(INFO) << "GameObject with id: " << id_ << " died";
 }
 
 void GameObject::notify_destroyed() {

@@ -25,7 +25,6 @@ public:
 
     virtual void take_damage(int damage);
 
-    std::string get_sound();
     void notify_destroyed();
     double x_pos() const;
     double y_pos() const;

@@ -31,6 +31,7 @@ function finish {
     rm $DIR/SDL2_ttf-2.0.12.tar.gz || true
     rm $DIR/SDL2_image-2.0.0.tar.gz || true
     rm $DIR/SDL2_mixer-2.0.0.tar.gz || true
+    rm $DIR/astyle_3.0.1.tar.gz || true
     rm -rf $DIR/pkg-config-0.28 || true
     rm -rf $DIR/SDL2_image-2.0.0  || true
     rm -rf $DIR/freetype-2.8 || true
@@ -39,9 +40,22 @@ function finish {
     rm -rf $DIR/SDL2_mixer-2.0.0 || true
     rm -rf $DIR/glog || true
     rm -rf $DIR/yaml-cpp || true
+    rm -rf $DIR/astyle || true
 }
 
 trap finish EXIT
+
+#artistic style
+if [ $MACHINE = Linux ]; then
+    wget -O astyle_3.0.1.tar.gz https://sourceforge.net/projects/astyle/files/astyle/astyle%203.0.1/astyle_3.0.1_linux.tar.gz/download
+elif [ $MACHINE = Mac ]; then
+    wget -O astyle_3.0.1.tar.gz https://sourceforge.net/projects/astyle/files/astyle/astyle%203.0.1/astyle_3.0.1_macos.tar.gz/download
+fi
+tar xzvf astyle_3.0.1.tar.gz
+cd astyle/build/gcc
+make -j4
+make install -j4
+cd $DIR
 
 #pkg-config
 if [ $MACHINE = Mac ]; then
@@ -59,19 +73,14 @@ make -j4
 make install -j4
 cd $DIR
 
-
 #SDL2_ttf
-if [ $MACHINE = Linux ]; then
-    apt-get install libfreetype6-dev
-elif [[ $MACHINE = Mac ]]; then
-    wget -O freetype-2.8.tar.gz https://sourceforge.net/projects/freetype/files/freetype2/2.8/freetype-2.8.tar.gz/download
-    tar xzvf freetype-2.8.tar.gz
-    cd freetype-2.8
-    ./configure
-    make -j4
-    make install -j4
-    cd ..whsu
-fi
+wget -O freetype-2.8.tar.gz https://sourceforge.net/projects/freetype/files/freetype2/2.8/freetype-2.8.tar.gz/download
+tar xzvf freetype-2.8.tar.gz
+cd freetype-2.8
+./configure
+make -j4
+make install -j4
+cd $DIR
 
 wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
 tar xzvf SDL2_ttf-2.0.12.tar.gz
@@ -125,7 +134,3 @@ cmake ..
 make -j4
 make install -j4
 cd $DIR
-
-
-
-

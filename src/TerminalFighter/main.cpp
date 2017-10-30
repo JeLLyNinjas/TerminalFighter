@@ -131,6 +131,15 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
+#if defined(__linux__) || defined(__APPLE__)
+    system("mkdir -p /tmp/TerminalFighter/");
+    FLAGS_log_dir = "/tmp/TerminalFighter";
+#endif
+    google::InitGoogleLogging(argv[0]);
+    FLAGS_logtostderr = 1;
+    FLAGS_stderrthreshold = 0;
+    LOG(INFO) << "Logging Initialized";
+
     if (!std::experimental::filesystem::exists(CONFIG_DIR)) {
         LOG(WARNING) << "Configuration directory '" << CONFIG_DIR << "' not found";
         LOG(INFO) << "Attempting to copy '" << EXAMPLE_CONFIG_DIR << "' for configuration";
@@ -149,12 +158,6 @@ int main(int argc, char* argv[]) {
         VIDEO_SETTINGS_FILE,
         ASSET_PATHS_FILE);
 
-#if defined(__linux__) || defined(__APPLE__)
-    system("mkdir -p /tmp/TerminalFighter/");
-    FLAGS_log_dir = "/tmp/TerminalFighter";
-#endif
-    google::InitGoogleLogging(argv[0]);
-    LOG(INFO) << "Logging Intialized INFO";
 
     bool high_dpi = false;
     int screen_width = 0;

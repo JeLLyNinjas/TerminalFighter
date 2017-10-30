@@ -12,7 +12,7 @@ addons:
       - libcurl4-openssl-dev
       - cmake
       - cmake-data
-      - g++-4.8
+      - g++-6
 
 install:
     - sudo bash ./installer.sh

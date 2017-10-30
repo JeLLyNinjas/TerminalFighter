@@ -13,7 +13,7 @@ addons:
       - libcurl4-openssl-dev
       - cmake
       - cmake-data
-      - g++-5.4
+      - g++-6
 
 install:
     - g++ -v

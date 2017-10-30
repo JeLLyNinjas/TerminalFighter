@@ -1,6 +1,7 @@
 #include <map>
 #include <unistd.h>
 #include <memory>
+#include <experimental/filesystem>
 
 #ifndef INT64_C
 #define INT64_C(c) (c ## LL)
@@ -22,8 +23,11 @@ extern "C" {
 #include "Settings/Settings.h"
 
 namespace {
-    const std::string VIDEO_SETTINGS_FILE = "config/video_settings.yml";
-    const std::string ASSET_PATHS_FILE = "config/asset_paths.yml";
+    const std::string CONFIG_DIR = "config";
+    const std::string EXAMPLE_CONFIG_DIR = "config.example";
+
+    const std::string VIDEO_SETTINGS_FILE = CONFIG_DIR + "/video_settings.yml";
+    const std::string ASSET_PATHS_FILE = CONFIG_DIR + "/asset_paths.yml";
 }
 
 SDL_Renderer* main_renderer = NULL;
@@ -127,6 +131,20 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
+    if (!std::experimental::filesystem::exists(CONFIG_DIR)) {
+        LOG(WARNING) << "Configuration directory '" << CONFIG_DIR << "' not found";
+        LOG(INFO) << "Attempting to copy '" << EXAMPLE_CONFIG_DIR << "' for configuration";
+
+        try {
+            std::experimental::filesystem::copy(EXAMPLE_CONFIG_DIR, CONFIG_DIR,
+                                                std::experimental::filesystem::copy_options::recursive);
+            LOG(INFO) << "Example configuration copy successful";
+        } catch (std::experimental::filesystem::filesystem_error e) {
+            LOG(ERROR) << "Example configuration copy failed, exiting...";
+            LOG(FATAL) << e.what();
+        }
+    }
+
     Settings settings(
         VIDEO_SETTINGS_FILE,
         ASSET_PATHS_FILE);

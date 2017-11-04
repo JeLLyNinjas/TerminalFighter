@@ -10,11 +10,12 @@ public:
     ~AudioHandler();
     AudioHandler();
     void init();
-    Mix_Music* load_music(std::string path);
-    Mix_Chunk* load_chunk(std::string path);
-    void play_music(Mix_Music* music) const;
-    void play_chunk(Mix_Chunk* chunk) const;
+    void play_music(std::string path) const;
+    void play_chunk(std::string path) const;
 
 private:
-    std::map <std::string, Mix_Chunk*> sound_effects_;
+
+    Mix_Music* load_music(std::string path);
+    Mix_Chunk* load_chunk(std::string path);
+    std::map <std::string, std::unique_ptr<Mix_Chunk*>> sound_effects_;
 };

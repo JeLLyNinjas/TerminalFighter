@@ -12,13 +12,13 @@ MissileLauncher::MissileLauncher(
     std::string terminal_font_path,
     std::string targeting_system_font_path,
     std::string targeting_system_dict_path,
-    std::string missile_sound_path,
+    std::string missile_launch_sound_path,
     double x_pos, double y_pos)
     : GameObject(x_pos, y_pos, 0, 0, 1)
     , team_(team)
     , game_object_mediator_(game_object_mediator)
     , missile_graphic_path_(missile_graphic_path)
-    , missile_sound_path_(missile_sound_path)
+    , missile_launch_sound_path_(missile_launch_sound_path)
     , terminal_(
           (this->x_pos()) - 400, this->y_pos() - 150,
           100, 30,

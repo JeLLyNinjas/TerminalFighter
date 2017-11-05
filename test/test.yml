@@ -1,0 +1,11 @@
+---
+base: "acid"
+
+level:
+  hello: "world!"
+  integer: 5
+  decimal: 0.25
+  fact: true
+  dictionary:
+    boy: "A young male persons"
+    girl: "A young female persons"

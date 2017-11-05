@@ -136,7 +136,6 @@ int main(int argc, char* argv[]) {
     FLAGS_log_dir = "/tmp/TerminalFighter";
 #endif
     google::InitGoogleLogging(argv[0]);
-    FLAGS_logtostderr = 1;
     FLAGS_stderrthreshold = 0;
     LOG(INFO) << "Logging Initialized";
 

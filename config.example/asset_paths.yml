@@ -1,6 +1,6 @@
 ---
 fonts:
-  default: "assets/fonts/Ubuntu-b.ttf"
+  default: "assets/fonts/Ubuntu-B.ttf"
 
 graphics:
   missile: "assets/images/projectiles/missile.png"

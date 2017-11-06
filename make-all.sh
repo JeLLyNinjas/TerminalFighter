@@ -4,7 +4,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-./format-all.sh
+# ./format-all.sh
 
 # if astyle *.h *.cpp -r --dry-run --options=astylerc | grep Formatted; then
 #     printf "\n${RED}|*******| STYLE CHECK FAILED |*******|${NC}\n\n"

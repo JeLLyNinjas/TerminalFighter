@@ -54,6 +54,7 @@ add_library(KeyboardListenerTest KeyboardListenerTest.cpp)
 add_library(UniverseTest UniverseTest.cpp)
 add_library(TerminalListenerTest TerminalListenerTest.cpp)
 add_library(UtilTest UtilTest.cpp)
+add_library(SettingsTest SettingsTest.cpp)
 
 target_link_libraries(GameObjectTest libgtest libgmock GameObject Hitbox)
 target_link_libraries(HitboxTest libgtest libgmock Hitbox)
@@ -64,9 +65,10 @@ target_link_libraries(KeyboardListenerTest libgtest libgmock ${SDL2_LIBRARIES} M
 target_link_libraries(UniverseTest libgtest libgmock ${SDL2_LIBRARIES} Universe)
 target_link_libraries(TerminalListenerTest libgtest libgmock ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES} Terminal)
 target_link_libraries(UtilTest libgtest Util)
+target_link_libraries(SettingsTest libgtest Settings)
 
 add_executable(runTests TestAll.cpp)
 target_link_libraries(runTests glog::glog libgtest libgmock ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES}
     pthread GameObjectTest HitboxTest MissileLauncherTest CollisionDetectorTest GameStateHandlertest
-    KeyboardListenerTest UniverseTest TerminalListenerTest UtilTest)
+    KeyboardListenerTest UniverseTest TerminalListenerTest UtilTest SettingsTest)
 

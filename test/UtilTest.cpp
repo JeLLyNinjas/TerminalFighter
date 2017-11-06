@@ -5,8 +5,6 @@
 
 #include "Util/Util.h"
 
-
-
 using ::testing::_;
 
 namespace {

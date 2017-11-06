@@ -25,14 +25,24 @@ TestState::TestState(SDL_Renderer& renderer, const I_Settings& settings)
 }
 
 gamestates::GameStateName TestState::run() {
-    int screen_width = settings_.video_settings()["window"]["width"].as<int>();
-    int screen_height = settings_.video_settings()["window"]["height"].as<int>();
+    int screen_width = 0;
+    int screen_height = 0;
+
+    if (!settings_.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "width"}, screen_width) ||
+            !settings_.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "height"}, screen_height)) {
+        LOG(FATAL) << "Failed to load window dimensions in TestState";
+    }
+
+    std::map<std::string, std::string> graphic_paths_map;
+
+    if (!settings_.load_str_map(SettingsSection::ASSET_PATHS, {"graphics"}, graphic_paths_map)) {
+        LOG(FATAL) << "Failed to load graphic paths in TestState";
+    }
 
     std::vector<std::string> graphic_paths;
-    YAML::Node graphics_node = settings_.asset_paths()["graphics"];
 
-    for (auto it = graphics_node.begin(); it != graphics_node.end(); ++it) {
-        graphic_paths.push_back(it->second.as<std::string>());
+    for (auto it = graphic_paths_map.begin(); it != graphic_paths_map.end(); ++it) {
+        graphic_paths.push_back(it->second);
     }
 
     // Initialize engine critical components
@@ -59,26 +69,35 @@ gamestates::GameStateName TestState::run() {
     double main_character_y = screen_height - 100;
 
     // Font paths
-    std::string default_font_path =
-        settings_.asset_paths()["fonts"]["default"].as<std::string>();
+    std::string default_font_path;
+
+    if (!settings_.load_str(SettingsSection::ASSET_PATHS, {"fonts", "default"}, default_font_path)) {
+        LOG(FATAL) << "Failed to load fonts in TestState";
+    }
 
     // Graphic paths
-    std::string main_character_graphic =
-        settings_.asset_paths()["graphics"]["main_character"].as<std::string>();
-    std::string missile_graphic =
-        settings_.asset_paths()["graphics"]["missile"].as<std::string>();
-    std::string terminal_graphic =
-        settings_.asset_paths()["graphics"]["terminal"].as<std::string>();
-    std::string basic_enemy_graphic =
-        settings_.asset_paths()["graphics"]["basic_enemy"].as<std::string>();
+    std::string main_character_graphic;
+    std::string missile_graphic;
+    std::string terminal_graphic;
+    std::string basic_enemy_graphic;
+
+    if (!settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "main_character"}, main_character_graphic) ||
+            !settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "missile"}, missile_graphic) ||
+            !settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "terminal"}, terminal_graphic) ||
+            !settings_.load_str(SettingsSection::ASSET_PATHS, {"graphics", "basic_enemy"}, basic_enemy_graphic)) {
+        LOG(FATAL) << "Failed to load graphics in TestState";
+    }
 
     // Audio Paths
     std::string laser_gun_sound =
         settings_.asset_paths()["audio"]["laser-gun-03"].as<std::string>();
 
     // Dict paths
-    std::string default_dict =
-        settings_.asset_paths()["dicts"]["default"].as<std::string>();
+    std::string default_dict;
+
+    if (!settings_.load_str(SettingsSection::ASSET_PATHS, {"dicts", "default"}, default_dict)) {
+        LOG(FATAL) << "Failed to load dictionaries in TestState";
+    }
 
     // Construction
     std::unique_ptr<MainCharacter> main_character(

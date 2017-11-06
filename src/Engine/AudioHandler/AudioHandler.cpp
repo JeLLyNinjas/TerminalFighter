@@ -26,25 +26,21 @@ Mix_Music* AudioHandler:: load_music(std::string path) {
 
     //return ret;
 }
-Mix_Chunk* AudioHandler:: load_chunk(std::string path) {
-    Mix_Chunk* ret = NULL;
+void AudioHandler:: load_chunk(std::string path) {
+    Mix_Chunk* tmp = NULL;
     auto iterator = sound_effects_.find(path);
 
-    if ( iterator != sound_effects_.end()) {
-        ret = iterator->second;
-    } else {
-        ret = Mix_LoadWAV(path.c_str());
+    //iterator will == end() if .find() cannot find path
+    if ( iterator == sound_effects_.end()) {
+        tmp = Mix_LoadWAV(path.c_str());
 
-        if ( ret == NULL ) {
+        if ( tmp == NULL ) {
             LOG(FATAL) << "Fatal error, could not load chunk: " << path.c_str()
                        << "Error: " << Mix_GetError() << " Exiting...";
         }
-
+        std::unique_ptr<Mix_Chunk*> ret(tmp);
         sound_effects_[path.c_str()] = ret;
     }
-
-    return ret;
-
 }
 void AudioHandler::play_music(Mix_Music* music) const {
     LOG(FATAL) << "Function should not be used yet";

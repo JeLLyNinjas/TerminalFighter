@@ -13,8 +13,10 @@ gamestates::GameStateName MenuState::run() {
     std::string default_font_path =
         settings_.asset_paths()["fonts"]["default"].as<std::string>();
     Delay delayer(false, default_font_path);
+    MainMenu main_menu(default_font_path);
 
     for (;;) {
+        main_menu.render(renderer_);
         SDL_Event event;
 
         while (SDL_PollEvent(&event)) {
@@ -27,9 +29,13 @@ gamestates::GameStateName MenuState::run() {
                 case SDL_KEYDOWN:
                     switch (event.key.keysym.sym) {
                         case SDLK_RETURN:
-                            LOG(INFO) << "Enter was Pressed!";
+                            LOG(INFO) << "Enter was pressed!";
                             return gamestates::TEST;
                             break;
+
+                        case SDLK_ESCAPE:
+                            LOG(INFO) << "Escape was pressed!";
+                            exit(0);
                     }
             }
         }
@@ -37,6 +43,7 @@ gamestates::GameStateName MenuState::run() {
         display_debug_frames(&delayer);
         //delay and draw to screen should stick together in the order: delay -> draw
         delayer.delay_with_fps(60);
+        render();
     }
 
     return gamestates::EXIT;
@@ -55,7 +62,10 @@ void MenuState::display_debug_frames(Delay* delayer) {
     Message_rect.w = 200; // controls the width of the rect
     Message_rect.h = 70; // controls the height of the rect
     SDL_RenderCopy(&renderer_, frame_rate_texture, NULL, &Message_rect);
-    SDL_FreeSurface(frame_rate_surface);
 }
 
-
+void MenuState::render() {
+    SDL_RenderPresent(&renderer_);
+    SDL_SetRenderDrawColor(&renderer_, 0x00, 0x00, 0x00, 0x00 ); //clears the screen to the color black
+    SDL_RenderClear(&renderer_);
+}

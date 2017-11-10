@@ -4,6 +4,7 @@
 
 #include "../Engine/GameState/I_GameState.h"
 #include "../Engine/Delay/Delay.h"
+#include "../MainMenu/MainMenu.h"
 
 #include "Settings/I_Settings.h"
 
@@ -19,6 +20,7 @@ public:
 
 private:
     void display_debug_frames(Delay* delayer);
+    void render();
     SDL_Renderer& renderer_;
     const I_Settings& settings_;
 };

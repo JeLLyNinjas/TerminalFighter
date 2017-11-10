@@ -159,4 +159,3 @@ void TestState::notify_events(const SDL_Event& e) {
             break;
     }
 }
-

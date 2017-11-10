@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
     FLAGS_log_dir = "/tmp/TerminalFighter";
 #endif
     google::InitGoogleLogging(argv[0]);
-    LOG(INFO) << "Logging Intialized INFO";
+    LOG(INFO) << "Logging Initialized INFO";
 
     bool high_dpi = settings.video_settings()["high_dpi"].as<bool>();
     int screen_width = settings.video_settings()["window"]["width"].as<int>();

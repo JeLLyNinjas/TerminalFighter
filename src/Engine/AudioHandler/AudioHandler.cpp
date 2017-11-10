@@ -40,6 +40,7 @@ void AudioHandler::play_chunk(std::string path) const {
     auto iterator = sound_effects_.find(path);
 
     //iterator will == end() if .find() cannot find path
+    //so we need to load the sound
     if ( iterator == sound_effects_.end()) {
         temp = Mix_LoadWAV(path.c_str());
 
@@ -49,10 +50,11 @@ void AudioHandler::play_chunk(std::string path) const {
         }
 
         std::unique_ptr<Mix_Chunk *> chunk = std::make_unique<Mix_Chunk *>(temp);
-        //sound_effects_[path.c_str()] = std::make_unique<Mix_Chunk*>(ret);
-        //sound_effects_.insert(std::pair<std::string, std::unique_ptr<Mix_Chunk *>>(path.c_str(), 
+    } else {
+        temp = *iterator->second.get();
     }
-    //if (Mix_PlayChannel(static_cast<int>(Channel::ANY_CHANNEL), chunk, 0) == -1) {
-        //LOG(ERROR) << "Mix_PlayChannel: " << Mix_GetError();
-    //}
+
+    if (Mix_PlayChannel(static_cast<int>(Channel::ANY_CHANNEL), temp, 0) == -1) {
+        LOG(ERROR) << "Mix_PlayChannel: " << Mix_GetError();
+    }
 }

@@ -34,12 +34,5 @@ void GameObjectMediator::add_projectile(
 }
 
 void GameObjectMediator::play_sound(std::string path) const {
-    ////Mix_Chunk* sound = audio_.load_chunk(path);
-
-    //if (sound == NULL) {
-        //LOG(ERROR) << "Could not play chunk " << path;
-    //}
-
-    //DLOG(INFO) << "Playing Sound " << path;
-    //audio_.play_chunk(sound);
+    audio_.play_chunk(path);
 }

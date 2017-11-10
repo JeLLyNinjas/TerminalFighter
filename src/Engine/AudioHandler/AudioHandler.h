@@ -15,7 +15,5 @@ public:
 
 private:
 
-    //Mix_Music* load_music(std::string path);
-    void load_chunk(std::string path);
     std::map <std::string, std::unique_ptr<Mix_Chunk*>> sound_effects_;
 };

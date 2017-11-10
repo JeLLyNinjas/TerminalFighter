@@ -40,7 +40,7 @@ private:
     Team::Team team_;
     I_GameObjectMediator& game_object_mediator_;
     std::string missile_graphic_path_;
-    std::string missile_sound_path_;
+    std::string missile_launch_sound_path_;
     Terminal terminal_;
     TargetingSystem* targeting_system_;
     Hitbox hitbox_;

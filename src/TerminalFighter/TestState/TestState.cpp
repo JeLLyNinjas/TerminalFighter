@@ -89,8 +89,8 @@ gamestates::GameStateName TestState::run() {
     }
 
     // Audio Paths
-    std::string laser_gun_sound =
-        settings_.asset_paths()["audio"]["laser-gun-03"].as<std::string>();
+    std::string laser_gun_sound;
+    settings_.load_str(SettingsSection::ASSET_PATHS, {"audio", "laser-gun-03"}, laser_gun_sound);
 
     // Dict paths
     std::string default_dict;

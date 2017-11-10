@@ -1,6 +1,7 @@
 #include <map>
 #include <unistd.h>
 #include <memory>
+#include <experimental/filesystem>
 
 #ifndef INT64_C
 #define INT64_C(c) (c ## LL)
@@ -20,6 +21,14 @@ extern "C" {
 #include "TestState/TestState.h"
 #include "MenuState/MenuState.h"
 #include "Settings/Settings.h"
+
+namespace {
+    const std::string CONFIG_DIR = "config";
+    const std::string EXAMPLE_CONFIG_DIR = "config.example";
+
+    const std::string VIDEO_SETTINGS_FILE = CONFIG_DIR + "/video_settings.yml";
+    const std::string ASSET_PATHS_FILE = CONFIG_DIR + "/asset_paths.yml";
+}
 
 SDL_Renderer* main_renderer = NULL;
 SDL_Window* window = NULL;
@@ -122,22 +131,42 @@ void close() {
 }
 
 int main(int argc, char* argv[]) {
-    Settings settings;
-
-    if (!settings.reload_settings()) {
-        LOG(FATAL) << "Failed to initialize settings";
-    }
-
 #if defined(__linux__) || defined(__APPLE__)
     system("mkdir -p /tmp/TerminalFighter/");
     FLAGS_log_dir = "/tmp/TerminalFighter";
 #endif
     google::InitGoogleLogging(argv[0]);
-    LOG(INFO) << "Logging Initialized INFO";
+    FLAGS_stderrthreshold = 0;
+    LOG(INFO) << "Logging Initialized";
 
-    bool high_dpi = settings.video_settings()["high_dpi"].as<bool>();
-    int screen_width = settings.video_settings()["window"]["width"].as<int>();
-    int screen_height = settings.video_settings()["window"]["height"].as<int>();
+    if (!std::experimental::filesystem::exists(CONFIG_DIR)) {
+        LOG(WARNING) << "Configuration directory '" << CONFIG_DIR << "' not found";
+        LOG(INFO) << "Attempting to copy '" << EXAMPLE_CONFIG_DIR << "' for configuration";
+
+        try {
+            std::experimental::filesystem::copy(EXAMPLE_CONFIG_DIR, CONFIG_DIR,
+                                                std::experimental::filesystem::copy_options::recursive);
+            LOG(INFO) << "Example configuration copy successful";
+        } catch (std::experimental::filesystem::filesystem_error e) {
+            LOG(ERROR) << "Example configuration copy failed, exiting...";
+            LOG(FATAL) << e.what();
+        }
+    }
+
+    Settings settings(
+        VIDEO_SETTINGS_FILE,
+        ASSET_PATHS_FILE);
+
+
+    bool high_dpi = false;
+    int screen_width = 0;
+    int screen_height = 0;
+
+    if (!settings.load_bool(SettingsSection::VIDEO_SETTINGS, {"high_dpi"}, high_dpi) ||
+            !settings.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "width"}, screen_width) ||
+            !settings.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "height"}, screen_height)) {
+        LOG(FATAL) << "Failed to load video settings";
+    }
 
     print_renderer_info();
 

@@ -59,19 +59,14 @@ make -j4
 make install -j4
 cd $DIR
 
-
 #SDL2_ttf
-if [ $MACHINE = Linux ]; then
-    apt-get install libfreetype6-dev
-elif [[ $MACHINE = Mac ]]; then
-    wget -O freetype-2.8.tar.gz https://sourceforge.net/projects/freetype/files/freetype2/2.8/freetype-2.8.tar.gz/download
-    tar xzvf freetype-2.8.tar.gz
-    cd freetype-2.8
-    ./configure
-    make -j4
-    make install -j4
-    cd ..whsu
-fi
+wget -O freetype-2.8.tar.gz https://sourceforge.net/projects/freetype/files/freetype2/2.8/freetype-2.8.tar.gz/download
+tar xzvf freetype-2.8.tar.gz
+cd freetype-2.8
+./configure
+make -j4
+make install -j4
+cd $DIR
 
 wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
 tar xzvf SDL2_ttf-2.0.12.tar.gz
@@ -125,7 +120,3 @@ cmake ..
 make -j4
 make install -j4
 cd $DIR
-
-
-
-

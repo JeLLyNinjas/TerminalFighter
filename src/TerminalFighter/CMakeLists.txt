@@ -25,4 +25,4 @@ target_link_libraries(Settings yaml-cpp)
 
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} glog::glog ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}
-    ${SDL2_TTF_LIBRARIES} TestState MenuState GameStateHandler MainMenu Title)
+    ${SDL2_TTF_LIBRARIES} TestState MenuState GameStateHandler MainMenu Title stdc++fs)

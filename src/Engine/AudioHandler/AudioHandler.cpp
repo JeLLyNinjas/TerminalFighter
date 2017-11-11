@@ -16,9 +16,9 @@ void AudioHandler::init() {
     //TODO only load really important things that need early access Like... Splash screen music or w/e
 }
 
-void AudioHandler::play_music(std::string path) const {
-    LOG(FATAL) << "Function should not be used yet";
-}
+//void AudioHandler::play_music(std::string path) const {
+    //LOG(FATAL) << "Function should not be used yet";
+//}
 
 void AudioHandler::play_chunk(std::string path) const {
     Mix_Chunk* temp = NULL;

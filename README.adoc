@@ -1,5 +1,10 @@
 = Terminal Fighter
 
+== Discussions
+
+Join us on Discord!
+https://discord.gg/46vtdY
+
 == How to Build Manually
 
 . Navigate to the root directory of the project and create a directory called 'build' and cd into it.

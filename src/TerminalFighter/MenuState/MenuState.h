@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 
 #include "../Engine/GameState/I_GameState.h"
+#include "../Engine/GraphicsHandler/GraphicsHandler.h"
 #include "../Engine/Delay/Delay.h"
 #include "../MainMenu/MainMenu.h"
 

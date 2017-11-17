@@ -4,7 +4,8 @@
 
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>
-#include "../Title/Title.h"
+
+#include "../TextArea/TextArea.h"
 
 class MainMenu {
 public:
@@ -13,5 +14,5 @@ public:
     void render(SDL_Renderer& renderer);
 
 private:
-    Title title;
+    TextArea title_;
 };

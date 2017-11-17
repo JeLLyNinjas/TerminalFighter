@@ -18,6 +18,8 @@ gamestates::GameStateName MenuState::run() {
 
     Delay delayer(false, default_font_path);
     MainMenu main_menu(default_font_path);
+    std::vector<std::string> graphic_paths;
+    GraphicsHandler graphics_handler(renderer_, graphic_paths);
 
     for (;;) {
         main_menu.render(renderer_);
@@ -47,7 +49,7 @@ gamestates::GameStateName MenuState::run() {
         display_debug_frames(&delayer);
         //delay and draw to screen should stick together in the order: delay -> draw
         delayer.delay_with_fps(60);
-        render();
+        graphics_handler.update_screen();
     }
 
     return gamestates::EXIT;

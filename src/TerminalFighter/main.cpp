@@ -67,6 +67,15 @@ void print_renderer_info() {
     }
 }
 
+bool init_mixer() {
+    if ( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) {
+        LOG(ERROR) << "SDL_mixer could not initialize! SDL_mixer Error:" << Mix_GetError();
+        return false;
+    }
+
+    return true;
+}
+
 bool init_sdl() {
     //Initializes SDL
     if (SDL_Init(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) < 0) {
@@ -174,6 +183,10 @@ int main(int argc, char* argv[]) {
         LOG(FATAL) << "Could not initialize SDL!";
     }
 
+    if (!init_mixer()) {
+        LOG(FATAL) << "Could not initialize SDL2_mixer!";
+    }
+
     if (!create_sdl_window(high_dpi, screen_width, screen_height)) {
         LOG(FATAL) << "Could not create window!";
     }
@@ -185,6 +198,18 @@ int main(int argc, char* argv[]) {
     if (TTF_Init() != 0) {
         LOG(FATAL) << "TTF Init failed! " << TTF_GetError();
     }
+
+    SDL_version compile_version;
+    SDL_version const* link_version = Mix_Linked_Version();
+    SDL_MIXER_VERSION(&compile_version);
+    LOG(INFO) << "compiled with SDL_mixer version:" <<
+              (int)compile_version.major << "." <<
+              (int)compile_version.minor << "." <<
+              (int)compile_version.patch;
+    LOG(INFO) << "running with SDL_mixer version:" <<
+              (int)link_version->major << "." <<
+              (int)link_version->minor << "." <<
+              (int)link_version->patch;
 
     std::unique_ptr<I_GameState> test_state(
         new TestState(*main_renderer, settings));

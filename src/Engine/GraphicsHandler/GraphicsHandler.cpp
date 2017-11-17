@@ -97,6 +97,7 @@ SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {
 
 SDL_Texture* GraphicsHandler::load_image(std::string path) {
     if (game_graphics_.find(path) == game_graphics_.end() ) {
+        //TODO allow load_image to call internal_load_image
         LOG(FATAL) << "Fatal error, could not find the sprite " << path.c_str() << "! Exiting...";
     }
 

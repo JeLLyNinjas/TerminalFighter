@@ -25,4 +25,5 @@ build/
 GPATH
 GRTAGS
 GTAGS
+compile_commands.json
 config/

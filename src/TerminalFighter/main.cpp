@@ -1,7 +1,9 @@
 #include <map>
 #include <unistd.h>
 #include <memory>
-#include <experimental/filesystem>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fstream>
 
 #ifndef INT64_C
 #define INT64_C(c) (c ## LL)
@@ -23,11 +25,11 @@ extern "C" {
 #include "Settings/Settings.h"
 
 namespace {
-    const std::string CONFIG_DIR = "config";
-    const std::string EXAMPLE_CONFIG_DIR = "config.example";
+    const std::string CONFIG_DIR = "config/";
+    const std::string EXAMPLE_CONFIG_DIR = "config.example/";
 
-    const std::string VIDEO_SETTINGS_FILE = CONFIG_DIR + "/video_settings.yml";
-    const std::string ASSET_PATHS_FILE = CONFIG_DIR + "/asset_paths.yml";
+    const std::string VIDEO_SETTINGS_FILE =  "video_settings.yml";
+    const std::string ASSET_PATHS_FILE =  "asset_paths.yml";
 }
 
 SDL_Renderer* main_renderer = NULL;
@@ -148,23 +150,30 @@ int main(int argc, char* argv[]) {
     FLAGS_stderrthreshold = 0;
     LOG(INFO) << "Logging Initialized";
 
-    if (!std::experimental::filesystem::exists(CONFIG_DIR)) {
+    // Copy config dir if doesn't exist
+    struct stat info;
+
+    if (stat(CONFIG_DIR.c_str(), &info) != 0 ) {
         LOG(WARNING) << "Configuration directory '" << CONFIG_DIR << "' not found";
         LOG(INFO) << "Attempting to copy '" << EXAMPLE_CONFIG_DIR << "' for configuration";
+        std::vector<std::string> CONFIG_FILES = {
+            VIDEO_SETTINGS_FILE,
+            ASSET_PATHS_FILE
+        };
 
-        try {
-            std::experimental::filesystem::copy(EXAMPLE_CONFIG_DIR, CONFIG_DIR,
-                                                std::experimental::filesystem::copy_options::recursive);
-            LOG(INFO) << "Example configuration copy successful";
-        } catch (std::experimental::filesystem::filesystem_error e) {
-            LOG(ERROR) << "Example configuration copy failed, exiting...";
-            LOG(FATAL) << e.what();
+        system("mkdir config");
+
+        for (std::string file : CONFIG_FILES) {
+            LOG(INFO) << "Copying " << file << "...";
+            std::ifstream  src(EXAMPLE_CONFIG_DIR + file, std::ios::binary);
+            std::ofstream  dst(CONFIG_DIR + file,   std::ios::binary);
+            dst << src.rdbuf();
         }
     }
 
     Settings settings(
-        VIDEO_SETTINGS_FILE,
-        ASSET_PATHS_FILE);
+        CONFIG_DIR + VIDEO_SETTINGS_FILE,
+        CONFIG_DIR + ASSET_PATHS_FILE);
 
 
     bool high_dpi = false;

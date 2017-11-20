@@ -20,19 +20,6 @@ public:
      *  These assets will be loaded into <code>game_graphics_</code> 
      */
     GraphicsHandler(SDL_Renderer& renderer, std::vector<std::string> graphic_paths);
-    /*
-     * Used to intiate the GraphicsHandler
-     * Currently just loads the entire vector of <code>graphic_paths</code> which are file paths
-     * to <code>game_graphics_</code>, which is a map of std::string to SDL_Textures*
-     * @param path is the relative (recommended) or absolute path to graphics assets that will 
-     *  be loaded when init is called. This initial load avoids having to load assets while the
-     *  level has started, and can be done when "loading" the level
-     * @return has no return, but <code>internal_load_image</code> calls <code>load_image</code>
-     *  which can call <code>LOG(FATAL)</code> and exit the program when an incorrect path is called
-     * \note
-     * having no error handling, and immediately throwing the fail is intentional. Maybe one day later
-     * we should handle it more gracefully and have it load a dummy asset
-     */
     void init(const std::vector<std::string>& graphic_paths);
     void draw(SDL_Texture* texture, SDL_Rect texture_rect,
               GraphicPriority priority, bool cleanup, double angle_clockwise, SDL_Point* rotation_point);

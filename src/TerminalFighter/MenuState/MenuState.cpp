@@ -69,9 +69,3 @@ void MenuState::display_debug_frames(Delay* delayer) {
     Message_rect.h = 70; // controls the height of the rect
     SDL_RenderCopy(&renderer_, frame_rate_texture, NULL, &Message_rect);
 }
-
-void MenuState::render() {
-    SDL_RenderPresent(&renderer_);
-    SDL_SetRenderDrawColor(&renderer_, 0x00, 0x00, 0x00, 0x00 ); //clears the screen to the color black
-    SDL_RenderClear(&renderer_);
-}

@@ -10,6 +10,7 @@
 #include "Universe/Universe.h"
 #include "CollisionDetector/CollisionDetector.h"
 #include "GraphicsHandler/GraphicsHandler.h"
+#include "AudioHandler/AudioHandler.h"
 #include "Settings/Settings.h"
 
 #include "MainCharacter/MainCharacter.h"
@@ -49,7 +50,8 @@ gamestates::GameStateName TestState::run() {
     Universe universe(graphics_handler);
     std::unique_ptr<Events> events(new Events());
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());
-    GameObjectMediator game_object_mediator(universe, *collision_detector);
+    std::unique_ptr<I_AudioHandler> audio_handler(new AudioHandler());
+    GameObjectMediator game_object_mediator(universe, *collision_detector, *audio_handler);
     Keyboard keyboard;
 
     // Setup engine critical components
@@ -86,6 +88,10 @@ gamestates::GameStateName TestState::run() {
         LOG(FATAL) << "Failed to load graphics in TestState";
     }
 
+    // Audio Paths
+    std::string laser_gun_sound;
+    settings_.load_str(SettingsSection::ASSET_PATHS, {"audio", "laser-gun-03"}, laser_gun_sound);
+
     // Dict paths
     std::string default_dict;
 
@@ -107,6 +113,7 @@ gamestates::GameStateName TestState::run() {
             default_font_path,
             default_font_path,
             default_dict,
+            laser_gun_sound,
             main_character_x,
             main_character_y));
     keyboard.add_listener(&(*launcher));

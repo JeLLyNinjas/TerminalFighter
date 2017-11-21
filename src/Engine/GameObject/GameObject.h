@@ -1,12 +1,15 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include <string>
 
 #include "I_Updatable.h"
 #include "CollisionDetector/DestroyedListener.h"
 #include "Observable/Observable.h"
+#include "AudioHandler/AudioHandler.h"
 
 class I_GraphicsHandler;
 class I_Hitbox;
+
 
 class GameObject : public I_Updatable, public Observable<DestroyedListener> {
 
@@ -19,6 +22,7 @@ public:
     virtual void draw(I_GraphicsHandler& graphics) = 0;
     virtual const I_Hitbox& hitbox() const = 0;
     virtual void notify_collision(GameObject& collided_object) = 0;
+
     virtual void take_damage(int damage);
 
     void notify_destroyed();

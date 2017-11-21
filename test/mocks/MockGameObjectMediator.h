@@ -1,3 +1,5 @@
+#include <string>
+
 #include "gmock/gmock.h"
 
 #include "GameObjectMediator/I_GameObjectMediator.h"
@@ -16,4 +18,5 @@ public:
 
     MOCK_METHOD2(add_game_object_proxy, void(Team::Team, GameObject*));
     MOCK_METHOD2(add_projectile_proxy, void(Team::Team, GameObject*));
+    MOCK_CONST_METHOD1(play_sound, void(std::string));
 };

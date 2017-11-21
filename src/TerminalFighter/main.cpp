@@ -1,7 +1,9 @@
 #include <map>
 #include <unistd.h>
 #include <memory>
-#include <experimental/filesystem>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fstream>
 
 #ifndef INT64_C
 #define INT64_C(c) (c ## LL)
@@ -23,11 +25,11 @@ extern "C" {
 #include "Settings/Settings.h"
 
 namespace {
-    const std::string CONFIG_DIR = "config";
-    const std::string EXAMPLE_CONFIG_DIR = "config.example";
+    const std::string CONFIG_DIR = "config/";
+    const std::string EXAMPLE_CONFIG_DIR = "config.example/";
 
-    const std::string VIDEO_SETTINGS_FILE = CONFIG_DIR + "/video_settings.yml";
-    const std::string ASSET_PATHS_FILE = CONFIG_DIR + "/asset_paths.yml";
+    const std::string VIDEO_SETTINGS_FILE =  "video_settings.yml";
+    const std::string ASSET_PATHS_FILE =  "asset_paths.yml";
 }
 
 SDL_Renderer* main_renderer = NULL;
@@ -65,6 +67,15 @@ void print_renderer_info() {
             LOG(INFO) << "The main_renderer supports rendering to texture";
         }
     }
+}
+
+bool init_mixer() {
+    if ( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) {
+        LOG(ERROR) << "SDL_mixer could not initialize! SDL_mixer Error:" << Mix_GetError();
+        return false;
+    }
+
+    return true;
 }
 
 bool init_sdl() {
@@ -139,23 +150,30 @@ int main(int argc, char* argv[]) {
     FLAGS_stderrthreshold = 0;
     LOG(INFO) << "Logging Initialized";
 
-    if (!std::experimental::filesystem::exists(CONFIG_DIR)) {
+    // Copy config dir if doesn't exist
+    struct stat info;
+
+    if (stat(CONFIG_DIR.c_str(), &info) != 0 ) {
         LOG(WARNING) << "Configuration directory '" << CONFIG_DIR << "' not found";
         LOG(INFO) << "Attempting to copy '" << EXAMPLE_CONFIG_DIR << "' for configuration";
+        std::vector<std::string> CONFIG_FILES = {
+            VIDEO_SETTINGS_FILE,
+            ASSET_PATHS_FILE
+        };
 
-        try {
-            std::experimental::filesystem::copy(EXAMPLE_CONFIG_DIR, CONFIG_DIR,
-                                                std::experimental::filesystem::copy_options::recursive);
-            LOG(INFO) << "Example configuration copy successful";
-        } catch (std::experimental::filesystem::filesystem_error e) {
-            LOG(ERROR) << "Example configuration copy failed, exiting...";
-            LOG(FATAL) << e.what();
+        system("mkdir config");
+
+        for (std::string file : CONFIG_FILES) {
+            LOG(INFO) << "Copying " << file << "...";
+            std::ifstream  src(EXAMPLE_CONFIG_DIR + file, std::ios::binary);
+            std::ofstream  dst(CONFIG_DIR + file,   std::ios::binary);
+            dst << src.rdbuf();
         }
     }
 
     Settings settings(
-        VIDEO_SETTINGS_FILE,
-        ASSET_PATHS_FILE);
+        CONFIG_DIR + VIDEO_SETTINGS_FILE,
+        CONFIG_DIR + ASSET_PATHS_FILE);
 
 
     bool high_dpi = false;
@@ -174,6 +192,10 @@ int main(int argc, char* argv[]) {
         LOG(FATAL) << "Could not initialize SDL!";
     }
 
+    if (!init_mixer()) {
+        LOG(FATAL) << "Could not initialize SDL2_mixer!";
+    }
+
     if (!create_sdl_window(high_dpi, screen_width, screen_height)) {
         LOG(FATAL) << "Could not create window!";
     }
@@ -185,6 +207,18 @@ int main(int argc, char* argv[]) {
     if (TTF_Init() != 0) {
         LOG(FATAL) << "TTF Init failed! " << TTF_GetError();
     }
+
+    SDL_version compile_version;
+    SDL_version const* link_version = Mix_Linked_Version();
+    SDL_MIXER_VERSION(&compile_version);
+    LOG(INFO) << "compiled with SDL_mixer version:" <<
+              (int)compile_version.major << "." <<
+              (int)compile_version.minor << "." <<
+              (int)compile_version.patch;
+    LOG(INFO) << "running with SDL_mixer version:" <<
+              (int)link_version->major << "." <<
+              (int)link_version->minor << "." <<
+              (int)link_version->patch;
 
     std::unique_ptr<I_GameState> test_state(
         new TestState(*main_renderer, settings));

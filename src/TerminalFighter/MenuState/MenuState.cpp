@@ -44,12 +44,23 @@ gamestates::GameStateName MenuState::run() {
                     switch (event.key.keysym.sym) {
                         case SDLK_RETURN:
                             LOG(INFO) << "Enter was pressed!";
-                            return gamestates::TEST;
+                            if (main_menu.get_current_selection() == START) {
+                                LOG(INFO) << "Start selected";
+                                return gamestates::TEST;
+                            } else if (main_menu.get_current_selection() == QUIT) {
+                                LOG(INFO) << "Quit selected";
+                                exit(0);
+                            }
                             break;
 
-                        case SDLK_ESCAPE:
-                            LOG(INFO) << "Escape was pressed!";
-                            exit(0);
+                        case SDLK_UP:
+                            main_menu.move_up_selection();
+                            break;
+
+                        case SDLK_DOWN:
+                            main_menu.move_down_selection();
+                            break;
+
                     }
             }
         }

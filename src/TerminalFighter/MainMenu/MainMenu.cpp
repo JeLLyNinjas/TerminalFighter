@@ -3,14 +3,14 @@
 
 #include "MainMenu.h"
 
-MainMenu::MainMenu(std::string font_path)
+MainMenu::MainMenu(std::string font_path, int width, int height)
     : title_(
         "Terminal Fighter",
         {255, 255, 255},
-        400,
-        200,
-        900,
-        250,
+        width / 4,
+        height / 5,
+        width / 2,
+        height / 4,
         font_path,
         68) {
 }

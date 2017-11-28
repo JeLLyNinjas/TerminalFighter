@@ -9,7 +9,7 @@
 
 class MainMenu {
 public:
-    MainMenu(std::string font_path);
+    MainMenu(std::string font_path, int width, int height);
     ~MainMenu();
     void render(SDL_Renderer& renderer);
 

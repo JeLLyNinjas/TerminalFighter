@@ -15,9 +15,17 @@ gamestates::GameStateName MenuState::run() {
     if (!settings_.load_str(SettingsSection::ASSET_PATHS, {"fonts", "default"}, default_font_path)) {
         LOG(FATAL) << "Failed to load default font in MenuState";
     }
+    int window_width, window_height;
+    if (!settings_.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "width"}, window_width)) {
+        LOG(FATAL) << "Failed to load window width in MenuState";
+    }
+    if (!settings_.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "height"}, window_height)) {
+        LOG(FATAL) << "Failed to load window height in MenuState";
+    }
 
     Delay delayer(false, default_font_path);
-    MainMenu main_menu(default_font_path);
+
+    MainMenu main_menu(default_font_path, window_width, window_height);
     std::vector<std::string> graphic_paths;
     GraphicsHandler graphics_handler(renderer_, graphic_paths);
 

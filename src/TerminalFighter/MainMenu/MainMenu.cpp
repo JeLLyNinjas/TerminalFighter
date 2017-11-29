@@ -6,7 +6,7 @@
 MainMenu::MainMenu(std::string font_path, int width, int height)
     : title_(
         "Terminal Fighter",
-        SELECTED_COLOR,
+        WHITE,
         0.25 * width,
         0.2 * height,
         0.5 * width,
@@ -15,7 +15,7 @@ MainMenu::MainMenu(std::string font_path, int width, int height)
         68)
     , start_(
         "Start",
-        SELECTED_COLOR,
+        WHITE,
         0.45 * width,
         0.6 * height,
         0.1 * width,
@@ -24,7 +24,7 @@ MainMenu::MainMenu(std::string font_path, int width, int height)
         68)
     , quit_(
         "Quit",
-        UNSELECTED_COLOR,
+        GRAY,
         0.45 * width,
         0.7 * height ,
         0.1 * width,
@@ -54,11 +54,11 @@ void MainMenu::move_down_selection() {
 
 void MainMenu::update_colors() {
     if (current_selection_ == START) {
-        start_.set_color(SELECTED_COLOR);
-        quit_.set_color(UNSELECTED_COLOR);
+        start_.set_color(WHITE);
+        quit_.set_color(GRAY);
     } else if (current_selection_ == QUIT){
-        start_.set_color(UNSELECTED_COLOR);
-        quit_.set_color(SELECTED_COLOR);
+        start_.set_color(GRAY);
+        quit_.set_color(WHITE);
     }
 }
 

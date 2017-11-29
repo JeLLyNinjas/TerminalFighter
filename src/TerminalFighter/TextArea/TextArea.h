@@ -1,8 +1,8 @@
 #include <string>
 #include <SDL_ttf.h>
 
-#define SELECTED_COLOR {255, 255, 255}
-#define UNSELECTED_COLOR {100, 100, 100}
+#define WHITE {255, 255, 255}
+#define GRAY {100, 100, 100}
 
 class TextArea {
 public:

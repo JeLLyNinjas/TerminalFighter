@@ -30,7 +30,6 @@ public:
      * the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine
      * the queue order. The queue is then drawn by <code>Universe::draw_to_screen()</code>, which is called
      * after what should currently be the <code>Universe::draw_all()</code>. 
-     * <code>GraphicsHandler::draw()</code> is called by the universe after the 
      * @param texture will be used to SDL_RenderCopy onto the rendering target (the <code> renderer_</code>)
      * @param dest_rect is the <code>dstrect</code>, or destination rect on where the texture will
      *  be copied to. This rect defines the size, and position the texture will be rendered to

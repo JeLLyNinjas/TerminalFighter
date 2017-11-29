@@ -47,7 +47,9 @@ public:
      *   This function does not copy the texture onto the renderer immediately. 
      *   Refer to the main description of the draw function for explanation on when the SDL_RenderCopy occurs.
      * @param angle_clockwise is a variable defined in degrees that indicates the rotation that will be applied to
-     *   dest_rect 
+     *   dest_rect, rotating in a clockwise direction.
+     * @param rotation_point is a point that defines where the rotation of angle_clockwise will rotate around.
+     *   set to NULL for rotation to be done around the center (dest_rect.w/2, dest_rect.h/2).
      */
     virtual void draw(SDL_Texture* texture, SDL_Rect dest_rect, GraphicPriority priority,
                       bool cleanup, double angle_clockwise, SDL_Point* rotation_point) = 0;

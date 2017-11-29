@@ -1,8 +1,10 @@
 #include <string>
 #include <SDL_ttf.h>
 
-#define WHITE {255, 255, 255}
-#define GRAY {100, 100, 100}
+namespace{
+    const SDL_Color COLOR_WHITE = {255, 255, 255};
+    const SDL_Color COLOR_GRAY = {100, 100, 100};
+}
 
 class TextArea {
 public:

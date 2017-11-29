@@ -7,8 +7,10 @@
 
 #include "../TextArea/TextArea.h"
 
-const int START = 0;
-const int QUIT = 1;
+namespace{
+    const int START = 0;
+    const int QUIT = 1;
+}
 
 class MainMenu {
 public:

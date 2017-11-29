@@ -43,7 +43,8 @@ public:
      *   When an object creates a texture, and will not hold onto the texture (no cache). You will need
      *   to set the cleanup value to true. This is because the object that passes this texture onto the 
      *   draw function is not allowed to call <code>SDL_DestroyTexture</code> to free the texture.
-     *   This function does not copy the texture onto the renderer immediately. 
+     *   The object is not allowed to free the texture because this function does not copy the texture 
+     *   onto the renderer immediately. 
      *   Refer to the main description of the draw function for explanation on when the SDL_RenderCopy occurs.
      * @param angle_clockwise is a variable defined in degrees that indicates the rotation that will be applied to
      *   dest_rect, rotating in a clockwise direction.

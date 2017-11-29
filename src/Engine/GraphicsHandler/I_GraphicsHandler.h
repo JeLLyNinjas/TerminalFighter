@@ -32,7 +32,7 @@ public:
      * after what should currently be the <code>Universe::draw_all()</code>. 
      * <code>GraphicsHandler::draw()</code> is called by the universe after the 
      * @param texture will be used to SDL_RenderCopy onto the rendering target (the <code> renderer_</code>)
-     * @param texture_rect is the <code>dstrect</code>, or destination rect on where the texture will
+     * @param dest_rect is the <code>dstrect</code>, or destination rect on where the texture will
      *  be copied to. This rect defines the size, and position the texture will be rendered to
      * @param priority is used to define the order that the texture will be copied to the renderer.
      *  The GraphicPriority is an enum found in "DrawRequest/DrawRequest.h"
@@ -46,14 +46,16 @@ public:
      *   draw function is not allowed to call <code>SDL_DestroyTexture</code> to free the texture.
      *   This function does not copy the texture onto the renderer immediately. 
      *   Refer to the main description of the draw function for explanation on when the SDL_RenderCopy occurs.
+     * @param angle_clockwise is a variable defined in degrees that indicates the rotation that will be applied to
+     *   dest_rect 
      */
-    virtual void draw(SDL_Texture* texture, SDL_Rect texture_rect, GraphicPriority priority,
+    virtual void draw(SDL_Texture* texture, SDL_Rect dest_rect, GraphicPriority priority,
                       bool cleanup, double angle_clockwise, SDL_Point* rotation_point) = 0;
     virtual void draw(SDL_Texture* texture, int x_pos, int y_pos, GraphicPriority priority,
                       bool cleanup, double angle_clockwise, SDL_Point* rotation_point) = 0;
     virtual void draw(SDL_Surface* surface, int x_pos, int y_pos, GraphicPriority priority,
                       bool cleanup, double angle_clockwise, SDL_Point* rotation_point) = 0;
-    virtual void draw(SDL_Texture* texture, SDL_Rect texture_rect,
+    virtual void draw(SDL_Texture* texture, SDL_Rect dest_rect,
                       GraphicPriority priority, bool cleanup) = 0;
     virtual void draw(SDL_Texture* texture, int x_pos, int y_pos,
                       GraphicPriority priority, bool cleanup) = 0;

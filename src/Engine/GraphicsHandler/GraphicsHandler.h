@@ -21,7 +21,7 @@ public:
      */
     GraphicsHandler(SDL_Renderer& renderer, std::vector<std::string> graphic_paths);
     void init(const std::vector<std::string>& graphic_paths);
-    void draw(SDL_Texture* texture, SDL_Rect texture_rect,
+    void draw(SDL_Texture* texture, SDL_Rect dest_rect,
               GraphicPriority priority, bool cleanup, double angle_clockwise, SDL_Point* rotation_point);
 
     void draw(SDL_Texture* texture, int x_pos, int y_pos,
@@ -30,7 +30,7 @@ public:
     void draw(SDL_Surface* surface, int x_pos, int y_pos,
               GraphicPriority priority, bool cleanup, double angle_clockwise, SDL_Point* rotation_point);
 
-    void draw(SDL_Texture* texture, SDL_Rect texture_rect,
+    void draw(SDL_Texture* texture, SDL_Rect dest_rect,
               GraphicPriority priority, bool cleanup);
 
     void draw(SDL_Texture* texture, int x_pos, int y_pos,

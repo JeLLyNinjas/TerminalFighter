@@ -28,18 +28,18 @@ GraphicsHandler::GraphicsHandler(
     init(graphic_paths);
 }
 
-void GraphicsHandler::draw(SDL_Texture* texture, SDL_Rect texture_rect,
+void GraphicsHandler::draw(SDL_Texture* texture, SDL_Rect dest_rect,
                            GraphicPriority priority, bool cleanup, double angle_clockwise, SDL_Point* rotation_point) {
-    draw_queue_.at(priority).push_back(DrawRequest(texture, texture_rect, cleanup, angle_clockwise, rotation_point));
+    draw_queue_.at(priority).push_back(DrawRequest(texture, dest_rect, cleanup, angle_clockwise, rotation_point));
 }
 
 void GraphicsHandler::draw(SDL_Texture* texture, int x_pos, int y_pos,
                            GraphicPriority priority, bool cleanup, double angle_clockwise, SDL_Point* rotation_point) {
-    SDL_Rect texture_rect;
-    SDL_QueryTexture(texture, NULL, NULL, &texture_rect.w, &texture_rect.h);
-    texture_rect.x = x_pos;
-    texture_rect.y = y_pos;
-    this->draw(texture, texture_rect, priority, cleanup, angle_clockwise, rotation_point);
+    SDL_Rect dest_rect;
+    SDL_QueryTexture(texture, NULL, NULL, &dest_rect.w, &dest_rect.h);
+    dest_rect.x = x_pos;
+    dest_rect.y = y_pos;
+    this->draw(texture, dest_rect, priority, cleanup, angle_clockwise, rotation_point);
 }
 
 void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos,
@@ -48,9 +48,9 @@ void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos,
     this->draw(texture, x_pos, y_pos, priority, cleanup, angle_clockwise, rotation_point);
 }
 
-void GraphicsHandler::draw(SDL_Texture* texture, SDL_Rect texture_rect,
+void GraphicsHandler::draw(SDL_Texture* texture, SDL_Rect dest_rect,
                            GraphicPriority priority, bool cleanup) {
-    draw(texture, texture_rect, priority, cleanup, 0, NULL);
+    draw(texture, dest_rect, priority, cleanup, 0, NULL);
 }
 
 void GraphicsHandler::draw(SDL_Texture* texture, int x_pos, int y_pos,
@@ -66,7 +66,7 @@ void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos,
 void GraphicsHandler::update_screen() {
     for (auto priority : DRAW_ORDER) {
         for (auto const& draw_request : draw_queue_[priority]) {
-            SDL_RenderCopyEx(&renderer_, draw_request.texture(), NULL, &draw_request.texture_rect(),
+            SDL_RenderCopyEx(&renderer_, draw_request.texture(), NULL, &draw_request.dest_rect(),
                              draw_request.angle(), draw_request.rotation_point(), SDL_FLIP_NONE);
 
             if (!draw_request.cleanup()) {

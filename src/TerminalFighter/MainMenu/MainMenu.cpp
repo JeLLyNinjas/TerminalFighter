@@ -6,29 +6,29 @@
 MainMenu::MainMenu(std::string font_path, int width, int height)
     : title_(
         "Terminal Fighter",
-        {255, 255, 255},
-        width / 4,
-        height / 5,
-        width / 2,
-        height / 4,
+        SELECTED_COLOR,
+        0.25 * width,
+        0.2 * height,
+        0.5 * width,
+        0.25 * height,
         font_path,
         68)
     , start_(
         "Start",
         SELECTED_COLOR,
-        width / 2,
-        height / 2,
-        width / 10,
-        height / 10,
+        0.45 * width,
+        0.6 * height,
+        0.1 * width,
+        0.1 * height,
         font_path,
         68)
     , quit_(
         "Quit",
         UNSELECTED_COLOR,
-        width / 2,
-        3*height /4 ,
-        width / 10,
-        height / 10,
+        0.45 * width,
+        0.7 * height ,
+        0.1 * width,
+        0.1 * height,
         font_path,
         68)
     , current_selection_(START){

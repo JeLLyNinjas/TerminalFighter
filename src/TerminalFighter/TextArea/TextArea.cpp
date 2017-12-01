@@ -22,3 +22,7 @@ void TextArea::render(SDL_Renderer& renderer_) {
     Message_rect.h = height_;
     SDL_RenderCopy(&renderer_, Message, NULL, &Message_rect);
 }
+
+void TextArea::set_color(SDL_Color color) {
+    this->color_ = color;
+}

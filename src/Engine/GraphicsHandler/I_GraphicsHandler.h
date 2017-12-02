@@ -26,8 +26,8 @@ public:
     virtual void init(const std::vector<std::string>& graphic_paths) = 0;
     /**
      * Draw function
-     * The draw function does not immediately draw the texture. Instead, the draw function will place
-     * the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine
+     * This draw function does not immediately draw the texture onto the screen. Instead, the draw function 
+     * will place the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine
      * the queue order. The queue is then drawn by <code>Universe::draw_to_screen()</code>, which is called
      * after what should currently be the <code>Universe::draw_all()</code>. 
      * @param texture will be used to SDL_RenderCopy onto the rendering target (the <code> renderer_</code>)
@@ -53,16 +53,146 @@ public:
      */
     virtual void draw(SDL_Texture* texture, SDL_Rect dest_rect, GraphicPriority priority,
                       bool cleanup, double angle_clockwise, SDL_Point* rotation_point) = 0;
+    /**
+     * Draw function
+     * This draw function does not immediately draw the texture onto the screen. Instead, the draw function 
+     * will place the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine
+     * the queue order. The queue is then drawn by <code>Universe::draw_to_screen()</code>, which is called
+     * after what should currently be the <code>Universe::draw_all()</code>. This draw function will automatically
+     * create a dest_rect with the x_pos and y_pos given to it. As for the size, this function will create a 
+     * dest_rect with the same size as the given texture.
+     * @param texture will be used to SDL_RenderCopy onto the rendering target (the <code> renderer_</code>)
+     * @param x_pos will be used to determine the top left most point's x position
+     * @param y_pos will be used to determine the top left most point's y position
+     * @param priority is used to define the order that the texture will be copied to the renderer.
+     *  The GraphicPriority is an enum found in "DrawRequest/DrawRequest.h"
+     * @param cleanup is used to define whether or not the draw function needs to clean up a texture.
+     *   Set this to false when the texture passed to this function is cached. 
+     *   Sometimes, the texture is cached by the GraphicsHandler::game_graphics_, in which case, 
+     *   you do not want to set the bool to `true` or else this function will delete the cached pointer.
+     *   Set this value to true when you need the function to cleanup the texture for you.
+     *   When an object creates a texture, and will not hold onto the texture (no cache). You will need
+     *   to set the cleanup value to true. This is because the object that passes this texture onto the 
+     *   draw function is not allowed to call <code>SDL_DestroyTexture</code> to free the texture.
+     *   The object is not allowed to free the texture because this function does not copy the texture 
+     *   onto the renderer immediately. 
+     *   Refer to the main description of the draw function for explanation on when the SDL_RenderCopy occurs.
+     * @param angle_clockwise is a variable defined in degrees that indicates the rotation that will be applied to
+     *   dest_rect, rotating in a clockwise direction.
+     * @param rotation_point is a point that defines where the rotation of angle_clockwise will rotate around.
+     *   set to NULL for rotation to be done around the center (dest_rect.w/2, dest_rect.h/2).
+     */
     virtual void draw(SDL_Texture* texture, int x_pos, int y_pos, GraphicPriority priority,
                       bool cleanup, double angle_clockwise, SDL_Point* rotation_point) = 0;
+    /**
+     * Draw function
+     * This draw function does not immediately draw the surface onto the screen. Instead, the draw function 
+     * will convert the <code>SDL_Surface*</code> into a <code>SDL_Texture*</code> and
+     * place the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine
+     * the queue order. The queue is then drawn by <code>Universe::draw_to_screen()</code>, which is called
+     * after what should currently be the <code>Universe::draw_all()</code>. This draw function will automatically
+     * create a dest_rect with the x_pos and y_pos given to it. As for the size, this function will create a 
+     * dest_rect with the same size as the given texture.
+     * @param texture will be used to SDL_RenderCopy onto the rendering target (the <code> renderer_</code>)
+     * @param x_pos will be used to determine the top left most point's x position
+     * @param y_pos will be used to determine the top left most point's y position
+     * @param priority is used to define the order that the texture will be copied to the renderer.
+     *   The GraphicPriority is an enum found in "DrawRequest/DrawRequest.h"
+     * @param cleanup is used to define whether or not the draw function needs to clean up the provided 
+     *   <code>SDL_Surface*</code>. The <code>SDL_Texture*</code> this function creates will automatically be
+     *   cleaned up after it is used. So this initial <code>SDL_Surface*</code> that is passed in can be safely
+     *   deleted right after this draw function is called.
+     * @param angle_clockwise is a variable defined in degrees that indicates the rotation that will be applied to
+     *   dest_rect, rotating in a clockwise direction.
+     * @param rotation_point is a point that defines where the rotation of angle_clockwise will rotate around.
+     *   set to NULL for rotation to be done around the center (dest_rect.w/2, dest_rect.h/2).
+     */
     virtual void draw(SDL_Surface* surface, int x_pos, int y_pos, GraphicPriority priority,
                       bool cleanup, double angle_clockwise, SDL_Point* rotation_point) = 0;
+    /**
+     * Draw function
+     * This draw function does not immediately draw the texture onto the screen. Instead, the draw function 
+     * will place the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine
+     * the queue order. The queue is then drawn by <code>Universe::draw_to_screen()</code>, which is called
+     * after what should currently be the <code>Universe::draw_all()</code>. 
+     * @param texture will be used to SDL_RenderCopy onto the rendering target (the <code> renderer_</code>)
+     * @param dest_rect is the <code>dstrect</code>, or destination rect on where the texture will
+     *  be copied to. This rect defines the size, and position the texture will be rendered to
+     * @param priority is used to define the order that the texture will be copied to the renderer.
+     *  The GraphicPriority is an enum found in "DrawRequest/DrawRequest.h"
+     * @param cleanup is used to define whether or not the draw function needs to clean up a texture.
+     *   Set this to false when the texture passed to this function is cached. 
+     *   Sometimes, the texture is cached by the GraphicsHandler::game_graphics_, in which case, 
+     *   you do not want to set the bool to `true` or else this function will delete the cached pointer.
+     *   Set this value to true when you need the function to cleanup the texture for you.
+     *   When an object creates a texture, and will not hold onto the texture (no cache). You will need
+     *   to set the cleanup value to true. This is because the object that passes this texture onto the 
+     *   draw function is not allowed to call <code>SDL_DestroyTexture</code> to free the texture.
+     *   The object is not allowed to free the texture because this function does not copy the texture 
+     *   onto the renderer immediately. 
+     *   Refer to the main description of the draw function for explanation on when the SDL_RenderCopy occurs.
+     */
     virtual void draw(SDL_Texture* texture, SDL_Rect dest_rect,
                       GraphicPriority priority, bool cleanup) = 0;
+    /**
+     * Draw function
+     * This draw function does not immediately draw the surface onto the screen. Instead, the draw function 
+     * will convert the <code>SDL_Surface*</code> into a <code>SDL_Texture*</code> and
+     * place the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine
+     * the queue order. The queue is then drawn by <code>Universe::draw_to_screen()</code>, which is called
+     * after what should currently be the <code>Universe::draw_all()</code>. This draw function will automatically
+     * create a dest_rect with the x_pos and y_pos given to it. As for the size, this function will create a 
+     * dest_rect with the same size as the given texture.
+     * @param texture will be used to SDL_RenderCopy onto the rendering target (the <code> renderer_</code>)
+     * @param x_pos will be used to determine the top left most point's x position
+     * @param y_pos will be used to determine the top left most point's y position
+     * @param priority is used to define the order that the texture will be copied to the renderer.
+     *   The GraphicPriority is an enum found in "DrawRequest/DrawRequest.h"
+     * @param cleanup is used to define whether or not the draw function needs to clean up the provided 
+     *   <code>SDL_Surface*</code>. The <code>SDL_Texture*</code> this function creates will automatically be
+     *   cleaned up after it is used. So this initial <code>SDL_Surface*</code> that is passed in can be safely
+     *   deleted right after this draw function is called.
+     */
     virtual void draw(SDL_Texture* texture, int x_pos, int y_pos,
                       GraphicPriority priority, bool cleanup) = 0;
+    /**
+     * Draw function
+     * This draw function does not immediately draw the surface onto the screen. Instead, the draw function 
+     * will convert the <code>SDL_Surface*</code> into a <code>SDL_Texture*</code> and
+     * place the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine
+     * the queue order. The queue is then drawn by <code>Universe::draw_to_screen()</code>, which is called
+     * after what should currently be the <code>Universe::draw_all()</code>. This draw function will automatically
+     * create a dest_rect with the x_pos and y_pos given to it. As for the size, this function will create a 
+     * dest_rect with the same size as the given texture.
+     * @param texture will be used to SDL_RenderCopy onto the rendering target (the <code> renderer_</code>)
+     * @param x_pos will be used to determine the top left most point's x position
+     * @param y_pos will be used to determine the top left most point's y position
+     * @param priority is used to define the order that the texture will be copied to the renderer.
+     *   The GraphicPriority is an enum found in "DrawRequest/DrawRequest.h"
+     * @param cleanup is used to define whether or not the draw function needs to clean up the provided 
+     *   <code>SDL_Surface*</code>. The <code>SDL_Texture*</code> this function creates will automatically be
+     *   cleaned up after it is used. So this initial <code>SDL_Surface*</code> that is passed in can be safely
+     *   deleted right after this draw function is called.
+     */
     virtual void draw(SDL_Surface* surface, int x_pos, int y_pos,
                       GraphicPriority priority, bool cleanup) = 0;
+    /**
+     * Loads an image to <code>SDL_Texture*</code>  
+     * Will load the image using <code>IMG_Load</code> which is provided by SDL2.
+     * This function will automatically load the file specified by the path, convert it to a texture
+     * and then save the <code>SDL_Texture*</code> into a private <code>std::map <std::string, SDL_Texture*></code>.
+     * This way, even if another object "loads" the image, this function will check to see if the path has already 
+     * been loaded. If it has, it will just return the cached version of the <code>SDL_Texture*</code> rather than
+     * loading it again.
+     */
     virtual SDL_Texture* load_image(std::string path) = 0;
+    /**
+     * Update the screen
+     * Will call a <code>SDL_RenderCopyEx()</code> to copy the textures onto the renderer.
+     * This function takes the queue the <code>draw</code> function has created, and copies all
+     * of the textures onto the renderer depending on their priority. While the function is copying
+     * the <code>SDL_Texture*</code> onto the screen, it may delete the pointer depending on the
+     * <code>cleanup</code> boolean flag.
+     */
     virtual void update_screen() = 0;
 };

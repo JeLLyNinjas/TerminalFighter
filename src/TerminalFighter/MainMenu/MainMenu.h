@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 
 #include "../TextArea/TextArea.h"
+#include "../Settings/Settings.h"
 
 namespace{
     const int START = 0;
@@ -14,7 +15,8 @@ namespace{
 
 class MainMenu {
 public:
-    MainMenu(std::string font_path, int width, int height);
+    // MainMenu(std::string font_path, int width, int height);
+    MainMenu(const I_Settings& settings);
     ~MainMenu();
     void render(SDL_Renderer& renderer);
     void move_up_selection();
@@ -23,8 +25,9 @@ public:
     int get_current_selection();
 
 private:
+    const I_Settings& settings_;
     TextArea title_;
-    TextArea start_;
-    TextArea quit_;
+    // TextArea start_;
+    // TextArea quit_;
     int current_selection_;
 };

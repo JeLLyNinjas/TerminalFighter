@@ -23,9 +23,11 @@ gamestates::GameStateName MenuState::run() {
         LOG(FATAL) << "Failed to load window height in MenuState";
     }
 
+
     Delay delayer(false, default_font_path);
 
-    MainMenu main_menu(default_font_path, window_width, window_height);
+    // MainMenu main_menu(default_font_path, window_width, window_height);
+    MainMenu main_menu(settings_);
     std::vector<std::string> graphic_paths;
     GraphicsHandler graphics_handler(renderer_, graphic_paths);
 
@@ -42,24 +44,24 @@ gamestates::GameStateName MenuState::run() {
 
                 case SDL_KEYDOWN:
                     switch (event.key.keysym.sym) {
-                        case SDLK_RETURN:
-                            LOG(INFO) << "Enter was pressed!";
-                            if (main_menu.get_current_selection() == START) {
-                                LOG(INFO) << "Start selected";
-                                return gamestates::TEST;
-                            } else if (main_menu.get_current_selection() == QUIT) {
-                                LOG(INFO) << "Quit selected";
-                                exit(0);
-                            }
-                            break;
+                        // case SDLK_RETURN:
+                        //     LOG(INFO) << "Enter was pressed!";
+                        //     if (main_menu.get_current_selection() == START) {
+                        //         LOG(INFO) << "Start selected";
+                        //         return gamestates::TEST;
+                        //     } else if (main_menu.get_current_selection() == QUIT) {
+                        //         LOG(INFO) << "Quit selected";
+                        //         exit(0);
+                        //     }
+                        //     break;
 
-                        case SDLK_UP:
-                            main_menu.move_up_selection();
-                            break;
-
-                        case SDLK_DOWN:
-                            main_menu.move_down_selection();
-                            break;
+                        // case SDLK_UP:
+                        //     main_menu.move_up_selection();
+                        //     break;
+                        //
+                        // case SDLK_DOWN:
+                        //     main_menu.move_down_selection();
+                        //     break;
 
                     }
             }

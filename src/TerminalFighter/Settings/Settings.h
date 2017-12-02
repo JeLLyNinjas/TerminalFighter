@@ -20,7 +20,8 @@ public:
     // In actual code, same files should be passed in everytime
     Settings(
         std::string video_settings_file,
-        std::string asset_paths_file);
+        std::string asset_paths_file,
+        std::string main_menu_file);
     bool reload_all_settings();
     bool load_str(
         SettingsSection section,
@@ -50,5 +51,5 @@ private:
     YAML::Node load_node(SettingsSection section, std::vector<std::string> keys) const;
     SettingsGroup video_settings_;
     SettingsGroup asset_paths_;
+    SettingsGroup main_menu_;
 };
-

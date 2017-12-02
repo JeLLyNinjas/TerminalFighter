@@ -1,0 +1,17 @@
+---
+title:
+    string:     "Terminal Fighter"
+    color:
+        r:      255
+        g:      255
+        b:      255
+    scale:      0.75
+    fontsize:   100
+
+options:
+    start:
+        string: "Start"
+        state:  gamestate::TEST
+    quit:
+        string: "Quit"
+        state:  gamestate::END

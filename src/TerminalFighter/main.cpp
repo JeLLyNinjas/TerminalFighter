@@ -30,6 +30,7 @@ namespace {
 
     const std::string VIDEO_SETTINGS_FILE =  "video_settings.yml";
     const std::string ASSET_PATHS_FILE =  "asset_paths.yml";
+    const std::string MAIN_MENU_FILE = "main_menu.yml";
 }
 
 SDL_Renderer* main_renderer = NULL;
@@ -173,7 +174,8 @@ int main(int argc, char* argv[]) {
 
     Settings settings(
         CONFIG_DIR + VIDEO_SETTINGS_FILE,
-        CONFIG_DIR + ASSET_PATHS_FILE);
+        CONFIG_DIR + ASSET_PATHS_FILE,
+        CONFIG_DIR + MAIN_MENU_FILE);
 
 
     bool high_dpi = false;

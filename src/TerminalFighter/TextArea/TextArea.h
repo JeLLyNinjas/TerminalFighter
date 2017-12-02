@@ -8,6 +8,7 @@ namespace{
 
 class TextArea {
 public:
+    TextArea();
     TextArea(std::string, SDL_Color, int, int, int, int, std::string, int);
     ~TextArea();
     void render(SDL_Renderer& renderer);

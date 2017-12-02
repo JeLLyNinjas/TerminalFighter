@@ -5,6 +5,7 @@
 enum class SettingsSection : char {
     VIDEO_SETTINGS = 'V',
     ASSET_PATHS = 'A',
+    MAIN_MENU = 'M',
 };
 
 class I_Settings {

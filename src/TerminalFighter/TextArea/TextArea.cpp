@@ -1,5 +1,7 @@
 #include "TextArea.h"
 
+TextArea::TextArea() {}
+
 TextArea::TextArea(std::string t, SDL_Color c, int x, int y, int w, int h, std::string font_path, int font_size)
     : text_str_(t)
     , color_(c)

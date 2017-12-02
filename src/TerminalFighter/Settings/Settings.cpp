@@ -15,9 +15,11 @@ std::string vec_to_str(std::vector<std::string> vec) {
 
 Settings::Settings(
     std::string video_settings_file,
-    std::string asset_paths_file)
+    std::string asset_paths_file,
+    std::string main_menu_file)
     : video_settings_(SettingsSection::VIDEO_SETTINGS, video_settings_file)
-    , asset_paths_(SettingsSection::ASSET_PATHS, asset_paths_file) {
+    , asset_paths_(SettingsSection::ASSET_PATHS, asset_paths_file)
+    , main_menu_(SettingsSection::MAIN_MENU, main_menu_file) {
     if (!reload_all_settings()) {
         LOG(FATAL) << "Failed to initialize settings";
     }
@@ -30,6 +32,7 @@ bool Settings::reload_all_settings() {
 
     errors += reload_setting(SettingsSection::VIDEO_SETTINGS);
     errors += reload_setting(SettingsSection::ASSET_PATHS);
+    errors += reload_setting(SettingsSection::MAIN_MENU);
 
     return !errors;
 }
@@ -208,6 +211,10 @@ const Settings::SettingsGroup* Settings::section_to_group(SettingsSection sectio
         case SettingsSection::ASSET_PATHS:
             return &asset_paths_;
             break;
+
+        case SettingsSection::MAIN_MENU:
+            return &main_menu_;
+            break;
     }
 
     LOG(FATAL) << "Attempted to load unknown settings section" << static_cast<char>(section);
@@ -229,4 +236,3 @@ YAML::Node Settings::load_node(SettingsSection section, std::vector<std::string>
 
     return node;
 }
-

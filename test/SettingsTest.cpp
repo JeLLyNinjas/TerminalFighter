@@ -9,6 +9,7 @@ namespace {
     // relative to build folder
     std::string VIDEO_SETTINGS_FILE = "../config.example/video_settings.yml";
     std::string ASSET_PATHS_FILE = "../config.example/asset_paths.yml";
+    std::string MAIN_MENU_FILE = "../config.example/main_menu.yml";
 
     std::string TEST_CONFIG_FILE = "../test/test.yml";
 }
@@ -26,13 +27,15 @@ protected:
 TEST(SettingsTest, reload_settings) {
     Settings settings(
         VIDEO_SETTINGS_FILE,
-        ASSET_PATHS_FILE);
+        ASSET_PATHS_FILE,
+        MAIN_MENU_FILE);
 
     EXPECT_TRUE(settings.reload_all_settings());
 }
 
 TEST(SettingsTest, load_base) {
     Settings settings(
+        TEST_CONFIG_FILE,
         TEST_CONFIG_FILE,
         TEST_CONFIG_FILE);
 
@@ -46,6 +49,7 @@ TEST(SettingsTest, load_base) {
 
 TEST(SettingsTest, load_string) {
     Settings settings(
+        TEST_CONFIG_FILE,
         TEST_CONFIG_FILE,
         TEST_CONFIG_FILE);
 
@@ -62,6 +66,7 @@ TEST(SettingsTest, load_string) {
 TEST(SettingsTest, load_integer) {
     Settings settings(
         TEST_CONFIG_FILE,
+        TEST_CONFIG_FILE,
         TEST_CONFIG_FILE);
 
     int actual;
@@ -76,6 +81,7 @@ TEST(SettingsTest, load_integer) {
 
 TEST(SettingsTest, load_decimal) {
     Settings settings(
+        TEST_CONFIG_FILE,
         TEST_CONFIG_FILE,
         TEST_CONFIG_FILE);
 
@@ -92,6 +98,7 @@ TEST(SettingsTest, load_decimal) {
 TEST(SettingsTest, load_boolean) {
     Settings settings(
         TEST_CONFIG_FILE,
+        TEST_CONFIG_FILE,
         TEST_CONFIG_FILE);
 
     bool actual;
@@ -106,6 +113,7 @@ TEST(SettingsTest, load_boolean) {
 
 TEST(SettingsTest, load_str_map) {
     Settings settings(
+        TEST_CONFIG_FILE,
         TEST_CONFIG_FILE,
         TEST_CONFIG_FILE);
 
@@ -126,6 +134,7 @@ TEST(SettingsTest, load_str_map) {
 TEST(SettingsTest, load_bad_key) {
     Settings settings(
         TEST_CONFIG_FILE,
+        TEST_CONFIG_FILE,
         TEST_CONFIG_FILE);
 
     std::string actual;
@@ -139,6 +148,7 @@ TEST(SettingsTest, load_bad_key) {
 TEST(SettingsTest, load_bad_convert) {
     Settings settings(
         TEST_CONFIG_FILE,
+        TEST_CONFIG_FILE,
         TEST_CONFIG_FILE);
 
     double actual;
@@ -148,4 +158,3 @@ TEST(SettingsTest, load_bad_convert) {
     {"level", "hello"},
     actual));
 }
-

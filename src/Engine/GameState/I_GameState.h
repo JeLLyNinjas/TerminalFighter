@@ -1,13 +1,5 @@
 #pragma once
 
-/**
- * Many objects are intended to inherit I_GameState.
- * This is the top level type in the Terminal Fighter Engine for handling game flow.
- * This interface allows for GameStateHandler to manage various GameStates.
- * Each GameState individually decides what to do in each state,
- * and what state to go to next.
- */
-
 namespace gamestates {
     enum GameStateName {
         MAIN_MENU,
@@ -18,6 +10,13 @@ namespace gamestates {
     };
 }
 
+/**
+ * Many objects are intended to inherit I_GameState.
+ * This is the top level type in the Terminal Fighter Engine for handling game flow.
+ * This interface allows for GameStateHandler to manage various GameStates.
+ * Each GameState individually decides what to do in each state,
+ * and what state to go to next.
+ */
 class I_GameState {
 public:
     virtual ~I_GameState() {}

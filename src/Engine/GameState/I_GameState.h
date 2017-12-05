@@ -13,7 +13,7 @@ namespace gamestates {
 /**
  * Many objects are intended to inherit I_GameState.
  * This is the top level type in the Terminal Fighter Engine for handling game flow.
- * This interface allows for GameStateHandler to manage various GameStates.
+ * This interface allows for GameStateHandler to manage various GameStates as a state machine.
  * Each GameState individually decides what to do in each state,
  * and what state to go to next.
  */
@@ -22,7 +22,7 @@ public:
     virtual ~I_GameState() {}
 
     /**
-     * Normally should run an infinite loop which draws to screen and is interactable.
+     * Normally should run a game loop which draws to screen and is interactable.
      * @return returns the next GameState to execute.
      */
     virtual gamestates::GameStateName run() = 0;

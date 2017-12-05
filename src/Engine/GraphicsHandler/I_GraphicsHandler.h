@@ -34,11 +34,11 @@ public:
      * @param priority is used to define the order that the texture will be copied to the renderer.
      *  The GraphicPriority is an enum found in "DrawRequest/DrawRequest.h"
      * @param cleanup is used to define whether or not the draw function needs to clean up a texture.
-     *   Set this to false when the texture passed to this function is cached.
-     *   Sometimes, the texture is cached by the GraphicsHandler::game_graphics_, in which case,
-     *   you do not want to set the bool to `true` or else this function will delete the cached pointer.
+     *   Set this to false when the texture passed to this function is cached. For example, 
+     *   <code>GraphicsHandler::load_image()</code> caches the image. So if the calling object uses that
+     *   function to load the image, set cleanup to false.
      *   Set this value to true when you need the function to cleanup the texture for you.
-     *   When an object creates a texture, and will not hold onto the texture (no cache). You will need
+     *   For example, when an object creates a texture, and will not hold onto the texture (no cache). You will need
      *   to set the cleanup value to true. This is because the object that passes this texture onto the
      *   draw function is not allowed to call <code>SDL_DestroyTexture</code> to free the texture.
      *   The object is not allowed to free the texture because this function does not copy the texture
@@ -64,16 +64,15 @@ public:
      * @param priority is used to define the order that the texture will be copied to the renderer.
      *  The GraphicPriority is an enum found in "DrawRequest/DrawRequest.h"
      * @param cleanup is used to define whether or not the draw function needs to clean up a texture.
-     *   Set this to false when the texture passed to this function is cached.
-     *   Sometimes, the texture is cached by the GraphicsHandler::game_graphics_, in which case,
-     *   you do not want to set the bool to `true` or else this function will delete the cached pointer.
+     *   Set this to false when the texture passed to this function is cached. For example, 
+     *   <code>GraphicsHandler::load_image()</code> caches the image. So if the calling object uses that
+     *   function to load the image, set cleanup to false.
      *   Set this value to true when you need the function to cleanup the texture for you.
-     *   When an object creates a texture, and will not hold onto the texture (no cache). You will need
+     *   For example, when an object creates a texture, and will not hold onto the texture (no cache). You will need
      *   to set the cleanup value to true. This is because the object that passes this texture onto the
      *   draw function is not allowed to call <code>SDL_DestroyTexture</code> to free the texture.
      *   The object is not allowed to free the texture because this function does not copy the texture
      *   onto the renderer immediately.
-     *   Refer to the main description of the draw function for explanation on when the SDL_RenderCopy occurs.
      * @param angle_clockwise is a variable defined in degrees that indicates the rotation that will be applied to
      *   dest_rect, rotating in a clockwise direction.
      * @param rotation_point is a point that defines where the rotation of angle_clockwise will rotate around.
@@ -142,10 +141,17 @@ public:
      * @param y_pos will be used to determine the top left most point's y position
      * @param priority is used to define the order that the texture will be copied to the renderer.
      *   The GraphicPriority is an enum found in "DrawRequest/DrawRequest.h"
-     * @param cleanup is used to define whether or not the draw function needs to clean up the provided
-     *   <code>SDL_Surface*</code>. The <code>SDL_Texture*</code> this function creates will automatically be
-     *   cleaned up after it is used. So this initial <code>SDL_Surface*</code> that is passed in can be safely
-     *   deleted right after this draw function is called.
+     * @param cleanup is used to define whether or not the draw function needs to clean up a texture.
+     *   Set this to false when the texture passed to this function is cached.
+     *   Sometimes, the texture is cached by the GraphicsHandler::game_graphics_, in which case,
+     *   you do not want to set the bool to `true` or else this function will delete the cached pointer.
+     *   Set this value to true when you need the function to cleanup the texture for you.
+     *   When an object creates a texture, and will not hold onto the texture (no cache). You will need
+     *   to set the cleanup value to true. This is because the object that passes this texture onto the
+     *   draw function is not allowed to call <code>SDL_DestroyTexture</code> to free the texture.
+     *   The object is not allowed to free the texture because this function does not copy the texture
+     *   onto the renderer immediately.
+     *   Refer to the main description of the draw function for explanation on when the SDL_RenderCopy occurs.
      */
     virtual void draw(SDL_Texture* texture, int x_pos, int y_pos,
                       GraphicPriority priority, bool cleanup) = 0;

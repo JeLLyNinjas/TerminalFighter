@@ -33,7 +33,7 @@ public:
 
     /**
      * This function gives access to play sounds in the sound engine.
-     * @param the relative path to the sound to be played.
+     * @param path is the relative path to the sound to be played.
      */
     virtual void play_sound(std::string path) const = 0;
 };

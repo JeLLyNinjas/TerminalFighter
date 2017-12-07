@@ -32,11 +32,8 @@ docker --version
 # Update docker if there are any new files
 docker build . -t terminal_documentation
 
-# Mount the current directory into /documentation, which already exists in the
-# Dockerfile as the WORKDIR.
-#
 # "doxygen -g" will create a default config file named Doxyfile
 # "patch < Doxyfile.patch will apply the configuration patch
 #sudo docker run --rm -v `pwd`:/documentation test1 /bin/bash -c "doxygen -g && \
     #patch < Doxyfile.patch && doxygen Doxyfile
-sudo docker run --rm -v `pwd`:/documentation terminal_documentation /bin/bash -c "doxygen Doxyfile"
+docker run --rm -v `pwd`:/documentation terminal_documentation /bin/bash -c "doxygen Doxyfile"

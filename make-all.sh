@@ -28,7 +28,6 @@ cp src/TerminalFighter/TerminalFighter ../
 ./test/runTests
 cd ..
 
-docker --version
 # Update docker if there are any new files
 docker build . -t terminal_documentation
 

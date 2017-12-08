@@ -4,8 +4,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-IMAGE_NAME=jellyninjas/terminalfighterdocs
-
+IMAGE_NAME=jellyninjas/terminalfighterdocs 
 # ./format-all.sh
 
 # if astyle *.h *.cpp -r --dry-run --options=astylerc | grep Formatted; then
@@ -35,6 +34,7 @@ docker build . -t $IMAGE_NAME
 
 # "doxygen -g" will create a default config file named Doxyfile
 # "patch < Doxyfile.patch will apply the configuration patch
-#sudo docker run --rm -v `pwd`:/documentation test1 /bin/bash -c "doxygen -g && \
-    #patch < Doxyfile.patch && doxygen Doxyfile
-docker run --rm -v `pwd`:/documentation $IMAGE_NAME /bin/bash -c "doxygen Doxyfile && chown 1000:1000 -R ./documentation"
+
+sudo docker run --rm -v `pwd`:/documentation $IMAGE_NAME doxygen -g && patch < Doxyfile.patch && doxygen Doxyfile
+
+rm Doxyfile.* -f

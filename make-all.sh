@@ -37,4 +37,4 @@ docker build . -t $IMAGE_NAME
 # "patch < Doxyfile.patch will apply the configuration patch
 #sudo docker run --rm -v `pwd`:/documentation test1 /bin/bash -c "doxygen -g && \
     #patch < Doxyfile.patch && doxygen Doxyfile
-docker run --rm -v `pwd`:/documentation $IMAGE_NAME /bin/bash -c "doxygen Doxyfile"
+docker run --rm -v `pwd`:/documentation $IMAGE_NAME doxygen Doxyfile

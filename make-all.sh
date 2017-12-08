@@ -4,6 +4,8 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+IMAGE_NAME=jellyninjas/terminalfighterdocs
+
 # ./format-all.sh
 
 # if astyle *.h *.cpp -r --dry-run --options=astylerc | grep Formatted; then
@@ -29,10 +31,10 @@ cp src/TerminalFighter/TerminalFighter ../
 cd ..
 
 # Update docker if there are any new files
-docker build . -t terminal_documentation
+docker build . -t $IMAGE_NAME
 
 # "doxygen -g" will create a default config file named Doxyfile
 # "patch < Doxyfile.patch will apply the configuration patch
 #sudo docker run --rm -v `pwd`:/documentation test1 /bin/bash -c "doxygen -g && \
     #patch < Doxyfile.patch && doxygen Doxyfile
-docker run --rm -v `pwd`:/documentation terminal_documentation /bin/bash -c "doxygen Doxyfile"
+docker run --rm -v `pwd`:/documentation $IMAGE_NAME /bin/bash -c "doxygen Doxyfile"

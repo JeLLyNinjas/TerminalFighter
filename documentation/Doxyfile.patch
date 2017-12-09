@@ -81,15 +81,6 @@
  
  # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. If a
  # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
-@@ -1902,7 +1902,7 @@
- # classes and files.
- # The default value is: NO.
- 
--GENERATE_MAN           = NO
-+GENERATE_MAN           = YES
- 
- # The MAN_OUTPUT tag is used to specify where the man pages will be put. If a
- # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
 @@ -2280,7 +2280,7 @@
  # The default value is: NO.
  # This tag requires that the tag HAVE_DOT is set to YES.

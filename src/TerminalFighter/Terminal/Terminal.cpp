@@ -37,8 +37,7 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
     SDL_Color white = {255, 255, 255};
     SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, player_text_.c_str(), white);
     graphics.draw(terminal_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::UI, true);
-    graphics.draw(UIText, (int)x_pos() + 30, (int)y_pos() + 30, GraphicPriority::UI, false);
-    SDL_FreeSurface(UIText);
+    graphics.draw(UIText, (int)x_pos() + 30, (int)y_pos() + 30, GraphicPriority::UI, true);
 }
 
 const I_Hitbox& Terminal::hitbox() const {

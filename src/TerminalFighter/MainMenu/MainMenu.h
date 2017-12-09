@@ -7,24 +7,20 @@
 
 #include "../TextArea/TextArea.h"
 
-namespace{
-    const int START = 0;
-    const int QUIT = 1;
-}
+enum Options { START, QUIT };
 
 class MainMenu {
 public:
     MainMenu(std::string font_path, int width, int height);
     ~MainMenu();
-    void render(SDL_Renderer& renderer);
+    void draw(SDL_Renderer& renderer);
     void move_up_selection();
     void move_down_selection();
-    void update_colors();
-    int get_current_selection();
+    void update();
+    Options get_current_selection();
 
 private:
     TextArea title_;
-    TextArea start_;
-    TextArea quit_;
-    int current_selection_;
+    std::vector<TextArea> options_;
+    Options current_selection_;
 };

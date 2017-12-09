@@ -30,7 +30,7 @@ gamestates::GameStateName MenuState::run() {
     GraphicsHandler graphics_handler(renderer_, graphic_paths);
 
     for (;;) {
-        main_menu.render(renderer_);
+        main_menu.draw(renderer_);
         SDL_Event event;
 
         while (SDL_PollEvent(&event)) {
@@ -44,21 +44,23 @@ gamestates::GameStateName MenuState::run() {
                     switch (event.key.keysym.sym) {
                         case SDLK_RETURN:
                             LOG(INFO) << "Enter was pressed!";
-                            if (main_menu.get_current_selection() == START) {
+                            if (main_menu.get_current_selection() == Options::START) {
                                 LOG(INFO) << "Start selected";
                                 return gamestates::TEST;
-                            } else if (main_menu.get_current_selection() == QUIT) {
+                            } else if (main_menu.get_current_selection() == Options::QUIT) {
                                 LOG(INFO) << "Quit selected";
-                                exit(0);
+                                return gamestates::EXIT;
                             }
                             break;
 
                         case SDLK_UP:
                             main_menu.move_up_selection();
+                            main_menu.update();
                             break;
 
                         case SDLK_DOWN:
                             main_menu.move_down_selection();
+                            main_menu.update();
                             break;
 
                     }

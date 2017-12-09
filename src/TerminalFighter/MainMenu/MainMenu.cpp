@@ -13,63 +13,64 @@ MainMenu::MainMenu(std::string font_path, int width, int height)
         0.25 * height, // height of the text area
         font_path,
         68)
-    , start_(
-        "Start",
-        COLOR_WHITE,
-        0.45 * width, // x position relative to left side of the window
-        0.6 * height, // y position relative to the top of the window
-        0.1 * width, // width of the text area
-        0.1 * height, // height of the text area
-        font_path,
-        68)
-    , quit_(
-        "Quit",
-        COLOR_GRAY,
-        0.45 * width, // x position relative to the left side of the window
-        0.7 * height, // y position relative to the top of the window
-        0.1 * width, // width of the text area
-        0.1 * height, // height of the text area
-        font_path,
-        68)
-    , current_selection_(START){
+    , current_selection_(Options::START)
+{
+        options_.push_back(TextArea(
+            "Start",
+            COLOR_WHITE,
+            0.45 * width,
+            0.6 * height,
+            0.1 * width,
+            0.1 * height,
+            font_path,
+            68
+        ));
+        options_.push_back(TextArea(
+            "Quit",
+            COLOR_GRAY,
+            0.45 * width,
+            0.7 * height,
+            0.1 * width,
+            0.1 * height,
+            font_path,
+            68
+        ));
 }
 
 MainMenu::~MainMenu() {}
 
-void MainMenu::render(SDL_Renderer& renderer) {
-    title_.render(renderer);
-    start_.render(renderer);
-    quit_.render(renderer);
+void MainMenu::draw(SDL_Renderer& renderer) {
+    title_.draw(renderer);
+    options_[Options::START].draw(renderer);
+    options_[Options::QUIT].draw(renderer);
 }
 
 void MainMenu::move_up_selection() {
-    if (current_selection_ == 0) {
-        current_selection_ = 1;
-    } else if (current_selection_ == 1){
-        current_selection_ = 0;
+    if (current_selection_ == Options::START) {
+        current_selection_ = Options::QUIT;
+    } else if (current_selection_ == Options::QUIT){
+        current_selection_ = Options::START;
     }
-    update_colors();
 }
 
 void MainMenu::move_down_selection() {
-    if (current_selection_ == 1) {
-        current_selection_ = 0;
-    } else if (current_selection_ == 0){
-        current_selection_ = 1;
-    }
-    update_colors();
-}
-
-void MainMenu::update_colors() {
-    if (current_selection_ == START) {
-        start_.set_color(COLOR_WHITE);
-        quit_.set_color(COLOR_GRAY);
-    } else if (current_selection_ == QUIT){
-        start_.set_color(COLOR_GRAY);
-        quit_.set_color(COLOR_WHITE);
+    if (current_selection_ == Options::QUIT) {
+        current_selection_ = Options::START;
+    } else if (current_selection_ == Options::START){
+        current_selection_ = Options::QUIT;
     }
 }
 
-int MainMenu::get_current_selection() {
+void MainMenu::update() {
+    if (current_selection_ == Options::START) {
+        options_[Options::START].set_color(COLOR_WHITE);
+        options_[Options::QUIT].set_color(COLOR_GRAY);
+    } else if (current_selection_ == Options::QUIT){
+        options_[Options::START].set_color(COLOR_GRAY);
+        options_[Options::QUIT].set_color(COLOR_WHITE);
+    }
+}
+
+Options MainMenu::get_current_selection() {
     return current_selection_;
 }

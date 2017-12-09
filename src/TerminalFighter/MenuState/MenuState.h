@@ -21,7 +21,6 @@ public:
 
 private:
     void display_debug_frames(Delay* delayer);
-    void render();
     SDL_Renderer& renderer_;
     const I_Settings& settings_;
 };

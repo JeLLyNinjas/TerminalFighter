@@ -18,7 +18,7 @@ public:
      * The new object must be instantiated as a unique_ptr and upon calling this function,
      * the creator will lose ownership.
      * After calling this function, the new game_object will be updated independently by the universe.
-     * The creator should not update the object after calling this function. 
+     * The creator should not update the object after calling this function.
      * @param team indicates what team the new object belongs on, objects on the same team do not collide
      * @param game_object is a unique_ptr to the new game_object, the caller loses ownership after calling this func
      */

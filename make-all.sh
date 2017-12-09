@@ -35,7 +35,7 @@ docker build . -t $IMAGE_NAME
 # "doxygen -g" will create a default config file named Doxyfile
 # "patch < Doxyfile.patch will apply the configuration patch
 
-docker run --rm -v `pwd`:/documentation $IMAGE_NAME doxygen -g && patch --no-backup-if-mismatch < Doxyfile.patch && doxygen Doxyfile && /bin/bash -c "chown 1000:1000 -R ."
+#docker run --rm -v `pwd`:/documentation $IMAGE_NAME doxygen -g && patch --no-backup-if-mismatch < Doxyfile.patch && doxygen Doxyfile && /bin/bash -c "chown 1000:1000 -R ."
+docker run --rm -v `pwd`:/documentation $IMAGE_NAME /bin/bash -c "doxygen -g" && patch --no-backup-if-mismatch < Doxyfile.patch && /bin/bash -c "doxygen Doxyfile && chown 1000:1000 -R ."
+#docker run --rm -v `pwd`:/documentation $IMAGE_NAME /bin/bash -c "doxygen -g" && doxygen Doxyfile && /bin/bash -c "chown 1000:1000 -R ."
 
-rm Doxyfile -f
-rm Doxyfile.bak -f

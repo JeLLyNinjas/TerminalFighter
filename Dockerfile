@@ -5,4 +5,5 @@ FROM ubuntu:xenial
 RUN apt-get update && DEBIAN_FRONTEND=non-interactive apt-get install -yq doxygen graphviz patch
 
 # Set WORKDIR
-WORKDIR /documentation
+#WORKDIR /Terminal/Documentation
+WORKDIR /TerminalFighter/Documentation

@@ -6,5 +6,5 @@
 doxygen -g
 patch --no-backup-if-mismatch < ./documentation/Doxyfile.patch 
 doxygen Doxyfile 
-chown 1000:1000 -R .
+chown 1000:1000 -R ./documentation
 rm Doxyfile

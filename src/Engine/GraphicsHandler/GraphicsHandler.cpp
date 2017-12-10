@@ -42,10 +42,16 @@ void GraphicsHandler::draw(SDL_Texture* texture, int x_pos, int y_pos,
     this->draw(texture, dest_rect, priority, cleanup, angle_clockwise, rotation_point);
 }
 
+//Cleanup refers to the surface when a SDL_Surface* is passed in
 void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos,
                            GraphicPriority priority, bool cleanup, double angle_clockwise, SDL_Point* rotation_point) {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(&renderer_, surface);
-    this->draw(texture, x_pos, y_pos, priority, cleanup, angle_clockwise, rotation_point);
+    if (cleanup) {
+        SDL_FreeSurface(surface);
+    }
+    //Setting cleanup to be true regardless of original argument. We created a texture here, and we will not  
+    //be keeping it. GraphicsHandler needs to clean it up for us in the future.
+    this->draw(texture, x_pos, y_pos, priority, true, angle_clockwise, rotation_point);
 }
 
 void GraphicsHandler::draw(SDL_Texture* texture, SDL_Rect dest_rect,
@@ -58,6 +64,7 @@ void GraphicsHandler::draw(SDL_Texture* texture, int x_pos, int y_pos,
     draw(texture, x_pos, y_pos, priority, cleanup, 0, NULL);
 }
 
+//Cleanup refers to the surface when a SDL_Surface* is passed in
 void GraphicsHandler::draw(SDL_Surface* surface, int x_pos, int y_pos,
                            GraphicPriority priority, bool cleanup) {
     draw(surface, x_pos, y_pos, priority, cleanup, 0, NULL);

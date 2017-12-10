@@ -4,6 +4,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+IMAGE_NAME=jellyninjas/terminalfighter
 # ./format-all.sh
 
 # if astyle *.h *.cpp -r --dry-run --options=astylerc | grep Formatted; then
@@ -27,3 +28,8 @@ fi
 cp src/TerminalFighter/TerminalFighter ../
 ./test/runTests
 cd ..
+
+# Update docker if there are any new files
+docker build . -t $IMAGE_NAME
+
+docker run --rm -v `pwd`:/TerminalFighter/Documentation $IMAGE_NAME documentation/build-docs.sh

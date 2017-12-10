@@ -44,10 +44,10 @@ gamestates::GameStateName MenuState::run() {
                     switch (event.key.keysym.sym) {
                         case SDLK_RETURN:
                             LOG(INFO) << "Enter was pressed!";
-                            if (main_menu.get_current_selection() == Options::START) {
+                            if (main_menu.get_current_selection() == MainMenu::Options::START) {
                                 LOG(INFO) << "Start selected";
                                 return gamestates::TEST;
-                            } else if (main_menu.get_current_selection() == Options::QUIT) {
+                            } else if (main_menu.get_current_selection() == MainMenu::Options::QUIT) {
                                 LOG(INFO) << "Quit selected";
                                 return gamestates::EXIT;
                             }
@@ -55,17 +55,16 @@ gamestates::GameStateName MenuState::run() {
 
                         case SDLK_UP:
                             main_menu.move_up_selection();
-                            main_menu.update();
                             break;
 
                         case SDLK_DOWN:
                             main_menu.move_down_selection();
-                            main_menu.update();
                             break;
 
                     }
             }
         }
+        main_menu.update();
 
         display_debug_frames(&delayer);
         //delay and draw to screen should stick together in the order: delay -> draw

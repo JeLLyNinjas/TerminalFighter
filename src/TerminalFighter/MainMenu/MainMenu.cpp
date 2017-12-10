@@ -71,6 +71,6 @@ void MainMenu::update() {
     }
 }
 
-Options MainMenu::get_current_selection() {
+MainMenu::Options MainMenu::get_current_selection() {
     return current_selection_;
 }

@@ -7,17 +7,17 @@
 
 #include "../TextArea/TextArea.h"
 
-enum Options { START, QUIT };
 
 class MainMenu {
 public:
     MainMenu(std::string font_path, int width, int height);
     ~MainMenu();
+    enum Options { START, QUIT };
     void draw(SDL_Renderer& renderer);
     void move_up_selection();
     void move_down_selection();
     void update();
-    Options get_current_selection();
+    MainMenu::Options get_current_selection();
 
 private:
     TextArea title_;

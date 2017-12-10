@@ -101,8 +101,13 @@ void TargetingSystem::update() {
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
         SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), WHITE);
-        graphics.draw(UIText, (int)it->second->game_object_.x_pos(), (int)it->second->game_object_.y_pos(),
-                      GraphicPriority::UI, true);
+        graphics.draw(UIText,
+                      (int)it->second->game_object_.x_pos(),
+                      (int)it->second->game_object_.y_pos(),
+                      GraphicPriority::UI,
+                      true,
+                      0,
+                      NULL);
     }
 }
 

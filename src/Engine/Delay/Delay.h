@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include <unistd.h>
+#include <string>
 
 #include <SDL_ttf.h>
 #include <SDL2/SDL.h>

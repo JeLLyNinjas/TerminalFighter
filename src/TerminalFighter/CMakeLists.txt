@@ -14,7 +14,7 @@ add_library(Settings Settings/Settings.cpp)
 
 target_link_libraries(BasicEnemy Hitbox)
 target_link_libraries(MainCharacter ${SDL2_LIBRARIES})
-target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler glog::glog)
+target_link_libraries(Missile ${SDL2_LIBRARIES} GraphicsHandler SpriteAnimator glog::glog)
 target_link_libraries(MissileLauncher Missile GameObjectMediator TargetingSystem Util)
 target_link_libraries(Terminal ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES} GameObject Hitbox GraphicsHandler)
 target_link_libraries(TestState GameObjectMediator Universe CollisionDetector BasicEnemy

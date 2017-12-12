@@ -19,7 +19,8 @@ public:
      *  of this object, rather than loading them (which you can) during the game play
      *  These assets will be loaded into <code>game_graphics_</code>
      */
-    GraphicsHandler(SDL_Renderer& renderer, std::vector<std::string> graphic_paths);
+    GraphicsHandler(SDL_Renderer& renderer,
+                    std::vector<std::string> graphic_paths);
     void init(const std::vector<std::string>& graphic_paths);
     void draw(SDL_Texture* texture,
               SDL_Rect dest_rect,
@@ -65,11 +66,13 @@ public:
     void update_screen();
 
 private:
+    SDL_Texture* internal_load_image(std::string path);
     SDL_Point to_screen_coordinate(const SDL_Point& point);
     SDL_Rect to_screen_coordinate(const SDL_Rect& point);
 
-    SDL_Texture* internal_load_image(std::string path);
     SDL_Renderer& renderer_;
+    int screen_width_;
+    int screen_height_;
     std::map <std::string, SDL_Texture*> game_graphics_;
     std::map <GraphicPriority, std::vector<DrawRequest>> draw_queue_;
 };

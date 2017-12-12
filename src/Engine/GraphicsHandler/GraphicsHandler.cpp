@@ -25,6 +25,7 @@ GraphicsHandler::GraphicsHandler(
     {GraphicPriority::BACK, std::vector<DrawRequest>() },
     {GraphicPriority::BACKGROUND, std::vector<DrawRequest>() }
 }) {
+    SDL_GetRendererOutputSize(&renderer, &screen_width_, &screen_height_);
     init(graphic_paths);
 }
 
@@ -34,6 +35,7 @@ void GraphicsHandler::draw(SDL_Texture* texture,
                            bool cleanup,
                            double angle_clockwise,
                            SDL_Point* rotation_point) {
+
     draw_queue_.at(priority).push_back(
         DrawRequest(texture, dest_rect, cleanup, angle_clockwise, rotation_point));
 }
@@ -45,6 +47,7 @@ void GraphicsHandler::draw(SDL_Texture* texture,
                            bool cleanup,
                            double angle_clockwise,
                            SDL_Point* rotation_point) {
+
     SDL_Rect dest_rect;
     SDL_QueryTexture(texture, NULL, NULL, &dest_rect.w, &dest_rect.h);
     dest_rect.x = x_pos;
@@ -60,6 +63,7 @@ void GraphicsHandler::draw(SDL_Surface* surface,
                            bool cleanup,
                            double angle_clockwise,
                            SDL_Point* rotation_point) {
+
     SDL_Texture* texture = SDL_CreateTextureFromSurface(&renderer_, surface);
 
     if (cleanup) {
@@ -75,6 +79,7 @@ void GraphicsHandler::draw(SDL_Texture* texture,
                            SDL_Rect dest_rect,
                            GraphicPriority priority,
                            bool cleanup) {
+
     draw(texture, dest_rect, priority, cleanup, 0, NULL);
 }
 
@@ -83,6 +88,7 @@ void GraphicsHandler::draw(SDL_Texture* texture,
                            int y_pos,
                            GraphicPriority priority,
                            bool cleanup) {
+
     draw(texture, x_pos, y_pos, priority, cleanup, 0, NULL);
 }
 
@@ -92,6 +98,7 @@ void GraphicsHandler::draw(SDL_Surface* surface,
                            int y_pos,
                            GraphicPriority priority,
                            bool cleanup) {
+
     draw(surface, x_pos, y_pos, priority, cleanup, 0, NULL);
 }
 
@@ -136,13 +143,6 @@ void GraphicsHandler::init(const std::vector<std::string>& graphic_paths) {
     }
 }
 
-SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {
-    SDL_Surface* image_surface = IMG_Load(path.c_str());
-    SDL_Texture* image_texture = SDL_CreateTextureFromSurface(&renderer_, image_surface);
-    SDL_FreeSurface(image_surface);
-    return image_texture;
-}
-
 SDL_Texture* GraphicsHandler::load_image(std::string path) {
     if (game_graphics_.find(path) == game_graphics_.end() ) {
         //TODO allow load_image to call internal_load_image
@@ -150,6 +150,13 @@ SDL_Texture* GraphicsHandler::load_image(std::string path) {
     }
 
     return game_graphics_.find(path)->second;
+}
+
+SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {
+    SDL_Surface* image_surface = IMG_Load(path.c_str());
+    SDL_Texture* image_texture = SDL_CreateTextureFromSurface(&renderer_, image_surface);
+    SDL_FreeSurface(image_surface);
+    return image_texture;
 }
 
 SDL_Point GraphicsHandler::to_screen_coordinate(const SDL_Point& point) {

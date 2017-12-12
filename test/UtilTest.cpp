@@ -37,15 +37,15 @@ double standardize_angle(double angle) {
 }
 
 TEST_F(UtilTest, test_inverse_sqrt_5) {
-    EXPECT_FLOAT_EQ(util::inverse_sqrt(5), 0.44714102);
+    EXPECT_FLOAT_EQ(Util::inverse_sqrt(5), 0.44714102);
 }
 
 TEST_F(UtilTest, test_inverse_sqrt_30) {
-    EXPECT_FLOAT_EQ(util::inverse_sqrt(30), 0.18242164);
+    EXPECT_FLOAT_EQ(Util::inverse_sqrt(30), 0.18242164);
 }
 
 TEST_F(UtilTest, test_clock_angle_north) {
-    double result = standardize_angle(util::angle(ANGLE_START_X,
+    double result = standardize_angle(Util::angle(ANGLE_START_X,
                                       ANGLE_START_Y,
                                       ANGLE_START_X + 0,
                                       ANGLE_START_Y + ANGLE_PT_INCREMENT));
@@ -53,7 +53,7 @@ TEST_F(UtilTest, test_clock_angle_north) {
 }
 
 TEST_F(UtilTest, test_clock_angle_northeast) {
-    double result = standardize_angle(util::angle(ANGLE_START_X,
+    double result = standardize_angle(Util::angle(ANGLE_START_X,
                                       ANGLE_START_Y,
                                       ANGLE_START_X + ANGLE_PT_INCREMENT,
                                       ANGLE_START_Y + ANGLE_PT_INCREMENT));
@@ -61,7 +61,7 @@ TEST_F(UtilTest, test_clock_angle_northeast) {
 }
 
 TEST_F(UtilTest, test_clock_angle_east) {
-    double result = standardize_angle(util::angle(ANGLE_START_X,
+    double result = standardize_angle(Util::angle(ANGLE_START_X,
                                       ANGLE_START_Y,
                                       ANGLE_START_X + ANGLE_PT_INCREMENT,
                                       ANGLE_START_Y + 0));
@@ -69,7 +69,7 @@ TEST_F(UtilTest, test_clock_angle_east) {
 }
 
 TEST_F(UtilTest, test_clock_angle_southeast) {
-    double result = standardize_angle(util::angle(ANGLE_START_X,
+    double result = standardize_angle(Util::angle(ANGLE_START_X,
                                       ANGLE_START_Y,
                                       ANGLE_START_X + ANGLE_PT_INCREMENT,
                                       ANGLE_START_Y - ANGLE_PT_INCREMENT));
@@ -77,7 +77,7 @@ TEST_F(UtilTest, test_clock_angle_southeast) {
 }
 
 TEST_F(UtilTest, test_clock_angle_south) {
-    double result = standardize_angle(util::angle(ANGLE_START_X,
+    double result = standardize_angle(Util::angle(ANGLE_START_X,
                                       ANGLE_START_Y,
                                       ANGLE_START_X + 0,
                                       ANGLE_START_Y - ANGLE_PT_INCREMENT));
@@ -91,7 +91,7 @@ TEST_F(UtilTest, test_clock_angle_south) {
 }
 
 TEST_F(UtilTest, test_clock_angle_southwest) {
-    double result = standardize_angle(util::angle(ANGLE_START_X,
+    double result = standardize_angle(Util::angle(ANGLE_START_X,
                                       ANGLE_START_Y,
                                       ANGLE_START_X - ANGLE_PT_INCREMENT,
                                       ANGLE_START_Y - ANGLE_PT_INCREMENT));
@@ -99,7 +99,7 @@ TEST_F(UtilTest, test_clock_angle_southwest) {
 }
 
 TEST_F(UtilTest, test_clock_angle_west) {
-    double result = standardize_angle(util::angle(ANGLE_START_X,
+    double result = standardize_angle(Util::angle(ANGLE_START_X,
                                       ANGLE_START_Y,
                                       ANGLE_START_X - ANGLE_PT_INCREMENT,
                                       ANGLE_START_Y + 0));
@@ -107,7 +107,7 @@ TEST_F(UtilTest, test_clock_angle_west) {
 }
 
 TEST_F(UtilTest, test_clock_angle_northwest) {
-    double result = standardize_angle(util::angle(ANGLE_START_X,
+    double result = standardize_angle(Util::angle(ANGLE_START_X,
                                       ANGLE_START_Y,
                                       ANGLE_START_X - ANGLE_PT_INCREMENT,
                                       ANGLE_START_Y + ANGLE_PT_INCREMENT));

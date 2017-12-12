@@ -21,10 +21,16 @@ public:
                          SDL_Point* rotation_point);
 
     SDL_Texture* texture() const;
+
     const SDL_Rect& dest_rect() const;
+    void set_dest_rect(const SDL_Rect& rect);
+
     const bool cleanup() const;
+
     const double angle() const;
-    const SDL_Point* rotation_point() const;
+
+    SDL_Point* rotation_point() const;
+    void set_rotation_point(SDL_Point* point);
 
 private:
     SDL_Texture* texture_;

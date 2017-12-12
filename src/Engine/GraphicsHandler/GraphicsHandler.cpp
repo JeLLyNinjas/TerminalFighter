@@ -102,7 +102,8 @@ void GraphicsHandler::update_screen() {
             draw_request.set_dest_rect(screen_dest_rect);
 
             SDL_Point screen_rot_pt;
-            if(draw_request.rotation_point() != NULL) {
+
+            if (draw_request.rotation_point() != NULL) {
                 screen_rot_pt = to_screen_coordinate(*draw_request.rotation_point());
                 draw_request.set_rotation_point(&screen_rot_pt);
             }

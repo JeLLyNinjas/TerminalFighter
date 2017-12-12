@@ -28,5 +28,6 @@ before_script:
 
 script:
     - ./make-all.sh
+    - "! (astyle *.h *.cpp -r --dry-run --options=astylerc | grep Formatted)"
 
 language: cpp

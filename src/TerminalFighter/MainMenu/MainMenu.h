@@ -10,9 +10,10 @@
 
 class MainMenu {
 public:
+    enum Options { START, QUIT };
+
     MainMenu(std::string font_path, int width, int height);
     ~MainMenu();
-    enum Options { START, QUIT };
     void draw(SDL_Renderer& renderer);
     void move_up_selection();
     void move_down_selection();

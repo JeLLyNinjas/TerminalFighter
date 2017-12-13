@@ -21,7 +21,7 @@ public:
     MainMenu::Options get_current_selection();
 
 private:
-    TextArea title_;
-    std::vector<TextArea> options_;
+    std::unique_ptr<I_TextArea> title_;
+    std::vector<std::unique_ptr<I_TextArea>> options_;
     Options current_selection_;
 };

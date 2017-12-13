@@ -4,7 +4,7 @@
 #include "MainMenu.h"
 
 MainMenu::MainMenu(std::string font_path, int width, int height)
-    : title_(
+    : title_(std::make_unique<TextArea>(
         "Terminal Fighter",
         COLOR_WHITE,
         0.25 * width, // x position relative to left side of the window
@@ -12,10 +12,10 @@ MainMenu::MainMenu(std::string font_path, int width, int height)
         0.5 * width, // width of the text area
         0.25 * height, // height of the text area
         font_path,
-        68)
+        68))
     , current_selection_(Options::START)
 {
-        options_.push_back(TextArea(
+        options_.push_back(std::make_unique<TextArea>(
             "Start",
             COLOR_WHITE,
             0.45 * width,
@@ -25,7 +25,7 @@ MainMenu::MainMenu(std::string font_path, int width, int height)
             font_path,
             68
         ));
-        options_.push_back(TextArea(
+        options_.push_back(std::make_unique<TextArea>(
             "Quit",
             COLOR_GRAY,
             0.45 * width,
@@ -40,9 +40,9 @@ MainMenu::MainMenu(std::string font_path, int width, int height)
 MainMenu::~MainMenu() {}
 
 void MainMenu::draw(SDL_Renderer& renderer) {
-    title_.draw(renderer);
-    options_[Options::START].draw(renderer);
-    options_[Options::QUIT].draw(renderer);
+    title_->draw(renderer);
+    options_[Options::START]->draw(renderer);
+    options_[Options::QUIT]->draw(renderer);
 }
 
 void MainMenu::move_up_selection() {
@@ -63,11 +63,11 @@ void MainMenu::move_down_selection() {
 
 void MainMenu::update() {
     if (current_selection_ == Options::START) {
-        options_[Options::START].set_color(COLOR_WHITE);
-        options_[Options::QUIT].set_color(COLOR_GRAY);
+        options_[Options::START]->set_color(COLOR_WHITE);
+        options_[Options::QUIT]->set_color(COLOR_GRAY);
     } else if (current_selection_ == Options::QUIT){
-        options_[Options::START].set_color(COLOR_GRAY);
-        options_[Options::QUIT].set_color(COLOR_WHITE);
+        options_[Options::START]->set_color(COLOR_GRAY);
+        options_[Options::QUIT]->set_color(COLOR_WHITE);
     }
 }
 

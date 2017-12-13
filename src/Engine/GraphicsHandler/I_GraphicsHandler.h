@@ -50,6 +50,7 @@ public:
      *   set to NULL for rotation to be done around the center (dest_rect.w/2, dest_rect.h/2).
      */
     virtual void draw(SDL_Texture* texture,
+                      SDL_Rect src_rect,
                       SDL_Rect dest_rect,
                       GraphicPriority priority,
                       bool cleanup,
@@ -83,6 +84,7 @@ public:
      *   set to NULL for rotation to be done around the center (dest_rect.w/2, dest_rect.h/2).
      */
     virtual void draw(SDL_Texture* texture,
+                      SDL_Rect src_rect,
                       int x_pos,
                       int y_pos,
                       GraphicPriority priority,
@@ -112,6 +114,7 @@ public:
      *   set to NULL for rotation to be done around the center (dest_rect.w/2, dest_rect.h/2).
      */
     virtual void draw(SDL_Surface* surface,
+                      SDL_Rect src_rect,
                       int x_pos,
                       int y_pos,
                       GraphicPriority priority,

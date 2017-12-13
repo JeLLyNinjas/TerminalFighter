@@ -3,7 +3,7 @@
 #include "../Engine/GraphicsHandler/I_GraphicsHandler.h"
 
 class SpriteAnimator {
-    public:
+public:
     /**
      * Creates a Sprite Animator object
      */
@@ -12,28 +12,28 @@ class SpriteAnimator {
      * Uses the <code>SDL_Texture*</code> to create a <code>SDL_Rect</code> that represents the
      * spritesheet.
      */
-    int init(SDL_Texture* texture, int rows, int cols);
+    int init(SDL_Texture* texture, int rows, int cols, int on_every);
     /**
      * Get's the next <code>SDL_Rect</code>
-     * @return <code>SDL_Rect</code> for the next frame in the spritesheet. This 
+     * @return <code>SDL_Rect</code> for the next frame in the spritesheet. This
      *   <code>SDL_Rect</code> is to be used in <code>GraphicsHandler::draw()</code> function
      *   as the src_rect
      */
     SDL_Rect get_next_frame();
     /**
      * Get's the <code>SDL_Rect</code>
-     * @param returned_frame is just a way for the user to check what frame 
+     * @param returned_frame is just a way for the user to check what frame
      *   was returned when <code>SpriteAnimator::get_next_frame()</code> was called
-     * @return <code>SDL_Rect</code> for the <code>current_frame_</code> in the spritesheet. This 
+     * @return <code>SDL_Rect</code> for the <code>current_frame_</code> in the spritesheet. This
      *   <code>SDL_Rect</code> is to be used in <code>GraphicsHandler::draw()</code> function
      *   as the src_rect. The <code>current_frame_</code> will be advanced at the end of the function
      */
-    SDL_Rect get_next_frame(int &returned_frame);
+    SDL_Rect get_next_frame(int& returned_frame);
     /**
      * Get's a specific <code>SDL_Rect</code>
-     * @param frame is <code>int</code> specifying which frame (SDL_Rect) of the 
+     * @param frame is <code>int</code> specifying which frame (SDL_Rect) of the
      *   sprite sheet the function should return
-     * @return <code>SDL_Rect</code> for the <code>current_frame_</code> in the spritesheet. This 
+     * @return <code>SDL_Rect</code> for the <code>current_frame_</code> in the spritesheet. This
      *   <code>SDL_Rect</code> is to be used in <code>GraphicsHandler::draw()</code> function
      *   as the src_rect. The <code>current_frame_</code> will be advanced at the end of the function
      */
@@ -44,13 +44,18 @@ class SpriteAnimator {
      */
     int get_total_frames();
 
-    private:
+    bool is_initialized();
+
+private:
 
     int rows_;
     int cols_;
     int total_frames_;
+    int incrementor_;
     int current_frame_;
+    int on_every_;
     SDL_Rect total_sprite_sheet_size_;
+    bool initialized_;
 
 
 };

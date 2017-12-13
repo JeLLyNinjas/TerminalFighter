@@ -82,7 +82,7 @@ void TargetingSystem::update() {
     std::map<int, GameObjectStringPair*>::iterator it = targets_.begin();
 
     while (it != targets_.end()) {
-        LOG(INFO) << "checking target id: " << it->first;
+        //LOG(INFO) << "checking target id: " << it->first;
 
         if (it->second->alive_ == true) {
             //LOG(INFO) << "status: alive";
@@ -101,7 +101,14 @@ void TargetingSystem::update() {
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
         SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), WHITE);
+        SDL_Rect ui_src_rect;
+        ui_src_rect.x = 0;
+        ui_src_rect.y = 0;
+        ui_src_rect.w = UIText->w;
+        ui_src_rect.h = UIText->h;
+
         graphics.draw(UIText,
+                      ui_src_rect,
                       (int)it->second->game_object_.x_pos(),
                       (int)it->second->game_object_.y_pos(),
                       GraphicPriority::UI,

@@ -34,8 +34,8 @@ void Missile::draw(I_GraphicsHandler& graphics) {
     }
 
     if (!spriteAnimator_.is_initialized()) {
-        //3 columns, 2 rows of sprite sheets
-        spriteAnimator_.init(missile_texture_, 3, 2, 6);
+        //3 columns, 2 rows of sprite sheets, update every 6 frames
+        spriteAnimator_.init(missile_texture_, 2, 3, 5);
     }
 
     int frame;
@@ -50,14 +50,14 @@ void Missile::draw(I_GraphicsHandler& graphics) {
     SDL_Rect dest_rect;
     dest_rect.x = (int)x_pos();
     dest_rect.y = (int)y_pos();
-    dest_rect.w = 30;
-    dest_rect.h = 72;
+    dest_rect.w = 72;
+    dest_rect.h = 30;
     graphics.draw(missile_texture_,
                   src_rect,
                   dest_rect,
                   GraphicPriority::MIDDLE,
                   true,
-                  util::angle(0, 0, x_vel_, y_vel_),
+                  util::angle(0, 0, x_vel_, y_vel_) + 90,
                   NULL);
 }
 

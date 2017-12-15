@@ -51,8 +51,8 @@ if [ $MACHINE = Mac ]; then
 fi
 
 #SDL2.0
-wget https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
-tar xzvf SDL2-2.0.3.tar.gz
+wget https://www.libsdl.org/release/SDL2-2.0.7.tar.gz
+tar xzvf SDL2-2.0.7.tar.gz
 cd SDL2-2.0.3
 ./configure
 make -j4
@@ -86,8 +86,8 @@ make install -j4
 cd $DIR
 
 #SDL2_mixer
-wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.tar.gz
-tar xzvf SDL2_mixer-2.0.0.tar.gz
+wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.2.tar.gz
+tar xzvf SDL2_mixer-2.0.2.tar.gz
 cd SDL2_mixer-2.0.0
 
 #SMPEG

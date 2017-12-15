@@ -109,6 +109,7 @@ cd build
 cmake ..
 make -j4
 make install -j4
+find / -name 'glog-config.cmake"'
 cd $DIR
 
 # yaml-cpp

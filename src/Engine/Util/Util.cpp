@@ -6,9 +6,9 @@
 namespace {
     const double PI = 3.14159265358979323846264338327950288;
 
-    const double MAX_GAME_WIDTH = 0.5625;
+    const double MAX_GAME_WIDTH = 1000000;
     const double MIN_GAME_WIDTH = -MAX_GAME_WIDTH;
-    const double MAX_GAME_HEIGHT = 1.0;
+    const double MAX_GAME_HEIGHT = 562500; // 1 million
     const double MIN_GAME_HEIGHT = -MAX_GAME_HEIGHT;
 }
 

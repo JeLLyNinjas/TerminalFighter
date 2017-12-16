@@ -1,5 +1,7 @@
 #include <glog/logging.h>
 
+#include "Util/Util.h"
+
 #include "GraphicsHandler.h"
 
 namespace {
@@ -26,6 +28,8 @@ GraphicsHandler::GraphicsHandler(
     {GraphicPriority::BACKGROUND, std::vector<DrawRequest>() }
 }) {
     SDL_GetRendererOutputSize(&renderer, &screen_width_, &screen_height_);
+    LOG(INFO) << "Graphics Handler render width: " << screen_width_;
+    LOG(INFO) << "Graphics Handler render height: " << screen_height_;
     init(graphic_paths);
 }
 
@@ -160,11 +164,41 @@ SDL_Texture* GraphicsHandler::internal_load_image(std::string path) {
 }
 
 SDL_Point GraphicsHandler::to_screen_coordinate(const SDL_Point& point) {
-    SDL_Point screen_point = point;
+    SDL_Point screen_point;
+
+    double x_ratio = // how far x is between min width and max width
+      ((point.x - Util::min_game_width()) / (Util::max_game_width() - Util::min_game_width()));
+    screen_point.x = x_ratio * screen_width_;
+
+    double y_ratio = // how far y is between min height and max height
+      ((point.y - Util::min_game_height()) / (Util::max_game_height() - Util::min_game_height()));
+    screen_point.y = y_ratio * screen_height_;
+
     return screen_point;
 }
 
 SDL_Rect GraphicsHandler::to_screen_coordinate(const SDL_Rect& rect) {
-    SDL_Rect screen_rect = rect;
+    SDL_Rect screen_rect;
+
+    double x_ratio = // how far x is between min width and max width
+      (rect.x - Util::min_game_width()) / (Util::max_game_width() - Util::min_game_width());
+    screen_rect.x = x_ratio * screen_width_;
+
+    double y_ratio = // how far y is between min height and max height
+      (rect.y - Util::min_game_height()) / (Util::max_game_height() - Util::min_game_height());
+    screen_rect.y = y_ratio * screen_height_;
+
+    double width_ratio = // how far width is between min width and max width
+      (rect.w) / (Util::max_game_width() - Util::min_game_width());
+    screen_rect.w = width_ratio * screen_width_;
+
+    double height_ratio = // how far height is between min height and max height
+      (rect.h) / (Util::max_game_height() - Util::min_game_height());
+    screen_rect.h = height_ratio * screen_height_;
+
+    LOG(INFO) << "Old game x " << rect.x << " y " << rect.y;
+    LOG(INFO) << "New screen x " << screen_rect.x << " y " << screen_rect.y;
+    LOG(INFO) << "Old game w " << rect.w << " h " << rect.h;
+    LOG(INFO) << "New screen w " << screen_rect.w << " h " << screen_rect.h;
     return screen_rect;
 }

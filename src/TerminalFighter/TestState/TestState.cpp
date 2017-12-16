@@ -12,6 +12,7 @@
 #include "GraphicsHandler/GraphicsHandler.h"
 #include "AudioHandler/AudioHandler.h"
 #include "Settings/Settings.h"
+#include "Util/Util.h"
 
 #include "MainCharacter/MainCharacter.h"
 #include "BasicEnemy/BasicEnemy.h"
@@ -65,8 +66,8 @@ gamestates::GameStateName TestState::run() {
     // Create game pieces
 
     // Setup MainCharacter
-    double main_character_x = screen_width / 2;
-    double main_character_y = screen_height - 100;
+    double main_character_x = (Util::max_game_width() + Util::min_game_width()) / 2;
+    double main_character_y = Util::min_game_height() + (Util::max_game_height() / 10);
 
     // Font paths
     std::string default_font_path;
@@ -132,7 +133,7 @@ gamestates::GameStateName TestState::run() {
                     0, 0,
                     5,
                     basic_enemy_graphic));
-            game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
+            // game_object_mediator.add_game_object(Team::ENEMY, std::move(enemy));
         }
 
         if (exit_) {

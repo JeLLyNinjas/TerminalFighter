@@ -6,8 +6,14 @@
 
 #include "MainCharacter.h"
 #include "MissileLauncher/MissileLauncher.h"
+#include "Util/Util.h"
 
 SDL_Texture* MainCharacter::texture_ = NULL;
+
+namespace {
+    const int MAIN_CHAR_WIDTH = Util::max_game_width() / 15;
+    const int MAIN_CHAR_HEIGHT = MAIN_CHAR_WIDTH;
+}
 
 MainCharacter::MainCharacter(
     double x_pos,
@@ -15,7 +21,7 @@ MainCharacter::MainCharacter(
     int health,
     std::string graphic_path)
     : GameObject(x_pos, y_pos, 0, 0, health)
-    , hitbox_(Hitbox(x_pos_, y_pos_, 100, 100))
+    , hitbox_(Hitbox(x_pos_, y_pos_, MAIN_CHAR_WIDTH, MAIN_CHAR_HEIGHT))
     , texture_path_(graphic_path)
     , weapons_() {
 }
@@ -46,7 +52,9 @@ void MainCharacter::draw(I_GraphicsHandler& graphics) {
         weapon->draw(graphics);
     }
 
-    graphics.draw(texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true);
+    SDL_Rect dest_rect = {x_pos_, y_pos_, MAIN_CHAR_WIDTH, MAIN_CHAR_HEIGHT};
+
+    graphics.draw(texture_, dest_rect, GraphicPriority::MIDDLE, true);
 }
 
 

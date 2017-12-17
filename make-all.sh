@@ -29,7 +29,4 @@ cp src/TerminalFighter/TerminalFighter ../
 ./test/runTests
 cd ..
 
-# Update docker if there are any new files
-docker build . -t $IMAGE_NAME
-
-docker run --rm -v `pwd`:/TerminalFighter/Documentation $IMAGE_NAME documentation/build-docs.sh
+./documentation/build-docs.sh

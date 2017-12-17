@@ -52,7 +52,7 @@ fi
 
 #SDL2.0
 wget https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
-tar xzvf SDL2-2.0.3.tar.gz
+tar xzf SDL2-2.0.3.tar.gz
 cd SDL2-2.0.3
 ./configure
 make -j4
@@ -61,7 +61,7 @@ cd $DIR
 
 #SDL2_ttf
 wget -O freetype-2.8.tar.gz https://sourceforge.net/projects/freetype/files/freetype2/2.8/freetype-2.8.tar.gz/download
-tar xzvf freetype-2.8.tar.gz
+tar xzf freetype-2.8.tar.gz
 cd freetype-2.8
 ./configure
 make -j4
@@ -69,7 +69,7 @@ make install -j4
 cd $DIR
 
 wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
-tar xzvf SDL2_ttf-2.0.12.tar.gz
+tar xzf SDL2_ttf-2.0.12.tar.gz
 cd SDL2_ttf-2.0.12
 ./configure
 make -j4
@@ -78,7 +78,7 @@ cd $DIR
 
 #SDL2_image
 wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz
-tar xzvf SDL2_image-2.0.0.tar.gz
+tar xzf SDL2_image-2.0.0.tar.gz
 cd SDL2_image-2.0.0
 ./configure
 make -j4
@@ -87,7 +87,7 @@ cd $DIR
 
 #SDL2_mixer
 wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.tar.gz
-tar xzvf SDL2_mixer-2.0.0.tar.gz
+tar xzf SDL2_mixer-2.0.0.tar.gz
 cd SDL2_mixer-2.0.0
 
 #SMPEG

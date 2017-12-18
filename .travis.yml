@@ -8,6 +8,6 @@ before_script:
     - ./docker_build.sh init
 
 script:
-    - ./docker_build.sh build
+    - ./docker_build.sh all
 
 language: cpp

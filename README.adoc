@@ -5,29 +5,63 @@
 Join us on Discord!
 https://discord.gg/46vtdY
 
-== How to Build Manually
+== How to Build
 
-. Navigate to the root directory of the project and create a directory called 'build' and cd into it.
-+
-`mkdir build && cd build`
-+
-. Create the makefile
-+
-`cmake ..`
-+
-. Create the Terminal Fighter Executable
-`make -j8`
-+
-. Copy the executable to the correct location
-`cp src/TerminalFighter ../`
+=== Build Script
 
-== How to Build Using `make-all.sh`
+A number of dependencies are required to build Terminal Fighter
 
-. Run `make-all.sh` script
-+
-`./make-all.sh`
+The `build.sh` script has been made available to ease the build steps.
+To build TerminalFighter and run its tests, run `build.sh` with the `src` command.
 
-= Running with High DPI
+	./build.sh src
 
-There is minimal support for high_dpi screens, run TerminalFighter with the `high_dpi` argument.
-`./TerminalFighter high_dpi`
+Aside from runtime dependencies, the following are required to build Terminal Fighter:
+
+* CMake
+* A C++17 compiler
+
+Other commands available are:
+
+* `format` will lint all the source code and format it according to the `astylerc` file, `astyle` will need to be installed for this.
+
+* `docs` build documentation out of the inline comments in the source using Doxygen.
+* `clean` will remove any old build artifacts.
+
+=== Dependencies
+
+A number of dependencies are required to build Terminal Fighter, a non exhaustive list includes.
+
+* pkg-config-0.28
+* SDL2_image-2.0.0
+* freetype-2.8
+* SDL2_ttf-2.0.12
+* SDL2-2.0.3
+* SDL2_mixer-2.0.0
+* glog
+* yaml-cpp
+
+These can be installed from source using the `installer.sh` script.
+
+=== Using Docker
+
+The `build.sh` can be ran in a docker environment.
+Any arguments used for the `build.sh` script can be used with the `docker_build.sh` script.
+Additionally, the commands `init` and `shell` are also available.
+
+* `init` will create the docker image, this will need to be called on a fresh clone or whenever the `Dockerfile` changes.
+* `shell` starts an interactive shell in the docker environment, this is mainly for debug purposes in Docker.
+
+Using a `build.sh` command for example would look like
+
+	./docker_build.sh src
+
+== Settings
+
+Default settings are included in the `config.example` directory, but Terminal Fighter by default reads from a `config` directory.
+If the `config` directory is not found, Terminal Fighter will attempt to copy `config.example` to `config`, it can also be manually copied.
+
+=== Running with High DPI
+
+There is minimal support for high_dpi screens.
+This setting is called `high_dpi` in the `config/video_settings.yml` file.

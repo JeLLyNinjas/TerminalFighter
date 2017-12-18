@@ -1,32 +1,13 @@
-sudo: required
-
 dist: trusty
 
-addons:
-  apt:
-    sources:
-      - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
-      - ubuntu-toolchain-r-test
-    packages:
-      - openssl
-      - libssl-dev
-      - libcurl4-openssl-dev
-      - cmake
-      - cmake-data
-      - g++-6
-
-install:
-    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
-    - sudo bash ./installer.sh
-    - wget 'https://sourceforge.net/projects/astyle/files/astyle/astyle%203.0/astyle_3.0_linux.tar.gz/download'
-    - tar -xzvf download
-    - (cd astyle/build/gcc && make release && sudo make install)
-    - rm astyle -r
+services:
+  - docker
 
 before_script:
-    - chmod +x make-all.sh
+    - chmod +x docker_build.sh
+    - ./docker_build.sh init
 
 script:
-    - ./make-all.sh
+    - ./docker_build.sh all
 
 language: cpp

@@ -29,7 +29,7 @@ function format {
 function docs {
 	(cd "$DIR"/documentation && doxygen -g)
 	(cd "$DIR"/documentation && patch --no-backup-if-mismatch < $DIR/documentation/Doxyfile.patch)
-	(cd "$DIR"/documentation && doxygen Doxyfile)
+	doxygen "$DIR"/documentation/Doxyfile
 	rm $DIR/documentation/Doxyfile
 }
 
@@ -41,7 +41,6 @@ if [ "$1" == "all" ]; then
 	src
 	format
 	docs
-	clean
 elif [ "$1" == "src" ]; then
 	src
 elif [ "$1" == "format" ]; then

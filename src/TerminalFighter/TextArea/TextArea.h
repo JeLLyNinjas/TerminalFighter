@@ -4,11 +4,6 @@
 
 #include "I_TextArea.h"
 
-namespace{
-    const SDL_Color COLOR_WHITE = {255, 255, 255};
-    const SDL_Color COLOR_GRAY = {100, 100, 100};
-}
-
 class TextArea : public I_TextArea {
 public:
     TextArea(std::string, SDL_Color, int, int, int, int, std::string, int);

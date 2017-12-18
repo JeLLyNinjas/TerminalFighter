@@ -4,7 +4,8 @@ readonly DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 readonly IMAGE_NAME="jellyninjas/terminalfighter"
 
 if [[ $# -eq 0 ]]; then
-	echo "usage: docker_build [init | build | <build.sh args>]"
+	echo "usage: docker_build [init | shell | <build.sh args>]"
+	exit 1
 fi
 
 if [[ "$1" == "init" ]]; then

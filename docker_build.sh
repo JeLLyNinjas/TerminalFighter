@@ -18,6 +18,8 @@ else
 	docker run --rm \
 		-v $DIR:/TerminalFighter/ \
 		$IMAGE_NAME ./build.sh "$1"
-	chown 1000:1000 -R .
+	docker run --rm \
+		-v $DIR:/TerminalFighter/ \
+		$IMAGE_NAME chown -R 1000:1000 .
 fi
 

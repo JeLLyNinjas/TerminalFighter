@@ -1,8 +1,19 @@
 FROM ubuntu:xenial
 
-# Apt packages
-# We don't want any interactive prompts
-RUN apt-get update && DEBIAN_FRONTEND=non-interactive apt-get install -yq doxygen graphviz patch
+COPY installer.sh /
 
-# Set WORKDIR
-WORKDIR /TerminalFighter/Documentation
+ENV DEBIAN_FRONTEND non-interactive
+
+RUN apt-get -qq update && \
+	apt-get -qq install \
+		doxygen \
+		graphviz \
+		patch \
+		wget \
+		git \
+		cmake \
+		build-essential \
+		pkg-config && \
+	./installer.sh
+
+WORKDIR /TerminalFighter/

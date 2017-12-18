@@ -15,7 +15,7 @@ elif [ "$1" == "shell" ]; then
 		-v $DIR:/TerminalFighter/ \
 		$IMAGE_NAME /bin/bash
 else
-	docker run --rm \
+	docker run --rm -t \
 		-v $DIR:/TerminalFighter/ \
 		$IMAGE_NAME ./build.sh "$1"
 	docker run --rm \

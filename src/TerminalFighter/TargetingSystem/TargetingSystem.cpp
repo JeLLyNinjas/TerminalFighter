@@ -6,13 +6,13 @@
 #include <SDL_ttf.h>
 
 #include "GraphicsHandler/I_GraphicsHandler.h"
-#include "TF_Colours/TF_Colours.h"
+#include "TF_Colors/TF_Colors.h"
 
 #include "TargetingSystem.h"
 
 namespace {
     int FONT_SIZE = 24;
-    int MAX_WORD_LENGTH = 30;
+    unsigned int MAX_WORD_LENGTH = 30;
 }
 
 TargetingSystem::TargetingSystem(
@@ -101,7 +101,7 @@ void TargetingSystem::update() {
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
-        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), TF_Colours::WHITE);
+        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), TF_Colors::WHITE);
         graphics.draw(UIText, (int)it->second->game_object_.x_pos(), (int)it->second->game_object_.y_pos(),
                       GraphicPriority::UI, true);
     }

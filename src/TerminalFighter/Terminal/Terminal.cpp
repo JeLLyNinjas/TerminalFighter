@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL_ttf.h>
 
-#include "TF_Colours/TF_Colours.h"
+#include "TF_Colors/TF_Colors.h"
 #include "GraphicsHandler/I_GraphicsHandler.h"
 
 #include "Terminal.h"
@@ -36,7 +36,7 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image(terminal_texture_path_));
     }
 
-    SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, player_text_.c_str(), TF_Colours::WHITE);
+    SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, player_text_.c_str(), TF_Colors::WHITE);
     graphics.draw(terminal_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::UI, true);
     graphics.draw(UIText, (int)x_pos() + 30, (int)y_pos() + 30, GraphicPriority::UI, true);
 }

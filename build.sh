@@ -8,8 +8,8 @@ NC='\033[0m'
 
 function src {
 	mkdir -p "$DIR"/build
-	cmake "$DIR"
-	(cd "$DIR" && make -j8)
+	(cd $DIR/build && cmake ..)
+	(cd "$DIR"/build && make -j8)
 
 	if [ $? -eq 0 ]; then
     	printf "\n${GREEN}|*******| SOURCE COMPILATION SUCCESSFUL |*******|${NC}\n\n"
@@ -37,7 +37,12 @@ function clean {
 	rm -r $DIR/build
 }
 
-if [ "$1" == "src" ]; then
+if [ "$1" == "all" ]; then
+	src
+	format
+	docs
+	clean
+elif [ "$1" == "src" ]; then
 	src
 elif [ "$1" == "format" ]; then
 	format
@@ -46,5 +51,5 @@ elif [ "$1" == "docs" ]; then
 elif [ "$1" == "clean" ]; then
 	clean
 else
-	echo "usage: $0 [src | format | docs | clean]"
+	echo "usage: $0 [all | src | format | docs | clean]"
 fi

@@ -3,7 +3,7 @@
 == Discussions
 
 Join us on Discord!
-https://discord.gg/46vtdY
+https://discord.gg/FkKQaty
 
 == How to Build
 
@@ -27,10 +27,11 @@ Other commands available are:
 
 * `docs` build documentation out of the inline comments in the source using Doxygen.
 * `clean` will remove any old build artifacts.
+* `all` builds the source, docs, and formats the code.
 
 === Dependencies
 
-A number of dependencies are required to build Terminal Fighter, a non exhaustive list includes.
+A number of dependencies are required to build Terminal Fighter, a non exhaustive list includes:
 
 * pkg-config-0.28
 * SDL2_image-2.0.0

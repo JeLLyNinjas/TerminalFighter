@@ -12,6 +12,7 @@
 #include "GraphicsHandler/GraphicsHandler.h"
 #include "AudioHandler/AudioHandler.h"
 #include "Settings/Settings.h"
+#include "Rect/Rect.h"
 #include "Util/Util.h"
 
 #include "MainCharacter/MainCharacter.h"
@@ -158,7 +159,7 @@ gamestates::GameStateName TestState::name() const {
 void TestState::display_debug_frames_(Delay* delayer) {
     SDL_Surface* frame_rate_surface = delayer->grab_frame_rate();
     SDL_Texture* frame_rate_texture = SDL_CreateTextureFromSurface(&renderer_, frame_rate_surface);
-    SDL_Rect Message_rect; //create a rect
+    Rect Message_rect; //create a rect
     Message_rect.x = 0;  //controls the rect's x coordinate
     Message_rect.y = 0; // controls the rect's y coordinte
     Message_rect.w = 200; // controls the width of the rect

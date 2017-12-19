@@ -52,7 +52,7 @@ void MainCharacter::draw(I_GraphicsHandler& graphics) {
         weapon->draw(graphics);
     }
 
-    SDL_Rect dest_rect = {x_pos_, y_pos_, MAIN_CHAR_WIDTH, MAIN_CHAR_HEIGHT};
+    Rect dest_rect = {x_pos_, y_pos_, MAIN_CHAR_WIDTH, MAIN_CHAR_HEIGHT};
 
     graphics.draw(texture_, dest_rect, GraphicPriority::MIDDLE, true);
 }

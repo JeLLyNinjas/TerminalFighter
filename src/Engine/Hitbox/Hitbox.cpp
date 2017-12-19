@@ -1,28 +1,28 @@
 #include "Hitbox.h"
 
-Hitbox::Hitbox(int x_pos, int y_pos, int width, int height)
-    : hitbox_type_(Shape::RECT),
-      hitbox_ {x_pos, y_pos, width, height} {
+Hitbox::Hitbox(double x_pos, double y_pos, double width, double height)
+    : hitbox_ {x_pos, y_pos, width, height}
+    , hitbox_type_(Shape::RECT) {
 }
 
-Hitbox::Hitbox(int x_pos, int y_pos, int radius)
+Hitbox::Hitbox(double x_pos, double y_pos, double radius)
     : hitbox_type_(Shape::CIRCLE) {
     circle_hitbox_.x = x_pos;
     circle_hitbox_.y = y_pos;
     circle_hitbox_.r = radius;
 }
 
-Hitbox::Hitbox(SDL_Rect hitbox)
-    : hitbox_(hitbox),
-      hitbox_type_(Shape::RECT) {
+Hitbox::Hitbox(Rect hitbox)
+    : hitbox_(hitbox)
+    , hitbox_type_(Shape::RECT) {
 }
 
 Hitbox::Hitbox(Circle hitbox)
-    : circle_hitbox_(hitbox),
-      hitbox_type_(Shape::CIRCLE) {
+    : circle_hitbox_(hitbox)
+    , hitbox_type_(Shape::CIRCLE) {
 }
 
-void Hitbox::set_pos(int x, int y) {
+void Hitbox::set_pos(double x, double y) {
     if (hitbox_type_ == Shape::RECT) {
         hitbox_.x = x;
         hitbox_.y = y;
@@ -61,7 +61,7 @@ bool Hitbox::check_overlap(const Circle& hitbox, const Circle& other_hitbox) con
     return distanceSquared <= radiusSquared;
 }
 
-bool Hitbox::check_overlap(const Circle& hitbox, const SDL_Rect& other_hitbox) const {
+bool Hitbox::check_overlap(const Circle& hitbox, const Rect& other_hitbox) const {
     double rect_centre_x = (other_hitbox.x + other_hitbox.w) / 2;
     double rect_centre_y = (other_hitbox.y + other_hitbox.h) / 2;
     double distance_x = abs(hitbox.x - rect_centre_x);
@@ -89,15 +89,17 @@ bool Hitbox::check_overlap(const Circle& hitbox, const SDL_Rect& other_hitbox) c
     return (cornerDistance_sq <= (hitbox.r * hitbox.r));
 }
 
-bool Hitbox::check_overlap(const SDL_Rect& hitbox, const SDL_Rect& other_hitbox) const {
-    return SDL_HasIntersection(&hitbox_, &other_hitbox);
+bool Hitbox::check_overlap(const Rect& hitbox, const Rect& other_hitbox) const {
+    SDL_Rect srect = hitbox.to_sdl_rect();
+    SDL_Rect other_srect = other_hitbox.to_sdl_rect();
+    return SDL_HasIntersection(&srect, &other_srect);
 }
 
 const Shape::Shape& Hitbox::hitbox_type() const {
     return hitbox_type_;
 }
 
-const SDL_Rect& Hitbox::hitbox() const {
+const Rect& Hitbox::hitbox() const {
     return hitbox_;
 }
 

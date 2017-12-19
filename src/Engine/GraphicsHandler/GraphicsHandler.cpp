@@ -34,7 +34,7 @@ GraphicsHandler::GraphicsHandler(
 }
 
 void GraphicsHandler::draw(SDL_Texture* texture,
-                           SDL_Rect dest_rect,
+                           Rect dest_rect,
                            GraphicPriority priority,
                            bool cleanup,
                            double angle_clockwise,
@@ -80,7 +80,7 @@ void GraphicsHandler::draw(SDL_Surface* surface,
 }
 
 void GraphicsHandler::draw(SDL_Texture* texture,
-                           SDL_Rect dest_rect,
+                           Rect dest_rect,
                            GraphicPriority priority,
                            bool cleanup) {
 
@@ -109,7 +109,7 @@ void GraphicsHandler::draw(SDL_Surface* surface,
 void GraphicsHandler::update_screen() {
     for (auto priority : DRAW_ORDER) {
         for (auto& draw_request : draw_queue_[priority]) {
-            SDL_Rect screen_dest_rect = to_screen_coordinate(draw_request.dest_rect());
+            Rect screen_dest_rect = to_screen_coordinate(draw_request.dest_rect());
             draw_request.set_dest_rect(screen_dest_rect);
 
             SDL_Point screen_rot_pt;
@@ -167,33 +167,33 @@ SDL_Point GraphicsHandler::to_screen_coordinate(const SDL_Point& point) {
     SDL_Point screen_point;
 
     double x_ratio = // how far x is between min width and max width
-      ((point.x - Util::min_game_width()) / (Util::max_game_width() - Util::min_game_width()));
+        ((point.x - Util::min_game_width()) / (Util::max_game_width() - Util::min_game_width()));
     screen_point.x = x_ratio * screen_width_;
 
     double y_ratio = // how far y is between min height and max height
-      ((point.y - Util::min_game_height()) / (Util::max_game_height() - Util::min_game_height()));
+        ((point.y - Util::min_game_height()) / (Util::max_game_height() - Util::min_game_height()));
     screen_point.y = y_ratio * screen_height_;
 
     return screen_point;
 }
 
-SDL_Rect GraphicsHandler::to_screen_coordinate(const SDL_Rect& rect) {
-    SDL_Rect screen_rect;
+Rect GraphicsHandler::to_screen_coordinate(const Rect& rect) {
+    Rect screen_rect;
 
     double x_ratio = // how far x is between min width and max width
-      (rect.x - Util::min_game_width()) / (Util::max_game_width() - Util::min_game_width());
+        (rect.x - Util::min_game_width()) / (Util::max_game_width() - Util::min_game_width());
     screen_rect.x = x_ratio * screen_width_;
 
     double y_ratio = // how far y is between min height and max height
-      (rect.y - Util::min_game_height()) / (Util::max_game_height() - Util::min_game_height());
+        (rect.y - Util::min_game_height()) / (Util::max_game_height() - Util::min_game_height());
     screen_rect.y = y_ratio * screen_height_;
 
     double width_ratio = // how far width is between min width and max width
-      (rect.w) / (Util::max_game_width() - Util::min_game_width());
+        (rect.w) / (Util::max_game_width() - Util::min_game_width());
     screen_rect.w = width_ratio * screen_width_;
 
     double height_ratio = // how far height is between min height and max height
-      (rect.h) / (Util::max_game_height() - Util::min_game_height());
+        (rect.h) / (Util::max_game_height() - Util::min_game_height());
     screen_rect.h = height_ratio * screen_height_;
 
     LOG(INFO) << "Old game x " << rect.x << " y " << rect.y;

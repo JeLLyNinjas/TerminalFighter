@@ -1,5 +1,7 @@
 #include <glog/logging.h>
 
+#include "Rect/Rect.h"
+
 #include "MenuState.h"
 
 MenuState::MenuState(SDL_Renderer& renderer, const I_Settings& settings)
@@ -16,9 +18,11 @@ gamestates::GameStateName MenuState::run() {
         LOG(FATAL) << "Failed to load default font in MenuState";
     }
     int window_width, window_height;
+
     if (!settings_.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "width"}, window_width)) {
         LOG(FATAL) << "Failed to load window width in MenuState";
     }
+
     if (!settings_.load_int(SettingsSection::VIDEO_SETTINGS, {"window", "height"}, window_height)) {
         LOG(FATAL) << "Failed to load window height in MenuState";
     }
@@ -44,6 +48,7 @@ gamestates::GameStateName MenuState::run() {
                     switch (event.key.keysym.sym) {
                         case SDLK_RETURN:
                             LOG(INFO) << "Enter was pressed!";
+
                             if (main_menu.get_current_selection() == MainMenu::Options::START) {
                                 LOG(INFO) << "Start selected";
                                 return gamestates::TEST;
@@ -51,6 +56,7 @@ gamestates::GameStateName MenuState::run() {
                                 LOG(INFO) << "Quit selected";
                                 return gamestates::EXIT;
                             }
+
                             break;
 
                         case SDLK_UP:
@@ -64,6 +70,7 @@ gamestates::GameStateName MenuState::run() {
                     }
             }
         }
+
         main_menu.update();
 
         display_debug_frames(&delayer);
@@ -83,7 +90,7 @@ void MenuState::display_debug_frames(Delay* delayer) {
     SDL_Surface* frame_rate_surface = delayer->grab_frame_rate();
     SDL_Texture* frame_rate_texture = SDL_CreateTextureFromSurface(&renderer_, frame_rate_surface);
     SDL_FreeSurface(frame_rate_surface);
-    SDL_Rect Message_rect; //create a rect
+    Rect Message_rect; //create a rect
     Message_rect.x = 0;  //controls the rect's x coordinate
     Message_rect.y = 0; // controls the rect's y coordinte
     Message_rect.w = 200; // controls the width of the rect

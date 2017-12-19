@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "DrawRequest/DrawRequest.h"
+#include "Rect/Rect.h"
 
 class I_GraphicsHandler {
 public:
@@ -50,7 +51,7 @@ public:
      *   set to NULL for rotation to be done around the center (dest_rect.w/2, dest_rect.h/2).
      */
     virtual void draw(SDL_Texture* texture,
-                      SDL_Rect dest_rect,
+                      Rect dest_rect,
                       GraphicPriority priority,
                       bool cleanup,
                       double angle_clockwise,
@@ -141,7 +142,7 @@ public:
      *   Refer to the main description of the draw function for explanation on when the SDL_RenderCopy occurs.
      */
     virtual void draw(SDL_Texture* texture,
-                      SDL_Rect dest_rect,
+                      Rect dest_rect,
                       GraphicPriority priority,
                       bool cleanup) = 0;
     /**

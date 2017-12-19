@@ -2,6 +2,8 @@
 
 #include <SDL_ttf.h>
 
+#include "Rect/Rect.h"
+
 #include "I_TextArea.h"
 
 class TextArea : public I_TextArea {
@@ -13,6 +15,6 @@ public:
 private:
     std::string text_str_;
     SDL_Color color_;
-    SDL_Rect message_rect_;
+    Rect message_rect_;
     TTF_Font* font_;
 };

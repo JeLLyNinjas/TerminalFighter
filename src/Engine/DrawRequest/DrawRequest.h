@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL.h>
 
+#include "Rect/Rect.h"
+
 enum GraphicPriority {
     OVERLAY,
     UI,
@@ -15,15 +17,15 @@ class DrawRequest {
 public:
     //clock_angle is the angle in degrees, clockwise from the y-axis
     explicit DrawRequest(SDL_Texture* texture,
-                         SDL_Rect dest_rect,
+                         Rect dest_rect,
                          bool cleanup,
                          double clock_angle,
                          SDL_Point* rotation_point);
 
     SDL_Texture* texture() const;
 
-    const SDL_Rect& dest_rect() const;
-    void set_dest_rect(const SDL_Rect& rect);
+    const Rect& dest_rect() const;
+    void set_dest_rect(const Rect& rect);
 
     const bool cleanup() const;
 
@@ -34,7 +36,7 @@ public:
 
 private:
     SDL_Texture* texture_;
-    SDL_Rect dest_rect_;
+    Rect dest_rect_;
     bool cleanup_;
     double angle_clockwise_from_vertical_;
     SDL_Point* rotation_point_;

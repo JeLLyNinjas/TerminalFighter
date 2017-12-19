@@ -1,7 +1,7 @@
 #include "DrawRequest.h"
 
 DrawRequest::DrawRequest(SDL_Texture* texture,
-                         SDL_Rect dest_rect,
+                         Rect dest_rect,
                          bool cleanup,
                          double angle_clockwise_from_vertical,
                          SDL_Point* rotation_point)
@@ -16,11 +16,11 @@ SDL_Texture* DrawRequest::texture() const {
     return texture_;
 }
 
-const SDL_Rect& DrawRequest::dest_rect() const {
+const Rect& DrawRequest::dest_rect() const {
     return dest_rect_;
 }
 
-void DrawRequest::set_dest_rect(const SDL_Rect& rect) {
+void DrawRequest::set_dest_rect(const Rect& rect) {
     dest_rect_ = rect;
 }
 

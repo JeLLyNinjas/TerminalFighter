@@ -23,7 +23,7 @@ public:
                     std::vector<std::string> graphic_paths);
     void init(const std::vector<std::string>& graphic_paths);
     void draw(SDL_Texture* texture,
-              SDL_Rect dest_rect,
+              Rect dest_rect,
               GraphicPriority priority,
               bool cleanup,
               double angle_clockwise,
@@ -46,7 +46,7 @@ public:
               SDL_Point* rotation_point);
 
     void draw(SDL_Texture* texture,
-              SDL_Rect dest_rect,
+              Rect dest_rect,
               GraphicPriority priority,
               bool cleanup);
 
@@ -68,7 +68,7 @@ public:
 private:
     SDL_Texture* internal_load_image(std::string path);
     SDL_Point to_screen_coordinate(const SDL_Point& point);
-    SDL_Rect to_screen_coordinate(const SDL_Rect& point);
+    Rect to_screen_coordinate(const Rect& point);
 
     SDL_Renderer& renderer_;
     int screen_width_;

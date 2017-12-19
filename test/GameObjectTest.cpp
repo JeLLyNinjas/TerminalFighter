@@ -22,7 +22,7 @@ TEST(GameObjectTest, incrementing_id) {
         gameobjects[i] = new MockGameObject();
     }
 
-    int prev_id = gameobjects[0]->id();
+    unsigned int prev_id = gameobjects[0]->id();
 
     for (int i = 1 ; i < NUM; i++) {
         unsigned int actual = gameobjects[i]->id();

@@ -16,7 +16,7 @@ int SpriteAnimator::init(SDL_Texture* texture, int rows, int cols, int on_every)
     rows_ = rows;
     cols_ = cols;
     //total_frames_ = rows * cols;
-    current_frame_ = 0;
+    current_index_ = 0;
     int w, h;
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     // We will run off the assumption that the given
@@ -39,11 +39,11 @@ int SpriteAnimator::init(SDL_Texture* texture, int rows, int cols, int on_every,
 SDL_Rect SpriteAnimator::get_next_frame(int& returned_frame) {
     // We want to be able to call this function, and start with frame 0
     // So we advance the frame at the end of this function
-    returned_frame = current_frame_;
+    returned_frame = draw_order_.at(current_index_);
     SDL_Rect return_rect;
 
-    int on_row = current_frame_ / cols_; //integer division for the floor
-    int on_col = current_frame_ % (rows_ - 1);
+    int on_row = draw_order_.at(current_index_) / cols_; //integer division for the floor
+    int on_col = draw_order_.at(current_index_) % (rows_ - 1);
 
     return_rect.w = total_sprite_sheet_size_.w / cols_;
     return_rect.h = total_sprite_sheet_size_.h / rows_;
@@ -53,9 +53,9 @@ SDL_Rect SpriteAnimator::get_next_frame(int& returned_frame) {
     incrementor_++;
     incrementor_ = incrementor_ % on_every_;
     if (incrementor_ == 0) {
-        current_frame_++;
+        current_index_++;
     }
-    current_frame_ = current_frame_ % draw_order_.size();
+    current_index_ = current_index_ % draw_order_.size();
 
     return return_rect;
 }

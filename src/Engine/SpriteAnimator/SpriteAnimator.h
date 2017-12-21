@@ -57,7 +57,7 @@ private:
     int rows_;
     int cols_;
     int incrementor_;
-    int current_frame_;
+    int current_index_;
     int on_every_;
     std::vector<int> draw_order_;
     SDL_Rect total_sprite_sheet_size_;

@@ -6,10 +6,16 @@ SpriteAnimator::SpriteAnimator()
 
 // Keeping this as an init right now because the objects may not
 int SpriteAnimator::init(SDL_Texture* texture, int rows, int cols, int on_every) {
+    //If there was no draw_order given as an argument, we will create a default
+    if (draw_order_.size() == 0) {
+        for (int i = 0; i < rows*cols; i++) {
+            draw_order_.push_back(i);
+        }
+    }
     on_every_ = on_every;
     rows_ = rows;
     cols_ = cols;
-    total_frames_ = rows * cols;
+    //total_frames_ = rows * cols;
     current_frame_ = 0;
     int w, h;
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
@@ -21,7 +27,14 @@ int SpriteAnimator::init(SDL_Texture* texture, int rows, int cols, int on_every)
     total_sprite_sheet_size_.w = w;
     total_sprite_sheet_size_.h = h;
     initialized_ = true;
+    return 0;
 }
+
+int SpriteAnimator::init(SDL_Texture* texture, int rows, int cols, int on_every, std::vector<int> draw_order) {
+    draw_order_ = draw_order;
+    return init(texture, rows, cols, on_every);
+}
+
 
 SDL_Rect SpriteAnimator::get_next_frame(int& returned_frame) {
     // We want to be able to call this function, and start with frame 0
@@ -42,7 +55,7 @@ SDL_Rect SpriteAnimator::get_next_frame(int& returned_frame) {
     if (incrementor_ == 0) {
         current_frame_++;
     }
-    current_frame_ = current_frame_ % total_frames_;
+    current_frame_ = current_frame_ % draw_order_.size();
 
     return return_rect;
 }

@@ -13,7 +13,7 @@ Missile::Missile(
     double x_vel, double y_vel,
     int health, std::string graphic_path)
     : GameObject(x_pos, y_pos, x_vel, y_vel, health)
-    , hitbox_(Hitbox(x_pos, y_pos, 30, 72))
+    , hitbox_(Hitbox(x_pos, y_pos, 30, 172))
     , texture_path_(graphic_path) {
 }
 
@@ -42,7 +42,7 @@ void Missile::draw(I_GraphicsHandler& graphics) {
     SDL_Rect dest_rect;
     dest_rect.x = (int)x_pos();
     dest_rect.y = (int)y_pos();
-    dest_rect.w = 72;
+    dest_rect.w = 172;
     dest_rect.h = 30;
     graphics.draw(missile_texture_,
                   spriteAnimator_.get_next_frame(),

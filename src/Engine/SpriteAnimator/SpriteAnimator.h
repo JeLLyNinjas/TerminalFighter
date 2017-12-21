@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Engine/GraphicsHandler/I_GraphicsHandler.h"
+#include <vector>
 
 class SpriteAnimator {
 public:
@@ -14,9 +15,14 @@ public:
      */
     int init(SDL_Texture* texture, int rows, int cols, int on_every);
     /**
+     * Uses the <code>SDL_Texture*</code> to create a <code>SDL_Rect</code> that represents the
+     * spritesheet.
+     */
+    int init(SDL_Texture* texture, int rows, int cols, int on_every, std::vector<int> draw_order);
+    /**
      * Get's the next <code>SDL_Rect</code>
      * @return <code>SDL_Rect</code> for the next frame in the spritesheet. This
-     *   <code>SDL_Rect</code> is to be used in <code>GraphicsHandler::draw()</code> function
+     *   <code>SDL_Rect</code> is meant to be used in <code>GraphicsHandler::draw()</code> function
      *   as the src_rect
      */
     SDL_Rect get_next_frame();
@@ -50,12 +56,11 @@ private:
 
     int rows_;
     int cols_;
-    int total_frames_;
     int incrementor_;
     int current_frame_;
     int on_every_;
+    std::vector<int> draw_order_;
     SDL_Rect total_sprite_sheet_size_;
     bool initialized_;
-
 
 };

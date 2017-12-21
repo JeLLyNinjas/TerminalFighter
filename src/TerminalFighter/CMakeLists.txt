@@ -11,6 +11,8 @@ add_library(TargetingSystem TargetingSystem/TargetingSystem.cpp)
 add_library(MenuState MenuState/MenuState.cpp)
 add_library(TestState TestState/TestState.cpp)
 add_library(Settings Settings/Settings.cpp)
+add_library(MainMenu MainMenu/MainMenu.cpp)
+add_library(TextArea TextArea/TextArea.cpp)
 
 target_link_libraries(BasicEnemy Hitbox)
 target_link_libraries(MainCharacter ${SDL2_LIBRARIES})
@@ -23,4 +25,4 @@ target_link_libraries(Settings yaml-cpp)
 
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} glog::glog ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES}
-    ${SDL2_TTF_LIBRARIES} ${SDL2_MIXER_LIBRARIES} TestState MenuState GameStateHandler)
+    ${SDL2_TTF_LIBRARIES} ${SDL2_MIXER_LIBRARIES} TestState MenuState GameStateHandler MainMenu TextArea)

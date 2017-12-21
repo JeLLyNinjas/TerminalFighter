@@ -5,13 +5,14 @@
 #include <glog/logging.h>
 #include <SDL_ttf.h>
 
-#include "TargetingSystem.h"
 #include "GraphicsHandler/I_GraphicsHandler.h"
+#include "TF_Colors/TF_Colors.h"
+
+#include "TargetingSystem.h"
 
 namespace {
-    SDL_Color WHITE = {255, 255, 255};
     int FONT_SIZE = 24;
-    int MAX_WORD_LENGTH = 30;
+    unsigned int MAX_WORD_LENGTH = 30;
 }
 
 TargetingSystem::TargetingSystem(
@@ -100,7 +101,7 @@ void TargetingSystem::update() {
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
-        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), WHITE);
+        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), TF_Colors::WHITE);
         SDL_Rect ui_src_rect;
         ui_src_rect.x = 0;
         ui_src_rect.y = 0;

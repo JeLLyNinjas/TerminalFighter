@@ -2,8 +2,10 @@
 #include <SDL2/SDL.h>
 #include <SDL_ttf.h>
 
-#include "Terminal.h"
+#include "TF_Colors/TF_Colors.h"
 #include "GraphicsHandler/I_GraphicsHandler.h"
+
+#include "Terminal.h"
 
 SDL_Texture* Terminal::terminal_texture_ = NULL;
 
@@ -35,7 +37,7 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
     }
 
     SDL_Color white = {255, 255, 255};
-    SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, player_text_.c_str(), white);
+    SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, player_text_.c_str(), TF_Colors::WHITE);
     SDL_Rect ui_src_rect;
     ui_src_rect.x = 0;
     ui_src_rect.y = 0;

@@ -30,13 +30,8 @@ void BasicEnemy::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image("assets/images/ships/BasicEnemy.png"));
     }
 
-    SDL_Rect src_rect;
-    SDL_QueryTexture(texture_, NULL, NULL, &src_rect.w, &src_rect.h);
-    src_rect.x = 0;
-    src_rect.y = 0;
-
     graphics.draw(texture_,
-                  src_rect,
+                  graphics.create_default_rect(texture_),
                   (int)x_pos(),
                   (int)y_pos(),
                   GraphicPriority::MIDDLE,

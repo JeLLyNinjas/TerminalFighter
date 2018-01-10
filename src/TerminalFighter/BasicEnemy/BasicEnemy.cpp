@@ -29,6 +29,7 @@ void BasicEnemy::draw(I_GraphicsHandler& graphics) {
         LOG(WARNING) << "BasicEnemy graphics were null! Setting BasicEnemy graphic...";
         set_texture(graphics.load_image("assets/images/ships/BasicEnemy.png"));
     }
+
     SDL_Rect src_rect;
     SDL_QueryTexture(texture_, NULL, NULL, &src_rect.w, &src_rect.h);
     src_rect.x = 0;

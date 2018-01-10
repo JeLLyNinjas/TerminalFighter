@@ -21,6 +21,7 @@ public:
      */
     GraphicsHandler(SDL_Renderer& renderer, std::vector<std::string> graphic_paths);
     void init(const std::vector<std::string>& graphic_paths);
+    SDL_Rect create_default_rect(SDL_Texture* texture);
     void draw(SDL_Texture* texture,
               SDL_Rect src_rect,
               SDL_Rect dest_rect,

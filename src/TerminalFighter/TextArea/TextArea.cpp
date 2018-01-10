@@ -4,10 +4,10 @@ TextArea::TextArea(std::string t, SDL_Color c, int x, int y, int w, int h, std::
     : text_str_(t)
     , color_(c)
     , font_(TTF_OpenFont(font_path.c_str(), font_size)) {
-        message_rect_.x = x;
-        message_rect_.y = y;
-        message_rect_.w = w;
-        message_rect_.h = h;
+    message_rect_.x = x;
+    message_rect_.y = y;
+    message_rect_.w = w;
+    message_rect_.h = h;
 }
 
 TextArea::~TextArea() {}

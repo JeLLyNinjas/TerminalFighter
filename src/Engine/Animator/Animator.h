@@ -3,22 +3,22 @@
 #include "../Engine/GraphicsHandler/I_GraphicsHandler.h"
 #include <vector>
 
-class SpriteAnimator {
+class Animator {
 public:
     /**
      * Creates a Sprite Animator object
      */
-    SpriteAnimator();
+    Animator();
     /**
      * Uses the <code>SDL_Texture*</code> to create a <code>SDL_Rect</code> that represents the
      * spritesheet.
      */
-    int init(SDL_Texture* texture, int rows, int cols, int on_every);
+    int init(SDL_Texture* texture, int rows, int cols, int period);
     /**
      * Uses the <code>SDL_Texture*</code> to create a <code>SDL_Rect</code> that represents the
      * spritesheet.
      */
-    int init(SDL_Texture* texture, int rows, int cols, int on_every, std::vector<int> draw_order);
+    int init(SDL_Texture* texture, int rows, int cols, int period, std::vector<int> draw_order);
     /**
      * Get's the next <code>SDL_Rect</code>
      * @return <code>SDL_Rect</code> for the next frame in the spritesheet. This
@@ -29,7 +29,7 @@ public:
     /**
      * Get's the <code>SDL_Rect</code>
      * @param returned_frame is just a way for the user to check what frame
-     *   was returned when <code>SpriteAnimator::get_next_frame()</code> was called
+     *   was returned when <code>Animator::get_next_frame()</code> was called
      * @return <code>SDL_Rect</code> for the <code>current_frame_</code> in the spritesheet. This
      *   <code>SDL_Rect</code> is to be used in <code>GraphicsHandler::draw()</code> function
      *   as the src_rect. The <code>current_frame_</code> will be advanced at the end of the function
@@ -58,7 +58,7 @@ private:
     int cols_;
     int incrementor_;
     int current_index_;
-    int on_every_;
+    int period_;
     std::vector<int> draw_order_;
     SDL_Rect total_sprite_sheet_size_;
     bool initialized_;

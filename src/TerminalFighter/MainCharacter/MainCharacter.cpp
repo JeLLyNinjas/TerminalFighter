@@ -45,13 +45,14 @@ void MainCharacter::draw(I_GraphicsHandler& graphics) {
     for (auto& weapon : weapons_) {
         weapon->draw(graphics);
     }
+
     SDL_Rect src_rect;
     SDL_QueryTexture(texture_, NULL, NULL, &src_rect.w, &src_rect.h);
     src_rect.x = 0;
     src_rect.y = 0;
 
     graphics.draw(texture_,
-                  src_rect, 
+                  src_rect,
                   (int)x_pos(),
                   (int)y_pos(),
                   GraphicPriority::MIDDLE,

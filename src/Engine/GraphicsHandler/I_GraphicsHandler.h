@@ -2,6 +2,8 @@
 
 #include <string>
 #include <vector>
+#include <SDL2/SDL.h>
+
 
 #include "DrawRequest/DrawRequest.h"
 
@@ -23,6 +25,11 @@ public:
      * error and then the program will exit.
      */
     virtual void init(const std::vector<std::string>& graphic_paths) = 0;
+
+    /**
+     * Used as a helper function to create a src_rect
+     */
+    virtual SDL_Rect create_default_rect(SDL_Texture* texture) = 0;
     /**
      * Draw function
      * This draw function does not immediately draw the texture onto the screen. Instead, the draw function

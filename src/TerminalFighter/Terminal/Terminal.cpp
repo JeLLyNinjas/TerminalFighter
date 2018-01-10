@@ -41,6 +41,7 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
     SDL_Rect ui_src_rect;
     ui_src_rect.x = 0;
     ui_src_rect.y = 0;
+
     if (UIText == NULL) {
         ui_src_rect.w = 0;
         ui_src_rect.h = 0;

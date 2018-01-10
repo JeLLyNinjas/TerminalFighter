@@ -1,42 +1,40 @@
-#include "SpriteAnimator.h"
+#include "Animator.h"
 
-SpriteAnimator::SpriteAnimator()
+Animator::Animator()
     : initialized_(false)
 {}
 
 // Keeping this as an init right now because the objects may not
-int SpriteAnimator::init(SDL_Texture* texture, int rows, int cols, int on_every) {
+int Animator::init(SDL_Texture* texture, int rows, int cols, int period) {
+    period_ = period;
+    rows_ = rows;
+    cols_ = cols;
+    current_index_ = 0;
+
     //If there was no draw_order given as an argument, we will create a default
     if (draw_order_.size() == 0) {
-        for (int i = 0; i < rows*cols; i++) {
+        for (int i = 0; i < rows * cols; i++) {
             draw_order_.push_back(i);
         }
     }
-    on_every_ = on_every;
-    rows_ = rows;
-    cols_ = cols;
-    //total_frames_ = rows * cols;
-    current_index_ = 0;
-    int w, h;
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+
     // We will run off the assumption that the given
     // spritesheet has it's starting sprites on 0,0.
     // If there is padding... manually get rid of it for now
     total_sprite_sheet_size_.x = 0;
     total_sprite_sheet_size_.y = 0;
-    total_sprite_sheet_size_.w = w;
-    total_sprite_sheet_size_.h = h;
+    SDL_QueryTexture(texture, NULL, NULL, &total_sprite_sheet_size_.w, &total_sprite_sheet_size_.h);
     initialized_ = true;
     return 0;
 }
 
-int SpriteAnimator::init(SDL_Texture* texture, int rows, int cols, int on_every, std::vector<int> draw_order) {
+int Animator::init(SDL_Texture* texture, int rows, int cols, int period, std::vector<int> draw_order) {
     draw_order_ = draw_order;
-    return init(texture, rows, cols, on_every);
+    return init(texture, rows, cols, period);
 }
 
 
-SDL_Rect SpriteAnimator::get_next_frame(int& returned_frame) {
+SDL_Rect Animator::get_next_frame(int& returned_frame) {
     // We want to be able to call this function, and start with frame 0
     // So we advance the frame at the end of this function
     returned_frame = draw_order_.at(current_index_);
@@ -51,20 +49,22 @@ SDL_Rect SpriteAnimator::get_next_frame(int& returned_frame) {
     return_rect.y = on_row * (total_sprite_sheet_size_.h / rows_);
 
     incrementor_++;
-    incrementor_ = incrementor_ % on_every_;
+    incrementor_ = incrementor_ % period_;
+
     if (incrementor_ == 0) {
         current_index_++;
     }
+
     current_index_ = current_index_ % draw_order_.size();
 
     return return_rect;
 }
 
-SDL_Rect SpriteAnimator::get_next_frame() {
+SDL_Rect Animator::get_next_frame() {
     int throw_away;
     return get_next_frame(throw_away);
 }
 
-bool SpriteAnimator::is_initialized() {
+bool Animator::is_initialized() {
     return initialized_;
 }

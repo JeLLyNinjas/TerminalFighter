@@ -28,6 +28,15 @@ GraphicsHandler::GraphicsHandler(
     init(graphic_paths);
 }
 
+SDL_Rect GraphicsHandler::create_default_rect(SDL_Texture* texture) {
+    SDL_Rect src_rect;
+    SDL_QueryTexture(texture, NULL, NULL, &src_rect.w, &src_rect.h);
+    src_rect.x = 0;
+    src_rect.y = 0;
+
+    return src_rect;
+}
+
 void GraphicsHandler::draw(SDL_Texture* texture,
                            SDL_Rect src_rect,
                            SDL_Rect dest_rect,

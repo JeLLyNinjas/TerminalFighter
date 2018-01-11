@@ -50,13 +50,8 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
         ui_src_rect.h = UIText->h;
     }
 
-    SDL_Rect terminal_src_rect;
-    SDL_QueryTexture(terminal_texture_, NULL, NULL, &terminal_src_rect.w, &terminal_src_rect.h);
-    terminal_src_rect.x = 0;
-    terminal_src_rect.y = 0;
-
     graphics.draw(terminal_texture_,
-                  terminal_src_rect,
+                  graphics.create_default_rect(terminal_texture_),
                   (int)x_pos(),
                   (int)y_pos()
                   , GraphicPriority::UI,

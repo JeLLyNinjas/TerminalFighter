@@ -20,7 +20,6 @@ public:
      *  These assets will be loaded into <code>game_graphics_</code>
      */
     GraphicsHandler(SDL_Renderer& renderer, std::vector<std::string> graphic_paths);
-    void init(const std::vector<std::string>& graphic_paths);
     SDL_Rect create_default_rect(SDL_Texture* texture);
     void draw(SDL_Texture* texture,
               SDL_Rect src_rect,
@@ -52,6 +51,7 @@ public:
     void update_screen();
 
 private:
+    void init(const std::vector<std::string>& graphic_paths);
     SDL_Texture* internal_load_image(std::string path);
     SDL_Renderer& renderer_;
     std::map <std::string, SDL_Texture*> game_graphics_;

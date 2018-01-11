@@ -55,7 +55,6 @@ gamestates::GameStateName TestState::run() {
     Keyboard keyboard;
 
     // Setup engine critical components
-    graphics_handler.init(graphic_paths);
     keyboard.add_listener(this);
     events->add_listener(this);
     events->add_listener(&keyboard);

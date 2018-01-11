@@ -15,7 +15,9 @@ namespace {
 
 GraphicsHandler::GraphicsHandler(
     SDL_Renderer& renderer,
-    std::vector<std::string> graphic_paths)
+    std::vector<std::string> graphic_paths,
+    int screen_width,
+    int screen_height)
     : renderer_(renderer)
     , draw_queue_( {
     {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },

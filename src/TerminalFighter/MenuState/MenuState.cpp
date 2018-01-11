@@ -29,7 +29,7 @@ gamestates::GameStateName MenuState::run() {
 
     MainMenu main_menu(default_font_path, window_width, window_height);
     std::vector<std::string> graphic_paths;
-    GraphicsHandler graphics_handler(renderer_, graphic_paths);
+    GraphicsHandler graphics_handler(renderer_, graphic_paths, window_width, window_height);
 
     for (;;) {
         main_menu.draw(renderer_);

@@ -46,7 +46,7 @@ gamestates::GameStateName TestState::run() {
     }
 
     // Initialize engine critical components
-    GraphicsHandler graphics_handler(renderer_, graphic_paths);
+    GraphicsHandler graphics_handler(renderer_, graphic_paths, screen_width, screen_height);
     Universe universe(graphics_handler);
     std::unique_ptr<Events> events(new Events());
     std::unique_ptr<I_CollisionDetector> collision_detector(new CollisionDetector());

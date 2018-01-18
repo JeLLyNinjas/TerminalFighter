@@ -10,13 +10,13 @@ public:
      */
     Animator();
     /**
-     * Uses the <code>SDL_Texture*</code> to create a <code>SDL_Rect</code> that represents the
-     * spritesheet.
+     * Initializes the Animator. The texture is not saved to the Animator.
+     * The texture is only used to grab the SDL_Rect dimensions.
      */
     int init(SDL_Texture* texture, int rows, int cols, int period);
     /**
-     * Uses the <code>SDL_Texture*</code> to create a <code>SDL_Rect</code> that represents the
-     * spritesheet.
+     * Initializes the Animator. The texture is not saved to the Animator.
+     * The texture is only used to grab the SDL_Rect dimensions.
      */
     int init(SDL_Texture* texture, int rows, int cols, int period, std::vector<int> draw_order);
     /**

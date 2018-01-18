@@ -101,21 +101,19 @@ void TargetingSystem::update() {
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
-        SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), TF_Colors::WHITE);
-        SDL_Rect ui_src_rect;
-        ui_src_rect.x = 0;
-        ui_src_rect.y = 0;
-        ui_src_rect.w = UIText->w;
-        ui_src_rect.h = UIText->h;
+        SDL_Surface* ui_text = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), TF_Colors::WHITE);
 
-        graphics.draw(UIText,
-                      ui_src_rect,
-                      (int)it->second->game_object_.x_pos(),
-                      (int)it->second->game_object_.y_pos(),
-                      GraphicPriority::UI,
-                      true,
-                      0,
-                      NULL);
+
+        if (ui_text != NULL) {
+            graphics.draw(ui_text,
+                          graphics.create_default_rect(ui_text),
+                          (int)it->second->game_object_.x_pos(),
+                          (int)it->second->game_object_.y_pos(),
+                          GraphicPriority::UI,
+                          true,
+                          0,
+                          NULL);
+        }
     }
 }
 

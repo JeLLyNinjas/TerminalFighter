@@ -31,6 +31,10 @@ public:
      */
     virtual SDL_Rect create_default_rect(SDL_Texture* texture) = 0;
     /**
+     * Used as a helper function to create a src_rect
+     */
+    virtual SDL_Rect create_default_rect(SDL_Surface* texture) = 0;
+    /**
      * Draw function
      * This draw function does not immediately draw the texture onto the screen. Instead, the draw function
      * will place the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine

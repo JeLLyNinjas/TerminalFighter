@@ -20,7 +20,8 @@ int Animator::init(SDL_Texture* texture, int rows, int cols, int period) {
 
     // We will run off the assumption that the given
     // spritesheet has it's starting sprites on 0,0.
-    // If there is padding... manually get rid of it for now
+    // If there is padding... manually get rid of it 
+    // using something like gimp 2.0 for now.
     total_sprite_sheet_size_.x = 0;
     total_sprite_sheet_size_.y = 0;
     SDL_QueryTexture(texture, NULL, NULL, &total_sprite_sheet_size_.w, &total_sprite_sheet_size_.h);

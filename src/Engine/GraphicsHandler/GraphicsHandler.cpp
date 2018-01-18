@@ -37,6 +37,16 @@ SDL_Rect GraphicsHandler::create_default_rect(SDL_Texture* texture) {
     return src_rect;
 }
 
+SDL_Rect GraphicsHandler::create_default_rect(SDL_Surface* surface) {
+    SDL_Rect src_rect;
+    src_rect.x = 0;
+    src_rect.y = 0;
+    src_rect.w = surface->w;
+    src_rect.h = surface->h;
+
+    return src_rect;
+}
+
 void GraphicsHandler::draw(SDL_Texture* texture,
                            SDL_Rect src_rect,
                            SDL_Rect dest_rect,

@@ -25,13 +25,28 @@ public:
      * error and then the program will exit.
      */
     virtual void init(const std::vector<std::string>& graphic_paths) = 0;
-
     /**
      * Used as a helper function to create a src_rect
+     * graphics.draw(ui_text,
+     *          ---> graphics.create_default_rect(ui_text),
+     *               (int)x_pos() + 30,
+     *               (int)y_pos() + 30,
+     *               GraphicPriority::UI,
+     *               true,
+     *               0,
+     *               NULL);
      */
     virtual SDL_Rect create_default_rect(SDL_Texture* texture) = 0;
     /**
      * Used as a helper function to create a src_rect
+     * graphics.draw(ui_text,
+     *          ---> graphics.create_default_rect(ui_text),
+     *               (int)x_pos() + 30,
+     *               (int)y_pos() + 30,
+     *               GraphicPriority::UI,
+     *               true,
+     *               0,
+     *               NULL);
      */
     virtual SDL_Rect create_default_rect(SDL_Surface* texture) = 0;
     /**

@@ -48,7 +48,7 @@ public:
      *               0,
      *               NULL);
      */
-    virtual SDL_Rect create_default_rect(SDL_Surface* texture) = 0;
+    virtual SDL_Rect create_default_rect(SDL_Surface* surface) = 0;
     /**
      * Draw function
      * This draw function does not immediately draw the texture onto the screen. Instead, the draw function

@@ -24,13 +24,13 @@ public:
             std::vector<std::string> graphic_paths,
             int screen_width,
             int screen_height);
-    JN_Rect create_sdl_rect(double x, 
+    JN_Rect create_jn_rect(double x, 
             double y,
             double w,
             double h);
     void draw(SDL_Texture* texture,
-              SDL_Rect src_rect,
-              SDL_Rect dest_rect,
+              JN_Rect src_rect,
+              JN_Rect dest_rect,
               GraphicPriority priority,
               bool cleanup,
               double angle_clockwise,
@@ -41,6 +41,8 @@ public:
 
 private:
     void init(const std::vector<std::string>& graphic_paths);
+    const SDL_Rect* create_sdl_rect(const JN_Rect& rect);
+
     SDL_Texture* internal_load_image(std::string path);
     SDL_Renderer& renderer_;
     std::map <std::string, SDL_Texture*> game_graphics_;

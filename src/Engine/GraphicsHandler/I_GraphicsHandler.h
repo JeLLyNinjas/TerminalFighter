@@ -26,22 +26,21 @@ public:
      */
     virtual void init(const std::vector<std::string>& graphic_paths) = 0;
     /**
-     * Used as a helper function to create a src_rect
-     * Example usage graphics.draw(ui_text,
-     *          ---> graphics.create_default_rect(ui_text),
-     *               (int)x_pos() + 30,
-     *               (int)y_pos() + 30,
-     *               GraphicPriority::UI,
-     *               true,
-     *               0,
-     *               NULL);
+     * Used as a helper function to create a JN_Rect
+     * //TODO comment on how this uses the 1-1 gamespace and how it works
      * \note
      * 'JN' stands for JellyNinjas
      */
-    virtual JN_Rect create_sdl_rect(double x,
+    virtual JN_Rect create_jn_rect(double x,
             double y,
             double w,
             double h) = 0;
+    /**
+     * Used as a helper function to create a SDL_Rect
+     * Should be implemented as private
+     */
+
+    virtual const SDL_Rect* create_sdl_rect(const JN_Rect& rect) = 0;
     /**
      * Draw function
      * This draw function does not immediately draw the texture onto the screen. Instead, the draw function
@@ -69,8 +68,8 @@ public:
      *   set to NULL for rotation to be done around the center (dest_rect.w/2, dest_rect.h/2).
      */
     virtual void draw(SDL_Texture* texture,
-                      SDL_Rect src_rect,
-                      SDL_Rect dest_rect,
+                      JN_Rect src_rect,
+                      JN_Rect dest_rect,
                       GraphicPriority priority,
                       bool cleanup,
                       double angle_clockwise,

@@ -51,8 +51,8 @@ void GraphicsHandler::draw(SDL_Texture* texture,
 
 void GraphicsHandler::draw(SDL_Texture* texture,
                            SDL_Rect src_rect,
-                           int x_pos,
-                           int y_pos,
+                           double x_pos,
+                           double y_pos,
                            GraphicPriority priority,
                            bool cleanup,
                            double angle_clockwise,
@@ -68,8 +68,8 @@ void GraphicsHandler::draw(SDL_Texture* texture,
 //Cleanup refers to the surface when a SDL_Surface* is passed in
 void GraphicsHandler::draw(SDL_Surface* surface,
                            SDL_Rect src_rect,
-                           int x_pos,
-                           int y_pos,
+                           double x_pos,
+                           double y_pos,
                            GraphicPriority priority,
                            bool cleanup,
                            double angle_clockwise,
@@ -86,6 +86,7 @@ void GraphicsHandler::draw(SDL_Surface* surface,
 }
 
 
+//TODO make this 1-1gamestate
 void GraphicsHandler::update_screen() {
     for (auto priority : DRAW_ORDER) {
         for (auto const& draw_request : draw_queue_[priority]) {

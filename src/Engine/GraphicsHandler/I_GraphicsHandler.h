@@ -4,7 +4,7 @@
 #include <vector>
 #include <SDL2/SDL.h>
 
-
+#include "JN_Rect/JN_Rect.h"
 #include "DrawRequest/DrawRequest.h"
 
 class I_GraphicsHandler {
@@ -27,7 +27,7 @@ public:
     virtual void init(const std::vector<std::string>& graphic_paths) = 0;
     /**
      * Used as a helper function to create a src_rect
-     * graphics.draw(ui_text,
+     * Example usage graphics.draw(ui_text,
      *          ---> graphics.create_default_rect(ui_text),
      *               (int)x_pos() + 30,
      *               (int)y_pos() + 30,
@@ -35,20 +35,13 @@ public:
      *               true,
      *               0,
      *               NULL);
+     * \note
+     * 'JN' stands for JellyNinjas
      */
-    virtual SDL_Rect create_default_rect(SDL_Texture* texture) = 0;
-    /**
-     * Used as a helper function to create a src_rect
-     * graphics.draw(ui_text,
-     *          ---> graphics.create_default_rect(ui_text),
-     *               (int)x_pos() + 30,
-     *               (int)y_pos() + 30,
-     *               GraphicPriority::UI,
-     *               true,
-     *               0,
-     *               NULL);
-     */
-    virtual SDL_Rect create_default_rect(SDL_Surface* surface) = 0;
+    virtual JN_Rect create_sdl_rect(double x,
+            double y,
+            double w,
+            double h) = 0;
     /**
      * Draw function
      * This draw function does not immediately draw the texture onto the screen. Instead, the draw function

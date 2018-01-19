@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
 
+#include "JN_Rect/JN_Rect.h"
 #include "I_GraphicsHandler.h"
 
 class GraphicsHandler : public I_GraphicsHandler {
@@ -23,8 +24,10 @@ public:
             std::vector<std::string> graphic_paths,
             int screen_width,
             int screen_height);
-    SDL_Rect create_default_rect(SDL_Texture* texture);
-    SDL_Rect create_default_rect(SDL_Surface* surface);
+    JN_Rect create_sdl_rect(double x, 
+            double y,
+            double w,
+            double h);
     void draw(SDL_Texture* texture,
               SDL_Rect src_rect,
               SDL_Rect dest_rect,

@@ -13,7 +13,7 @@ Missile::Missile(
     double x_vel, double y_vel,
     int health, std::string graphic_path)
     : GameObject(x_pos, y_pos, x_vel, y_vel, health)
-    , hitbox_(Hitbox(x_pos, y_pos, 10, 50))
+    , hitbox_(Hitbox(x_pos, y_pos, 30, 172))
     , texture_path_(graphic_path) {
 }
 
@@ -33,8 +33,24 @@ void Missile::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image(texture_path_));
     }
 
-    graphics.draw(missile_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true,
-                  util::angle(0, 0, x_vel_, y_vel_), NULL);
+    if (!spriteAnimator_.is_initialized()) {
+        //3 columns, 2 rows of sprite sheets, update every 6 frames
+        spriteAnimator_.init(missile_texture_, 2, 3, 3);
+    }
+
+
+    SDL_Rect dest_rect;
+    dest_rect.x = (int)x_pos();
+    dest_rect.y = (int)y_pos();
+    dest_rect.w = 172;
+    dest_rect.h = 30;
+    graphics.draw(missile_texture_,
+                  spriteAnimator_.get_next_frame(),
+                  dest_rect,
+                  GraphicPriority::MIDDLE,
+                  true,
+                  util::angle(0, 0, x_vel_, y_vel_) + 90,
+                  NULL);
 }
 
 const I_Hitbox& Missile::hitbox() const {

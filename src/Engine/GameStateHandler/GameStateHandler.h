@@ -13,10 +13,10 @@
  */
 class GameStateHandler {
 public:
-	/**
-	 * @param gamestates is a vector of GameStates (inheriting I_GameState)
-	 * This must be a complete list of GameStates that will be run for the duration of execution.
-	 */
+    /**
+     * @param gamestates is a vector of GameStates (inheriting I_GameState)
+     * This must be a complete list of GameStates that will be run for the duration of execution.
+     */
     GameStateHandler(std::vector<I_GameState*>& gamestates);
 
     /**

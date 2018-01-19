@@ -15,6 +15,7 @@ class DrawRequest {
 public:
     //clock_angle is the angle in degrees, clockwise from the y-axis
     explicit DrawRequest(SDL_Texture* texture,
+                         SDL_Rect src_rect,
                          SDL_Rect dest_rect,
                          bool cleanup,
                          double clock_angle,
@@ -22,12 +23,14 @@ public:
 
     SDL_Texture* texture() const;
     const SDL_Rect& dest_rect() const;
+    const SDL_Rect& src_rect() const;
     const bool cleanup() const;
     const double angle() const;
     const SDL_Point* rotation_point() const;
 
 private:
     SDL_Texture* texture_;
+    SDL_Rect src_rect_;
     SDL_Rect dest_rect_;
     bool cleanup_;
     double angle_clockwise_from_vertical_;

@@ -17,7 +17,7 @@ void AudioHandler::init() {
 }
 
 //void AudioHandler::play_music(std::string path) const {
-    //LOG(FATAL) << "Function should not be used yet";
+//LOG(FATAL) << "Function should not be used yet";
 //}
 
 void AudioHandler::play_chunk(std::string path) const {
@@ -34,7 +34,7 @@ void AudioHandler::play_chunk(std::string path) const {
                        << "Error: " << Mix_GetError() << " Exiting...";
         }
 
-        std::unique_ptr<Mix_Chunk *> chunk = std::make_unique<Mix_Chunk *>(temp);
+        std::unique_ptr<Mix_Chunk*> chunk = std::make_unique<Mix_Chunk*>(temp);
     } else {
         temp = *iterator->second.get();
     }

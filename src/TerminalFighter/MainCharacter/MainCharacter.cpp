@@ -46,7 +46,14 @@ void MainCharacter::draw(I_GraphicsHandler& graphics) {
         weapon->draw(graphics);
     }
 
-    graphics.draw(texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::MIDDLE, true);
+    graphics.draw(texture_,
+                  graphics.create_default_rect(texture_),
+                  (int)x_pos(),
+                  (int)y_pos(),
+                  GraphicPriority::MIDDLE,
+                  true,
+                  0,
+                  NULL);
 }
 
 

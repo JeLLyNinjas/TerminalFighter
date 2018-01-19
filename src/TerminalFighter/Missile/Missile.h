@@ -2,6 +2,7 @@
 
 #include "GameObject/GameObject.h"
 #include "Hitbox/Hitbox.h"
+#include "Animator/Animator.h"
 
 class I_Hitbox;
 class I_GraphicsHandler;
@@ -26,4 +27,6 @@ private:
     static SDL_Texture* missile_texture_;
     Hitbox hitbox_;
     std::string texture_path_;
+    Animator spriteAnimator_;
+
 };

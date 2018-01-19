@@ -14,6 +14,7 @@ add_library(MissileLauncher MissileLauncher.cpp)
 add_library(Universe Universe.cpp)
 add_library(Terminal Terminal.cpp)
 add_library(TargetingSystem TargetingSystem.cpp)
+add_library(Animator Animator.cpp)
 
 target_link_libraries(BasicEnemy Hitbox)
 target_link_libraries(CollisionDetector Hitbox)

@@ -13,6 +13,7 @@ add_library(Universe Universe/Universe.cpp)
 add_library(GameStateHandler GameStateHandler/GameStateHandler.cpp)
 add_library(Util Util/Util.cpp)
 add_library(AudioHandler AudioHandler/AudioHandler.cpp)
+add_library(Animator Animator/Animator.cpp)
 
 target_link_libraries(CollisionDetector Hitbox)
 target_link_libraries(Delay ${SDL2_LIBRARIES})

@@ -36,9 +36,28 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image(terminal_texture_path_));
     }
 
-    SDL_Surface* UIText = TTF_RenderText_Blended(default_font_, player_text_.c_str(), TF_Colors::WHITE);
-    graphics.draw(terminal_texture_, (int)x_pos(), (int)y_pos(), GraphicPriority::UI, true);
-    graphics.draw(UIText, (int)x_pos() + 30, (int)y_pos() + 30, GraphicPriority::UI, true);
+    SDL_Color white = {255, 255, 255};
+    SDL_Surface* ui_text = TTF_RenderText_Blended(default_font_, player_text_.c_str(), TF_Colors::WHITE);
+    SDL_Rect ui_src_rect;
+
+    graphics.draw(terminal_texture_,
+                  graphics.create_default_rect(terminal_texture_),
+                  (int)x_pos(),
+                  (int)y_pos()
+                  , GraphicPriority::UI,
+                  true,
+                  0,
+                  NULL);
+    if (ui_text != NULL ){
+        graphics.draw(ui_text,
+                      graphics.create_default_rect(ui_text),
+                      (int)x_pos() + 30,
+                      (int)y_pos() + 30,
+                      GraphicPriority::UI,
+                      true,
+                      0,
+                      NULL);
+    }
 }
 
 const I_Hitbox& Terminal::hitbox() const {

@@ -24,6 +24,7 @@ public:
             int screen_width,
             int screen_height);
     SDL_Rect create_default_rect(SDL_Texture* texture);
+    SDL_Rect create_default_rect(SDL_Surface* surface);
     void draw(SDL_Texture* texture,
               SDL_Rect src_rect,
               SDL_Rect dest_rect,

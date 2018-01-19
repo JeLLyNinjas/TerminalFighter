@@ -1,5 +1,9 @@
 = Terminal Fighter
 
+
+== Current Gameplay
+image::assets/wiki/gameplay.gif[Example Gameplay]
+
 == Discussions
 
 Join us on Discord!

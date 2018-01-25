@@ -28,15 +28,19 @@ public:
             double y,
             double w,
             double h);
+    SDL_Rect create_sdl_rect(int x,
+            int y,
+            int w,
+            int h);
     void draw(SDL_Texture* texture,
-              JN_Rect src_rect,
+              SDL_Rect src_rect,
               JN_Rect dest_rect,
               GraphicPriority priority,
               bool cleanup,
               double angle_clockwise,
               SDL_Point* rotation_point);
     void draw(SDL_Surface* surface,
-              JN_Rect src_rect,
+              SDL_Rect src_rect,
               JN_Rect dest_rect,
               GraphicPriority priority,
               bool cleanup,
@@ -48,7 +52,6 @@ public:
 
 private:
     void init(const std::vector<std::string>& graphic_paths);
-    const SDL_Rect* create_sdl_rect(const JN_Rect& rect);
 
     SDL_Texture* internal_load_image(std::string path);
     SDL_Renderer& renderer_;

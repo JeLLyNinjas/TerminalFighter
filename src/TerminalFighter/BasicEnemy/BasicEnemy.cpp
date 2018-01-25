@@ -34,7 +34,7 @@ void BasicEnemy::draw(I_GraphicsHandler& graphics) {
     SDL_QueryTexture(texture_, NULL, NULL, &w, &h);
 
     graphics.draw(texture_,
-                  graphics.create_jn_rect(0, 0, w, h), // implicit promotion from int to double - safe
+                  graphics.create_sdl_rect(0, 0, w, h), 
                   graphics.create_jn_rect(x_pos(), y_pos(), 0.1, 0.1),
                   GraphicPriority::MIDDLE,
                   true,

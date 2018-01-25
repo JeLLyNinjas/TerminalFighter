@@ -44,8 +44,21 @@ JN_Rect create_jn_rect(double x,
     return rect;
 }
 
+SDL_Rect create_sdl_rect(double x, 
+                        double y,
+                        double w,
+                        double h) {
+    SDL_Rect rect;
+    rect.x = x;
+    rect.y = y;
+    rect.w = w;
+    rect.h = h;
+
+    return rect;
+}
+
 void GraphicsHandler::draw(SDL_Texture* texture,
-                           JN_Rect src_rect,
+                           SDL_Rect src_rect,
                            JN_Rect dest_rect,
                            GraphicPriority priority,
                            bool cleanup,
@@ -61,7 +74,7 @@ void GraphicsHandler::draw(SDL_Texture* texture,
 
 //Cleanup refers to the surface when a SDL_Surface* is passed in
 void GraphicsHandler::draw(SDL_Surface* surface,
-                           JN_Rect src_rect,
+                           SDL_Rect src_rect,
                            JN_Rect dest_rect,
                            GraphicPriority priority,
                            bool cleanup,
@@ -84,7 +97,7 @@ void GraphicsHandler::update_screen() {
         for (auto & draw_request : draw_queue_[priority]) {
             SDL_RenderCopyEx(&renderer_,
                     draw_request.texture(),
-                    &draw_request.src_rect(screen_width_, screen_height_),
+                    &draw_request.src_rect(),
                     &draw_request.dest_rect(screen_width_, screen_height_),
                     draw_request.angle(),
                     draw_request.rotation_point(),

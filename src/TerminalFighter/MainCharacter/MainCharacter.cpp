@@ -46,10 +46,12 @@ void MainCharacter::draw(I_GraphicsHandler& graphics) {
         weapon->draw(graphics);
     }
 
+    int w, h;
+    SDL_QueryTexture(texture_, NULL, NULL, &w, &h);
+
     graphics.draw(texture_,
-                  graphics.create_default_rect(texture_),
-                  (int)x_pos(),
-                  (int)y_pos(),
+                  graphics.create_sdl_rect(0, 0, w, h),
+                  graphics.create_jn_rect(x_pos(), y_pos(), 0.1, 0.1),
                   GraphicPriority::MIDDLE,
                   true,
                   0,

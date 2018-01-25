@@ -108,7 +108,7 @@ void TargetingSystem::draw(I_GraphicsHandler& graphics) {
         if (ui_text != NULL) {
             //TODO, change this width and height on jn_rect
             graphics.draw(ui_text,
-                          graphics.create_jn_rect(0, 0, ui_text->w, ui_text->h),
+                          graphics.create_sdl_rect(0, 0, ui_text->w, ui_text->h),
                           graphics.create_jn_rect((int)it->second->game_object_.x_pos(),
                                                   (int)it->second->game_object_.y_pos(),
                                                   2, 2),

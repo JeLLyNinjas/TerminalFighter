@@ -35,6 +35,11 @@ public:
             double y,
             double w,
             double h) = 0;
+
+    virtual SDL_Rect create_sdl_rect(int x,
+            int y,
+            int w,
+            int h) = 0;
     /**
      * Draw function
      * This draw function does not immediately draw the texture onto the screen. Instead, the draw function

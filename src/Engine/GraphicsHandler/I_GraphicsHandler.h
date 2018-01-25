@@ -36,12 +36,6 @@ public:
             double w,
             double h) = 0;
     /**
-     * Used as a helper function to create a SDL_Rect
-     * Should be implemented as private
-     */
-
-    virtual const SDL_Rect* create_sdl_rect(const JN_Rect& rect) = 0;
-    /**
      * Draw function
      * This draw function does not immediately draw the texture onto the screen. Instead, the draw function
      * will place the <code>SDL_Texture*</code> into a queue using the <code>priority</code> parameter to determine
@@ -68,12 +62,22 @@ public:
      *   set to NULL for rotation to be done around the center (dest_rect.w/2, dest_rect.h/2).
      */
     virtual void draw(SDL_Texture* texture,
-                      JN_Rect src_rect,
+                      SDL_Rect src_rect,
                       JN_Rect dest_rect,
                       GraphicPriority priority,
                       bool cleanup,
                       double angle_clockwise,
                       SDL_Point* rotation_point) = 0;
+
+    virtual void draw(SDL_Surface* surface,
+                      SDL_Rect src_rect,
+                      JN_Rect dest_rect,
+                      GraphicPriority priority,
+                      bool cleanup,
+                      double angle_clockwise,
+                      SDL_Point* rotation_point) = 0;
+
+    virtual SDL_Texture* load_image(std::string path) = 0;
     /**
      * Update the screen
      * Will call a <code>SDL_RenderCopyEx()</code> to copy the textures onto the renderer.

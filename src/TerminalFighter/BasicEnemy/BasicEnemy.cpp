@@ -30,10 +30,12 @@ void BasicEnemy::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image("assets/images/ships/BasicEnemy.png"));
     }
 
+    int w, h;
+    SDL_QueryTexture(texture_, NULL, NULL, &w, &h);
+
     graphics.draw(texture_,
-                  graphics.create_default_rect(texture_),
-                  (int)x_pos(),
-                  (int)y_pos(),
+                  graphics.create_jn_rect(0, 0, w, h), // implicit promotion from int to double - safe
+                  graphics.create_jn_rect(x_pos(), y_pos(), 0.1, 0.1),
                   GraphicPriority::MIDDLE,
                   true,
                   0,

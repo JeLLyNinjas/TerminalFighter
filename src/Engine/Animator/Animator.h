@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Engine/GraphicsHandler/I_GraphicsHandler.h"
+#include "../JN_Rect/JN_Rect.h"
 #include <vector>
 
 class Animator {

@@ -39,11 +39,11 @@ void Missile::draw(I_GraphicsHandler& graphics) {
     }
 
 
-    SDL_Rect dest_rect;
-    dest_rect.x = (int)x_pos();
-    dest_rect.y = (int)y_pos();
-    dest_rect.w = 172;
-    dest_rect.h = 30;
+    JN_Rect dest_rect;
+    dest_rect.x = x_pos();
+    dest_rect.y = y_pos();
+    dest_rect.w = 0.172;
+    dest_rect.h = 0.030;
     graphics.draw(missile_texture_,
                   spriteAnimator_.get_next_frame(),
                   dest_rect,

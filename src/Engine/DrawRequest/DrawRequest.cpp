@@ -18,12 +18,41 @@ SDL_Texture* DrawRequest::texture() const {
     return texture_;
 }
 
-const JN_Rect& DrawRequest::dest_rect() const {
-    return dest_rect_;
+const SDL_Rect& DrawRequest::return_sdl_rect(SDL_Rect& sdl_rect, JN_Rect& rect, 
+        int screen_width, int screen_height) {
+    // We need to convert x and y from -1 to 1 into 0 and something like 1920
+    // Some Notes. We are assuming people can run with any resolution
+    // as long as it is using the 16:9 ratio.
+    // 1024x576, 1152x648, 1280x720, 1366x768, 1600x900, 1920x1080, 2560x1440 3840x2160.
+
+    // The algorithm is as follows
+    // for example, say we have 1920 as our screen_width_
+    // we will need a variable: half_screen_width = 960
+    // we will multiply our x (which is a range of -1 to 1) with the half_screen_width.
+    // so example, if we had -1, it becomes -960, and if we had 1, it would becom 960.
+    // We then add them to half_screen_width (960) and we get a range of numbers between 0 and 1920.
+
+    int half_screen_width = screen_width/2;    
+    sdl_rect.x = (rect.x * half_screen_width) + half_screen_width;
+    sdl_rect.w = (rect.w * half_screen_width) + half_screen_width;
+
+    int half_screen_height = screen_height/2;    
+    sdl_rect.y = (rect.x * half_screen_height) + half_screen_height;
+    sdl_rect.h = (rect.w * half_screen_height) + half_screen_height;
+    // TODO haven't really confirmed if this works. Math needs to be checked
+    // Also, this is probably pretty performance sensitive as it will be called
+    // for every object that needs to be drawn for every loop. Maybe find some hack to calculate
+    // this stuff faster? -Ex. Width and Height probably don't need to be re-calculated everytime
+    
+    return sdl_rect;
 }
 
-const JN_Rect& DrawRequest::src_rect() const {
-    return src_rect_;
+const SDL_Rect& DrawRequest::dest_rect(int screen_width, int screen_height) {
+    return return_sdl_rect(sdl_dest_rect_, dest_rect_, screen_width, screen_height);
+}
+
+const SDL_Rect& DrawRequest::src_rect(int screen_width, int screen_height) {
+    return return_sdl_rect(sdl_src_rect_, src_rect_, screen_width, screen_height);
 }
 
 const bool DrawRequest::cleanup() const {

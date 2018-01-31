@@ -40,19 +40,22 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
     SDL_Surface* ui_text = TTF_RenderText_Blended(default_font_, player_text_.c_str(), TF_Colors::WHITE);
     SDL_Rect ui_src_rect;
 
+
+    int terminal_w, terminal_h;
+    SDL_QueryTexture(terminal_texture_, NULL, NULL, &terminal_w, &terminal_h);
+
     graphics.draw(terminal_texture_,
-                  graphics.create_default_rect(terminal_texture_),
-                  (int)x_pos(),
-                  (int)y_pos()
-                  , GraphicPriority::UI,
+                  graphics.create_sdl_rect(0, 0, terminal_w, terminal_h),
+                  graphics.create_jn_rect(x_pos(), y_pos(), 1, 0.2),
+                  GraphicPriority::UI,
                   true,
                   0,
                   NULL);
+
     if (ui_text != NULL ){
         graphics.draw(ui_text,
-                      graphics.create_default_rect(ui_text),
-                      (int)x_pos() + 30,
-                      (int)y_pos() + 30,
+                      graphics.create_sdl_rect(0, 0, ui_src_rect.w, ui_src_rect.h),
+                      graphics.create_jn_rect(x_pos(), y_pos(), 1, 0.2),
                       GraphicPriority::UI,
                       true,
                       0,

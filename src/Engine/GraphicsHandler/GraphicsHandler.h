@@ -20,6 +20,8 @@ public:
      *  of this object, rather than loading them (which you can) during the game play
      *  These assets will be loaded into <code>game_graphics_</code>
      */
+
+    ~GraphicsHandler();
     GraphicsHandler(SDL_Renderer& renderer, 
             std::vector<std::string> graphic_paths,
             int screen_width,

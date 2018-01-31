@@ -13,6 +13,10 @@ namespace {
     };
 }
 
+GraphicsHandler::~GraphicsHandler() {
+
+}
+
 GraphicsHandler::GraphicsHandler(
     SDL_Renderer& renderer,
     std::vector<std::string> graphic_paths,

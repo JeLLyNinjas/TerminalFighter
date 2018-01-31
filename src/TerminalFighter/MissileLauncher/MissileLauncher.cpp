@@ -19,10 +19,7 @@ MissileLauncher::MissileLauncher(
     , game_object_mediator_(game_object_mediator)
     , missile_graphic_path_(missile_graphic_path)
     , missile_launch_sound_path_(missile_launch_sound_path)
-    , terminal_(
-          (this->x_pos()) - 400, this->y_pos() - 150,
-          100, 30,
-          terminal_graphic_path, terminal_font_path)
+    , terminal_(1, -0.85, 1.5, 0.1, terminal_graphic_path, terminal_font_path)
     , hitbox_(0, 0, 0, 0) {
     std::unique_ptr<TargetingSystem> temp_targeting_system_(
         new TargetingSystem(

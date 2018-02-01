@@ -58,7 +58,7 @@ SDL_Surface* Delay::grab_frame_rate() {
 
     if (lowest_fps > 1 / ((double)time_duration_.count() / 1000000) && 10 < 1 / ((double)time_duration_.count() / 1000000)) {
         lowest_fps = 1 / ((double)time_duration_.count() / 1000000);
-        LOG(INFO) << "lowest fps is now " << lowest_fps;
+        //LOG(INFO) << "lowest fps is now " << lowest_fps;
     }
 
     return TTF_RenderText_Blended(default_delay_font_, std::to_string(1 / ((double)time_duration_.count() / 1000000)).c_str(), frame_rate_color);

@@ -35,7 +35,7 @@ GraphicsHandler::GraphicsHandler(
 }
 
 
-JN_Rect create_jn_rect(double x, 
+JN_Rect GraphicsHandler::create_jn_rect(double x, 
                         double y,
                         double w,
                         double h) {
@@ -48,10 +48,10 @@ JN_Rect create_jn_rect(double x,
     return rect;
 }
 
-SDL_Rect create_sdl_rect(double x, 
-                        double y,
-                        double w,
-                        double h) {
+SDL_Rect GraphicsHandler::create_sdl_rect(int x, 
+                        int y,
+                        int w,
+                        int h) {
     SDL_Rect rect;
     rect.x = x;
     rect.y = y;

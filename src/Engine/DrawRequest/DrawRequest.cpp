@@ -36,22 +36,21 @@ const SDL_Rect& DrawRequest::dest_rect(int screen_width, int screen_height) {
     // so example, if we had -1, it becomes -960, and if we had 1, it would becom 960.
     // We then add them to half_screen_width (960) and we get a range of numbers between 0 and 1920.
 
-    int half_screen_width = screen_width/2;    
+    double half_screen_width = screen_width/2;    
     sdl_dest_rect_.x = (dest_rect_.x * half_screen_width) + half_screen_width;
-    sdl_dest_rect_.w = (dest_rect_.w * half_screen_width) + half_screen_width;
+    sdl_dest_rect_.w = (dest_rect_.w * half_screen_width);
 
     int half_screen_height = screen_height/2;    
-    sdl_dest_rect_.y = (dest_rect_.x * half_screen_height) + half_screen_height;
-    sdl_dest_rect_.h = (dest_rect_.w * half_screen_height) + half_screen_height;
+    sdl_dest_rect_.y = (dest_rect_.y * half_screen_height) + half_screen_height;
+    sdl_dest_rect_.h = (dest_rect_.h * half_screen_height);
     // TODO haven't really confirmed if this works. Math needs to be checked
     // Also, this is probably pretty performance sensitive as it will be called
     // for every object that needs to be drawn for every loop. Maybe find some hack to calculate
     // this stuff faster? -Ex. Width and Height probably don't need to be re-calculated everytime
     
-    //LOG(INFO) << "screen_width:" << screen_width << " screen_height:" << screen_height;
-    LOG(INFO) << "JN_Rect \tX:" << dest_rect_.x << " Y:" << dest_rect_.y;
-    LOG(INFO) << " SDL_Rect \tX:" << sdl_dest_rect_.x << " Y:" << sdl_dest_rect_.y;
-    
+    LOG(INFO) << "screen_width:" << screen_width << " screen_height:" << screen_height;
+    LOG(INFO) << "JN_Rect \tX:" << dest_rect_.x << " Y:" << dest_rect_.y << " W:" << dest_rect_.w << " H:" << dest_rect_.h;
+    LOG(INFO) << "SDL_Rect \tX:" << sdl_dest_rect_.x << " Y:" << sdl_dest_rect_.y << " W:" << sdl_dest_rect_.w << " H:" << sdl_dest_rect_.h;
     
     return sdl_dest_rect_;
 }

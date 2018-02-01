@@ -22,8 +22,10 @@ GraphicsHandler::GraphicsHandler(
     std::vector<std::string> graphic_paths,
     int screen_width,
     int screen_height)
-    : renderer_(renderer)
-    , draw_queue_( {
+    : renderer_(renderer), 
+    screen_width_(screen_width),
+    screen_height_(screen_height),
+    draw_queue_( {
     {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },
     {GraphicPriority::UI, std::vector<DrawRequest>() },
     {GraphicPriority::FRONT, std::vector<DrawRequest>() },

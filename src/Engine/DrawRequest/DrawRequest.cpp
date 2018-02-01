@@ -1,4 +1,5 @@
 #include "DrawRequest.h"
+#include <glog/logging.h>
 
 DrawRequest::DrawRequest(SDL_Texture* texture,
                          SDL_Rect src_rect,
@@ -46,6 +47,11 @@ const SDL_Rect& DrawRequest::dest_rect(int screen_width, int screen_height) {
     // Also, this is probably pretty performance sensitive as it will be called
     // for every object that needs to be drawn for every loop. Maybe find some hack to calculate
     // this stuff faster? -Ex. Width and Height probably don't need to be re-calculated everytime
+    
+    //LOG(INFO) << "screen_width:" << screen_width << " screen_height:" << screen_height;
+    LOG(INFO) << "JN_Rect \tX:" << dest_rect_.x << " Y:" << dest_rect_.y;
+    LOG(INFO) << " SDL_Rect \tX:" << sdl_dest_rect_.x << " Y:" << sdl_dest_rect_.y;
+    
     
     return sdl_dest_rect_;
 }

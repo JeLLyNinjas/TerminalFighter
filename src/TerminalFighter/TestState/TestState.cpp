@@ -64,8 +64,8 @@ gamestates::GameStateName TestState::run() {
     // Create game pieces
 
     // Setup MainCharacter
-    double main_character_x = screen_width / 2;
-    double main_character_y = screen_height - 100;
+    double main_character_x = 0;
+    double main_character_y = -1;
 
     // Font paths
     std::string default_font_path;
@@ -127,7 +127,7 @@ gamestates::GameStateName TestState::run() {
         if (rand() % 45 == 0) {
             std::unique_ptr<BasicEnemy> enemy(
                 new BasicEnemy(
-                    rand() % screen_width, rand() % screen_height,
+                    (double)(rand() % screen_width) / screen_width, (double)(rand() % screen_height) / screen_height,
                     0, 0,
                     5,
                     basic_enemy_graphic));

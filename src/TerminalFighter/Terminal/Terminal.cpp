@@ -14,7 +14,7 @@ Terminal::Terminal(
     double width, double height,
     std::string graphic_path,
     std::string font_path)
-    : GameObject(x_pos, y_pos, 0.0, 0.0, 0)
+    : GameObject(x_pos, y_pos, width, height, 0.0, 0.0, 0)
     , hitbox_(Hitbox(x_pos, y_pos, width, height))
     , terminal_texture_path_(graphic_path)
     , player_text_("")
@@ -46,7 +46,7 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
 
     graphics.draw(terminal_texture_,
                   graphics.create_sdl_rect(0, 0, terminal_w, terminal_h),
-                  graphics.create_jn_rect(x_pos(), y_pos(), 1, 0.2),
+                  graphics.create_jn_rect(x_pos(), y_pos(), width(), height()),
                   GraphicPriority::UI,
                   true,
                   0,

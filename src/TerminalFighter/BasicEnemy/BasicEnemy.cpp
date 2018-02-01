@@ -12,7 +12,7 @@ BasicEnemy::BasicEnemy(
     double x_vel, double y_vel,
     int health,
     std::string graphic_path)
-    : GameObject(x_pos, y_pos, x_vel, y_vel, health)
+    : GameObject(x_pos, y_pos, 0.2, 0.2, x_vel, y_vel, health)
     , hitbox_(Hitbox(x_pos_, y_pos_, 90, 50))
     , texture_path_(graphic_path) {
 }
@@ -33,9 +33,10 @@ void BasicEnemy::draw(I_GraphicsHandler& graphics) {
     int w, h;
     SDL_QueryTexture(texture_, NULL, NULL, &w, &h);
 
+
     graphics.draw(texture_,
                   graphics.create_sdl_rect(0, 0, w, h), 
-                  graphics.create_jn_rect(x_pos(), y_pos(), 0.1, 0.1),
+                  graphics.create_jn_rect(x_pos(), y_pos(), 0.1, 0.2),
                   GraphicPriority::MIDDLE,
                   true,
                   0,

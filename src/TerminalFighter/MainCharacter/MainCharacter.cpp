@@ -14,7 +14,7 @@ MainCharacter::MainCharacter(
     double y_pos,
     int health,
     std::string graphic_path)
-    : GameObject(x_pos, y_pos, 0, 0, health)
+    : GameObject(x_pos, y_pos, 0.1, 0.1, 0, 0, health)
     , hitbox_(Hitbox(x_pos_, y_pos_, 100, 100))
     , texture_path_(graphic_path)
     , weapons_() {

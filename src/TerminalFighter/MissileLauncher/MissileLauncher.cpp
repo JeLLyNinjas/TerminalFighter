@@ -14,12 +14,12 @@ MissileLauncher::MissileLauncher(
     std::string targeting_system_dict_path,
     std::string missile_launch_sound_path,
     double x_pos, double y_pos)
-    : GameObject(x_pos, y_pos, 0, 0, 1)
+    : GameObject(x_pos, y_pos, 0, 0, 0, 0, 1)
     , team_(team)
     , game_object_mediator_(game_object_mediator)
     , missile_graphic_path_(missile_graphic_path)
     , missile_launch_sound_path_(missile_launch_sound_path)
-    , terminal_(-.5, 0.8, 1.5, 0.25, terminal_graphic_path, terminal_font_path)
+    , terminal_(-.75, -0.6, 1.5, 0.35, terminal_graphic_path, terminal_font_path)
     , hitbox_(0, 0, 0, 0) {
     std::unique_ptr<TargetingSystem> temp_targeting_system_(
         new TargetingSystem(

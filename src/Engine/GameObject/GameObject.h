@@ -15,7 +15,10 @@ class GameObject : public I_Updatable, public Observable<DestroyedListener> {
 
 public:
     GameObject();
-    GameObject(double x_pos, double y_pos, double x_vel, double y_vel, int health);
+    GameObject(double x_pos, double y_pos, 
+            double width, double height, 
+            double x_vel, double y_vel, 
+            int health);
     virtual ~GameObject();
 
     virtual void update() = 0;
@@ -28,6 +31,8 @@ public:
     void notify_destroyed();
     double x_pos() const;
     double y_pos() const;
+    double width() const;
+    double height() const;
     double x_vel() const;
     double y_vel() const;
     int id() const;
@@ -35,6 +40,8 @@ public:
 protected:
     double x_pos_;
     double y_pos_;
+    double width_;
+    double height_;
     double x_vel_;
     double y_vel_;
     int health_;

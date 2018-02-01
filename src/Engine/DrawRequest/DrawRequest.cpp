@@ -41,7 +41,7 @@ const SDL_Rect& DrawRequest::dest_rect(int screen_width, int screen_height) {
     sdl_dest_rect_.w = (dest_rect_.w * half_screen_width);
 
     int half_screen_height = screen_height/2;    
-    sdl_dest_rect_.y = (dest_rect_.y * half_screen_height) + half_screen_height;
+    sdl_dest_rect_.y = (-dest_rect_.y * half_screen_height) + half_screen_height;
     sdl_dest_rect_.h = (dest_rect_.h * half_screen_height);
     // TODO haven't really confirmed if this works. Math needs to be checked
     // Also, this is probably pretty performance sensitive as it will be called

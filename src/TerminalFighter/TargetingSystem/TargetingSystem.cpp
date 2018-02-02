@@ -11,7 +11,7 @@
 #include "TargetingSystem.h"
 
 namespace {
-    int FONT_SIZE = 30;
+    int FONT_SIZE = 60;
     unsigned int MAX_WORD_LENGTH = 30;
 }
 
@@ -102,25 +102,23 @@ void TargetingSystem::update() {
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     //TODO Note to self:Byron, this function is actually very heavy (in both memory and cpu).
     // Think of a better way to do this. This function causes a large memory 
-/*
- *
- *    for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
- *        SDL_Surface* ui_text = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), TF_Colors::WHITE);
- *
- *        if (ui_text != NULL) {
- *            //TODO, change this width and height on jn_rect
- *            graphics.draw(ui_text,
- *                          graphics.create_sdl_rect(0, 0, ui_text->w, ui_text->h),
- *                          graphics.create_jn_rect(it->second->game_object_.x_pos() ,
- *                                                  it->second->game_object_.y_pos() + 0.1,
- *                                                  0.05, 0.16),
- *                          GraphicPriority::UI,
- *                          true,
- *                          0,
- *                          NULL);
- *        }
- *    }
- */
+
+    for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
+        SDL_Surface* ui_text = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), TF_Colors::WHITE);
+
+        if (ui_text != NULL) {
+            //TODO, change this width and height on jn_rect
+            graphics.draw(ui_text,
+                          graphics.create_sdl_rect(0, 0, ui_text->w, ui_text->h),
+                          graphics.create_jn_rect(it->second->game_object_.x_pos() ,
+                                                  it->second->game_object_.y_pos() + 0.1,
+                                                  0.05, 0.16),
+                          GraphicPriority::UI,
+                          true,
+                          0,
+                          NULL);
+        }
+    }
 }
 
 const I_Hitbox& TargetingSystem::hitbox() const {

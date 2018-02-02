@@ -47,7 +47,7 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
                   graphics.create_sdl_rect(0, 0, terminal_w, terminal_h),
                   graphics.create_jn_rect(x_pos(), y_pos(), width(), height()),
                   GraphicPriority::UI,
-                  true,
+                  false,
                   0,
                   NULL);
 

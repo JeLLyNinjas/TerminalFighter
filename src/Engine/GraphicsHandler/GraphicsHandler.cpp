@@ -1,6 +1,7 @@
 #include <glog/logging.h>
 
 #include "GraphicsHandler.h"
+#include <stdio.h>
 
 namespace {
     const std::vector<GraphicPriority> DRAW_ORDER = {
@@ -109,7 +110,7 @@ void GraphicsHandler::update_screen() {
                     draw_request.rotation_point(),
                     SDL_FLIP_NONE);
 
-            if (!draw_request.cleanup()) {
+            if (draw_request.cleanup()) {
                 SDL_DestroyTexture(draw_request.texture());
             }
         }

@@ -47,7 +47,7 @@ void Missile::draw(I_GraphicsHandler& graphics) {
                   spriteAnimator_.get_next_frame(),
                   dest_rect,
                   GraphicPriority::MIDDLE,
-                  true,
+                  false,
                   util::angle(0, 0, x_vel_, y_vel_) + 90,
                   NULL);
 }

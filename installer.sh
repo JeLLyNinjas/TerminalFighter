@@ -26,17 +26,17 @@ DIR=`pwd`
 function finish {
     echo "Cleaning up..."
     rm $DIR/pkgconfig.tgz || true
-    rm $DIR/SDL2-2.0.3.tar.gz || true
+    rm $DIR/SDL2-2.0.7.tar.gz || true
     rm $DIR/freetype-2.8.tar.gz || true
-    rm $DIR/SDL2_ttf-2.0.12.tar.gz || true
-    rm $DIR/SDL2_image-2.0.0.tar.gz || true
-    rm $DIR/SDL2_mixer-2.0.0.tar.gz || true
+    rm $DIR/SDL2_ttf-2.0.14.tar.gz || true
+    rm $DIR/SDL2_image-2.0.2.tar.gz || true
+    rm $DIR/SDL2_mixer-2.0.2.tar.gz || true
     rm -rf $DIR/pkg-config-0.28 || true
-    rm -rf $DIR/SDL2_image-2.0.0  || true
+    rm -rf $DIR/SDL2_image-2.0.2  || true
     rm -rf $DIR/freetype-2.8 || true
-    rm -rf $DIR/SDL2_ttf-2.0.12  || true
-    rm -rf $DIR/SDL2-2.0.3 || true
-    rm -rf $DIR/SDL2_mixer-2.0.0 || true
+    rm -rf $DIR/SDL2_ttf-2.0.14  || true
+    rm -rf $DIR/SDL2-2.0.7 || true
+    rm -rf $DIR/SDL2_mixer-2.0.2 || true
     rm -rf $DIR/glog || true
     rm -rf $DIR/yaml-cpp || true
 }
@@ -51,9 +51,9 @@ if [ $MACHINE = Mac ]; then
 fi
 
 #SDL2.0
-wget https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
-tar xzf SDL2-2.0.3.tar.gz
-cd SDL2-2.0.3
+wget https://www.libsdl.org/release/SDL2-2.0.7.tar.gz
+tar xzf SDL2-2.0.7.tar.gz
+cd SDL2-2.0.7
 ./configure
 make -j4
 make install -j4
@@ -68,27 +68,27 @@ make -j4
 make install -j4
 cd $DIR
 
-wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
-tar xzf SDL2_ttf-2.0.12.tar.gz
-cd SDL2_ttf-2.0.12
+wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz
+tar xzf SDL2_ttf-2.0.14.tar.gz
+cd SDL2_ttf-2.0.14
 ./configure
 make -j4
 make install -j4
 cd $DIR
 
 #SDL2_image
-wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz
-tar xzf SDL2_image-2.0.0.tar.gz
-cd SDL2_image-2.0.0
+wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.2.tar.gz
+tar xzf SDL2_image-2.0.2.tar.gz
+cd SDL2_image-2.0.2
 ./configure
 make -j4
 make install -j4
 cd $DIR
 
 #SDL2_mixer
-wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.tar.gz
-tar xzf SDL2_mixer-2.0.0.tar.gz
-cd SDL2_mixer-2.0.0
+wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.2.tar.gz
+tar xzf SDL2_mixer-2.0.2.tar.gz
+cd SDL2_mixer-2.0.2
 
 #SMPEG
 cd external/smpeg2-2.0.0

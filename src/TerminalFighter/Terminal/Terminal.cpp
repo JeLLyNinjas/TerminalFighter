@@ -36,7 +36,6 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
         set_texture(graphics.load_image(terminal_texture_path_));
     }
 
-    SDL_Color white = {255, 255, 255};
     SDL_Surface* ui_text = TTF_RenderText_Blended(default_font_, player_text_.c_str(), TF_Colors::WHITE);
     SDL_Rect ui_src_rect;
 

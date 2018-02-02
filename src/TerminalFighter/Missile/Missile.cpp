@@ -38,7 +38,6 @@ void Missile::draw(I_GraphicsHandler& graphics) {
         spriteAnimator_.init(missile_texture_, 2, 3, 3);
     }
 
-
     JN_Rect dest_rect;
     dest_rect.x = x_pos();
     dest_rect.y = y_pos();

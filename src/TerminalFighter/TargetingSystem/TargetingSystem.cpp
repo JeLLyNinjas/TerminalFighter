@@ -11,7 +11,7 @@
 #include "TargetingSystem.h"
 
 namespace {
-    int FONT_SIZE = 60;
+    int FONT_SIZE = 160;
     unsigned int MAX_WORD_LENGTH = 30;
 }
 

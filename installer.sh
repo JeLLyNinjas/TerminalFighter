@@ -104,6 +104,9 @@ make -j4
 make install -j4
 cd $DIR
 
+#Testing if we are missing libGL.so. This fix will not work for non-ubuntu, but just trying this for a quick test
+apt-get install libgl1-mesa-dev
+
 # glog
 git clone https://github.com/google/glog.git
 cd glog

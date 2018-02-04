@@ -45,7 +45,7 @@ function finish {
 trap finish EXIT
 
 #Testing if we are missing libGL.so. This fix will not work for non-ubuntu, but just trying this for a quick test
-apt-get install libgl1-mesa-dev
+apt-get -y install libgl1-mesa-dev 
 
 #pkg-config
 if [[ $MACHINE = Mac && ! -f /usr/local/bin/x86_64-apple-darwin17.3.0-pkg-config ]]; then

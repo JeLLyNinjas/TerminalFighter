@@ -24,8 +24,8 @@ GraphicsHandler::GraphicsHandler(
     int screen_width,
     int screen_height)
     : renderer_(renderer), 
-    screen_width_(screen_width),
     screen_height_(screen_height),
+    screen_width_(screen_width),
     draw_queue_( {
     {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },
     {GraphicPriority::UI, std::vector<DrawRequest>() },
@@ -33,7 +33,8 @@ GraphicsHandler::GraphicsHandler(
     {GraphicPriority::MIDDLE, std::vector<DrawRequest>() },
     {GraphicPriority::BACK, std::vector<DrawRequest>() },
     {GraphicPriority::BACKGROUND, std::vector<DrawRequest>() }
-}) {
+}) 
+{
     init(graphic_paths);
 }
 

@@ -21,3 +21,6 @@ int JN_TTF::open_font(std::string path, int font_size) {
     return 0;
 }
 
+SDL_Surface *JN_TTF::TTF_RenderText(RenderType type, std::string font_type, SDL_Color color) {
+    //TTF_OpenFont(font_map_[font_type.c_str()] 
+}

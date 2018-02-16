@@ -16,7 +16,6 @@ class JN_TTF {
     public: 
         JN_TTF();
         ~JN_TTF();
-        int open_font(std::string path, int font_size);
 
 
         // font_render_size denotes what size should be passed into TTF_RenderText
@@ -32,6 +31,7 @@ class JN_TTF {
                 JN_Rect &jn_rect_ref);
 
     private:
+        int open_font(std::string path, int font_size);
         
         SDL_Surface *RenderText(std::string text,
                 RenderType type, 

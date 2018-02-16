@@ -11,23 +11,6 @@ JN_TTF::~JN_TTF() {
     }
 }
 
-int JN_TTF::open_font(std::string path, int font_size) {
-    if (font_map_.find(path) != font_map_.end()) {
-        //Font already exists, returning 0 for no error. 
-        DLOG(INFO) << "Font " << path << " already exists";
-        return 0;
-    }
-    
-    TTF_Font *temp = NULL;
-    temp = TTF_OpenFont(path.c_str(), font_size);
-    if (temp == NULL) {
-        LOG(ERROR) << "Failed to load " << path;
-        return -1;
-    }
-    font_map_[path] = temp;
-    return 0;
-}
-
 int JN_TTF::JN_TTF_RenderText(std::string text, 
                 RenderType type, 
                 std::string font_path, 
@@ -52,9 +35,42 @@ int JN_TTF::JN_TTF_RenderText(std::string text,
         LOG(ERROR) << "Unable to Render Text:" << TTF_GetError();
         return -1;
     }
+    surface_ref = surface_text;
 
+    sdl_rect_ref.x = 0;
+    sdl_rect_ref.y = 0;
+    sdl_rect_ref.w = surface_ref->w;
+    sdl_rect_ref.h = surface_ref->h;
 
+    // We will use font_output_size as the height, and then
+    // using the ratio, calculate the corresponding width
+    int ratio = sdl_rect_ref.w / sdl_rect_ref.h;
+
+    jn_rect_ref.x = 0;
+    jn_rect_ref.y = 0;
+    jn_rect_ref.w = font_output_size* ratio;
+    jn_rect_ref.h = font_output_size;
+
+    //TODO return sdl_rect_ref and jn_rect_ref
 }
+
+int JN_TTF::open_font(std::string path, int font_size) {
+    if (font_map_.find(path) != font_map_.end()) {
+        //Font already exists, returning 0 for no error. 
+        DLOG(INFO) << "Font " << path << " already exists";
+        return 0;
+    }
+    
+    TTF_Font *temp = NULL;
+    temp = TTF_OpenFont(path.c_str(), font_size);
+    if (temp == NULL) {
+        LOG(ERROR) << "Failed to load " << path;
+        return -1;
+    }
+    font_map_[path] = temp;
+    return 0;
+}
+
 
 SDL_Surface *RenderText(std::string text,
         RenderType type, 

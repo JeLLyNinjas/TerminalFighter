@@ -87,7 +87,9 @@ public:
             std::string font_path,
             SDL_Color color,
             int font_render_size,
-            double font_output_size) = 0;
+            double font_output_size,
+            double x,
+            double y) = 0;
 
     virtual SDL_Texture* load_image(std::string path) = 0;
     /**

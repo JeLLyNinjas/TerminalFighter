@@ -105,7 +105,9 @@ void GraphicsHandler::draw_text(std::string text,
         std::string font_path,
         SDL_Color color,
         int font_render_size,
-        double font_output_size) {
+        double font_output_size,
+        double x,
+        double y) {
     SDL_Surface *surface_text;
     SDL_Rect surface_size;
     JN_Rect output_size;
@@ -120,7 +122,16 @@ void GraphicsHandler::draw_text(std::string text,
             surface_size,
             output_size);
 
-    
+    output_size.x = x;
+    output_size.y = y;
+
+    draw(surface_text,
+            surface_size,
+            output_size,
+            GraphicPriority::UI,
+            true,
+            0,
+            NULL);
 }
 
 //TODO make this 1-1gamestate

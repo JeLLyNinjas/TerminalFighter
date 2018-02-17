@@ -53,7 +53,9 @@ public:
             std::string font_path,
             SDL_Color color,
             int font_render_size,
-            double font_output_size);
+            double font_output_size,
+            double x,
+            double y);
 
     SDL_Texture* load_image(std::string path); /*will return textures that were loaded on init()*/
     void update_screen();

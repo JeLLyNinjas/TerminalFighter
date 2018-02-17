@@ -112,8 +112,10 @@ void TargetingSystem::draw(I_GraphicsHandler& graphics) {
                 RenderType::Blended,
                 font_path_,
                 TF_Colors::WHITE,
-                30,
-                0.1);
+                50,
+                0.05,
+                it->second->game_object_.x_pos(),
+                it->second->game_object_.y_pos());
 
 
     }

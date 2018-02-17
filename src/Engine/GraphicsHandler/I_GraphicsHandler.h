@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 
 #include "JN_Rect/JN_Rect.h"
+#include "Jn_Ttf/Jn_Ttf.h"
 #include "DrawRequest/DrawRequest.h"
 
 class I_GraphicsHandler {
@@ -81,6 +82,12 @@ public:
                       bool cleanup,
                       double angle_clockwise,
                       SDL_Point* rotation_point) = 0;
+    virtual void draw_text(std::string text, 
+            RenderType type,
+            std::string font_path,
+            SDL_Color color,
+            int font_render_size,
+            double font_output_size) = 0;
 
     virtual SDL_Texture* load_image(std::string path) = 0;
     /**

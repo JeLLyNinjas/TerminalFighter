@@ -24,21 +24,14 @@ TargetingSystem::TargetingSystem(
     : hitbox_(Hitbox(0, 0, 1920, 1080)) //hardcoded numbers, TODO, don't have these hardcoded
     , word_length_lower_bound_(word_length_lower_bound)
     , word_length_upper_bound_(word_length_upper_bound)
-    , color_hex_(color_hex)
-    , default_font_(TTF_OpenFont(font_path.c_str(), FONT_SIZE)) {
-    if (default_font_ == NULL) {
-        LOG(ERROR) << "Failed to load TargetingSystem font: " << font_path;
-    };
-
+    , color_hex_(color_hex) 
+    , font_path_(font_path) {
     setup_local_dict(dict_path);
 
     srand(time(NULL)); //TODO this should be called at a higher level, maybe Universe //this actually makes rand() be random
 }
 
 TargetingSystem::~TargetingSystem() {
-    if (default_font_ != NULL) {
-        TTF_CloseFont(default_font_);
-    }
 }
 
 bool TargetingSystem::setup_local_dict(std::string relative_path) {
@@ -100,24 +93,29 @@ void TargetingSystem::update() {
 }
 
 void TargetingSystem::draw(I_GraphicsHandler& graphics) {
-    //TODO Note to self:Byron, this function is actually very heavy (in both memory and cpu).
-    // Think of a better way to do this. This function causes a large memory 
 
+    // Byron: Opting not to use `auto` for clarity on the iterator `it`
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
-        SDL_Surface* ui_text = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), TF_Colors::WHITE);
+        //SDL_Surface* ui_text = TTF_RenderText_Blended(default_font_, it->second->assigned_word_.c_str(), TF_Colors::WHITE);
+        
 
-        if (ui_text != NULL) {
-            //TODO, change this width and height on jn_rect
-            graphics.draw(ui_text,
-                          graphics.create_sdl_rect(0, 0, ui_text->w, ui_text->h),
-                          graphics.create_jn_rect(it->second->game_object_.x_pos() ,
-                                                  it->second->game_object_.y_pos() + 0.1,
-                                                  0.05, 0.16),
-                          GraphicPriority::UI,
-                          true,
-                          0,
-                          NULL);
-        }
+        //graphics.draw(ui_text,
+                      //graphics.create_sdl_rect(0, 0, ui_text->w, ui_text->h),
+                      //graphics.create_jn_rect(it->second->game_object_.x_pos() ,
+                                              //it->second->game_object_.y_pos() + 0.1,
+                                              //0.05, 0.16),
+                      //GraphicPriority::UI,
+                      //true,
+                      //0,
+                      //NULL);
+        graphics.draw_text(it->second->assigned_word_.c_str(),
+                RenderType::Blended,
+                font_path_,
+                TF_Colors::WHITE,
+                30,
+                0.1);
+
+
     }
 }
 

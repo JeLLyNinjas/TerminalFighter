@@ -23,10 +23,11 @@ GraphicsHandler::GraphicsHandler(
     std::vector<std::string> graphic_paths,
     int screen_width,
     int screen_height)
-    : renderer_(renderer), 
-    screen_height_(screen_height),
-    screen_width_(screen_width),
-    draw_queue_( {
+    : renderer_(renderer)
+    , screen_height_(screen_height)
+    , screen_width_(screen_width)
+    , text_handler_(std::make_unique<Jn_Ttf>())
+    , draw_queue_( {
     {GraphicPriority::OVERLAY, std::vector<DrawRequest>() },
     {GraphicPriority::UI, std::vector<DrawRequest>() },
     {GraphicPriority::FRONT, std::vector<DrawRequest>() },
@@ -97,6 +98,29 @@ void GraphicsHandler::draw(SDL_Surface* surface,
     //Setting cleanup to be true regardless of original argument. We created a texture here, and we will not
     //be keeping it. GraphicsHandler needs to clean it up for us in the future.
     this->draw(texture, src_rect, dest_rect, priority, true, angle_clockwise, rotation_point);
+}
+
+void GraphicsHandler::draw_text(std::string text, 
+        RenderType type,
+        std::string font_path,
+        SDL_Color color,
+        int font_render_size,
+        double font_output_size) {
+    SDL_Surface *surface_text;
+    SDL_Rect surface_size;
+    JN_Rect output_size;
+
+    text_handler_->Jn_Ttf_RenderText(text,
+            type,
+            font_path,
+            color,
+            font_render_size,
+            font_output_size,
+            surface_text,
+            surface_size,
+            output_size);
+
+    
 }
 
 //TODO make this 1-1gamestate

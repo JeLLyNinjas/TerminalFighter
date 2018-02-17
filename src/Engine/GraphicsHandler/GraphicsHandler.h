@@ -4,8 +4,8 @@
 
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
+#include <memory> //for unique_ptr
 
-#include "JN_Rect/JN_Rect.h"
 #include "I_GraphicsHandler.h"
 
 class GraphicsHandler : public I_GraphicsHandler {
@@ -48,14 +48,21 @@ public:
               bool cleanup,
               double angle_clockwise,
               SDL_Point* rotation_point);
+    void draw_text(std::string text, 
+            RenderType type,
+            std::string font_path,
+            SDL_Color color,
+            int font_render_size,
+            double font_output_size);
 
     SDL_Texture* load_image(std::string path); /*will return textures that were loaded on init()*/
     void update_screen();
 
 private:
     void init(const std::vector<std::string>& graphic_paths);
-
     SDL_Texture* internal_load_image(std::string path);
+
+    std::unique_ptr<Jn_Ttf> text_handler_;
     SDL_Renderer& renderer_;
     std::map <std::string, SDL_Texture*> game_graphics_;
     std::map <GraphicPriority, std::vector<DrawRequest>> draw_queue_;

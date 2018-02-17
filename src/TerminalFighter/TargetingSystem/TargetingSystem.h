@@ -6,6 +6,7 @@
 
 #include "GameObject/GameObject.h"
 #include "Hitbox/Hitbox.h"
+#include "Jn_Ttf/Jn_Ttf.h"
 
 struct GameObjectStringPair {
     GameObjectStringPair(std::string word, GameObject& game_object, bool alive)
@@ -50,7 +51,6 @@ private:
     int word_length_lower_bound_;
     int word_length_upper_bound_;
     std::string color_hex_;
-
-    TTF_Font* default_font_;
+    std::string font_path_;
 };
 

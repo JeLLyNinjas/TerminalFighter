@@ -57,6 +57,7 @@ int Jn_Ttf::Jn_Ttf_RenderText(std::string text,
 }
 
 int Jn_Ttf::open_font(std::string path, int font_size) {
+    LOG(INFO) << "Opening font: " << path << " With size: " << font_size;
     if (font_map_.find(path) != font_map_.end()) {
         //Font already exists, returning 0 for no error. 
         DLOG(INFO) << "Font " << path << " already exists";
@@ -82,12 +83,14 @@ SDL_Surface *Jn_Ttf::RenderText(std::string text,
 
     SDL_Surface *text_surface;
     switch(type) {
-        case RenderType::Blended: {
+        case RenderType::Blended: 
+            LOG(INFO) << "Rendering Text Blended: " << text;
             text_surface = TTF_RenderText_Solid(font, text.c_str(), color);
-        }
-        case RenderType::Solid: {
+            break;
+        case RenderType::Solid:
+            LOG(INFO) << "Rendering Text Solid: " << text;
             text_surface = TTF_RenderText_Solid(font, text.c_str(), color);
-        }
+            break;
     }
     return text_surface;
 }

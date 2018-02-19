@@ -39,6 +39,12 @@ int Jn_Ttf::Jn_Ttf_RenderText(std::string text,
     }
     surface_ref = surface_text;
 
+    // Using this to find the ratio of the input text.
+    // Need an arbitrary tall string"
+    int text_height;
+    TTF_SizeText(iterator->second, "]", NULL, &text_height);
+
+    // This sdl_rect needs to cover the entire SDL_Surface
     sdl_rect_ref.x = 0;
     sdl_rect_ref.y = 0;
     sdl_rect_ref.w = surface_ref->w;
@@ -46,12 +52,13 @@ int Jn_Ttf::Jn_Ttf_RenderText(std::string text,
 
     // We will use font_output_size as the height, and then
     // using the ratio, calculate the corresponding width
-    int ratio = sdl_rect_ref.w / sdl_rect_ref.h;
+    double width_ratio = (double) sdl_rect_ref.w / (double) text_height;
+    double height_ratio = (double) sdl_rect_ref.h / (double) text_height;
 
     jn_rect_ref.x = 0;
     jn_rect_ref.y = 0;
-    jn_rect_ref.w = font_output_size* ratio;
-    jn_rect_ref.h = font_output_size;
+    jn_rect_ref.w = font_output_size * width_ratio;
+    jn_rect_ref.h = font_output_size * height_ratio;
 
     return 0;
 }

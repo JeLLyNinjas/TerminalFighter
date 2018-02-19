@@ -18,16 +18,10 @@ Terminal::Terminal(
     , hitbox_(Hitbox(x_pos, y_pos, width, height))
     , terminal_texture_path_(graphic_path)
     , player_text_("")
-    , default_font_ (TTF_OpenFont(font_path.c_str(), 84)) {
-    if (default_font_ == NULL) {
-        LOG(ERROR) << "Failed to load Terminal font: " << font_path;
-    };
+    , font_path_ (font_path) {
 }
 
 Terminal::~Terminal() {
-    if (default_font_ != NULL) {
-        TTF_CloseFont(default_font_);
-    }
 }
 
 void Terminal::draw(I_GraphicsHandler& graphics) {
@@ -35,10 +29,6 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
         LOG(WARNING) << "Terminal graphics were null! Setting terminal graphic...";
         set_texture(graphics.load_image(terminal_texture_path_));
     }
-
-    SDL_Surface* ui_text = TTF_RenderText_Blended(default_font_, player_text_.c_str(), TF_Colors::WHITE);
-    SDL_Rect ui_src_rect;
-
 
     int terminal_w, terminal_h;
     SDL_QueryTexture(terminal_texture_, NULL, NULL, &terminal_w, &terminal_h);
@@ -51,15 +41,21 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
                   0,
                   NULL);
 
-    if (ui_text != NULL ){
-        graphics.draw(ui_text,
-                      graphics.create_sdl_rect(0, 0, ui_src_rect.w, ui_src_rect.h),
-                      graphics.create_jn_rect(x_pos(), y_pos(), 1, 0.2),
-                      GraphicPriority::UI,
-                      true,
-                      0,
-                      NULL);
+    std::string output_string;
+    // To prevent RenderText from complaining about an empty string
+    if (player_text_.length() == 0) {
+        output_string = " ";
+    } else {
+        output_string = player_text_;
     }
+    graphics.draw_text(output_string.c_str(),
+            RenderType::Blended,
+            font_path_,
+            TF_Colors::WHITE,
+            40,
+            0.14,
+            x_pos(),
+            y_pos());
 }
 
 const I_Hitbox& Terminal::hitbox() const {

@@ -37,5 +37,5 @@ private:
     Hitbox hitbox_;
     std::string terminal_texture_path_;
     std::string player_text_;
-    TTF_Font* default_font_;
+    std::string font_path_;
 };

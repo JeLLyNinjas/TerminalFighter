@@ -27,6 +27,7 @@ void GameObjectMediator::add_game_object(
 void GameObjectMediator::add_projectile(
     Team::Team team,
     std::unique_ptr<GameObject> projectile) {
+    LOG(INFO) << "Adding the missile to universe";
     projectile->add_listener(&universe_);
     projectile->add_listener(&collision_detector_);
     collision_detector_.add_projectile(team, *projectile);

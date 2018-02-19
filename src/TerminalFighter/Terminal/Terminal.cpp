@@ -54,8 +54,8 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
             TF_Colors::WHITE,
             70,
             0.22,
-            x_pos() + 0.05,
-            y_pos());
+            x_pos() + 0.1,
+            y_pos() - 0.1);
 }
 
 const I_Hitbox& Terminal::hitbox() const {

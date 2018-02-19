@@ -1,5 +1,5 @@
 #include <math.h>
-#include <stdio.h>
+#include <glog/logging.h>
 
 #include "Util/Util.h"
 
@@ -18,11 +18,13 @@ double util::angle(double from_x, double from_y, double to_x, double to_y) {
     double delta_x = to_x - from_x;
     double delta_y = to_y - from_y;
 
-    double theta_radians = atan2(delta_y, delta_x);
+    double theta_radians = - atan2(delta_y, delta_x);
 
     // Convert to degrees
     // Add by 90 to set angle from vertical (12 o'clock)
     // As opposed to the normal angle in standard trig (3 o'clock)
     double normal_angle = (theta_radians * 180 / PI) + 90;
+    LOG(INFO) << "from_x: " << from_x << " from_y: " << from_y << "to_x: " << to_x 
+        << " to_y:" << to_y << " normal_angle: " << normal_angle;
     return normal_angle;
 }

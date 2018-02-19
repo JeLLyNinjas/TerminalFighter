@@ -52,9 +52,9 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
             RenderType::Blended,
             font_path_,
             TF_Colors::WHITE,
-            40,
-            0.14,
-            x_pos(),
+            70,
+            0.22,
+            x_pos() + 0.05,
             y_pos());
 }
 

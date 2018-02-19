@@ -91,11 +91,9 @@ SDL_Surface *Jn_Ttf::RenderText(std::string text,
     SDL_Surface *text_surface;
     switch(type) {
         case RenderType::Blended: 
-            LOG(INFO) << "Rendering Text Blended: " << text;
             text_surface = TTF_RenderText_Solid(font, text.c_str(), color);
             break;
         case RenderType::Solid:
-            LOG(INFO) << "Rendering Text Solid: " << text;
             text_surface = TTF_RenderText_Solid(font, text.c_str(), color);
             break;
     }

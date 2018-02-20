@@ -134,7 +134,7 @@ void GraphicsHandler::draw_text(std::string text,
             NULL);
 }
 
-// TODO angle is passed in, but needs to be re-calculated depending on the end-result screen
+// TODO Byron: angle is passed in, but needs to be re-calculated depending on the end-result screen
 // resolution
 void GraphicsHandler::update_screen() {
     for (auto priority : DRAW_ORDER) {

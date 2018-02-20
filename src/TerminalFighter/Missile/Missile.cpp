@@ -12,8 +12,8 @@ Missile::Missile(
     double x_pos, double y_pos,
     double x_vel, double y_vel,
     int health, std::string graphic_path)
-    : GameObject(x_pos, y_pos, 0.1, 0.0625, x_vel, y_vel, health)
-    , hitbox_(Hitbox(x_pos, y_pos, 0.1, 0.0625))
+    : GameObject(x_pos, y_pos, 0.2, 0.0625, x_vel, y_vel, health)
+    , hitbox_(Hitbox(x_pos, y_pos, 0.1, 0.1))
     , texture_path_(graphic_path) {
 }
 

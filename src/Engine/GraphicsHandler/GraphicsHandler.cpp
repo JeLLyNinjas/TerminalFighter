@@ -143,7 +143,7 @@ void GraphicsHandler::update_screen() {
                     draw_request.texture(),
                     &draw_request.src_rect(),
                     &draw_request.dest_rect(screen_width_, screen_height_),
-                    draw_request.angle(),
+                    recalculate_angle(draw_request.angle()),
                     draw_request.rotation_point(),
                     SDL_FLIP_NONE);
 
@@ -177,4 +177,14 @@ SDL_Texture* GraphicsHandler::load_image(std::string path) {
         LOG(FATAL) << "Fatal error, could not find the sprite " << path.c_str() << "! Exiting...";
     }
     return game_graphics_.find(path)->second;
+}
+
+double GraphicsHandler::recalculate_angle(double angle) {
+    double x, y;
+    util::calculate_point(angle, 1, x, y);
+    // x and y from the 1-1 ratio. Now multiplying by the actual screen width and height
+    // for the new ratio.
+    x *= screen_width_;
+    y *= screen_height_;
+    return util::angle(0, 0, x, y);
 }

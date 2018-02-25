@@ -7,6 +7,7 @@
 #include <memory> //for unique_ptr
 
 #include "I_GraphicsHandler.h"
+#include "Util/Util.h"
 
 class GraphicsHandler : public I_GraphicsHandler {
 
@@ -63,6 +64,7 @@ public:
 private:
     void init(const std::vector<std::string>& graphic_paths);
     SDL_Texture* internal_load_image(std::string path);
+    double recalculate_angle(double angle);
 
     std::unique_ptr<Jn_Ttf> text_handler_;
     SDL_Renderer& renderer_;

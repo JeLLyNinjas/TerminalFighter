@@ -47,7 +47,7 @@ void Missile::draw(I_GraphicsHandler& graphics) {
                   rect,
                   GraphicPriority::MIDDLE,
                   false,
-                  util::angle(0, 0, x_vel_, y_vel_) + 90,
+                  util::angle(0, 0, x_vel_, y_vel_),
                   NULL);
 }
 

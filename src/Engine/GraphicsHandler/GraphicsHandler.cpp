@@ -180,11 +180,16 @@ SDL_Texture* GraphicsHandler::load_image(std::string path) {
 }
 
 double GraphicsHandler::recalculate_angle(double angle) {
+    LOG(INFO) << "------start-----";
     double x, y;
     util::calculate_point(angle, 1, x, y);
     // x and y from the 1-1 ratio. Now multiplying by the actual screen width and height
     // for the new ratio.
-    x *= screen_width_;
-    y *= screen_height_;
-    return util::angle(0, 0, x, y);
+    //x *= screen_width_;
+    //y *= screen_height_;
+    double new_angle = util::angle(0, 0, x, y);
+    LOG(INFO) << "Old Angle:" << angle;
+    LOG(INFO) << "New Angle" << new_angle;
+    LOG(INFO) << "------end-----";
+    return new_angle;
 }

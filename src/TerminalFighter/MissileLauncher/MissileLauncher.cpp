@@ -77,6 +77,7 @@ void MissileLauncher::handle_input(const std::string& input) {
     float magnitude = x_vel * x_vel + y_vel * y_vel;
     magnitude = 0.01 * util::inverse_sqrt(magnitude);
     LOG(INFO) << "Creating Missile...";
+    LOG(INFO) << "Missile x_vel: " << x_vel << " Missile y_vel: " << y_vel;
     create_missile(this->x_pos(), this->y_pos(),
                    magnitude * x_vel, magnitude * y_vel);
 }

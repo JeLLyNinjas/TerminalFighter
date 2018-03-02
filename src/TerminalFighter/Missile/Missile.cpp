@@ -12,7 +12,7 @@ Missile::Missile(
     double x_pos, double y_pos,
     double x_vel, double y_vel,
     int health, std::string graphic_path)
-    : GameObject(x_pos, y_pos, 0.2, 0.0625, x_vel, y_vel, health)
+    : GameObject(x_pos, y_pos, 0.0625, 0.2, x_vel, y_vel, health)
     , hitbox_(Hitbox(x_pos, y_pos, 0.1, 0.1))
     , texture_path_(graphic_path) {
 }
@@ -34,8 +34,8 @@ void Missile::draw(I_GraphicsHandler& graphics) {
     }
 
     if (!spriteAnimator_.is_initialized()) {
-        //3 columns, 2 rows of sprite sheets, update every 6 frames
-        spriteAnimator_.init(missile_texture_, 2, 3, 3);
+        //3 columns, 2 rows of sprite sheets
+        spriteAnimator_.init(missile_texture_, 3, 2, 3);
     }
     JN_Rect rect = graphics.create_jn_rect(x_pos(), y_pos(), width(), height());
     /*

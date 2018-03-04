@@ -37,9 +37,10 @@ void Missile::draw(I_GraphicsHandler& graphics) {
         //3 columns, 2 rows of sprite sheets
         spriteAnimator_.init(missile_texture_, 3, 2, 3);
     }
+
     JN_Rect rect = graphics.create_jn_rect(x_pos(), y_pos(), width(), height());
     /*
-     *LOG(INFO) << "Missile output rect: w:" << rect.w << "h:" << rect.h << 
+     *LOG(INFO) << "Missile output rect: w:" << rect.w << "h:" << rect.h <<
      *    "x:" << rect.x << "y:" << rect.y;
      */
     graphics.draw(missile_texture_,

@@ -24,7 +24,7 @@ TargetingSystem::TargetingSystem(
     : hitbox_(Hitbox(0, 0, 1920, 1080)) //hardcoded numbers, TODO, don't have these hardcoded
     , word_length_lower_bound_(word_length_lower_bound)
     , word_length_upper_bound_(word_length_upper_bound)
-    , color_hex_(color_hex) 
+    , color_hex_(color_hex)
     , font_path_(font_path) {
     setup_local_dict(dict_path);
 
@@ -97,13 +97,13 @@ void TargetingSystem::draw(I_GraphicsHandler& graphics) {
     // Byron: Opting not to use `auto` for clarity on the iterator `it`
     for (std::map<int, GameObjectStringPair*>::iterator it = targets_.begin(); it != targets_.end(); ++it) {
         graphics.draw_text(it->second->assigned_word_.c_str(),
-                RenderType::Blended,
-                font_path_,
-                TF_Colors::WHITE,
-                40,
-                0.05,
-                it->second->game_object_.x_pos(),
-                it->second->game_object_.y_pos());
+                           RenderType::Blended,
+                           font_path_,
+                           TF_Colors::WHITE,
+                           40,
+                           0.05,
+                           it->second->game_object_.x_pos(),
+                           it->second->game_object_.y_pos());
 
 
     }

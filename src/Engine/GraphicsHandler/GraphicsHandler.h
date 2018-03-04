@@ -23,18 +23,18 @@ public:
      */
 
     ~GraphicsHandler();
-    GraphicsHandler(SDL_Renderer& renderer, 
-            std::vector<std::string> graphic_paths,
-            int screen_width,
-            int screen_height);
-    JN_Rect create_jn_rect(double x, 
-            double y,
-            double w,
-            double h);
+    GraphicsHandler(SDL_Renderer& renderer,
+                    std::vector<std::string> graphic_paths,
+                    int screen_width,
+                    int screen_height);
+    JN_Rect create_jn_rect(double x,
+                           double y,
+                           double w,
+                           double h);
     SDL_Rect create_sdl_rect(int x,
-            int y,
-            int w,
-            int h);
+                             int y,
+                             int w,
+                             int h);
     void draw(SDL_Texture* texture,
               SDL_Rect src_rect,
               JN_Rect dest_rect,
@@ -49,14 +49,14 @@ public:
               bool cleanup,
               double angle_clockwise,
               SDL_Point* rotation_point);
-    void draw_text(std::string text, 
-            RenderType type,
-            std::string font_path,
-            SDL_Color color,
-            int font_render_size,
-            double font_output_size,
-            double x,
-            double y);
+    void draw_text(std::string text,
+                   RenderType type,
+                   std::string font_path,
+                   SDL_Color color,
+                   int font_render_size,
+                   double font_output_size,
+                   double x,
+                   double y);
 
     SDL_Texture* load_image(std::string path); /*will return textures that were loaded on init()*/
     void update_screen();

@@ -35,7 +35,7 @@ void BasicEnemy::draw(I_GraphicsHandler& graphics) {
 
 
     graphics.draw(texture_,
-                  graphics.create_sdl_rect(0, 0, w, h), 
+                  graphics.create_sdl_rect(0, 0, w, h),
                   graphics.create_jn_rect(x_pos(), y_pos(), 0.1, 0.2),
                   GraphicPriority::MIDDLE,
                   false,

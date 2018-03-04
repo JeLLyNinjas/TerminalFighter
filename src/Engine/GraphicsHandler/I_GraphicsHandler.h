@@ -33,14 +33,14 @@ public:
      * 'JN' stands for JellyNinjas
      */
     virtual JN_Rect create_jn_rect(double x,
-            double y,
-            double w,
-            double h) = 0;
+                                   double y,
+                                   double w,
+                                   double h) = 0;
 
     virtual SDL_Rect create_sdl_rect(int x,
-            int y,
-            int w,
-            int h) = 0;
+                                     int y,
+                                     int w,
+                                     int h) = 0;
     /**
      * Draw function
      * This draw function does not immediately draw the texture onto the screen. Instead, the draw function
@@ -82,14 +82,14 @@ public:
                       bool cleanup,
                       double angle_clockwise,
                       SDL_Point* rotation_point) = 0;
-    virtual void draw_text(std::string text, 
-            RenderType type,
-            std::string font_path,
-            SDL_Color color,
-            int font_render_size,
-            double font_output_size,
-            double x,
-            double y) = 0;
+    virtual void draw_text(std::string text,
+                           RenderType type,
+                           std::string font_path,
+                           SDL_Color color,
+                           int font_render_size,
+                           double font_output_size,
+                           double x,
+                           double y) = 0;
 
     virtual SDL_Texture* load_image(std::string path) = 0;
     /**

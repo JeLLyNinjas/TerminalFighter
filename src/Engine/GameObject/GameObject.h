@@ -15,10 +15,10 @@ class GameObject : public I_Updatable, public Observable<DestroyedListener> {
 
 public:
     GameObject();
-    GameObject(double x_pos, double y_pos, 
-            double width, double height, 
-            double x_vel, double y_vel, 
-            int health);
+    GameObject(double x_pos, double y_pos,
+               double width, double height,
+               double x_vel, double y_vel,
+               int health);
     virtual ~GameObject();
 
     virtual void update() = 0;

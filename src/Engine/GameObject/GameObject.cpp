@@ -13,10 +13,10 @@ GameObject::GameObject()
     y_pos_ = 0;
 }
 
-GameObject::GameObject(double x_pos, double y_pos, 
-        double width, double height,
-        double x_vel, double y_vel, 
-        int health)
+GameObject::GameObject(double x_pos, double y_pos,
+                       double width, double height,
+                       double x_vel, double y_vel,
+                       int health)
     : x_pos_(x_pos)
     , y_pos_(y_pos)
     , width_(width)

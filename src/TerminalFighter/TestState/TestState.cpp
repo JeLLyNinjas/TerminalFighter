@@ -125,12 +125,12 @@ gamestates::GameStateName TestState::run() {
 
     for (;;) {
         if (rand() % 45 == 0) {
-            double rand_x = (double) (rand() % (screen_width*2)) / screen_width; //number from 0-2
-            double rand_y = (double) (rand() % (screen_height*2)) / screen_height;
+            double rand_x = (double) (rand() % (screen_width * 2)) / screen_width; //number from 0-2
+            double rand_y = (double) (rand() % (screen_height * 2)) / screen_height;
             rand_x -= 1; //number from -1 to 1
-            rand_y -= 1; 
+            rand_y -= 1;
 
-            
+
             std::unique_ptr<BasicEnemy> enemy(
                 new BasicEnemy(
                     rand_x, rand_y,

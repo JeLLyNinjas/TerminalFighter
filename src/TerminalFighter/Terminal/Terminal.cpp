@@ -42,20 +42,22 @@ void Terminal::draw(I_GraphicsHandler& graphics) {
                   NULL);
 
     std::string output_string;
+
     // To prevent RenderText from complaining about an empty string
     if (player_text_.length() == 0) {
         output_string = " ";
     } else {
         output_string = player_text_;
     }
+
     graphics.draw_text(output_string.c_str(),
-            RenderType::Blended,
-            font_path_,
-            TF_Colors::WHITE,
-            70,
-            0.22,
-            x_pos() + 0.1,
-            y_pos() - 0.1);
+                       RenderType::Blended,
+                       font_path_,
+                       TF_Colors::WHITE,
+                       70,
+                       0.22,
+                       x_pos() + 0.1,
+                       y_pos() - 0.1);
 }
 
 const I_Hitbox& Terminal::hitbox() const {

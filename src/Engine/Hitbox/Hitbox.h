@@ -4,14 +4,14 @@
 
 class Hitbox : public I_Hitbox {
 public:
-    Hitbox(int x_pos, int y_pos, int width, int height);
-    Hitbox(int x_pos, int y_pos, int radius);
-    Hitbox(SDL_Rect hitbox);
+    Hitbox(double x_pos, double y_pos, double width, double height);
+    Hitbox(double x_pos, double y_pos, double radius);
+    Hitbox(JN_Rect hitbox);
     Hitbox(Circle hitbox);
 
     bool is_overlapping(const I_Hitbox& other_hitbox) const;
-    void set_pos(int x, int y);
-    const SDL_Rect& hitbox() const;
+    void set_pos(double x, double y);
+    const JN_Rect& hitbox() const;
     const Circle& hitbox_circle() const;
     const Shape::Shape& hitbox_type() const;
 

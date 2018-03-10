@@ -44,10 +44,6 @@ const SDL_Rect& DrawRequest::dest_rect(int screen_width, int screen_height) {
     sdl_dest_rect_.y = (-dest_rect_.y * half_screen_height) + half_screen_height;
     sdl_dest_rect_.h = (dest_rect_.h * half_screen_height);
 
-    //LOG(INFO) << "screen_width:" << screen_width << " screen_height:" << screen_height;
-    //LOG(INFO) << "JN_Rect \tX:" << dest_rect_.x << " Y:" << dest_rect_.y << " W:" << dest_rect_.w << " H:" << dest_rect_.h;
-    //LOG(INFO) << "SDL_Rect \tX:" << sdl_dest_rect_.x << " Y:" << sdl_dest_rect_.y << " W:" << sdl_dest_rect_.w << " H:" << sdl_dest_rect_.h;
-
     return sdl_dest_rect_;
 }
 

@@ -16,12 +16,12 @@ public:
     const Shape::Shape& hitbox_type() const;
 
 protected:
-    SDL_Rect hitbox_;
+    JN_Rect hitbox_;
     Circle circle_hitbox_;
     Shape::Shape hitbox_type_;
 
 private:
     bool check_overlap(const Circle& hitbox, const Circle& other_hitbox) const;
-    bool check_overlap(const Circle& hitbox, const SDL_Rect& other_hitbox) const;
-    bool check_overlap(const SDL_Rect& hitbox, const SDL_Rect& other_hitbox) const;
+    bool check_overlap(const Circle& hitbox, const JN_Rect& other_hitbox) const;
+    bool check_overlap(const JN_Rect& hitbox, const JN_Rect& other_hitbox) const;
 };

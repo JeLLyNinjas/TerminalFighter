@@ -82,7 +82,7 @@ TEST(HitboxTest, circle_rect_enclosed) {
 }
 
 TEST (HitboxTest, SDL_rect_constructor) {
-    SDL_Rect rect1 = {0, 5, 100, 110};
+    JN_Rect rect1 = {0, 5, 100, 110};
     Hitbox hitbox1 = Hitbox(rect1);
     EXPECT_EQ(hitbox1.hitbox().x, 0);
     EXPECT_EQ(hitbox1.hitbox().y, 5);

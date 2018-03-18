@@ -24,4 +24,5 @@ private:
     bool check_overlap(const Circle& hitbox, const Circle& other_hitbox) const;
     bool check_overlap(const Circle& hitbox, const JN_Rect& other_hitbox) const;
     bool check_overlap(const JN_Rect& hitbox, const JN_Rect& other_hitbox) const;
+    bool jn_has_intersection(const JN_Rect& hitbox, const JN_Rect& other_hitbox) const;
 };

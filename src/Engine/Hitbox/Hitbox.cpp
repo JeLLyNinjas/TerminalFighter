@@ -91,7 +91,7 @@ bool Hitbox::check_overlap(const Circle& hitbox, const JN_Rect& other_hitbox) co
 
 //TODO have to redefine SDL_HasIntersection, except for JN_Rect
 bool Hitbox::check_overlap(const JN_Rect& hitbox, const JN_Rect& other_hitbox) const {
-    return SDL_HasIntersection(&hitbox_, &other_hitbox);
+    return jn_has_intersection(hitbox_, other_hitbox);
 }
 
 const Shape::Shape& Hitbox::hitbox_type() const {
@@ -104,4 +104,38 @@ const JN_Rect& Hitbox::hitbox() const {
 
 const Circle& Hitbox::hitbox_circle() const {
     return circle_hitbox_;
+}
+
+// Only checks for axis-aligned JN_Rects
+bool Hitbox::jn_has_intersection(const JN_Rect& hitbox, const JN_Rect& other_hitbox) const {
+    double lower_box_highest_point;
+    double higher_box_lowest_point;
+    if (hitbox.y >= other_hitbox.y) {
+        higher_box_lowest_point = hitbox.y - hitbox.h;
+        lower_box_highest_point = other_hitbox.y;
+    } else {
+        higher_box_lowest_point = other_hitbox.y;
+        lower_box_highest_point = hitbox.y - hitbox.h;
+    }
+
+    // Check if the boxes intersect on the y axis.
+    // If not, we can return false without calculating x axis.
+    if (higher_box_lowest_point > lower_box_highest_point) {
+        return false;
+    }
+
+    double left_box_right_most_point;
+    double right_box_left_most_point;
+
+    if (hitbox.x >= other_hitbox.x) {
+        right_box_left_most_point = hitbox.x - hitbox.w;
+        left_box_right_most_point = other_hitbox.x;
+    } else {
+        right_box_left_most_point = other_hitbox.x;
+        left_box_right_most_point = hitbox.x - hitbox.w;
+    }
+    if (right_box_left_most_point > left_box_right_most_point) {
+        return false;
+    } 
+    return true;
 }

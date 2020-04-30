@@ -9,14 +9,13 @@ from not_so_basic_grunt import NotSoBasicGrunt
 
 class GameMaster():
 
-    def __init__(self, universe, DRAWING_SCALE):
+    def __init__(self, universe):
         self.universe_ = universe
-        self.DRAWING_SCALE_ = DRAWING_SCALE
-        self.score_counter_ = ScoreCounter(DRAWING_SCALE)
+        self.score_counter_ = ScoreCounter()
 
         self.basic_grunt_spawn_delay_ = 300
         self.basic_grunt_spawn_timer_ = self.basic_grunt_spawn_delay_
-        self.enemy_x_spawn_locations = [x/100 for x in range(20, 80)] 
+        self.enemy_x_spawn_locations = [x/100 for x in range(20, 80)]
         self.main_character_spawn_height_ = self.universe_.height_*0.9
         self.spawn_main_character()
 
@@ -32,7 +31,7 @@ class GameMaster():
         starting_position = [
             self.universe_.width_/2, self.main_character_spawn_height_]
         the_main_character = MainCharacter(
-            starting_position, self.universe_, self.DRAWING_SCALE_)
+            starting_position, self.universe_)
         self.universe_.create_main_character(the_main_character)
 
     def spawn_basic_grunt(self):
@@ -51,7 +50,7 @@ class GameMaster():
         # print('self.basic_grunt_spawn_delay_:' + str(self.basic_grunt_spawn_delay_))
         self.basic_grunt_spawn_timer_ += 1
 
-        if self.basic_grunt_spawn_delay_ > self.minimum_spawn_delay_: 
+        if self.basic_grunt_spawn_delay_ > self.minimum_spawn_delay_:
             self.basic_grunt_spawn_delay_ *= self.spawn_difficulty_
         else:
             self.basic_grunt_spawn_delay_ = self.minimum_spawn_delay_

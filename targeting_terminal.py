@@ -16,9 +16,8 @@ EVENT_KEY_z = 122
 
 class TargetingTerminal():
 
-    def __init__(self, DRAWING_SCALE):
+    def __init__(self, ):
         # Initalization Constants
-        self.DRAWING_SCALE_ = DRAWING_SCALE
         self.current_text_ = ""
         self.terminal_rect_ = None
         self.error_timer_ = 0
@@ -36,12 +35,12 @@ class TargetingTerminal():
         # Terminal Text Input Constants
         self.font_size_ = 20
         self.text_alias_ = 1
-        self.text_input_max_size_ = self.terminal_size_width_ - 20 
+        self.text_input_max_size_ = self.terminal_size_width_ - 20
         self.text_input_x_ = 15
         self.text_input_y_ = 37
-        self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_*DRAWING_SCALE)
-        
-        self.max_word_size_ = self.text_input_max_size_ * DRAWING_SCALE / self.ui_font_.size("W")[0]
+        self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_)
+
+        self.max_word_size_ = self.text_input_max_size_ / self.ui_font_.size("W")[0]
 
     """
     Access functions
@@ -54,9 +53,9 @@ class TargetingTerminal():
     """
 
     def update(self, current_text):
-        self.current_text_ = current_text     
+        self.current_text_ = current_text
         if self.error_timer_ > 0:
-          self.error_timer_ -= 1 
+          self.error_timer_ -= 1
 
     """
     Draw functions
@@ -64,24 +63,24 @@ class TargetingTerminal():
 
     def draw_terminal(self, screen):
         if not self.terminal_rect_:
-            self.terminal_rect_ = pygame.Rect(self.terminal_rect_x_*self.DRAWING_SCALE_, 
-                                              screen.get_height()-self.terminal_rect_y_*self.DRAWING_SCALE_,
-                                              self.terminal_size_width_*self.DRAWING_SCALE_, 
-                                              self.terminal_size_height_*self.DRAWING_SCALE_)
+            self.terminal_rect_ = pygame.Rect(self.terminal_rect_x_,
+                                              screen.get_height()-self.terminal_rect_y_,
+                                              self.terminal_size_width_,
+                                              self.terminal_size_height_)
 
         if self.error_timer_ > 0:
-            pygame.draw.rect(screen, self.error_color_, self.terminal_rect_)            
+            pygame.draw.rect(screen, self.error_color_, self.terminal_rect_)
         else:
             pygame.draw.rect(screen, self.terminal_color_, self.terminal_rect_)
-        
-        pygame.draw.rect(screen, 
-                         WHITE, 
-                         self.terminal_rect_, 
-                         self.terminal_border_width_*self.DRAWING_SCALE_)
 
-        text_label = self.ui_font_.render(self.current_text_, 
-                                          self.text_alias_, 
+        pygame.draw.rect(screen,
+                         WHITE,
+                         self.terminal_rect_,
+                         self.terminal_border_width_)
+
+        text_label = self.ui_font_.render(self.current_text_,
+                                          self.text_alias_,
                                           WHITE)
-        screen.blit(text_label, 
-                    (self.text_input_x_ * self.DRAWING_SCALE_,
-                     screen.get_height()-(self.text_input_y_ * self.DRAWING_SCALE_)))
+        screen.blit(text_label,
+                    (self.text_input_x_,
+                     screen.get_height()-(self.text_input_y_)))

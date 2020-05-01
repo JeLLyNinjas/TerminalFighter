@@ -1,7 +1,8 @@
 import sys
 
 import pygame
-
+from score_counter import ScoreCounter
+from spawn_controller import SpawnController
 from gamemaster import GameMaster
 import highscore_service
 from universe import Universe
@@ -21,8 +22,9 @@ def terminalfighter(screen):
     pygame.mixer.music.set_volume(1.1)
     print("volume is " + str(pygame.mixer.music.get_volume()))
     universe = Universe((GAME_WIDTH, GAME_HEIGHT))
-    gamemaster = GameMaster(universe)
-
+    score_counter = ScoreCounter(1)
+    spawn_controller = SpawnController(universe, score_counter)
+    gamemaster = GameMaster(universe, spawn_controller, score_counter)
     # pygame ticks, one tick is 1/1000 second
     # 15 pygame ticks per update is approximately 30 updates per second
     FRAME_LENGTH_TICKS = 33

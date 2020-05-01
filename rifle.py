@@ -9,7 +9,6 @@ from wordgenerator import WordGenerator
 pygame.font.init()
 
 BLACK = 0, 0, 0
-DARK_GREEN = 0, 100, 0
 GREEN = 0, 255, 0
 LIGHT_BLUE = 100, 100, 255
 RED = 255, 0, 0

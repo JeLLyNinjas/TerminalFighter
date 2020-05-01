@@ -17,24 +17,22 @@ EVENT_KEY_5 = 53
 
 class MainCharacter(GameObject):
 
-    def __init__(self, starting_position, universe, DRAWING_SCALE):
-        self.DRAWING_SCALE_ = DRAWING_SCALE
+    def __init__(self, starting_position, universe):
         self.position_ = starting_position
         self.universe_ = universe
 
-        self.font_size_ = 22 
+        self.font_size_ = 22
         self.id_ = self.create_ID()
         self.max_health_ = 100
         self.selected_weapon_index_ = 0
         self.shield_ = Shield(self.position_, 100)
         self.size_ = 20
         self.text_antialias_ = 1
-        self.ui_font_ = pygame.font.SysFont("monospace",
-                                            self.font_size_*DRAWING_SCALE)
+        self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_)
         self.weapon_label_x_spacing_ = 5
         self.weapon_label_y_spacing_ = 10
-        self.weapons_ = [Rifle(self.universe_, DRAWING_SCALE),
-                         HomingMissiles(self.universe_, DRAWING_SCALE)]
+        self.weapons_ = [Rifle(self.universe_),
+                         HomingMissiles(self.universe_)]
 
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
         self.health_ = self.max_health_
@@ -55,7 +53,7 @@ class MainCharacter(GameObject):
     def take_damage(self, damage):
         if self.shield_.active_:
             self.shield_.disable_shield()
-        else: 
+        else:
             if damage <= 0:
                 print("WARNING MainCharacter taking " + str(damage) + " damage")
                 print("Disregarding non positive damage")
@@ -89,13 +87,13 @@ class MainCharacter(GameObject):
     def draw_view(self, screen):
         self.draw_ui(screen)
         self.current_weapon_.draw(screen)
-        
+
 
     def draw_ui(self, screen):
         self.draw_shield_ui(screen)
         self.draw_weapons_ui(screen)
         self.draw_health_ui(screen)
-        
+
 
     def draw_weapons_ui(self, screen):
         for i, weapon in enumerate(self.weapons_):
@@ -107,7 +105,7 @@ class MainCharacter(GameObject):
                                                 self.text_antialias_,
                                                 ui_weapon_text_colour)
             screen.blit(weapon_label,
-                        (self.weapon_label_x_spacing_*self.DRAWING_SCALE_,
+                        (self.weapon_label_x_spacing_,
                          (i*(weapon_label.get_height()))))
 
     def draw_health_ui(self, screen):
@@ -121,15 +119,15 @@ class MainCharacter(GameObject):
         health_label = self.ui_font_.render("HEALTH " + str(self.health_) + " ",
                                             self.text_antialias_,
                                             health_text_color)
-        screen.blit(health_label, 
-                    ((screen.get_width()-health_label.get_width())/2, 
+        screen.blit(health_label,
+                    ((screen.get_width()-health_label.get_width())/2,
                      screen.get_height()*0.97-health_label.get_height()))
 
     def draw_shield_ui(self, screen):
         if self.shield_.active_:
-            shield_graphic = pygame.Surface((self.shield_.radius_*self.DRAWING_SCALE_, self.shield_.radius_*self.DRAWING_SCALE_))
-            pygame.draw.circle(shield_graphic, WHITE, (int(self.shield_.radius_*self.DRAWING_SCALE_/2),int(self.shield_.radius_*self.DRAWING_SCALE_/2)), int(self.shield_.radius_/2*self.DRAWING_SCALE_))
-            pygame.draw.circle(shield_graphic, CYAN, (int(self.shield_.radius_*self.DRAWING_SCALE_/2),int(self.shield_.radius_*self.DRAWING_SCALE_/2)), int(self.shield_.radius_/2*self.DRAWING_SCALE_),5*self.DRAWING_SCALE_)
+            shield_graphic = pygame.Surface((self.shield_.radius_, self.shield_.radius_))
+            pygame.draw.circle(shield_graphic, WHITE, (int(self.shield_.radius_/2),int(self.shield_.radius_/2)), int(self.shield_.radius_/2))
+            pygame.draw.circle(shield_graphic, CYAN, (int(self.shield_.radius_/2),int(self.shield_.radius_/2)), int(self.shield_.radius_/2),5)
             shield_graphic.set_colorkey((255,0,255))
             shield_graphic.set_alpha(50)
-            screen.blit(shield_graphic, ((self.shield_.position_[0]-self.shield_.radius_/2)*self.DRAWING_SCALE_, (self.shield_.position_[1]-self.shield_.radius_/2)*self.DRAWING_SCALE_))
+            screen.blit(shield_graphic, (self.shield_.position_[0]-self.shield_.radius_/2, (self.shield_.position_[1]-self.shield_.radius_/2)))

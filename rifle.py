@@ -24,24 +24,22 @@ EVENT_KEY_z = 122
 
 class RifleTargetingSystem():
 
-    def __init__(self, universe, DRAWING_SCALE):
-        self.DRAWING_SCALE_ = DRAWING_SCALE
+    def __init__(self, universe):
         self.universe_ = universe
 
         self.current_text_ = ""
         self.default_enemy_color_ = RED
         self.enemy_colors_ = {"NotSoBasicGrunt" : LIGHT_BLUE}
-        self.font_size_ = 15 
-        self.ids_for_target_tags_ = dict() 
+        self.font_size_ = 15
+        self.ids_for_target_tags_ = dict()
         self.main_character_color_ = GREEN
         self.projectile_color_ = WHITE
         self.target_tag_y_spacing_ = 5
         self.target_tag_rect_spacing_ = 2
         self.target_tags_ = dict()
-        self.targeting_terminal_ = TargetingTerminal(DRAWING_SCALE)
+        self.targeting_terminal_ = TargetingTerminal()
         self.text_antialias_ = 1
-        self.ui_font_ = pygame.font.SysFont("monospace", 
-                                            self.font_size_*DRAWING_SCALE)
+        self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_)
         self.word_generator_ = WordGenerator()
         self.word_length_min_ = 3
         self.word_length_range_ = 3
@@ -66,7 +64,7 @@ class RifleTargetingSystem():
     def update(self, events):
         for enemy in self.universe_.enemies():
             if enemy.id_ not in self.target_tags_:
-                new_word = self.word_generator_.request_word(self.word_length_min_, 
+                new_word = self.word_generator_.request_word(self.word_length_min_,
                                                              self.word_length_range_)
                 self.target_tags_[enemy.id_] = new_word
                 self.ids_for_target_tags_[new_word] = enemy.id_
@@ -77,8 +75,8 @@ class RifleTargetingSystem():
                     target_location = self.get_target_position(self.current_text_)
                     self.current_text_ = ""
                     if target_location:
-                        rifle_projectile = RifleProjectile(self.universe_.main_character_.position_, 
-                                                           target_location, 
+                        rifle_projectile = RifleProjectile(self.universe_.main_character_.position_,
+                                                           target_location,
                                                            self.universe_)
                         self.universe_.create_friendly_projectile(rifle_projectile)
                     else:
@@ -109,8 +107,8 @@ class RifleTargetingSystem():
     def draw_grid(self, screen):
         height = screen.get_height()
         width = screen.get_width()
-        line_separation = 25 * self.DRAWING_SCALE_
-        line_width = 1 * self.DRAWING_SCALE_
+        line_separation = 25
+        line_width = 1
 
         for i in range(line_separation, width, line_separation):
             pygame.draw.line(screen,
@@ -136,54 +134,54 @@ class RifleTargetingSystem():
     def draw_enemies(self, screen):
         for enemy in self.universe_.enemies():
             enemy_color = self.enemy_colors_.get(enemy.get_type(), self.default_enemy_color_)
-            enemy_rect = pygame.Rect((enemy.position_[0]-enemy.size_/2) * self.DRAWING_SCALE_,
-                                     (enemy.position_[1]-enemy.size_/2) * self.DRAWING_SCALE_,
-                                     enemy.size_ * self.DRAWING_SCALE_,
-                                     enemy.size_ * self.DRAWING_SCALE_)
+            enemy_rect = pygame.Rect(enemy.position_[0]-enemy.size_/2,
+                                     enemy.position_[1]-enemy.size_/2,
+                                     enemy.size_,
+                                     enemy.size_)
             pygame.draw.rect(screen, enemy_color, enemy_rect)
 
     def draw_maincharacter(self, screen):
         main_character = self.universe_.main_character_
-        main_character_rect = pygame.Rect((main_character.position_[0]-main_character.size_/2) * self.DRAWING_SCALE_,
-                                          (main_character.position_[1]-main_character.size_/2) * self.DRAWING_SCALE_,
-                                          main_character.size_ * self.DRAWING_SCALE_,
-                                          main_character.size_ * self.DRAWING_SCALE_)
+        main_character_rect = pygame.Rect(main_character.position_[0]-main_character.size_/2,
+                                          main_character.position_[1]-main_character.size_/2,
+                                          main_character.size_,
+                                          main_character.size_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():
             enemy_color = self.enemy_colors_.get(enemy.get_type(), self.default_enemy_color_)
             target_tag_word = self.target_tags_[enemy.id_]
-            target_tag_label = self.ui_font_.render(target_tag_word, 
-                                                    self.text_antialias_, 
+            target_tag_label = self.ui_font_.render(target_tag_word,
+                                                    self.text_antialias_,
                                                     enemy_color)
             width = self.ui_font_.size(target_tag_word)[0]
-            height = self.ui_font_.size(target_tag_word)[1] 
+            height = self.ui_font_.size(target_tag_word)[1]
 
-            target_tag_x = enemy.position_[0] * self.DRAWING_SCALE_ - (width/2)
-            target_tag_y = (enemy.position_[1] * self.DRAWING_SCALE_ + enemy.size_/2 +(self.target_tag_y_spacing_ * self. DRAWING_SCALE_)) 
+            target_tag_x = enemy.position_[0] - (width/2)
+            target_tag_y = (enemy.position_[1] + enemy.size_/2 +(self.target_tag_y_spacing_))
 
-            pygame.draw.rect(screen, BLACK, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_, 
+            pygame.draw.rect(screen, BLACK, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_,
                             width+4, height+2), 0) # Filled rect. Dimensions of rect adjusted to contain the word
-            pygame.draw.rect(screen, GRAY, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_, 
+            pygame.draw.rect(screen, GRAY, (target_tag_x-self.target_tag_rect_spacing_, target_tag_y-self.target_tag_rect_spacing_,
                             width+4, height+2), 1) # Outline rect.  Dimensions of rect adjusted to contain the word
 
             screen.blit(target_tag_label, (target_tag_x, target_tag_y))
 
     def draw_friendly_projectiles(self, screen):
         for projectile in self.universe_.friendly_projectiles():
-            projectile_rect = pygame.Rect((projectile.position_[0]-projectile.size_/2) * self.DRAWING_SCALE_,
-                                          (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
-                                          projectile.size_ * self.DRAWING_SCALE_,
-                                          projectile.size_ * self.DRAWING_SCALE_)
+            projectile_rect = pygame.Rect(projectile.position_[0]-projectile.size_/2,
+                                          projectile.position_[1]-projectile.size_/2,
+                                          projectile.size_,
+                                          projectile.size_)
             pygame.draw.rect(screen, self.projectile_color_, projectile_rect)
 
     def draw_enemy_projectiles(self, screen):
         for projectile in self.universe_.enemy_projectiles():
-            projectile_rect = pygame.Rect((projectile.position_[0]-projectile.size_/2) * self.DRAWING_SCALE_,
-                                          (projectile.position_[1]-projectile.size_/2) * self.DRAWING_SCALE_,
-                                          projectile.size_ * self.DRAWING_SCALE_,
-                                          projectile.size_ * self.DRAWING_SCALE_)
+            projectile_rect = pygame.Rect(projectile.position_[0]-projectile.size_/2,
+                                          projectile.position_[1]-projectile.size_/2,
+                                          projectile.size_,
+                                          projectile.size_)
             pygame.draw.rect(screen, self.default_enemy_color_, projectile_rect)
 
 
@@ -197,7 +195,7 @@ class RifleProjectile(GameObject):
         self.speed_ = 15
         self.speed_ = 17
         self.universe_ = universe
-        self.velocity_ = self.calculate_trajectory(initial_position, 
+        self.velocity_ = self.calculate_trajectory(initial_position,
                                                    target_position)
 
     def calculate_trajectory(self, initial_position, target_position):
@@ -219,7 +217,7 @@ class RifleProjectile(GameObject):
 
     def update(self, events):
         self.check_collisions()
-        self.position_ = (self.position_[0] + self.velocity_[0], 
+        self.position_ = (self.position_[0] + self.velocity_[0],
                           self.position_[1] + self.velocity_[1])
 
     def collision_box(self):
@@ -242,12 +240,11 @@ class RifleProjectile(GameObject):
 
 class Rifle():
 
-    def __init__(self, universe, DRAWING_SCALE):
+    def __init__(self, universe):
         self.universe_ = universe
-        self.DRAWING_SCALE_ = DRAWING_SCALE
 
         self.NAME_ = "Rifle"
-        self.targeting_system = RifleTargetingSystem(universe, DRAWING_SCALE)
+        self.targeting_system = RifleTargetingSystem(universe)
 
     def update(self, events):
         self.targeting_system.update(events)

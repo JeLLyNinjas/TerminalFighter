@@ -103,15 +103,10 @@ class HomingMissilesTargetingSystem():
     """
 
     def draw(self, screen):
-        self.draw_background(screen)
-        self.draw_grid(screen)
         self.draw_entities(screen)
         self.draw_target_tags(screen)
         self.draw_targets(screen)
         self.targeting_terminal_.draw_terminal(screen)
-
-    def draw_background(self, screen):
-        pygame.draw.rect(screen, BLACK, pygame.Rect((0, 0), screen.get_size()))
 
     def draw_entities(self, screen):
         self.draw_friendly_projectiles(screen)
@@ -136,26 +131,6 @@ class HomingMissilesTargetingSystem():
                                           main_character.size_,
                                           main_character.size_)
         pygame.draw.rect(screen, self.main_character_color_, main_character_rect)
-
-    def draw_grid(self, screen):
-        height = screen.get_height()
-        width = screen.get_width()
-        line_separation = 25
-        line_width = 1
-
-        for i in range(line_separation, width, line_separation):
-            pygame.draw.line(screen,
-                             DARK_GREEN,
-                             (i, 0),
-                             (i, height),
-                             line_width)
-
-        for i in range(line_separation, height, line_separation):
-            pygame.draw.line(screen,
-                             DARK_GREEN,
-                             (0, i),
-                             (width, i),
-                             line_width)
 
     def draw_target_tags(self, screen):
         for enemy in self.universe_.enemies():

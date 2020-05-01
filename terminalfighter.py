@@ -1,10 +1,10 @@
 import sys
 
+import highscore_service
 import pygame
+from gamemaster import GameMaster
 from score_counter import ScoreCounter
 from spawn_controller import SpawnController
-from gamemaster import GameMaster
-import highscore_service
 from universe import Universe
 
 pygame.init()
@@ -22,7 +22,7 @@ def terminalfighter(screen):
     pygame.mixer.music.set_volume(1.1)
     print("volume is " + str(pygame.mixer.music.get_volume()))
     universe = Universe((GAME_WIDTH, GAME_HEIGHT))
-    score_counter = ScoreCounter(1)
+    score_counter = ScoreCounter()
     spawn_controller = SpawnController(universe, score_counter)
     gamemaster = GameMaster(universe, spawn_controller, score_counter)
     # pygame ticks, one tick is 1/1000 second

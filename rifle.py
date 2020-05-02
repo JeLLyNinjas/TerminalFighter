@@ -14,6 +14,7 @@ LIGHT_BLUE = 100, 100, 255
 RED = 255, 0, 0
 WHITE = 255, 255, 255
 GRAY = 88, 88, 88
+DARK_GREEN = 0, 100, 0
 
 EVENT_KEY_a = 97
 EVENT_KEY_BACKSPACE = 8
@@ -21,9 +22,9 @@ EVENT_KEY_ENTER = 13
 EVENT_KEY_z = 122
 
 
-class RifleTargetingSystem():
+class RifleTargetingSystem:
 
-    def __init__(self, universe):
+    def __init__(self, universe, screen_size):
         self.universe_ = universe
 
         self.current_text_ = ""
@@ -42,6 +43,30 @@ class RifleTargetingSystem():
         self.word_generator_ = WordGenerator()
         self.word_length_min_ = 3
         self.word_length_range_ = 3
+        self.grid = self._initialize_grid(screen_size[0], screen_size[1])
+
+    @staticmethod
+    def _initialize_grid(width, height):
+        background_surface = pygame.Surface((width, height))
+
+        line_separation = 25
+        line_width = 1
+
+        for i in range(line_separation, width, line_separation):
+            pygame.draw.line(background_surface,
+                             DARK_GREEN,
+                             (i, 0),
+                             (i, height),
+                             line_width)
+
+        for i in range(line_separation, height, line_separation):
+            pygame.draw.line(background_surface,
+                             DARK_GREEN,
+                             (0, i),
+                             (width, i),
+                             line_width)
+
+        return background_surface
 
     def get_target_id(self, terminal_input):
         for enemy in self.universe_.enemies():
@@ -94,9 +119,13 @@ class RifleTargetingSystem():
     """
 
     def draw(self, screen):
+        self.draw_grid(screen)
         self.draw_entities(screen)
         self.draw_target_tags(screen)
         self.targeting_terminal_.draw_terminal(screen)
+
+    def draw_grid(self, screen):
+        screen.blit(self.grid, (0, 0))
 
     def draw_entities(self, screen):
         self.draw_friendly_projectiles(screen)

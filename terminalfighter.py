@@ -4,7 +4,6 @@ import time
 
 import highscore_service
 import pygame
-
 from gamemaster import GameMaster
 from score_counter import ScoreCounter
 from spawn_controller import SpawnController
@@ -20,23 +19,21 @@ WHITE = 255, 255, 255
 BLACK = 0, 0, 0
 DARK_GREEN = 0, 100, 0
 
-PROFILE_FILE_NAME = "profile/terminalfighter"
 
 def terminalfighter(screen):
-
     pygame.mixer.music.load("TerminalFighterPrototypeTheme.ogg")
     pygame.mixer.music.play(loops=-1)
     pygame.mixer.music.set_volume(1.1)
     print("volume is " + str(pygame.mixer.music.get_volume()))
-    universe = Universe((GAME_WIDTH, GAME_HEIGHT))
+    universe = Universe(screen.get_size())
     score_counter = ScoreCounter()
     spawn_controller = SpawnController(universe, score_counter)
-    gamemaster = GameMaster(universe, spawn_controller, score_counter)
+    gamemaster = GameMaster(universe, spawn_controller, score_counter, screen.get_size())
     # pygame ticks, one tick is 1/1000 second
     # 15 pygame ticks per update is ~60 updates per second
     FRAME_LENGTH_TICKS = 15
 
-    background_surface = draw_background()
+    background_surface = draw_background(screen.get_width(), screen.get_height())
 
     prev_frame_start_time = 0
 
@@ -109,38 +106,13 @@ def terminalfighter(screen):
         else:
             print("WARNING: Cannot keep up with 30FPS update time!")
 
-def draw_background():
-    background_surface = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+def draw_background(width, height):
+    background_surface = pygame.Surface((width, height))
     background_surface.fill(BLACK)
-
-    line_separation = 25
-    line_width = 1
-
-    for i in range(line_separation, GAME_WIDTH, line_separation):
-        pygame.draw.line(background_surface,
-                         DARK_GREEN,
-                         (i, 0),
-                         (i, GAME_HEIGHT),
-                         line_width)
-
-    for i in range(line_separation, GAME_HEIGHT, line_separation):
-        pygame.draw.line(background_surface,
-                         DARK_GREEN,
-                         (0, i),
-                         (GAME_WIDTH, i),
-                         line_width)
 
     return background_surface
 
 
 if __name__ == '__main__':
-    # Start profiling
-    pr = cProfile.Profile()
-    pr.enable()
-    try:
-        screen = pygame.display.set_mode(
-            (int(GAME_WIDTH), int(GAME_HEIGHT)))
-        terminalfighter(screen)
-    finally:
-        pr.disable()
-        pr.dump_stats("%s_%d.prof" % (PROFILE_FILE_NAME, int(time.time())))
+    screen = pygame.display.set_mode((int(GAME_WIDTH), int(GAME_HEIGHT)))
+    terminalfighter(screen)

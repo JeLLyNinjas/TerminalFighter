@@ -30,7 +30,7 @@ class MainCharacter(GameObject):
         self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_)
         self.weapon_label_x_spacing_ = 5
         self.weapon_label_y_spacing_ = 10
-        self.weapons_ = [Rifle(self.universe_),
+        self.weapons_ = [Rifle(self.universe_, screen_size),
                          HomingMissiles(self.universe_, screen_size)]
 
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]

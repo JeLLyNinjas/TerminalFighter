@@ -241,13 +241,12 @@ class RifleProjectile(GameObject):
         self.listeners_.append(listeners)
 
 
-class Rifle():
-
-    def __init__(self, universe):
+class Rifle:
+    def __init__(self, universe, screen_size):
         self.universe_ = universe
 
         self.NAME_ = "Rifle"
-        self.targeting_system = RifleTargetingSystem(universe)
+        self.targeting_system = RifleTargetingSystem(universe, screen_size)
 
     def update(self, events):
         self.targeting_system.update(events)

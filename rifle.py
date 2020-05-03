@@ -192,8 +192,7 @@ class RifleProjectile(GameObject):
         self.listeners_ = []
         self.position_ = initial_position
         self.size_ = 5
-        self.speed_ = 15
-        self.speed_ = 17
+        self.speed_ = 8
         self.universe_ = universe
         self.velocity_ = self.calculate_trajectory(initial_position,
                                                    target_position)

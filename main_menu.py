@@ -49,7 +49,7 @@ def spawn_selection(starting_pos, name, universe, selection_listener):
     selection_listener.register_selection(name, the_selection)
 
 
-def main_menu(screen):
+def main_menu(screen, frame_length_ticks):
     universe = Universe((GAME_WIDTH, GAME_HEIGHT))
     selection_listener = SelectionListener()
     ui_font_ = pygame.font.SysFont("monospace", 30)
@@ -61,10 +61,6 @@ def main_menu(screen):
     spawn_selection(play_position, "PLAY",  universe,  selection_listener)
     spawn_selection(quit_position, "QUIT",  universe,  selection_listener)
     highscore = highscore_service.get_highscore()
-
-    # pygame ticks, one tick is 1/1000 second
-    # 15 pygame ticks per update is approximately 30 updates per second
-    FRAME_LENGTH_TICKS = 33
 
     prev_frame_start_time = 0
 
@@ -113,7 +109,7 @@ def main_menu(screen):
 
         frame_end_time = pygame.time.get_ticks()
         frame_time_elapsed = frame_end_time - frame_start_time
-        if frame_time_elapsed < FRAME_LENGTH_TICKS:
-            pygame.time.wait(FRAME_LENGTH_TICKS - frame_time_elapsed)
+        if frame_time_elapsed < frame_length_ticks:
+            pygame.time.wait(frame_length_ticks - frame_time_elapsed)
         else:
             print("WARNING: Cannot keep up with 30FPS update time!")

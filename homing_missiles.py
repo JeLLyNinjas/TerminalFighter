@@ -48,26 +48,26 @@ class HomingMissilesTargetingSystem:
 
     @staticmethod
     def _initialize_grid(width, height):
-        background_surface = pygame.Surface((width, height))
+        grid_surface = pygame.Surface((width, height))
 
         line_separation = 25
         line_width = 1
 
         for i in range(line_separation, width, line_separation):
-            pygame.draw.line(background_surface,
+            pygame.draw.line(grid_surface,
                              DARK_GREEN,
                              (i, 0),
                              (i, height),
                              line_width)
 
         for i in range(line_separation, height, line_separation):
-            pygame.draw.line(background_surface,
+            pygame.draw.line(grid_surface,
                              DARK_GREEN,
                              (0, i),
                              (width, i),
                              line_width)
 
-        return background_surface
+        return grid_surface
 
     def get_target_id(self, terminal_input):
         for enemy in self.universe_.enemies():

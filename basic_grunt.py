@@ -15,7 +15,7 @@ class BasicGruntProjectile(GameObject):
         self.listeners_ = []
         self.position_ = initial_position
         self.size_ = 5
-        self.speed_ = 15
+        self.speed_ = 7.5
         self.velocity_ = self.calculate_trajectory(initial_position,
                                                    target_position)
 
@@ -71,9 +71,9 @@ class BasicGrunt(GameObject):
         self.enemy_type_ = "BasicGrunt"
         self.listeners_ = []
         self.size_ = 15
-        self.speed_ = 0.3
-        self.weapon_delay_ = 100
-        self.weapon_delay_timer_ = 100
+        self.speed_ = 0.15
+        self.weapon_delay_ = 200
+        self.weapon_delay_timer_ = self.weapon_delay_
         self.id_ = self.create_ID()
 
     """

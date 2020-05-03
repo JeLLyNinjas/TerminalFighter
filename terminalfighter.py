@@ -15,7 +15,7 @@ GAME_WIDTH = 1000
 GAME_HEIGHT = 700
 WHITE = 255, 255, 255
 
-def terminalfighter(screen):
+def terminalfighter(screen, frame_length_ticks):
 
     pygame.mixer.music.load("TerminalFighterPrototypeTheme.ogg")
     pygame.mixer.music.play(loops=-1)
@@ -25,9 +25,6 @@ def terminalfighter(screen):
     score_counter = ScoreCounter()
     spawn_controller = SpawnController(universe, score_counter)
     gamemaster = GameMaster(universe, spawn_controller, score_counter)
-    # pygame ticks, one tick is 1/1000 second
-    # 15 pygame ticks per update is approximately 30 updates per second
-    FRAME_LENGTH_TICKS = 33
 
     prev_frame_start_time = 0
 
@@ -94,8 +91,8 @@ def terminalfighter(screen):
 
         frame_end_time = pygame.time.get_ticks()
         frame_time_elapsed = frame_end_time - frame_start_time
-        if frame_time_elapsed < FRAME_LENGTH_TICKS:
-            pygame.time.wait(FRAME_LENGTH_TICKS - frame_time_elapsed)
+        if frame_time_elapsed < frame_length_ticks:
+            pygame.time.wait(frame_length_ticks - frame_time_elapsed)
         else:
             print("WARNING: Cannot keep up with 30FPS update time!")
 
@@ -106,4 +103,7 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode(
         (int(GAME_WIDTH), int(GAME_HEIGHT)))
 
-    terminalfighter(screen)
+    # pygame ticks, one tick is 1/1000 second
+    # 16 pygame ticks per update is approximately 62.5 updates per second
+    frame_length_ticks = 16
+    terminalfighter(screen, frame_length_ticks)

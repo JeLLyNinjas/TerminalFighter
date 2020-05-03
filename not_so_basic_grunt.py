@@ -13,7 +13,7 @@ class NotSoBasicGruntProjectile(GameObject):
         self.listeners_ = []
         self.position_ = initial_position
         self.size_ = 5
-        self.speed_ = 15
+        self.speed_ = 7.5
         self.velocity_ = self.calculate_trajectory(initial_position,
                                                    target_position)
 
@@ -68,17 +68,17 @@ class NotSoBasicGrunt(GameObject):
         self.id_ = self.create_ID()
         self.listeners_ = []
         self.size_ = 15
-        self.weapon_delay_ = 200
+        self.weapon_delay_ = 400
         self.weapon_delay_timer_ = 0
         self.weapon_range_ = 400
 
         self.x_velocity = 0
-        self.y_velocity = 0.3 
+        self.y_velocity = 0.15
         self.x_accel = 0
         self.y_accel = 0
 
         self.gravity_holes_ = [(500,300)]
-        self.gravity_hole_force_ = 0.12
+        self.gravity_hole_force_ = 0.06
 
     """
     Update Functions

@@ -6,5 +6,8 @@ Dev Setup
 4. Launch the game by running `pipenv run python main.py`
 
 ####Profiling
+ * To enable profiling, launch the game with the `--profile` option. 
+    e.g.
+   `pipenv run python main.py --profile`
  * To view a profile result, run the following command:
    `pipenv run snakeviz <.prof file>`

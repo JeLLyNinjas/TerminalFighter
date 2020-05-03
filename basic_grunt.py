@@ -67,7 +67,7 @@ class BasicGrunt(GameObject):
         self.closest_range_ = 100
         self.detection_range_ = 400
         self.ID_ = self.create_ID()
-        self.health_ = 30
+        self.health_ = 100
         self.enemy_type_ = "BasicGrunt"
         self.listeners_ = []
         self.size_ = 15

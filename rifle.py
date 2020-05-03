@@ -192,6 +192,7 @@ class RifleProjectile(GameObject):
         self.listeners_ = []
         self.position_ = initial_position
         self.size_ = 5
+        self.damage_ = 100
         self.speed_ = 8
         self.universe_ = universe
         self.velocity_ = self.calculate_trajectory(initial_position,
@@ -211,7 +212,7 @@ class RifleProjectile(GameObject):
         collisions = self.universe_.get_collisions(self)
 
         if collisions:
-            collisions[0].take_damage(1000)
+            collisions[0].take_damage(self.damage_)
             self.report_destroyed()
 
     def update(self, events):

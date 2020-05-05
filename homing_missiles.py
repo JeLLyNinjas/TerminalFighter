@@ -218,6 +218,7 @@ class HomingMissilesProjectile(GameObject):
 
         self.id_ = self.create_ID()
         self.listeners_ = []
+        self.damage_ = 1000
         self.size_ = 5
         self.speed_ = 4
         self.velocity_ = self.calculate_trajectory(self.position_, self.targeted_enemy_.position_)
@@ -235,7 +236,7 @@ class HomingMissilesProjectile(GameObject):
     def check_collisions(self):
         collisions = self.universe_.get_collisions(self)
         for enemies in collisions:
-            enemies.take_damage(1000)
+            enemies.take_damage(self.damage_)
 
         if collisions:
             self.report_destroyed()

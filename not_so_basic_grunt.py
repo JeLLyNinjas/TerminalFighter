@@ -64,7 +64,7 @@ class NotSoBasicGrunt(GameObject):
         self.universe_ = universe
 
         self.enemy_type_ = "NotSoBasicGrunt"
-        self.health_ = 30
+        self.health_ = 100
         self.id_ = self.create_ID()
         self.listeners_ = []
         self.size_ = 15

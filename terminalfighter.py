@@ -1,4 +1,6 @@
+import cProfile
 import sys
+import time
 
 import highscore_service
 import pygame
@@ -11,20 +13,23 @@ pygame.init()
 pygame.font.init()
 pygame.key.set_repeat(100, 25)
 
-GAME_WIDTH = 1000
-GAME_HEIGHT = 700
 WHITE = 255, 255, 255
+BLACK = 0, 0, 0
+DARK_GREEN = 0, 100, 0
+
 
 def terminalfighter(screen, frame_length_ticks):
-
     pygame.mixer.music.load("TerminalFighterPrototypeTheme.ogg")
     pygame.mixer.music.play(loops=-1)
     pygame.mixer.music.set_volume(1.1)
     print("volume is " + str(pygame.mixer.music.get_volume()))
-    universe = Universe((GAME_WIDTH, GAME_HEIGHT))
+    universe = Universe(screen.get_size())
     score_counter = ScoreCounter()
     spawn_controller = SpawnController(universe, score_counter)
-    gamemaster = GameMaster(universe, spawn_controller, score_counter)
+    gamemaster = GameMaster(universe, spawn_controller, score_counter, screen.get_size())
+
+    background_surface = draw_background(screen.get_width(), screen.get_height())
+
 
     prev_frame_start_time = 0
 
@@ -42,6 +47,7 @@ def terminalfighter(screen, frame_length_ticks):
         # print("update time : " + str(pygame.time.get_ticks() - update_start_time))
 
         draw_start_time = pygame.time.get_ticks()
+        screen.blit(background_surface, (0, 0))
         gamemaster.draw(screen)
         # print("draw time : " + str(pygame.time.get_ticks() - draw_start_time))
 
@@ -95,6 +101,13 @@ def terminalfighter(screen, frame_length_ticks):
             pygame.time.wait(frame_length_ticks - frame_time_elapsed)
         else:
             print("WARNING: Cannot keep up with 30FPS update time!")
+
+def draw_background(width, height):
+    background_surface = pygame.Surface((width, height))
+    background_surface.fill(BLACK)
+
+    return background_surface
+
 
 if __name__ == '__main__':
     GAME_WIDTH = 1000

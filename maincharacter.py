@@ -17,10 +17,9 @@ EVENT_KEY_5 = 53
 
 class MainCharacter(GameObject):
 
-    def __init__(self, starting_position, universe):
+    def __init__(self, starting_position, universe, screen_size):
         self.position_ = starting_position
         self.universe_ = universe
-
         self.font_size_ = 22
         self.id_ = self.create_ID()
         self.max_health_ = 100
@@ -31,8 +30,8 @@ class MainCharacter(GameObject):
         self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_)
         self.weapon_label_x_spacing_ = 5
         self.weapon_label_y_spacing_ = 10
-        self.weapons_ = [Rifle(self.universe_),
-                         HomingMissiles(self.universe_)]
+        self.weapons_ = [Rifle(self.universe_, screen_size),
+                         HomingMissiles(self.universe_, screen_size)]
 
         self.current_weapon_ = self.weapons_[self.selected_weapon_index_]
         self.health_ = self.max_health_

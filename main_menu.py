@@ -10,13 +10,11 @@ from universe import Universe
 
 pygame.init()
 
-GAME_WIDTH = 1000
-GAME_HEIGHT = 700
-
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
 
 HIGH_SCORE_FILE = "HighScore.txt"
+
 
 class SelectionListener(DestroyListener):
 
@@ -36,10 +34,12 @@ class SelectionListener(DestroyListener):
         if not self.selected_:
             self.selected_ = self.selections_[type_gameobject.id_]
 
-def spawn_main_character(universe):
-    the_main_character = MainCharacter([universe.width_/2, universe.height_*0.9], universe)
+
+def spawn_main_character(universe, screen_size):
+    the_main_character = MainCharacter([universe.width_/2, universe.height_*0.9], universe, screen_size)
     the_main_character.weapons_ = the_main_character.weapons_[:1]
     universe.create_main_character(the_main_character)
+
 
 def spawn_selection(starting_pos, name, universe, selection_listener):
     the_selection = BasicGrunt(starting_pos, universe)
@@ -50,14 +50,14 @@ def spawn_selection(starting_pos, name, universe, selection_listener):
 
 
 def main_menu(screen, frame_length_ticks):
-    universe = Universe((GAME_WIDTH, GAME_HEIGHT))
+    universe = Universe(screen.get_size())
     selection_listener = SelectionListener()
     ui_font_ = pygame.font.SysFont("monospace", 30)
-    LABEL_SPACING = 50
-    play_position = [GAME_WIDTH*(1/3), GAME_HEIGHT*(1/4)]
-    quit_position = [GAME_WIDTH*(2/3), GAME_HEIGHT*(1/4)]
+    label_spacing = 50
+    play_position = [screen.get_width() * (1/3), screen.get_height() * (1/4)]
+    quit_position = [screen.get_width() * (2/3), screen.get_height() * (1/4)]
 
-    spawn_main_character(universe)
+    spawn_main_character(universe, screen.get_size())
     spawn_selection(play_position, "PLAY",  universe,  selection_listener)
     spawn_selection(quit_position, "QUIT",  universe,  selection_listener)
     highscore = highscore_service.get_highscore()
@@ -86,12 +86,12 @@ def main_menu(screen, frame_length_ticks):
         play_label = ui_font_.render("PLAY", 1, WHITE)
         screen.blit(play_label,
                     (play_position[0] - (play_label.get_width()/2),
-                     play_position[1] - LABEL_SPACING))
+                     play_position[1] - label_spacing))
 
         quit_label = ui_font_.render("QUIT", 1, WHITE)
         screen.blit(quit_label,
                     (quit_position[0] - (quit_label.get_width()/2),
-                     quit_position[1] - LABEL_SPACING))
+                     quit_position[1] - label_spacing))
 
         instruction_label = ui_font_.render("TYPE TO SHOOT!", 1, WHITE)
         screen.blit(instruction_label,

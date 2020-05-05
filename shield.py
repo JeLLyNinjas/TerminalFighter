@@ -1,12 +1,11 @@
 import pygame
 
-class Shield(): 
+class Shield():
 	def __init__(self, position, radius):
 		self.active_ = 1
-		self.disabled_waiting_time = 100
+		self.disabled_waiting_time = 200
 		self.position_ = position
 		self.radius_ = radius
-		self.time_ = 2
 
 		self.disabled_counter_ = self.disabled_waiting_time
 
@@ -17,10 +16,10 @@ class Shield():
 						   self.radius_)
 	def disable_shield(self):
 		self.active_ = 0
-			
-	def update(self, events): 
-		if not self.active_ and self.disabled_counter_: 
+
+	def update(self, events):
+		if not self.active_ and self.disabled_counter_:
 			self.disabled_counter_ = self.disabled_counter_ - 1
 		elif not self.active_ and not self.disabled_counter_:
 			self.disabled_counter_ = self.disabled_waiting_time
-			self.active_ = 1 
+			self.active_ = 1

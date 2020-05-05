@@ -13,7 +13,7 @@ class Universe(DestroyListener):
         self.width_ = bounds[0]
 
         self.created_enemies = list()
-        self.created_friendly_projectiles = list() 
+        self.created_friendly_projectiles = list()
         self.created_enemy_projectiles = list()
         self.created_main_character = list()
         self.collisions_ = dict()
@@ -55,13 +55,13 @@ class Universe(DestroyListener):
             self.friendly_projectiles_[the_friendly_projectile.id_] = the_friendly_projectile
             self.gameobjects_[the_friendly_projectile.id_] = the_friendly_projectile
         self.created_friendly_projectiles.clear()
-        
+
         for the_enemy in self.created_enemies:
             self.enemies_[the_enemy.id_] = the_enemy
             self.gameobjects_[the_enemy.id_] = the_enemy
         self.created_enemies.clear()
 
-        for the_enemy_projectile in self.created_enemy_projectiles: 
+        for the_enemy_projectile in self.created_enemy_projectiles:
             self.enemy_projectiles_[the_enemy_projectile.id_] = the_enemy_projectile
             self.gameobjects_[the_enemy_projectile.id_] = the_enemy_projectile
         self.created_enemy_projectiles.clear()
@@ -78,7 +78,7 @@ class Universe(DestroyListener):
             gameobject.update(events)
 
         self.delete_out_of_bounds_gameobjects()
-        
+
         for gameobject_id in self.deleted_gameobjects_:
             self.gameobjects_.pop(gameobject_id, None)
             self.enemies_.pop(gameobject_id, None)
@@ -92,7 +92,7 @@ class Universe(DestroyListener):
     def create_enemy(self, the_enemy):
         the_enemy.register(self)
         self.created_enemies.append(the_enemy)
-        
+
     def create_enemy_projectile(self, the_enemy_projectile):
         the_enemy_projectile.register(self)
         self.created_enemy_projectiles.append(the_enemy_projectile)

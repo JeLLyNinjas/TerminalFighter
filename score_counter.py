@@ -13,7 +13,7 @@ class ScoreCounter(DestroyListener):
         self.ui_font_ = pygame.font.SysFont("monospace", self.font_size_)
 
     def reported_destroyed(self, destroyed_enemy):
-        self.score_ += 200
+        self.score_ += 400
 
     def update(self):
         self.score_ += 1

@@ -17,6 +17,13 @@ def exit_game(screen):
     sys.exit()
 
 
+# pygame ticks, one tick is 1/1000 second
+# 16 pygame ticks per update is approximately 62.5 updates per second
+FRAME_LENGTH_TICKS = 16
+
+screen = pygame.display.set_mode(
+    (int(GAME_WIDTH), int(GAME_HEIGHT)))
+
 run_game_state = {
     "MENU": main_menu,
     "PLAY": terminalfighter,
@@ -38,7 +45,7 @@ if __name__ == '__main__':
         screen = pygame.display.set_mode((int(GAME_WIDTH), int(GAME_HEIGHT)))
         gamestate = "MENU"
         while True:
-            gamestate = run_game_state.get(gamestate, exit_game)(screen)
+            gamestate = run_game_state.get(gamestate, exit_game)(screen, FRAME_LENGTH_TICKS)
     finally:
         if args.profile:
             pr.disable()

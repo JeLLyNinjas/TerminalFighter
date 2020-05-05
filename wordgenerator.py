@@ -20,7 +20,7 @@ class WordGenerator():
         self.number_of_lengths_ = 0
         self.smallest_length_ = []
         self.word_array_ = []
-        
+
         self.setup_word_array()
 
     def setup_word_array(self):

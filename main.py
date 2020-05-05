@@ -21,9 +21,6 @@ def exit_game(screen):
 # 16 pygame ticks per update is approximately 62.5 updates per second
 FRAME_LENGTH_TICKS = 16
 
-screen = pygame.display.set_mode(
-    (int(GAME_WIDTH), int(GAME_HEIGHT)))
-
 run_game_state = {
     "MENU": main_menu,
     "PLAY": terminalfighter,
